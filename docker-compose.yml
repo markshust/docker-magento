@@ -1,0 +1,62 @@
+app:
+  image: mageinferno/magento2-nginx:1.9
+  links:
+    - php-fpm
+    - db
+  volumes_from:
+    - appdata
+  environment:
+    - VIRTUAL_HOST=mysite.docker
+
+appdata:
+  image: tianon/true
+  volumes:
+    - ./src:/src
+    - ~/.composer:/root/.composer
+
+"php-fpm":
+  image: mageinferno/magento2-php:5.6-fpm
+  links:
+    - db
+  volumes_from:
+    - appdata
+
+db:
+  image: mariadb:10.0
+  ports:
+    - "8001:3306"
+  volumes_from:
+    - dbdata
+  environment:
+    - MYSQL_ROOT_PASSWORD=magento2
+    - MYSQL_DATABASE=magento2
+    - MYSQL_USER=magento2
+    - MYSQL_PASSWORD=magento2
+
+dbdata:
+  image: tianon/true
+  volumes:
+    - /var/lib/mysql
+
+setup:
+  image: mageinferno/magento2-setup:1.0
+  links:
+    - db
+  volumes_from:
+    - appdata
+  environment:
+    - M2SETUP_DB_HOST=db
+    - M2SETUP_DB_NAME=magento2
+    - M2SETUP_DB_USER=magento2
+    - M2SETUP_DB_PASSWORD=magento2
+    - M2SETUP_BASE_URL=http://mysite.docker/
+    - M2SETUP_ADMIN_FIRSTNAME=Admin
+    - M2SETUP_ADMIN_LASTNAME=User
+    - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
+    - M2SETUP_ADMIN_USER=magento2
+    - M2SETUP_ADMIN_PASSWORD=magento2
+    - M2SETUP_USE_SAMPLE_DATA=true
+    - M2SETUP_PULL_GITHUB=true
+    - M2SETUP_PULL_COMPOSER=true
+    - M2SETUP_PULL_NODE_MODULES=true
+    - M2SETUP_INSTALL=true
