@@ -35,6 +35,7 @@ The following environment variables can be set for setup:
       - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
       - M2SETUP_ADMIN_USER=magento2
       - M2SETUP_ADMIN_PASSWORD=magento2
+      - M2SETUP_GITHUB_BRANCH=merchant_beta
       - M2SETUP_USE_SAMPLE_DATA=true
       - M2SETUP_PULL_GITHUB=true
       - M2SETUP_PULL_COMPOSER=true
