@@ -45,7 +45,7 @@ The following environment variables can be set for setup:
 
 Our setup script uses these variables to determine how to setup your store. Everything is pretty self-explanatory, except the following:
 
-- `M2SETUP_PULL_GITHUB`: Setting this to `true` will download the latest stable Magento 2 code from the `master` branch, and check it out to your projects `src` directory. If you already have the code checked out from your host machine, set this to `false`.
+- `M2SETUP_PULL_GITHUB`: Setting this to `true` will download the latest stable Magento 2 code from the `merchant_beta` branch (or `M2SETUP_GITHUB_BRANCH` if defined), and check it out to your projects `src` directory. If you already have the code checked out from your host machine, set this to `false`.
 - `M2SETUP_PULL_COMPOSER`: Setting this to `true` will page through `composer.json` and install all composer dependencies to `src/vendor`. If you already have these installed, set this to `false`.
 - `M2SETUP_PULL_NODE_MODULES`: Setting this to `true` will page through `package.json` and install all node module dependencies to `src/node_modules`. If you already have these installed, set this to `false`.
 - `M2SETUP_INSTALL`: Setting this to `true` will install Magento 2 by the command line tool. If you already have Magento 2 installed, set this to `false`.
