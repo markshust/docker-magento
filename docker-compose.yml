@@ -40,7 +40,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:1.1
+  image: mageinferno/magento2-setup:2.0
   links:
     - db
   volumes_from:
@@ -56,9 +56,4 @@ setup:
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
     - M2SETUP_ADMIN_USER=magento2
     - M2SETUP_ADMIN_PASSWORD=magento2
-    - M2SETUP_GITHUB_BRANCH=merchant_beta
     - M2SETUP_USE_SAMPLE_DATA=true
-    - M2SETUP_PULL_GITHUB=true
-    - M2SETUP_PULL_COMPOSER=true
-    - M2SETUP_PULL_NODE_MODULES=true
-    - M2SETUP_INSTALL=true
