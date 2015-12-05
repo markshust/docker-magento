@@ -58,7 +58,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:2.0-sd
+  image: mageinferno/magento2-setup:2.0
   links:
     - db
   volumes_from:
@@ -74,6 +74,7 @@ setup:
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
     - M2SETUP_ADMIN_USER=magento2
     - M2SETUP_ADMIN_PASSWORD=magento2
+    - M2SETUP_USE_SAMPLE_DATA=true
 ```
 
 ## Composer Setup
