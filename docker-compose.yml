@@ -12,11 +12,10 @@ appdata:
   image: tianon/true
   volumes:
     - ./src:/src
-    - ./src-sample-data:/src-sample-data
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:5.6-fpm
+  image: mageinferno/magento2-php:7.0-fpm
   links:
     - db
   volumes_from:
@@ -40,7 +39,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:2.0
+  image: mageinferno/magento2-setup:2.0-sd
   links:
     - db
   volumes_from:
@@ -56,4 +55,3 @@ setup:
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
     - M2SETUP_ADMIN_USER=magento2
     - M2SETUP_ADMIN_PASSWORD=magento2
-    - M2SETUP_USE_SAMPLE_DATA=true

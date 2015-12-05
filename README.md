@@ -14,6 +14,68 @@ Create a new folder to house your project, ex: `~/Sites/mysite` then, please you
 
 Setup will create a new directory at `~/Sites/mysite/src` which will hold all of the source files for Magento 2.
 
+## docker-compose.yml
+
+```
+app:
+  image: mageinferno/magento2-nginx:1.9
+  links:
+    - php-fpm
+    - db
+  volumes_from:
+    - appdata
+  environment:
+    - VIRTUAL_HOST=mysite.docker
+
+appdata:
+  image: tianon/true
+  volumes:
+    - ./src:/src
+    - ~/.composer:/root/.composer
+
+"php-fpm":
+  image: mageinferno/magento2-php:7.0-fpm
+  links:
+    - db
+  volumes_from:
+    - appdata
+
+db:
+  image: mariadb:10.0
+  ports:
+    - "8001:3306"
+  volumes_from:
+    - dbdata
+  environment:
+    - MYSQL_ROOT_PASSWORD=magento2
+    - MYSQL_DATABASE=magento2
+    - MYSQL_USER=magento2
+    - MYSQL_PASSWORD=magento2
+
+dbdata:
+  image: tianon/true
+  volumes:
+    - /var/lib/mysql
+
+setup:
+  image: mageinferno/magento2-setup:2.0-sd
+  links:
+    - db
+  volumes_from:
+    - appdata
+  environment:
+    - M2SETUP_DB_HOST=db
+    - M2SETUP_DB_NAME=magento2
+    - M2SETUP_DB_USER=magento2
+    - M2SETUP_DB_PASSWORD=magento2
+    - M2SETUP_BASE_URL=http://mysite.docker/
+    - M2SETUP_ADMIN_FIRSTNAME=Admin
+    - M2SETUP_ADMIN_LASTNAME=User
+    - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
+    - M2SETUP_ADMIN_USER=magento2
+    - M2SETUP_ADMIN_PASSWORD=magento2
+```
+
 ## Composer Setup
 
 This setup attaches the `~/.composer` directory from the host machine. For fully automated setup, please first setup a GitHub Personal Access Token for Composer (before running setup) by visiting <a href="https://github.com/settings/tokens/new?scopes=repo&description=Composer" target="_blank">https://github.com/settings/tokens/new?scopes=repo&description=Composer</a>.
