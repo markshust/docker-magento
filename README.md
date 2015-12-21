@@ -18,7 +18,7 @@ Setup will create a new directory at `~/Sites/mysite/src` which will hold all of
 
 ```
 app:
-  image: mageinferno/magento2-nginx:1.9
+  image: mageinferno/magento2-nginx:1.9.9-0
   links:
     - php-fpm
     - db
@@ -30,18 +30,18 @@ app:
 appdata:
   image: tianon/true
   volumes:
-    - ./src:/src
+    - /src
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0-fpm
+  image: mageinferno/magento2-php:7.0.0-fpm-0
   links:
     - db
   volumes_from:
     - appdata
 
 db:
-  image: mariadb:10.0
+  image: mariadb:10.0.22
   ports:
     - "8001:3306"
   volumes_from:
@@ -58,7 +58,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:2.0
+  image: mageinferno/magento2-setup:2.0.0-0
   links:
     - db
   volumes_from:
@@ -103,9 +103,9 @@ After both sets of keys are retrieved, place your auth token on your host machin
 
 If you don't want to use Composer or setup the auth keys above, no worries. Magento provides a complete Magento 2 archive at <a href="http://devdocs.magento.com/guides/v2.0/install-gde/prereq/zip_install.html" target="_blank">http://devdocs.magento.com/guides/v2.0/install-gde/prereq/zip_install.html</a>. We decided to use this method for a very quick installation.
 
-Just specify the full version (2.x.x), for example `2.0.0` for an install without sample data, or `2.0.0-sd` for an install with sample data.
-
-Note that the abbreviated (2.x) version, for example `2.0`, is reserved for the Composer install process.
+- The `2.0.0-[TAG]` image installs Magento 2 and all dependencies with Composer, then runs the CLI installer.
+- The `2.0.0-archive-[TAG]` image installs Magento 2 from an archive (without sample data), then runs the CLI installer.
+- The `2.0.0-archivesd-[TAG]` image installs Magento 2 from an archive (with sample data), then runs the CLI installer.
 
 ## Running Setup
 
@@ -131,14 +131,52 @@ Our setup script uses these variables to determine how to setup your store. Ever
 To run setup, execute the following command from your project directory (`~/Sites/mysite`), which creates a one-off throw away container that sets up Magento 2 for you.
 `docker-compose run --rm setup`
 
-Note that setup will take around 30 minutes to complete. A vast majority of this time is from downloading Composer dependencies, and installing sample data (configurable products, specifically). Setting `M2SETUP_USE_SAMPLE_DATA` to false will expedite the install process by skipping the installation of sample data.
-
 ## Data Volumes
 
-This install will mount the `src` directory from your host machine to the Docker container (ex: `~/Sites/mysite/src`). Note that the persistancy comes from your host machine, so you may terminate running nginx/php containers and start them back up, and your data will remain. The `appdata` definition in the docker-compose.yml file is mainly there so we only have to define the relation in one place in the file, instead of it being defined multiple times.
+This install will mount a `src` directory as a docker volume. Note that the persistancy comes from your host machine, so you may terminate running nginx/php containers and start them back up, and your data will remain. The `appdata` definition in the docker-compose.yml file is mainly there so we only have to define the relation in one place in the file, instead of it being defined multiple times.
 
 For MySQL, the `mysqldata` container runs from the `tianon/true` volume. This makes a persistent Docker volume, however be aware that removing this container will remove all of your MySQL data (aka your database). Even though it appears as exited/stopped when running `docker ps -a`, be sure not to remove this container, as your MySQL data will truly go away if you remove it.
 
-## App Virtual Host
+## OS X / Dinghy
 
-This docker-compose file is catered to [Dinghy](https://github.com/codekitchen/dinghy), which uses it's own DNS Server and HTTP Proxy. Notice the `VIRTUAL_HOST=mysite.docker` definition for the `app` container. Dinghy uses this to create an HTTP Proxy, so your site can be access at [http://mysite.docker](http://mysite.docker). Note that all virtual names must end in `.docker` for proper DNS resolution by Dinghy.
+To use this image on other systems for local development, create a Dockerfile with anything specific to your local development platform.
+
+For example, if using [Dinghy](https://github.com/codekitchen/dinghy) on OS X, use:
+
+```
+FROM mageinferno/magento2-php:[TAG]
+RUN usermod -u 501 magento
+```
+
+Then build your custom image:
+
+```
+docker build -t myname/php .
+```
+
+### Host Volumes
+
+Previously, we mounted this entire src directory from the host to the volume, but this made things pretty slow. Instead, we are now recommending mounting /src as a standard Docker volume (not connected to the host). Install Magento 2, then issue a command like the following on your host machine:
+
+```
+docker cp CONTAINERID:/src ./
+```
+
+This will copy the contents of the entire /src directory to your host machine. Since you shouldn't be modifying any of these files, this is just to bring the fully copy of the site back to your host.
+
+Then, just mount your host `app/code` directory in your `appdata` container definition, and re-start your containers:
+
+```
+appdata:
+  image: tianon/true
+  volumes:
+    - /src
+    - ./src/app/code:/src/app/code
+    - ~/.composer:/root/.composer
+```
+
+```
+docker-compose up -d app
+```
+
+This will restart your container with `app/code` mounted from your host machine, so any edits to this directory will correctly sync with your Docker volume.

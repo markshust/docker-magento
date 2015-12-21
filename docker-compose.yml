@@ -1,5 +1,5 @@
 app:
-  image: mageinferno/magento2-nginx:1.9
+  image: mageinferno/magento2-nginx:1.9.9-0
   links:
     - php-fpm
     - db
@@ -15,14 +15,14 @@ appdata:
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0-fpm
+  image: mageinferno/magento2-php:7.0.0-fpm-0
   links:
     - db
   volumes_from:
     - appdata
 
 db:
-  image: mariadb:10.0
+  image: mariadb:10.0.22
   ports:
     - "8001:3306"
   volumes_from:
@@ -39,7 +39,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:2.0
+  image: mageinferno/magento2-setup:2.0.0-0
   links:
     - db
   volumes_from:
