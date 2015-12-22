@@ -1,12 +1,12 @@
 app:
   image: mageinferno/magento2-nginx:1.9.9-0
+  ports:
+    - "80:80"
   links:
     - php-fpm
     - db
   volumes_from:
     - appdata
-  environment:
-    - VIRTUAL_HOST=mysite.docker
 
 appdata:
   image: tianon/true
@@ -24,7 +24,7 @@ appdata:
 db:
   image: mariadb:10.0.22
   ports:
-    - "8001:3306"
+    - "3306:3306"
   volumes_from:
     - dbdata
   environment:

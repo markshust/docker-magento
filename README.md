@@ -19,13 +19,13 @@ Setup will create a new directory at `~/Sites/mysite/src` which will hold all of
 ```
 app:
   image: mageinferno/magento2-nginx:1.9.9-0
+  ports:
+    - "80:80"
   links:
     - php-fpm
     - db
   volumes_from:
     - appdata
-  environment:
-    - VIRTUAL_HOST=mysite.docker
 
 appdata:
   image: tianon/true
@@ -43,7 +43,7 @@ appdata:
 db:
   image: mariadb:10.0.22
   ports:
-    - "8001:3306"
+    - "3306:3306"
   volumes_from:
     - dbdata
   environment:
@@ -153,6 +153,8 @@ Then build your custom image:
 ```
 docker build -t myname/php .
 ```
+
+Remember to add your `VIRTUAL_HOST` environment variable to the web server container in your docker-compose.yml file, and remove `ports` as those are automatically exposed in Dinghy.
 
 ### Host Volumes
 
