@@ -17,6 +17,8 @@ Setup will create a new directory at `~/Sites/mysite/src` which will hold all of
 ## docker-compose.yml
 
 ```
+# Mage Inferno Docker Compose 1.0 https://github.com/mageinferno/magento2-docker-compose
+
 app:
   image: mageinferno/magento2-nginx:1.9.9-0
   ports:
