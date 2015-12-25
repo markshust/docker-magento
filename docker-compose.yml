@@ -1,4 +1,5 @@
-# Mage Inferno Docker Compose 1.0 https://github.com/mageinferno/magento2-docker-compose
+# Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
+# Version 1.0
 
 app:
   image: mageinferno/magento2-nginx:1.9.9-0
