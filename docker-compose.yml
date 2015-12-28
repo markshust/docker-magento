@@ -18,14 +18,14 @@ appdata:
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0.0-fpm-0
+  image: mageinferno/magento2-php:7.0.1-fpm-0
   links:
     - db
   volumes_from:
     - appdata
 
 db:
-  image: mariadb:10.0.22
+  image: mariadb:10.0.23
   ports:
     - "3306:3306"
   volumes_from:
