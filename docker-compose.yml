@@ -1,5 +1,5 @@
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 1.0
+# Version 1.1.0
 
 app:
   image: mageinferno/magento2-nginx:1.9.9-1
@@ -10,6 +10,9 @@ app:
     - db
   volumes_from:
     - appdata
+  environment:
+    - APP_MAGE_MODE=production
+    - VIRTUAL_HOST=mysite.com
 
 appdata:
   image: tianon/true
@@ -23,6 +26,9 @@ appdata:
     - db
   volumes_from:
     - appdata
+  environment:
+    - APP_MAGE_MODE=production
+    - PHP_MEMORY_LIMIT=4096M
 
 db:
   image: mariadb:10.0.23

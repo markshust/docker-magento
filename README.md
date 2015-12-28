@@ -8,17 +8,13 @@ View our Docker Hub images at [https://hub.docker.com/u/mageinferno/](https://hu
 
 ## Usage
 
-This file is provided as an example development environment using Mage Inferno Magento 2 Docker Images. We suggest to supply specific version releases as this will maintain a consistent development environment (nginx:1.9 vs. nginx).
-
-Create a new folder to house your project, ex: `~/Sites/mysite` then, please your docker-compose.yml file within this directory.
-
-Setup will create a new directory at `~/Sites/mysite/src` which will hold all of the source files for Magento 2.
+This file is provided as an example development environment using Mage Inferno Magento 2 Docker Images.
 
 ## docker-compose.yml
 
 ```
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 1.0
+# Version 1.1.0
 
 app:
   image: mageinferno/magento2-nginx:1.9.9-1
@@ -29,6 +25,9 @@ app:
     - db
   volumes_from:
     - appdata
+  environment:
+    - APP_MAGE_MODE=production
+    - VIRTUAL_HOST=mysite.com
 
 appdata:
   image: tianon/true
@@ -42,6 +41,9 @@ appdata:
     - db
   volumes_from:
     - appdata
+  environment:
+    - APP_MAGE_MODE=production
+    - PHP_MEMORY_LIMIT=4096M
 
 db:
   image: mariadb:10.0.23
@@ -139,6 +141,15 @@ To run setup, execute the following command from your project directory (`~/Site
 This install will mount a `src` directory as a docker volume. Note that the persistancy comes from your host machine, so you may terminate running nginx/php containers and start them back up, and your data will remain. The `appdata` definition in the docker-compose.yml file is mainly there so we only have to define the relation in one place in the file, instead of it being defined multiple times.
 
 For MySQL, the `mysqldata` container runs from the `tianon/true` volume. This makes a persistent Docker volume, however be aware that removing this container will remove all of your MySQL data (aka your database). Even though it appears as exited/stopped when running `docker ps -a`, be sure not to remove this container, as your MySQL data will truly go away if you remove it.
+
+## Environment Variables
+
+You may pass in environment variables which will override the web server configurations at runtime. All variables are optional as appropriate defaults are set.
+
+Please see the appropriate images for available values:
+
+- <a href="https://github.com/mageinferno/docker-magento2-php#variables" target="_blank">mageinferno/php-fpm</a>
+- <a href="https://github.com/mageinferno/docker-magento2-nginx#variables" target="_blank">mageinferno/nginx</a>
 
 ## OS X / Dinghy
 
