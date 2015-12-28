@@ -2,7 +2,7 @@
 # Version 1.0
 
 app:
-  image: mageinferno/magento2-nginx:1.9.9-0
+  image: mageinferno/magento2-nginx:1.9.9-1
   ports:
     - "80:80"
   links:
@@ -18,7 +18,7 @@ appdata:
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0.1-fpm-0
+  image: mageinferno/magento2-php:7.0.1-fpm-1
   links:
     - db
   volumes_from:
@@ -52,7 +52,7 @@ setup:
     - M2SETUP_DB_NAME=magento2
     - M2SETUP_DB_USER=magento2
     - M2SETUP_DB_PASSWORD=magento2
-    - M2SETUP_BASE_URL=http://mysite.docker/
+    - M2SETUP_BASE_URL=http://mysite.com/
     - M2SETUP_ADMIN_FIRSTNAME=Admin
     - M2SETUP_ADMIN_LASTNAME=User
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
