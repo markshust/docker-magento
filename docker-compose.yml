@@ -48,7 +48,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:2.0.0-0
+  image: mageinferno/magento2-setup:2.0.0-1
   links:
     - db
   volumes_from:
