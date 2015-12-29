@@ -130,10 +130,12 @@ The following environment variables can be set for setup:
 - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
 - M2SETUP_ADMIN_USER=magento2
 - M2SETUP_ADMIN_PASSWORD=magento2
+- M2SETUP_VERSION=2.0.0
 - M2SETUP_USE_SAMPLE_DATA=true
+- M2SETUP_USE_ARCHIVE=true
 ```
 
-Our setup script uses these variables to determine how to setup your store. Everything is pretty self-explanatory. The `M2_USE_SAMPLE_DATA` variable is only used with Composer-based installs.
+Our setup script uses these variables to determine how to setup your store. Everything is pretty self-explanatory. The `M2SETUP_USE_ARCHIVE` installs from archive, otherwise Composer is used for installation. `M2SETUP_VERSION` is required.
 
 To run setup, execute the following command from your project directory (`~/Sites/mysite`), which creates a one-off throw away container that sets up Magento 2 for you.
 `docker-compose run --rm setup`
