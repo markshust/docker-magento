@@ -14,7 +14,7 @@ This file is provided as an example development environment using Mage Inferno M
 
 ```
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 1.1.0
+# Version 2.0.0
 
 app:
   image: mageinferno/magento2-nginx:1.9.9-1
@@ -36,7 +36,7 @@ appdata:
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0.1-fpm-1
+  image: mageinferno/magento2-php:7.0.1-fpm-2
   links:
     - db
   volumes_from:
@@ -63,7 +63,8 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-setup:2.0.0-1
+  image: mageinferno/magento2-php:7.0.1-fpm-2
+  command: /usr/local/bin/mage-setup
   links:
     - db
   volumes_from:
@@ -79,6 +80,7 @@ setup:
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
     - M2SETUP_ADMIN_USER=magento2
     - M2SETUP_ADMIN_PASSWORD=magento2
+    - M2SETUP_VERSION=2.0.0
     - M2SETUP_USE_SAMPLE_DATA=true
 ```
 
