@@ -110,9 +110,7 @@ After both sets of keys are retrieved, place your auth token on your host machin
 
 If you don't want to use Composer or setup the auth keys above, no worries. Magento provides a complete Magento 2 archive at <a href="http://devdocs.magento.com/guides/v2.0/install-gde/prereq/zip_install.html" target="_blank">http://devdocs.magento.com/guides/v2.0/install-gde/prereq/zip_install.html</a>. We decided to use this method for a very quick installation.
 
-- The `2.0.0-[TAG]` image installs Magento 2 and all dependencies with Composer, then runs the CLI installer.
-- The `2.0.0-archive-[TAG]` image installs Magento 2 from an archive (without sample data), then runs the CLI installer.
-- The `2.0.0-archivesd-[TAG]` image installs Magento 2 from an archive (with sample data), then runs the CLI installer.
+Just set the `M2SETUP_USE_ARCHIVE` environment variable to `true` when running setup.
 
 ## Running Setup
 
