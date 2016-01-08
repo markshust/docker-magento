@@ -36,7 +36,7 @@ appdata:
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0.1-fpm-2
+  image: mageinferno/magento2-php:7.0.2-fpm-0
   links:
     - db
   volumes_from:
@@ -46,7 +46,7 @@ appdata:
     - PHP_MEMORY_LIMIT=4096M
 
 db:
-  image: mariadb:10.0.23
+  image: mariadb:10.1.10
   ports:
     - "3306:3306"
   volumes_from:
@@ -63,7 +63,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-php:7.0.1-fpm-2
+  image: mageinferno/magento2-php:7.0.2-fpm-0
   command: /usr/local/bin/mage-setup
   links:
     - db
