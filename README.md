@@ -14,10 +14,10 @@ This file is provided as an example development environment using Mage Inferno M
 
 ```
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 2.1.0
+# Version 3.0.0
 
 app:
-  image: mageinferno/magento2-nginx:1.9.9-1
+  image: mageinferno/magento2-nginx:1.9.9-2
   ports:
     - "80:80"
   links:
@@ -26,7 +26,7 @@ app:
   volumes_from:
     - appdata
   environment:
-    - APP_MAGE_MODE=production
+    - APP_MAGE_MODE=default
     - VIRTUAL_HOST=mysite.com
 
 appdata:
@@ -36,14 +36,14 @@ appdata:
     - ~/.composer:/root/.composer
 
 "php-fpm":
-  image: mageinferno/magento2-php:7.0.2-fpm-0
+  image: mageinferno/magento2-php:7.0.2-fpm-1
   links:
     - db
   volumes_from:
     - appdata
   environment:
-    - APP_MAGE_MODE=production
-    - PHP_MEMORY_LIMIT=4096M
+    - APP_MAGE_MODE=default
+    - PHP_MEMORY_LIMIT=2048M
 
 db:
   image: mariadb:10.1.10
@@ -63,7 +63,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-php:7.0.2-fpm-0
+  image: mageinferno/magento2-php:7.0.2-fpm-1
   command: /usr/local/bin/mage-setup
   links:
     - db
@@ -161,7 +161,7 @@ For example, if using [Dinghy](https://github.com/codekitchen/dinghy) on OS X, u
 
 ```
 FROM mageinferno/magento2-php:[TAG]
-RUN usermod -u 501 magento
+RUN usermod -u 501 www-data
 ```
 
 Then build your custom image:
