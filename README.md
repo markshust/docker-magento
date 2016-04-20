@@ -95,6 +95,8 @@ Place your auth token at `~/.composer/auth.json` with the following contents, li
 }
 ```
 
+Then, just set `M2SETUP_USE_ARCHIVE` to false in your docker-compose.yml file.
+
 ## Composer-less, No-Auth Setup
 
 If you don't want to use Composer or setup the auth keys above, no worries. Mage Inferno install script uses Nexcess' hosted Magento archives for a Composer-less install process. Just set the `M2SETUP_USE_ARCHIVE` environment variable to `true` when running setup.
