@@ -1,39 +1,32 @@
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 2.1.0
+# Version 4.0.0
 
 app:
-  image: mageinferno/magento2-nginx:1.9.9-1
-  ports:
-    - "80:80"
+  image: mageinferno/magento2-nginx:1.9.14-0
   links:
-    - php-fpm
+    - phpfpm
     - db
   volumes_from:
     - appdata
-  environment:
-    - APP_MAGE_MODE=production
-    - VIRTUAL_HOST=mysite.com
+  ports:
+    - 80:80
 
 appdata:
   image: tianon/true
   volumes:
-    - ./src:/src
-    - ~/.composer:/root/.composer
+    - /srv/www
+    - ~/.composer:/var/www/.composer
+#    - ./www/app/code:/srv/www/app/code
 
-"php-fpm":
-  image: mageinferno/magento2-php:7.0.2-fpm-0
+phpfpm:
+  image: mageinferno/magento2-php:7.0.5-fpm-0
   links:
     - db
   volumes_from:
     - appdata
-  environment:
-    - APP_MAGE_MODE=production
-    - PHP_MEMORY_LIMIT=4G
 
 db:
-  image: mariadb:10.1.10
-  ports:
-    - "3306:3306"
+  image: mariadb:10.1.13
   volumes_from:
     - dbdata
   environment:
@@ -48,7 +41,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-php:7.0.2-fpm-0
+  image: mageinferno/magento2-php:7.0.5-fpm-0
   command: /usr/local/bin/mage-setup
   links:
     - db
@@ -59,11 +52,12 @@ setup:
     - M2SETUP_DB_NAME=magento2
     - M2SETUP_DB_USER=magento2
     - M2SETUP_DB_PASSWORD=magento2
-    - M2SETUP_BASE_URL=http://mysite.com/
+    - M2SETUP_BASE_URL=http://docker.local/
     - M2SETUP_ADMIN_FIRSTNAME=Admin
     - M2SETUP_ADMIN_LASTNAME=User
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
     - M2SETUP_ADMIN_USER=magento2
     - M2SETUP_ADMIN_PASSWORD=magento2
-    - M2SETUP_VERSION=2.0.0
-    - M2SETUP_USE_SAMPLE_DATA=true
+    - M2SETUP_VERSION=2.0.4
+    - M2SETUP_USE_SAMPLE_DATA=false
+    - M2SETUP_USE_ARCHIVE=true
