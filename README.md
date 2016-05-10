@@ -19,7 +19,7 @@ This file is provided as an example development environment using Mage Inferno M
 app:
   image: mageinferno/magento2-nginx:1.9.14-0
   links:
-    - phpfpm
+    - php:phpfpm
     - db
   volumes_from:
     - appdata
@@ -33,7 +33,7 @@ appdata:
 #    - ~/.composer:/var/www/.composer
 #    - ./www/app/code:/srv/www/app/code
 
-phpfpm:
+php:
   image: mageinferno/magento2-php:7.0.5-fpm-0
   links:
     - db
