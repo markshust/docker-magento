@@ -1,5 +1,5 @@
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 4.0.0
+# Version 4.1.0
 
 app:
   image: mageinferno/magento2-nginx:1.9.14-0
@@ -9,7 +9,7 @@ app:
   volumes_from:
     - appdata
   ports:
-    - 80:80
+    - 8000:80
 
 appdata:
   image: tianon/true
@@ -29,6 +29,8 @@ db:
   image: mariadb:10.1.13
   volumes_from:
     - dbdata
+  ports:
+    - 8001:3306
   environment:
     - MYSQL_ROOT_PASSWORD=magento2
     - MYSQL_DATABASE=magento2
@@ -52,12 +54,12 @@ setup:
     - M2SETUP_DB_NAME=magento2
     - M2SETUP_DB_USER=magento2
     - M2SETUP_DB_PASSWORD=magento2
-    - M2SETUP_BASE_URL=http://docker.local/
+    - M2SETUP_BASE_URL=http://m2.dev:8000/
     - M2SETUP_ADMIN_FIRSTNAME=Admin
     - M2SETUP_ADMIN_LASTNAME=User
     - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
     - M2SETUP_ADMIN_USER=magento2
     - M2SETUP_ADMIN_PASSWORD=magento2
-    - M2SETUP_VERSION=2.0.4
+    - M2SETUP_VERSION=2.0.5
     - M2SETUP_USE_SAMPLE_DATA=false
     - M2SETUP_USE_ARCHIVE=true
