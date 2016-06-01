@@ -1,7 +1,5 @@
 This docker-compose.yml file is provided by Mage Inferno
 
-Author: Mark Shust <mark.shust@mageinferno.com>
-
 ## Docker Hub
 
 View our Docker Hub images at [https://hub.docker.com/u/mageinferno/](https://hub.docker.com/u/mageinferno/)
@@ -58,3 +56,27 @@ docker-compose up -d app
 ```
 
 This will restart your container with `app/code` mounted from your host machine, so any edits to this directory will correctly sync with your Docker volume.
+
+## Running Magento CLI tool
+
+We've setup scripts to aid in the running of Magento CLI tool with the correct permissions. To run the command line tool, you would connect as any other Docker Compose application would:
+
+```
+docker-compose exec phpfpm ./bin/magento
+```
+
+or with straight Docker command:
+```
+docker exec NAME_OF_PHPFPM_CONTAINER ./bin/magento
+```
+
+You can easily set these up as aliases inside your `~/.bash_profile` file (or a similar script) as so:
+
+```
+alias magento='docker-compose exec phpfpm ./bin/magento'
+```
+This will allow you to clear the cache by running the following command right in terminal:
+
+```
+magento cache:flush
+```
