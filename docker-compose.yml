@@ -1,8 +1,8 @@
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 4.1.0
+# Version 4.1.1
 
 app:
-  image: mageinferno/magento2-nginx:1.10-0
+  image: mageinferno/magento2-nginx:1.10.1-0
   links:
     - phpfpm
     - db
@@ -19,14 +19,14 @@ appdata:
 #    - ./www/app/code:/srv/www/app/code
 
 phpfpm:
-  image: mageinferno/magento2-php:7.0.8-fpm-0
+  image: mageinferno/magento2-php:7.0.8-fpm-3
   links:
     - db
   volumes_from:
     - appdata
 
 db:
-  image: mariadb:10.1.13
+  image: mariadb:10.1.16
   volumes_from:
     - dbdata
   ports:
@@ -43,7 +43,7 @@ dbdata:
     - /var/lib/mysql
 
 setup:
-  image: mageinferno/magento2-php:7.0.8-fpm-0
+  image: mageinferno/magento2-php:7.0.8-fpm-3
   command: /usr/local/bin/mage-setup
   links:
     - db
