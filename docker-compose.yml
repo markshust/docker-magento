@@ -15,7 +15,7 @@ appdata:
   image: tianon/true
   volumes:
     - /srv/www
-#    - ~/.composer:/var/www/.composer
+#    - ~/.composer:/srv/www/.composer
 #    - ./www/app:/srv/www/app
 
 phpfpm:
