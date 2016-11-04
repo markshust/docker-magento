@@ -15,7 +15,7 @@ appdata:
   image: tianon/true
   volumes:
     - /var/www/html
-    - ~/.composer:/var/www/.composer
+#    - ~/.composer:/var/www/.composer
 #    - ./html/app/code:/var/www/html/app/code
 #    - ./html/app/design:/var/www/html/app/design
 
