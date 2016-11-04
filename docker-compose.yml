@@ -14,10 +14,10 @@ app:
 appdata:
   image: tianon/true
   volumes:
-    - /srv/www
-#    - ~/.composer:/srv/www/.composer
-#    - ./www/app/code:/srv/www/app/code
-#    - ./www/app/design:/srv/www/app/design
+    - /var/www/html
+    - ~/.composer:/var/www/.composer
+#    - ./html/app/code:/var/www/html/app/code
+#    - ./html/app/design:/var/www/html/app/design
 
 phpfpm:
   image: mageinferno/magento2-php:7.0-fpm-0
