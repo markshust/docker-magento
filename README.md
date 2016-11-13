@@ -80,3 +80,9 @@ This will allow you to clear the cache by running the following command right in
 ```
 magento cache:flush
 ```
+
+## Docker Compose Override
+
+You can copy `docker-compose.override.yml.dist` to `docker-compose.override.yml` and adjust environment variables, volume mounts etc in the `docker-compose.override.yml` file to avoid losing local configuration changes when you pull changes to this repository. 
+
+Docker Compose will automatically read any of the values you define in the file. See [this link](https://docs.docker.com/compose/extends/#/understanding-multiple-compose-files) for more information about the override file. 
