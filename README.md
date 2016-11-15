@@ -11,6 +11,7 @@ This file is provided as an example development environment using Mage Inferno M
 ## Composer Setup
 
 ### Authentication
+
 Uncomment the composer line from `appdata` to mount a `.composer` directory to the `www-data` user home directory. Please first setup Magento Marketplace authentication (details at <a href="http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html" target="_blank">http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html</a>).
 
 Place your auth token at `~/.composer/auth.json` with the following contents, like so:
