@@ -1,8 +1,8 @@
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 5.0.0
+# Version 6.0.0
 
 app:
-  image: mageinferno/magento2-nginx:1.11-0
+  image: mageinferno/magento2-nginx:1.11-1
   links:
     - phpfpm
     - db
@@ -15,12 +15,9 @@ appdata:
   image: tianon/true
   volumes:
     - /var/www/html
-#    - ~/.composer:/var/www/.composer
-#    - ./html/app/code:/var/www/html/app/code
-#    - ./html/app/design:/var/www/html/app/design
 
 phpfpm:
-  image: mageinferno/magento2-php:7.0-fpm-0
+  image: mageinferno/magento2-php:7.1-fpm-0
   links:
     - db
   volumes_from:
@@ -32,11 +29,7 @@ db:
     - dbdata
   ports:
     - 8001:3306
-  environment:
-    - MYSQL_ROOT_PASSWORD=magento2
-    - MYSQL_DATABASE=magento2
-    - MYSQL_USER=magento2
-    - MYSQL_PASSWORD=magento2
+  env_file: env/mysql.env
 
 dbdata:
   image: tianon/true
@@ -50,18 +43,4 @@ setup:
     - db
   volumes_from:
     - appdata
-  environment:
-    - M2SETUP_DB_HOST=db
-    - M2SETUP_DB_NAME=magento2
-    - M2SETUP_DB_USER=magento2
-    - M2SETUP_DB_PASSWORD=magento2
-    - M2SETUP_BASE_URL=http://m2.localhost:8000/
-    - M2SETUP_ADMIN_FIRSTNAME=Admin
-    - M2SETUP_ADMIN_LASTNAME=User
-    - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
-    - M2SETUP_ADMIN_USER=magento2
-    - M2SETUP_ADMIN_PASSWORD=magento2
-    - M2SETUP_VERSION=2.1.2
-    - M2SETUP_USE_SAMPLE_DATA=false
-    - M2SETUP_USE_ARCHIVE=true
-    - M2SETUP_USE_COMPOSER_ENTERPRISE=false
+  env_file: env/setup.env

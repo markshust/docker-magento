@@ -55,7 +55,7 @@ Your Magento source data is persistently stored within Docker data volumes. For 
 docker cp CONTAINERID:/var/www/html ./
 ```
 
-Then, just uncomment the `./html/app/code:/var/www/html/app/code` and `./html/app/design:/var/www/html/app/design` lines within your docker-compose.yml file (appdata > volumes). This mounts your local `app/code` and `app/design` directories to the Docker data volume. Then, just restart your containers:
+Then, just uncomment the `./html/app/code:/var/www/html/app/code` and `./html/app/design:/var/www/html/app/design` lines within your docker-compose.override.yml file (appdata > volumes). This mounts your local `app/code` and `app/design` directories to the Docker data volume. Then, just restart your containers:
 
 ```
 docker-compose up -d app
