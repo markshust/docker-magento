@@ -10,7 +10,6 @@
 #    - ~/.composer:/var/www/.composer
 #    - ./html/app/code:/var/www/html/app/code
 #    - ./html/app/design:/var/www/html/app/design
-
 #
 #setup:
 #  environment:
