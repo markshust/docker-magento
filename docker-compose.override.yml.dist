@@ -5,12 +5,23 @@
 #
 # Example showing how you can enable composer support in this file:
 #
-#appdata:
-#  volumes:
-#    - ~/.composer:/var/www/.composer
-#    - ./html/app/code:/var/www/html/app/code
-#    - ./html/app/design:/var/www/html/app/design
+#version: "3"
 #
-#setup:
-#  environment:
-#    - M2SETUP_USE_ARCHIVE=false
+#services:
+#  app:
+#    volumes:
+#      - appdata:/var/www/html
+#      - ~/.composer:/var/www/.composer
+#      - ./html/app/code:/var/www/html/app/code
+#      - ./html/app/design:/var/www/html/app/design
+#
+#  phpfpm:
+#    volumes:
+#      - appdata:/var/www/html
+#      - ~/.composer:/var/www/.composer
+#      - ./html/app/code:/var/www/html/app/code
+#      - ./html/app/design:/var/www/html/app/design
+#
+#  setup:
+#    environment:
+#      - M2SETUP_USE_ARCHIVE=false

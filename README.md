@@ -72,6 +72,7 @@ docker-compose exec phpfpm ./bin/magento
 ```
 
 or with straight Docker command:
+
 ```
 docker exec NAME_OF_PHPFPM_CONTAINER ./bin/magento
 ```
@@ -92,3 +93,23 @@ magento cache:flush
 You can copy `docker-compose.override.yml.dist` to `docker-compose.override.yml` and adjust environment variables, volume mounts etc in the `docker-compose.override.yml` file to avoid losing local configuration changes when you pull changes to this repository. 
 
 Docker Compose will automatically read any of the values you define in the file. See [this link](https://docs.docker.com/compose/extends/#/understanding-multiple-compose-files) for more information about the override file. 
+
+
+## Troubleshooting
+
+### Setup Error
+
+A common error when running setup is receiving this error:
+
+```
+SQLSTATE[HY000] [2002] Connection refused
+
+  [InvalidArgumentException]
+  Parameter validation failed
+```
+
+If you receive this error, it's because the database driver has not initialized before the setup script commences execution. The easy fix for this is to run the setup command again immediately after this error:
+
+### PHP 7.1 Unusable
+
+[PHP 7.1 will not be supported until Magento 2.2](https://github.com/magento/magento2/issues/5880)
