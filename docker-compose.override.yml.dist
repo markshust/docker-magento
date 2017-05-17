@@ -9,18 +9,14 @@
 #
 #services:
 #  app:
-#    volumes:
+#    volumes: &appvolumes
 #      - appdata:/var/www/html
 #      - ~/.composer:/var/www/.composer
 #      - ./html/app/code:/var/www/html/app/code
-#      - ./html/app/design:/var/www/html/app/design
+#      - ./html/app/design:/var/www/html/app/design 
 #
 #  phpfpm:
-#    volumes:
-#      - appdata:/var/www/html
-#      - ~/.composer:/var/www/.composer
-#      - ./html/app/code:/var/www/html/app/code
-#      - ./html/app/design:/var/www/html/app/design
+#    volumes: *appvolumes
 #
 #  setup:
 #    environment:
