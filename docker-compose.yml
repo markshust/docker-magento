@@ -1,46 +1,54 @@
 # Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 6.0.0
+# Version 7.0.0
 
-app:
-  image: mageinferno/magento2-nginx:1.11-1
-  links:
-    - phpfpm
-    - db
-  volumes_from:
-    - appdata
-  ports:
-    - 8000:80
+version: "3"
 
-appdata:
-  image: tianon/true
-  volumes:
-    - /var/www/html
+services:
+  app:
+    image: mageinferno/magento2-nginx:1.11-1
+    links:
+      - db
+      - phpfpm
+    volumes:
+      - appdata:/var/www/html
+    ports:
+      - 8000:80
+    networks:
+      - www
 
-phpfpm:
-  image: mageinferno/magento2-php:7.0-fpm-1
-  links:
-    - db
-  volumes_from:
-    - appdata
+  phpfpm:
+    image: mageinferno/magento2-php:7.0-fpm-1
+    links:
+      - db
+    volumes:
+      - appdata:/var/www/html
+    networks:
+      - www
 
-db:
-  image: percona:5.7
-  volumes_from:
-    - dbdata
-  ports:
-    - 8001:3306
-  env_file: env/mysql.env
+  db:
+    image: percona:5.7
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - 8001:3306
+    networks:
+      - www
+    env_file: env/mysql.env
 
-dbdata:
-  image: tianon/true
-  volumes:
-    - /var/lib/mysql
+  setup:
+    image: mageinferno/magento2-php:7.0-fpm-1
+    command: /usr/local/bin/mage-setup
+    links:
+      - db
+    volumes:
+      - appdata:/var/www/html
+    networks:
+      - www
+    env_file: env/setup.env
 
-setup:
-  image: mageinferno/magento2-php:7.0-fpm-1
-  command: /usr/local/bin/mage-setup
-  links:
-    - db
-  volumes_from:
-    - appdata
-  env_file: env/setup.env
+volumes:
+  dbdata:
+  appdata:
+
+networks:
+  www:
