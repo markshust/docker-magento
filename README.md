@@ -27,11 +27,11 @@ Place your auth token at `~/.composer/auth.json` with the following contents, li
 }
 ```
 
-Then, just set `M2SETUP_USE_ARCHIVE` to `false` in your docker-compose.yml file. 
+Then, just set `M2SETUP_USE_ARCHIVE` to `false` in your ./env/setup.env file. 
 
 ### Magento Enterprise 
 
-You can install Magento Enterprise via Composer by setting `M2SETUP_USE_COMPOSER_ENTERPRISE=true` in your docker-compose.yml file.
+You can install Magento Enterprise via Composer by setting `M2SETUP_USE_COMPOSER_ENTERPRISE=true` in your ./env/setup.env file.
 
 ## Composer-less, No-Auth Setup
 
