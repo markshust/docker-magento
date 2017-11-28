@@ -1,0 +1,20 @@
+#!/bin/bash
+BASE_DIR=/var/www
+SRC_DIR=$BASE_DIR/html
+
+if [ -d $SRC_DIR/bin ] && [ ! -f $SRC_DIR/bin/magento-php ]; then
+  mv $SRC_DIR/bin/magento $SRC_DIR/bin/magento-php
+  cp /usr/local/bin/magento $SRC_DIR/bin/
+fi
+
+if [ -d $BASE_DIR/.composer ]; then
+  rm -rf $SRC_DIR/var/composer_home
+  su -c "ln -s $BASE_DIR/.composer $SRC_DIR/var/composer_home" -s /bin/sh www-data
+fi
+
+echo "*/1 * * * * su -c \"/usr/local/bin/php $SRC_DIR/update/cron.php\" -s /bin/sh www-data > /proc/1/fd/2 2>&1" | crontab - \
+  && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php $SRC_DIR/bin/magento-php cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab - \
+  && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php $SRC_DIR/bin/magento-php setup:cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab -
+
+# Start the cron service
+/usr/sbin/cron

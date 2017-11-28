@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+$args = array_reduce(array_slice($argv, 1), function ($acc, $arg) {
+    return $acc . ' ' . escapeshellarg($arg);
+}, '');
+
+$cmd = 'su -c "/usr/local/bin/php /var/www/html/bin/magento-php ' . $args . '" -s /bin/sh www-data';
+
+passthru($cmd, $result);
+exit($result);
