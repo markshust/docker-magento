@@ -1,4 +1,4 @@
-# Mage Inferno Docker Compose Override Example (https://github.com/mageinferno/magento2-docker-compose)
+# Mark Shust's Magento 2 Docker Compose Override Example (https://github.com/markoshust/magento2-docker)
 #
 # You can use this file to change any of the defaults supplied in docker-compose.yml
 # Copy this file to docker-compose.override.yml. Docker compose will read these changes for you.
@@ -12,12 +12,13 @@
 #    volumes: &appvolumes
 #      - appdata:/var/www/html
 #      - ~/.composer:/var/www/.composer
-#      - ./html/app/code:/var/www/html/app/code
-#      - ./html/app/design:/var/www/html/app/design 
+#      - ./html/app:/var/www/html/app
 #
 #  phpfpm:
 #    volumes: *appvolumes
 #
 #  setup:
+#    volumes: *appvolumes
 #    environment:
 #      - M2SETUP_USE_ARCHIVE=false
+#      - M2SETUP_USE_SAMPLE_DATA=false

@@ -1,0 +1,67 @@
+#!/bin/sh
+echo "Initializing setup..."
+
+cd /var/www/html
+
+if [ -f ./app/etc/config.php ] || [ -f ./app/etc/env.php ]; then
+  echo "It appears Magento is already installed (app/etc/config.php or app/etc/env.php exist). Exiting setup..."
+  exit
+fi
+
+if [ "$M2SETUP_USE_ARCHIVE" = true ]; then
+  echo "Downloading and untarring archive..."
+  if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then
+    curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-with-samples-$M2SETUP_VERSION.tar.gz | tar xzf - -o -C .
+  else
+    curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-$M2SETUP_VERSION.tar.gz | tar xzf - -o -C .
+  fi
+else
+  if [ "$M2SETUP_USE_COMPOSER_ENTERPRISE" = true ]; then
+      /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=$M2SETUP_VERSION .
+    else
+      /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$M2SETUP_VERSION .
+  fi
+  ln -s /var/www/.composer ./var/composer_home
+fi
+
+chmod +x ./bin/magento
+
+if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then
+  if [ "$M2SETUP_USE_ARCHIVE" != true ]; then
+    echo "Installing composer dependencies..."
+    /usr/local/bin/php /usr/local/bin/composer update
+    /usr/local/bin/php ./bin/magento sampledata:deploy
+  fi
+
+  M2SETUP_USE_SAMPLE_DATA_STRING="--use-sample-data"
+else
+  M2SETUP_USE_SAMPLE_DATA_STRING=""
+fi
+
+echo -n "Waiting for db"
+touch database_not_ready
+while [ -e database_not_ready ]; do
+    mysql --host=$M2SETUP_DB_HOST --user=$M2SETUP_DB_USER --password=$M2SETUP_DB_PASSWORD  --execute="show tables" $M2SETUP_DB_NAME >/dev/null 2>&1 && rm database_not_ready
+    sleep 1s
+    echo -n "."
+done
+echo
+
+echo "Running Magento 2 setup script..."
+/usr/local/bin/php ./bin/magento setup:install \
+  --db-host=$M2SETUP_DB_HOST \
+  --db-name=$M2SETUP_DB_NAME \
+  --db-user=$M2SETUP_DB_USER \
+  --db-password=$M2SETUP_DB_PASSWORD \
+  --base-url=$M2SETUP_BASE_URL \
+  --admin-firstname=$M2SETUP_ADMIN_FIRSTNAME \
+  --admin-lastname=$M2SETUP_ADMIN_LASTNAME \
+  --admin-email=$M2SETUP_ADMIN_EMAIL \
+  --admin-user=$M2SETUP_ADMIN_USER \
+  --admin-password=$M2SETUP_ADMIN_PASSWORD \
+  --language=$M2SETUP_LANGUAGE \
+  --currency=$M2SETUP_CURRENCY \
+  --timezone=$M2SETUP_TIMEZONE \
+  $M2SETUP_USE_SAMPLE_DATA_STRING
+
+echo "The setup script has completed execution."

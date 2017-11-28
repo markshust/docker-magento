@@ -1,12 +1,12 @@
-This docker-compose.yml file is provided by Mage Inferno
+Mark Shust's Magento 2 Docker Compose
 
 ## Docker Hub
 
-View our Docker Hub images at [https://hub.docker.com/u/mageinferno/](https://hub.docker.com/u/mageinferno/)
+View Docker Hub images at [https://hub.docker.com/u/markoshust/](https://hub.docker.com/u/markoshust/)
 
 ## Usage
 
-This file is provided as an example development environment using Mage Inferno Magento 2 Docker Images.
+This file is provided as an example environment using Mark Shust's Magento 2 Docker Images.
 
 ## Composer Setup
 
@@ -35,7 +35,7 @@ You can install Magento Enterprise via Composer by setting `M2SETUP_USE_COMPOSER
 
 ## Composer-less, No-Auth Setup
 
-If you don't want to use Composer or setup the auth keys above, no worries. Mage Inferno install script uses Nexcess' hosted Magento archives for a Composer-less install process. Just set the `M2SETUP_USE_ARCHIVE` environment variable to `true` when running setup.
+If you don't want to use Composer or setup the auth keys above, no worries. The install script uses Nexcess' hosted Magento archives for a Composer-less install process. Just set the `M2SETUP_USE_ARCHIVE` environment variable to `true` when running setup.
 
 ## Running Setup
 
@@ -49,7 +49,7 @@ You may modify any environment variables depending on your requirements.
 
 ## Data Volumes
 
-Your Magento source data is persistently stored within Docker data volumes. For local development, we advise copying the entire contents of the `appdata` data volume to your local machine (after setup is complete of course). Since you shouldn't be modifying any of these files, this is just to bring the fully copy of the site back to your host:
+Your Magento source data is persistently stored within Docker data volumes. For local development, I advise copying the entire contents of the `appdata` data volume to your local machine (after setup is complete of course). Since you shouldn't be modifying any of these files, this is just to bring the fully copy of the site back to your host:
 
 ```
 docker cp CONTAINERID:/var/www/html ./
@@ -65,7 +65,7 @@ Any edits to these directories will correctly sync with your Docker volume.
 
 ## Running Magento CLI tool
 
-We've setup scripts to aid in the running of Magento CLI tool with the correct permissions. To run the command line tool, you would connect as any other Docker Compose application would:
+I've setup scripts to aid in the running of Magento CLI tool with the correct permissions. To run the command line tool, you would connect as any other Docker Compose application would:
 
 ```
 docker-compose exec phpfpm ./bin/magento
@@ -108,8 +108,4 @@ SQLSTATE[HY000] [2002] Connection refused
   Parameter validation failed
 ```
 
-If you receive this error, it's because the database driver has not initialized before the setup script commences execution. The easy fix for this is to run the setup command again immediately after this error:
-
-### PHP 7.1 Unusable
-
-[PHP 7.1 will not be supported until Magento 2.2](https://github.com/magento/magento2/issues/5880)
+If you receive this error, it's because the database driver has not initialized before the setup script commences execution. The easy fix for this is to run the setup command again immediately after this error.

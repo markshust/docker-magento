@@ -1,11 +1,11 @@
-# Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
-# Version 7.0.0
+# Mark Shust's Magento 2 Docker Compose (https://github.com/markoshust/magento2-docker)
+# Version 10.0.0
 
 version: "3"
 
 services:
   app:
-    image: mageinferno/magento2-nginx:1.11-1
+    image: markoshust/magento2-nginx:1.13-0
     links:
       - db
       - phpfpm
@@ -17,7 +17,7 @@ services:
       - www
 
   phpfpm:
-    image: mageinferno/magento2-php:7.0-fpm-1
+    image: markoshust/magento2-php:7.1-fpm-0
     links:
       - db
     volumes: *appvolumes
@@ -33,7 +33,7 @@ services:
     env_file: env/mysql.env
 
   setup:
-    image: mageinferno/magento2-php:7.0-fpm-1
+    image: markoshust/magento2-php:7.1-fpm-0
     command: /usr/local/bin/mage-setup
     links:
       - db
