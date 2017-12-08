@@ -41,6 +41,15 @@ services:
     networks: *appnetworks
     env_file: env/setup.env
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+    - db
+    ports:
+    - 8080:80
+    networks: *appnetworks
+    env_file: env/phpmyadmin.env
+
 volumes:
   dbdata:
   appdata:
