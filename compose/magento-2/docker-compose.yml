@@ -5,7 +5,7 @@ version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.13-0
+    image: markoshust/magento-nginx:1.13
     ports:
       - 80:80
     links:
@@ -13,7 +13,7 @@ services:
       - phpfpm
 
   phpfpm:
-    image: markoshust/magento-php:7.1-fpm-0
+    image: markoshust/magento-php:7.1-fpm
     links:
       - db
 
