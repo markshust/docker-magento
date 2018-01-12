@@ -1,3 +1,0 @@
-#!/bin/sh
-chown -R www-data:www-data /var/www
-su -c "/usr/local/bin/mage-setup-raw" -s /bin/sh www-data

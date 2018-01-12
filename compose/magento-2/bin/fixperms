@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Correcting filesystem permissions..."
+
+./bin/cli chown -R app:app /var/www
+
+./bin/cli find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
+./bin/cli find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+./bin/cli chmod u+x bin/magento
+
+echo "Filesystem permissions corrected."

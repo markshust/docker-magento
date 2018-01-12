@@ -1,0 +1,24 @@
+# Mark Shust's Magento Docker Compose (https://github.com/markoshust/magento-docker)
+# Version 11.0.0
+
+version: "3"
+
+services:
+  app:
+    image: markoshust/magento-nginx:1.13-0
+    ports:
+      - 80:80
+    links:
+      - db
+      - phpfpm
+
+  phpfpm:
+    image: markoshust/magento-php:7.0-fpm-0
+    links:
+      - db
+
+  db:
+    image: percona:5.7
+    ports:
+      - 3306:3306
+    env_file: env/db.env
