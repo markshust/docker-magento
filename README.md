@@ -2,15 +2,27 @@ Mark Shust's Magento Docker Configuration
 
 ## Docker Hub
 
-View Docker Hub images at [https://hub.docker.com/u/markoshust/](https://hub.docker.com/u/markoshust/)
+View Dockerfiles:
+
+- <a href="https://hub.docker.com/r/markoshust/magento-nginx/" target="_blank">markoshust/magento-nginx (Docker Hub)</a>
+	- [`latest`, `1.13`, `1.13-0`](https://github.com/markoshust/magento-docker/tree/master/images/nginx/1.13)
+- <a href="https://hub.docker.com/r/markoshust/magento-php/" target="_blank">markoshust/magento-php (Docker Hub)</a>
+	- [`latest`, `7.1-fpm`, `7.1-fpm-0`](https://github.com/markoshust/magento-docker/tree/master/images/php/7.1)
+	- [`7.0-fpm`, `7.0-fpm-0`](https://github.com/markoshust/magento-docker/tree/master/images/php/7.0)
+	- [`5.6-fpm`, `5.6-fpm-0`](https://github.com/markoshust/magento-docker/tree/master/images/php/5.6)
 
 ## Usage
 
 This configuration is intended to be used as a Docker-based development environment for both Magento 1 and Magento 2.
 
 Folders:
+
 - `images`: Docker images for nginx and php
 - `compose`: sample setups with Docker Compose
+
+Nginx assumes you are running Magento 2, however you can easily run it with Magento 1 using [the provided configuration file](https://github.com/markoshust/magento-docker/blob/master/images/nginx/1.13/conf/default.magento1.conf)
+
+The PHP images are fairly agnostic to which version of Magento you are running. The PHP 5 images do assume you are running Magento 1, and the PHP 7 images do assume you are running Magento 2, however the main difference is cronjob setup, and they can be easily modified for inverse use.
 
 ## Prerequisites
 
