@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo ifconfig lo0 alias 10.254.254.254 255.255.255.0
+sudo bash -c "curl https://raw.githubusercontent.com/markoshust/magento-docker/master/lib/com.network.alias.plist > /Library/LaunchDaemons/com.network.alias.plist"
+sudo chmod 0644 /Library/LaunchDaemons/com.network.alias.plist
+sudo chown root:wheel /Library/LaunchDaemons/com.network.alias.plist
+sudo launchctl load /Library/LaunchDaemons/com.network.alias.plist

@@ -1,0 +1,5 @@
+#!/bin/bash
+[ -z "$1" ] && echo "Please specify the version to download (ex. 1.9.3.7)" && exit
+curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento-$1.tar.gz | tar xzf - -o -C .
+rm -rf src
+mv magento src

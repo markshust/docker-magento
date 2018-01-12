@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    volumes: &appvolumes
+      - foo_appdata:/var/www/html:nocopy
+      - ~/.composer:/var/www/.composer
+
+  phpfpm:
+    volumes: *appvolumes
+
+  db:
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
+  foo_appdata:
+    external: true

@@ -1,0 +1,9 @@
+version: "2"
+
+syncs:
+  foo_appdata:
+    notify_terminal: true
+    src: ./src
+    sync_strategy: native_osx
+    sync_userid: 1000
+    sync_groupid: 1000
