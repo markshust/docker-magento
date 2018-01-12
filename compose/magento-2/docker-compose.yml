@@ -13,7 +13,7 @@ services:
       - phpfpm
 
   phpfpm:
-    image: markoshust/magento-php:7.0-fpm-0
+    image: markoshust/magento-php:7.1-fpm-0
     links:
       - db
 
