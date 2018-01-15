@@ -1,7 +1,7 @@
 version: "2"
 
 syncs:
-  foo_appdata:
+  magento222_appdata:
     notify_terminal: true
     src: ./src
     sync_strategy: native_osx
