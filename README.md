@@ -47,7 +47,7 @@ You will also need to <a href="https://www.docker.com/community-edition#/downloa
 1. Setup a new project using the Magento 2 compose skeleton:
 
 ```
-mkdir magento-2.2.2 && cd $_
+mkdir magento2 && cd $_
 git init
 git remote add origin git@github.com:markoshust/magento-docker.git
 git fetch origin
