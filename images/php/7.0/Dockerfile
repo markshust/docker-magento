@@ -30,7 +30,8 @@ RUN docker-php-ext-install \
   zip
 
 RUN pecl install xdebug \
-  && docker-php-ext-enable xdebug
+  && docker-php-ext-enable xdebug \
+  && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
