@@ -7,9 +7,9 @@ View Dockerfiles:
 - <a href="https://hub.docker.com/r/markoshust/magento-nginx/" target="_blank">markoshust/magento-nginx (Docker Hub)</a>
 	- [`latest`, `1.13`, `1.13-0`](https://github.com/markoshust/magento-docker/tree/master/images/nginx/1.13)
 - <a href="https://hub.docker.com/r/markoshust/magento-php/" target="_blank">markoshust/magento-php (Docker Hub)</a>
-	- [`latest`, `7.1-fpm`, `7.1-fpm-0`](https://github.com/markoshust/magento-docker/tree/master/images/php/7.1)
-	- [`7.0-fpm`, `7.0-fpm-0`](https://github.com/markoshust/magento-docker/tree/master/images/php/7.0)
-	- [`5.6-fpm`, `5.6-fpm-0`](https://github.com/markoshust/magento-docker/tree/master/images/php/5.6)
+	- [`latest`, `7.1-fpm`, `7.1-fpm-1`](https://github.com/markoshust/magento-docker/tree/master/images/php/7.1)
+	- [`7.0-fpm`, `7.0-fpm-1`](https://github.com/markoshust/magento-docker/tree/master/images/php/7.0)
+	- [`5.6-fpm`, `5.6-fpm-1`](https://github.com/markoshust/magento-docker/tree/master/images/php/5.6)
 
 ## Usage
 
