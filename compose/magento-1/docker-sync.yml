@@ -1,9 +1,19 @@
+# Mark Shust's Magento Docker Compose (https://github.com/markoshust/magento-docker)
+# Version 11.1.3
+
 version: "2"
 
 syncs:
-  foo_appdata:
-    notify_terminal: true
+  magento1_appdata:
+    notify_terminal: false
     src: ./src
     sync_strategy: native_osx
     sync_userid: 1000
     sync_groupid: 1000
+    sync_args:
+      - "-ignore='Path .idea'"
+      - "-ignore='Path .git'"
+      - "-ignore='BelowPath .git'"
+      - "-ignore='Path var/cache/*'"
+      - "-ignore='Path var/sessions/*'"
+      - "-ignore='Path node_modules/*'"
