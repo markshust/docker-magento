@@ -57,7 +57,7 @@ rm -rf compose .git
 git init
 ```
 
-2. Set a custom name for the external volume. Within `docker-sync.yml` and `docker-compose-dev.yml` there are three references to `magento222_appdata`. Feel free to change these values to your project's name, for example `myapp_appdata`. This will be important when you want to run multiple Docker Compose setups with multiple projects.
+2. Set a custom name for the external volume. Within `docker-sync.yml` and `docker-compose-dev.yml` there are three references to `magento2_appdata`. Feel free to change these values to your project's name, for example `myapp_appdata`. This will be important when you want to run multiple Docker Compose setups with multiple projects.
 
 3. Download the Magento source code to the `src` folder with: `./bin/download 2.2.2`
 
@@ -65,11 +65,11 @@ git init
 
 5. Setup your ip loopback for proper IP resolution with Docker: `./bin/initloopback`
 
-6. Add an entry to `/etc/hosts` with your custom domain: `10.254.254.254 magento-2.2.2.test` (assuming the domain  you want to setup is `magento-2.2.2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
+6. Add an entry to `/etc/hosts` with your custom domain: `10.254.254.254 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
 
 7. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6.
 
-8. You may now access your site at `http://magento-2.2.2.test` (or whatever domain you setup). Note that initial page loads will take a bit of time. Once items are primed, everything should load quite fast.
+8. You may now access your site at `http://magento2.test` (or whatever domain you setup). Note that initial page loads will take a bit of time. Once items are primed, everything should load quite fast.
 
 ## Existing Magento Project Setup
 
