@@ -1,2 +1,2 @@
 #!/bin/bash
-./bin/cli ./bin/magento "$@"
+./bin/cli su -c "./bin/magento '$@'" -s /bin/bash app

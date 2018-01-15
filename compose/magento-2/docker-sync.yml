@@ -1,3 +1,6 @@
+# Mark Shust's Magento Docker Compose (https://github.com/markoshust/magento-docker)
+# Version 11.1.2
+
 version: "2"
 
 syncs:

@@ -1,10 +1,13 @@
+# Mark Shust's Magento Docker Compose (https://github.com/markoshust/magento-docker)
+# Version 11.1.2
+
 version: "3"
 
 services:
   app:
     volumes: &appvolumes
       - magento222_appdata:/var/www/html:nocopy
-      - ~/.composer:/var/www/.composer
+      - ~/.composer:/var/www/html/var/composer_home
 
   phpfpm:
     volumes: *appvolumes
