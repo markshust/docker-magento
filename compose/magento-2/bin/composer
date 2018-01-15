@@ -1,2 +1,2 @@
 #!/bin/bash
-./bin/cli su -c "composer '$@'" -s /bin/bash app
+eval "./bin/cli su -c \"composer "$@"\" -s /bin/bash app"
