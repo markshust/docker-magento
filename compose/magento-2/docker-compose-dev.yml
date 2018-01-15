@@ -3,7 +3,7 @@ version: "3"
 services:
   app:
     volumes: &appvolumes
-      - foo_appdata:/var/www/html:nocopy
+      - magento222_appdata:/var/www/html:nocopy
       - ~/.composer:/var/www/.composer
 
   phpfpm:
@@ -15,5 +15,5 @@ services:
 
 volumes:
   dbdata:
-  foo_appdata:
+  magento222_appdata:
     external: true
