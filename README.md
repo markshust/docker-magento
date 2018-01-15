@@ -78,6 +78,7 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 - `./bin/magento`: Run the Magento CLI. Ex: `./bin/magento cache:flush`
 - `./bin/setup`: Run the Magento setup process to install Magento from the source code.
 - `./bin/start`: Start the Docker Compose process and your app. Ctrl+C to stop the process.
+- `./bin/xdebug`: Disable or enable Xdebug. Ex. `./bin/xdebug enable`
 
 ## Misc Info
 
