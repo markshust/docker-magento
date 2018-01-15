@@ -6,7 +6,7 @@ RUN groupadd -g 1000 app \
 
 ENV PHP_HOST phpfpm
 ENV PHP_PORT 9000
-ENV APP_MAGE_MODE default
+ENV APP_MAGE_MODE developer
 
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/default.conf /etc/nginx/conf.d/
