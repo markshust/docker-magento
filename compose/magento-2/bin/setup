@@ -23,3 +23,5 @@ echo "Turning on developer mode.."
 ./bin/magento deploy:mode:set developer
 
 ./bin/magento indexer:reindex
+
+./bin/fixperms
