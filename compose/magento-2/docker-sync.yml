@@ -10,4 +10,4 @@ syncs:
     sync_strategy: native_osx
     sync_userid: 1000
     sync_groupid: 1000
-    sync_excludes: ['.idea', '.git*', 'var/cache', 'var/composer_home', 'var/page_cache', 'var/session', 'var/tmp', 'var/view_preprocessed']
+    sync_excludes: ['.idea', '.git*', 'pub/static', 'var/cache', 'var/composer_home', 'var/page_cache', 'var/session', 'var/tmp', 'var/view_preprocessed']
