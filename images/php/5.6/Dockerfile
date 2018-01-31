@@ -29,7 +29,8 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
-RUN pecl install xdebug \
+RUN pecl channel-update pecl.php.net \
+  && pecl install xdebug-2.5.5 \
   && docker-php-ext-enable xdebug \
   && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
@@ -46,7 +47,8 @@ COPY conf/php.ini /usr/local/etc/php/
 COPY conf/php-fpm.conf /usr/local/etc/
 COPY bin/cronstart /usr/local/bin/
 
-RUN chown -R app:app /usr/local/etc/php/conf.d
+RUN mkdir /sock
+RUN chown -R app:app /usr/local/etc/php/conf.d /sock
 
 USER app:app
 
