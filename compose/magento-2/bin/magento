@@ -1,2 +1,2 @@
 #!/bin/bash
-eval "./bin/cli su -c \"./bin/magento "$@"\" -s /bin/bash app"
+./bin/cli ./bin/magento "$@"

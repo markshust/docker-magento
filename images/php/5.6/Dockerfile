@@ -39,17 +39,19 @@ RUN curl -sS https://getcomposer.org/installer | \
 RUN groupadd -g 1000 app \
  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
 
-RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/cron.php\n#' >> /etc/crontab
+RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/cron.php\n#\n' >> /etc/crontab
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
 COPY conf/php.ini /usr/local/etc/php/
 COPY conf/php-fpm.conf /usr/local/etc/
-COPY bin/start /usr/local/bin/
+COPY bin/cronstart /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/start
+RUN chown -R app:app /usr/local/etc/php/conf.d
+
+USER app:app
+
+VOLUME /var/www
 
 WORKDIR /var/www/html
 
 EXPOSE 9001
-
-CMD ["/usr/local/bin/start"]

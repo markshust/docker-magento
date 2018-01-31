@@ -1,5 +1,5 @@
-# Mark Shust's Magento Docker Compose (https://github.com/markoshust/magento-docker)
-# Version 11.1.5
+# Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
+# Version 12.0.0
 
 version: "3"
 
@@ -7,18 +7,36 @@ services:
   app:
     build: images/nginx
     ports:
-      - 80:80
+      - 80:8000
     links:
       - db
       - phpfpm
+    volumes: &appvolumes
+      - ./src:/var/www/html:delegated
+      - ~/.composer:/var/www/.composer:delegated
 
   phpfpm:
     image: markoshust/magento-php:5.6-fpm
     links:
       - db
+    volumes: *appvolumes
+
+  cron:
+    image: markoshust/magento-php:5.6-fpm
+    user: root
+    command: /usr/local/bin/cronstart
+    tty: true
+    links:
+      - db
+    volumes: *appvolumes
 
   db:
     image: percona:5.7
     ports:
       - 3306:3306
     env_file: env/db.env
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:

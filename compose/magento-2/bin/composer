@@ -1,2 +1,2 @@
 #!/bin/bash
-eval "./bin/cli su -c \"composer "$@"\" -s /bin/bash app"
+./bin/cli composer "$@"
