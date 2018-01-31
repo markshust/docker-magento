@@ -1,7 +1,7 @@
 #!/bin/bash
 ./bin/cli chmod u+x bin/magento
 
-docker-compose exec phpfpm su -c "/usr/local/bin/php ./bin/magento setup:install \
+docker-compose exec phpfpm /usr/local/bin/php ./bin/magento setup:install \
   --db-host=db \
   --db-name=magento \
   --db-user=magento \
@@ -15,7 +15,6 @@ docker-compose exec phpfpm su -c "/usr/local/bin/php ./bin/magento setup:install
   --language=en_US \
   --currency=USD \
   --timezone=America/New_York \
-" -s /bin/bash app
 
 ./bin/fixperms
 

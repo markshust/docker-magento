@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-sync-stack start
+docker-compose up
