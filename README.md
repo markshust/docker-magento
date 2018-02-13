@@ -96,17 +96,37 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 
 ### PHPStorm & Xdebug
 
-Within Xdebug, create a new `PHPStorm > Preferences > Languages & Frameworks > PHP > CLI Interpreter` and specify `From Docker`. Choose `Docker`, then select the `markoshust/magento-php:7-0-fpm` image name, and the `PHP Executable` to be `php`. Hitting the reload executable button should find the correct PHP Version and Xdebug debugger configuration.
+Open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
-Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set:
+- `CLI Interpreter`:
+	- Create a new interpreter and specify `From Docker`, and name it `phpfpm`.
+	- Choose `Docker`, then select the `markoshust/magento-php:7-0-fpm` image name, and set the `PHP Executable` to `php`.
+	- Under `Additional > Debugger Extension`, enter `/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so`.
+	- Hitting the reload executable button should find the correct PHP Version and Xdebug debugger configuration.
+
+- `Path mappings`:
+	- Ensure local path is set to `./src` and is set to the remote path of `/var/www/html`.
+
+- `Docker container`:
+	- Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `~/src`.
+
+Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
+
+Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set:
 
 - IDE key: `PHPSTORM`
 - Host: `10.254.254.254`
 - Port: `9001`
 
+Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
+
+- Set Name and Host to your domain name (ex. `magento2.test`)
+- Set Port to `8000`
+- Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+
 Create a new server at  `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers`. Set `localhost` as the name and host, check `Shared`, leave port `80`, and debugger `Xdebug`. Check `Use path mappings` and assigned the `src` File/Directory to the absolute path on the server of `/var/www/html`.
 
-Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Name it `localhost`. Check `Filter debug connection by IDE Key`, select server `localhost`, and set IDE key to `PHPSTORM`.
+Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Set the Name to your domain (ex. `magento2.test`). Check `Filter debug connection by IDE Key`, select the server of your domain name (ex. `magento2.test`), and set IDE key to `PHPSTORM`. The `Validate` functionality will most likely not work with the Docker container, but doesn't affect the ability to use Xdebug.
 
 Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug localhost`, and open up a web browser. Be sure to install a plugin like [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) which sets the IDE key to `PHPStorm` automatically for you. Enable the browser extension and activate it on the site, and reload the site. Xdebug within PHPStorm should now enable the debugger and stop at the toggled breakpoint.
 
