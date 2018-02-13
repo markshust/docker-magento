@@ -124,7 +124,7 @@ Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and creat
 - Set Port to `8000`
 - Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
 
-Create a new server at  `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers`. Set `localhost` as the name and host, check `Shared`, leave port `80`, and debugger `Xdebug`. Check `Use path mappings` and assigned the `src` File/Directory to the absolute path on the server of `/var/www/html`.
+Create a new server at  `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers`. Set your domain (ex. `magento2.test`) as the name and host, check `Shared`, leave port `80`, and debugger `Xdebug`. Check `Use path mappings` and assigned the `src` File/Directory to the absolute path on the server of `/var/www/html`.
 
 Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Set the Name to your domain (ex. `magento2.test`). Check `Filter debug connection by IDE Key`, select the server of your domain name (ex. `magento2.test`), and set IDE key to `PHPSTORM`. The `Validate` functionality will most likely not work with the Docker container, but doesn't affect the ability to use Xdebug.
 
