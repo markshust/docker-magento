@@ -1,3 +1,2 @@
 #!/bin/bash
-[ -z "$1" ] && echo "Please specify a mage command (ex. cache:flush)" && exit
-eval "./bin/cli su -c \"./mage "$@"\" -s /bin/bash app"
+./bin/cli ./mage "$@"
