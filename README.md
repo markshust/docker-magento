@@ -96,7 +96,9 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 
 ### PHPStorm & Xdebug
 
-Open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
+First, enable Xdebug in the PHP-FPM container by running: `./bin/xdebug enable`
+
+Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
 - `CLI Interpreter`:
 	- Create a new interpreter and specify `From Docker`, and name it `phpfpm`.
