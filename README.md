@@ -74,7 +74,7 @@ git init
 ## Setup a New Magento 2 Project in Windows
 
 1. Setup a new project using the Magento 2 compose skeleton:
-
+(Run this with a bash-like terminal)
 ```
 mkdir magento2 && cd $_
 git init
@@ -85,6 +85,8 @@ mv compose/magento-2-windows/* .
 rm -rf compose .git
 git init
 ```
+
+(The following scripts are meant to run with Powershell. Note that the execution policy for scripts needs to be set accordingly [Execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-executionpolicy?view=powershell-6))
 
 2. Download the Magento source code to the `src` folder with: `./bin/download 2.2.2`. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available.
 
