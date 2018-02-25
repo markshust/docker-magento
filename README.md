@@ -90,7 +90,7 @@ git init
 
 3. Copy magento into the docker container with `./bin/copymagento`. This is needed because of permission restrictions of shared data in Windows. The folders `app/code`, `app/design` and `app/i18n` will however be shared with Windows for ease of development.
 
-4. Add an entry to `/etc/hosts` with your custom domain: `127.0.0.1 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
+4. Add an entry to `C:\Windows\System32\drivers\etc\hosts` with your custom domain: `127.0.0.1 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
 
 5. Start your Docker containers with: `./bin/start`.
 
