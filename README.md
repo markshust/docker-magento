@@ -88,7 +88,7 @@ git init
 
 2. Download the Magento source code to the `src` folder with: `./bin/download 2.2.2`. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available.
 
-3. Copy magento into the docker container with `./bin/copymagento`. This is needed because of permission restrictions of shared data in Windows. The folders `app/code`, `app/design` and `app/i18n` will however be shared with Windows for ease of development.
+3. Copy magento into the docker container with `./bin/copymagento`. This is needed because of permission restrictions of shared data in Windows (see [Troubleshooting Docker](https://docs.docker.com/docker-for-windows/troubleshoot/#permissions-errors-on-data-directories-for-shared-volumes)). The folders `app/code`, `app/design` and `app/i18n` will however be shared with Windows for ease of development.
 
 4. Add an entry to `C:\Windows\System32\drivers\etc\hosts` with your custom domain: `127.0.0.1 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
 
