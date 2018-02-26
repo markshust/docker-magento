@@ -71,6 +71,36 @@ git init
 
 7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
 
+## Setup a New Magento 2 Project in Windows
+
+1. Setup a new project using the Magento 2 compose skeleton:
+(Run this with a bash-like terminal)
+```
+mkdir magento2 && cd $_
+git init
+git remote add origin git@github.com:markoshust/docker-magento.git
+git fetch origin
+git checkout origin/master -- compose/magento-2-windows
+mv compose/magento-2-windows/* .
+rm -rf compose .git
+git init
+```
+
+(The following scripts are meant to run with Powershell. Note that the execution policy for scripts needs to be set accordingly [Execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-executionpolicy?view=powershell-6))
+
+2. Download the Magento source code to the `src` folder with: `./bin/download 2.2.2`. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available.
+
+3. Copy magento into the docker container with `./bin/copymagento`. This is needed because of permission restrictions of shared data in Windows (see [Troubleshooting Docker](https://docs.docker.com/docker-for-windows/troubleshoot/#permissions-errors-on-data-directories-for-shared-volumes)). The folders `app/code`, `app/design` and `app/i18n` will however be shared with Windows for ease of development. For these folders the default permission 755 works just fine.
+
+4. Add an entry to `C:\Windows\System32\drivers\etc\hosts` with your custom domain: `127.0.0.1 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
+
+5. Start your Docker containers with: `./bin/start`.
+
+6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6.
+
+7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
+
+
 ## Existing Magento Project Setup
 
 See the `compose` folder for sample setups for both Magento 1 and Magento 2. Basically your source code should go in the `src` folder, and you can then kick your project off with `./bin/start`. You may have to complete a few of the steps above to get things functioning properly.
