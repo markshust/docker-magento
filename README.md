@@ -139,10 +139,10 @@ Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure
 	- Hitting the reload executable button should find the correct PHP Version and Xdebug debugger configuration.
 
 - `Path mappings`:
-	- Ensure local path is set to `./src` and is set to the remote path of `/var/www/html`.
+	- Don't do anything here as the next `Docker container` step will automatically setup a path bunding from `/var/www/html` to `./src`.
 
 - `Docker container`:
-	- Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `~/src`.
+	- Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
 
 Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
 
