@@ -161,7 +161,7 @@ Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and creat
 
 Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Set the Name to your domain (ex. `magento2.test`). Check `Filter debug connection by IDE Key`, select the server of your domain name (ex. `magento2.test`), and set IDE key to `PHPSTORM`. The `Validate` functionality will most likely not work with the Docker container, but doesn't affect the ability to use Xdebug.
 
-Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug localhost`, and open up a web browser. Be sure to install a plugin like [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) which sets the IDE key to `PHPStorm` automatically for you. Enable the browser extension and activate it on the site, and reload the site. Xdebug within PHPStorm should now enable the debugger and stop at the toggled breakpoint.
+Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Be sure to install a plugin like [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) which sets the IDE key to `PHPStorm` automatically for you. Enable the browser extension and activate it on the site, and reload the site. Xdebug within PHPStorm should now enable the debugger and stop at the toggled breakpoint.
 
 ### Composer Authentication
 
