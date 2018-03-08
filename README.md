@@ -67,7 +67,7 @@ git init
 
 5. Start your Docker containers with: `./bin/start`.
 
-6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6.
+6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
 
 7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
 
@@ -96,7 +96,7 @@ git init
 
 5. Start your Docker containers with: `./bin/start`.
 
-6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6.
+6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
 
 7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
 
