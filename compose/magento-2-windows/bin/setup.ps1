@@ -13,7 +13,8 @@ docker-compose exec phpfpm /usr/local/bin/php ./bin/magento setup:install `
   --admin-password=magento2 `
   --language=en_US `
   --currency=USD `
-  --timezone=America/New_York
+  --timezone=America/New_York `
+  --use-rewrites=1
 
 ./bin/fixperms
 
