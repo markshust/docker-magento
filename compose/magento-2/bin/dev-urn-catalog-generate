@@ -1,0 +1,9 @@
+#!/bin/bash
+./bin/magento dev:urn-catalog:generate misc.xml
+
+sed -i .bak 's?/var/www/html?'`pwd`/src'?' src/misc.xml
+rm src/misc.xml.bak
+mkdir -p .idea
+mv src/misc.xml .idea/misc.xml
+
+echo "URN's have been generated, you may now restart PHPStorm"
