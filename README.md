@@ -109,6 +109,7 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 ## Custom CLI Commands
 
 - `./bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
+- `./bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `./bin/cli`: Run any CLI command without going into the bash prompt. Ex. `./bin/cli ls`
 - `./bin/composer`: Run the composer binary. Ex. `./bin/composer install`
 - `./bin/download`: Download a version of Magento to the `src` directory. Ex. `./bin/download 2.2.2`
