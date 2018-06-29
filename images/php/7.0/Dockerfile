@@ -4,12 +4,14 @@ MAINTAINER Mark Shust <mark@shust.com>
 RUN apt-get update && apt-get install -y \
   cron \
   git \
+  gzip \
   libfreetype6-dev \
   libicu-dev \
   libjpeg62-turbo-dev \
   libmcrypt-dev \
   libpng12-dev \
   libxslt1-dev \
+  lsof \
   mysql-client \
   vim \
   zip
