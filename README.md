@@ -116,6 +116,7 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 - `./bin/fixperms`: This will fix filesystem ownerships and permissions within Docker.
 - `./bin/initloopback`: Setup your ip loopback for proper Docker ip resolution.
 - `./bin/magento`: Run the Magento CLI. Ex: `./bin/magento cache:flush`
+- `./bin/root`: Run any CLI command as root without going into the bash prompt. Ex `./bin/root apt-get install nano`
 - `./bin/setup`: Run the Magento setup process to install Magento from the source code.
 - `./bin/start`: Start the Docker Compose process and your app. Ctrl+C to stop the process.
 - `./bin/xdebug`: Disable or enable Xdebug. Ex. `./bin/xdebug enable`
