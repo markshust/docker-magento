@@ -174,7 +174,7 @@ Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go t
 
 Please first setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
-Place your auth token at `~/.composer/auth.json` with the following contents, like so:
+Update the auth credentials within `./dev/auth.json`, replacing your public and private key respectively:
 
 ```
 {
@@ -186,3 +186,8 @@ Place your auth token at `~/.composer/auth.json` with the following contents, li
     }
 }
 ```
+
+If you wish to use your system's `auth.json` file, you can also setup a symlink from your Composer home directory like so:
+
+    ln -s ~/.composer/auth.json dev/auth.json
+
