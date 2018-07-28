@@ -63,15 +63,15 @@ rm -rf compose .git
 git init
 ```
 
-2. Download the Magento source code to the `src` folder with: `./bin/download 2.2.4`
+2. Download the Magento source code to the `src` folder with: `bin/download 2.2.4`
 
-3. Setup your ip loopback for proper IP resolution with Docker: `./bin/initloopback`
+3. Setup your ip loopback for proper IP resolution with Docker: `bin/initloopback`
 
 4. Add an entry to `/etc/hosts` with your custom domain: `10.254.254.254 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
 
-5. Start your Docker containers with: `./bin/start`.
+5. Start your Docker containers with: `bin/start`.
 
-6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
+6. Run Magento's setup install process with the command: `bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
 
 7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
 
@@ -92,37 +92,37 @@ rm -rf compose .git
 git init
 ```
 
-2. Download the Magento source code to the `src` folder with: `./bin/download 2.2.2`. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available.
+2. Download the Magento source code to the `src` folder with: `bin/download 2.2.2`. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available.
 
-3. Copy magento into the docker container with `./bin/copymagento`. This is needed because of permission restrictions of shared data in Windows (see [Troubleshooting Docker](https://docs.docker.com/docker-for-windows/troubleshoot/#permissions-errors-on-data-directories-for-shared-volumes)). The `app` folder will however be shared with Windows for ease of development. For this folder the default permission 755 works just fine.
+3. Copy magento into the docker container with `bin/copymagento`. This is needed because of permission restrictions of shared data in Windows (see [Troubleshooting Docker](https://docs.docker.com/docker-for-windows/troubleshoot/#permissions-errors-on-data-directories-for-shared-volumes)). The `app` folder will however be shared with Windows for ease of development. For this folder the default permission 755 works just fine.
 
 4. Add an entry to `C:\Windows\System32\drivers\etc\hosts` with your custom domain: `127.0.0.1 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
 
-5. Start your Docker containers with: `./bin/start`.
+5. Start your Docker containers with: `bin/start`.
 
-6. Run Magento's setup install process with the command: `./bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
+6. Run Magento's setup install process with the command: `bin/setup`. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 6. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
 
 7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
 
 
 ## Existing Magento Project Setup
 
-See the `compose` folder for sample setups for both Magento 1 and Magento 2. Basically your source code should go in the `src` folder, and you can then kick your project off with `./bin/start`. You may have to complete a few of the steps above to get things functioning properly.
+See the `compose` folder for sample setups for both Magento 1 and Magento 2. Basically your source code should go in the `src` folder, and you can then kick your project off with `bin/start`. You may have to complete a few of the steps above to get things functioning properly.
 
 ## Custom CLI Commands
 
-- `./bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
-- `./bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
-- `./bin/cli`: Run any CLI command without going into the bash prompt. Ex. `./bin/cli ls`
-- `./bin/composer`: Run the composer binary. Ex. `./bin/composer install`
-- `./bin/download`: Download a version of Magento to the `src` directory. Ex. `./bin/download 2.2.2`
-- `./bin/fixperms`: This will fix filesystem ownerships and permissions within Docker.
-- `./bin/initloopback`: Setup your ip loopback for proper Docker ip resolution.
-- `./bin/magento`: Run the Magento CLI. Ex: `./bin/magento cache:flush`
-- `./bin/root`: Run any CLI command as root without going into the bash prompt. Ex `./bin/root apt-get install nano`
-- `./bin/setup`: Run the Magento setup process to install Magento from the source code.
-- `./bin/start`: Start the Docker Compose process and your app. Ctrl+C to stop the process.
-- `./bin/xdebug`: Disable or enable Xdebug. Ex. `./bin/xdebug enable`
+- `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
+- `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
+- `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
+- `bin/composer`: Run the composer binary. Ex. `bin/composer install`
+- `bin/download`: Download a version of Magento to the `src` directory. Ex. `bin/download 2.2.2`
+- `bin/fixperms`: This will fix filesystem ownerships and permissions within Docker.
+- `bin/initloopback`: Setup your ip loopback for proper Docker ip resolution.
+- `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
+- `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
+- `bin/setup`: Run the Magento setup process to install Magento from the source code.
+- `bin/start`: Start the Docker Compose process and your app. Ctrl+C to stop the process.
+- `bin/xdebug`: Disable or enable Xdebug. Ex. `bin/xdebug enable`
 
 ## Misc Info
 
@@ -132,7 +132,7 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 
 ### PHPStorm & Xdebug
 
-First, enable Xdebug in the PHP-FPM container by running: `./bin/xdebug enable`, the restart the docker containers (CTRL+C, `./bin/start`).
+First, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C, `bin/start`).
 
 Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
