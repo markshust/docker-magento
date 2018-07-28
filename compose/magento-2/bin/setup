@@ -7,11 +7,11 @@ docker-compose exec phpfpm /usr/local/bin/php ./bin/magento setup:install \
   --db-user=magento \
   --db-password=magento \
   --base-url=http://magento2.test/ \
-  --admin-firstname=Admin \
-  --admin-lastname=User \
-  --admin-email=dummy@gmail.com \
-  --admin-user=magento2 \
-  --admin-password=magento2 \
+  --admin-firstname=John \
+  --admin-lastname=Smith \
+  --admin-email=john.smith@gmail.com \
+  --admin-user=john.smith \
+  --admin-password=password123 \
   --language=en_US \
   --currency=USD \
   --timezone=America/New_York \
