@@ -11,18 +11,23 @@ View Dockerfiles:
 		- [`1.13-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/nginx/1.13)
 		- [`1.13-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
+        - 7.2
+                - [`dev`, `7.2-fpm`, `7.2-fpm-0`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
 	- 7.1
-		- [`latest`, `7.1-fpm`, `7.1-fpm-3`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+		- [`latest`, `7.1-fpm`, `7.1-fpm-4`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+                - [`7.1-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.1)
 		- [`7.1-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/7.1)
 		- [`7.1-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.1)
 		- [`7.1-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.1)
 	- 7.0
-		- [`7.0-fpm`, `7.0-fpm-3`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
+		- [`7.0-fpm`, `7.0-fpm-4`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
+                - [`7.0-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.0)
 		- [`7.0-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/7.0)
 		- [`7.0-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.0)
 		- [`7.0-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.0)
 	- 5.6
-		- [`5.6-fpm`, `5.6-fpm-3`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
+		- [`5.6-fpm`, `5.6-fpm-4`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
+                - [`5.6-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/5.6)
 		- [`5.6-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/5.6)
 		- [`5.6-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/5.6)
 		- [`5.6-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/5.6)
@@ -117,11 +122,15 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/download`: Download a version of Magento to the `src` directory. Ex. `bin/download 2.2.2`
 - `bin/fixperms`: This will fix filesystem ownerships and permissions within Docker.
+- `bin/grunt`: Run the grunt binary. Note that this runs the version from the node_modules directory for project version parity. Ex. `bin/grunt exec`
 - `bin/initloopback`: Setup your ip loopback for proper Docker ip resolution.
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
+- `bin/node`: Run the node binary. Ex. `bin/node --version`
+- `bin/npm`: Run the npm binary. Ex. `bin/npm install`
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code.
 - `bin/start`: Start the Docker Compose process and your app. Ctrl+C to stop the process.
+- `bin/stop`: Stop the Docker Compose process and your app. Use if Ctrl+C isn't working or to stop the containers from another shell.
 - `bin/xdebug`: Disable or enable Xdebug. Ex. `bin/xdebug enable`
 
 ## Misc Info

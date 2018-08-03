@@ -1,2 +1,2 @@
 #!/bin/bash
-./bin/cli composer "$@"
+bin/cli composer "$@"
