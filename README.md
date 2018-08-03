@@ -11,8 +11,8 @@ View Dockerfiles:
 		- [`1.13-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/nginx/1.13)
 		- [`1.13-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-        - 7.2
-                - [`dev`, `7.2-fpm`, `7.2-fpm-0`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
+    - 7.2
+       - [`dev`, `7.2-fpm`, `7.2-fpm-0`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
 	- 7.1
 		- [`latest`, `7.1-fpm`, `7.1-fpm-4`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
                 - [`7.1-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.1)
