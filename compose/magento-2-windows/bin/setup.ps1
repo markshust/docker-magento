@@ -1,6 +1,6 @@
-./bin/cli chmod u+x bin/magento
+bin/cli chmod u+x bin/magento
 
-docker-compose exec phpfpm /usr/local/bin/php ./bin/magento setup:install `
+docker-compose exec phpfpm /usr/local/bin/php bin/magento setup:install `
   --db-host=db `
   --db-name=magento `
   --db-user=magento `
@@ -16,11 +16,11 @@ docker-compose exec phpfpm /usr/local/bin/php ./bin/magento setup:install `
   --timezone=America/New_York `
   --use-rewrites=1
 
-./bin/fixperms
+bin/fixperms
 
 echo "Turning on developer mode.."
-./bin/magento deploy:mode:set developer
+bin/magento deploy:mode:set developer
 
-./bin/magento indexer:reindex
+bin/magento indexer:reindex
 
-./bin/magento cache:enable
+bin/magento cache:enable

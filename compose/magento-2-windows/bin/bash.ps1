@@ -1,1 +1,1 @@
-./bin/cli bash
+bin/cli bash

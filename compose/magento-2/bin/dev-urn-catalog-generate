@@ -1,5 +1,5 @@
 #!/bin/bash
-./bin/magento dev:urn-catalog:generate misc.xml
+bin/magento dev:urn-catalog:generate misc.xml
 
 sed -i .bak 's?/var/www/html?'`pwd`/src'?' src/misc.xml
 rm src/misc.xml.bak
