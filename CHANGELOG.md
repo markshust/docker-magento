@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [15.0.1] - 2018-08-03
+
+### Fixed
+- Bugs with npm permissions.
+
 ## [15.0.0] - 2018-08-03
 
 ### Added
