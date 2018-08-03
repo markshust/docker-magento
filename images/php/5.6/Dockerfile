@@ -39,13 +39,15 @@ RUN pecl channel-update pecl.php.net \
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN groupadd -g 1000 app \
+ && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
+
 RUN apt-get install -y gnupg \
   && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
   && apt-get install -y nodejs \
+  && mkdir /var/www/.config /var/www/.npm \
+  && chown app:app /var/www/.config /var/www/.npm \
   && ln -s /var/www/html/node_modules/grunt/bin/grunt /usr/bin/grunt
-
-RUN groupadd -g 1000 app \
- && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
 
 RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/cron.php\n#\n' >> /etc/crontab
 
