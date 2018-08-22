@@ -6,7 +6,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.13
-      - [`latest`, `1.13`, `1.13-3`](https://github.com/markoshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`latest`, `1.13`, `1.13-4`](https://github.com/markoshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`1.13-3`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/nginx/1.13)
       - [`1.13-2`](https://github.com/markoshust/docker-magento/tree/12.0.0/images/nginx/1.13)
       - [`1.13-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/nginx/1.13)
       - [`1.13-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/nginx/1.13)
@@ -14,21 +15,24 @@ View Dockerfiles:
   - 7.2
       - [`dev`, `7.2-fpm`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
   - 7.1
-      - [`latest`, `7.1-fpm`, `7.1-fpm-5`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+      - [`latest`, `7.1-fpm`, `7.1-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/7.1)
       - [`7.1-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/7.1)
       - [`7.1-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.1)
       - [`7.1-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/7.1)
       - [`7.1-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.1)
       - [`7.1-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.1)
   - 7.0
-      - [`7.0-fpm`, `7.0-fpm-5`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
+      - [`7.0-fpm`, `7.0-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
+      - [`7.0-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/7.0)
       - [`7.0-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/7.0)
       - [`7.0-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.0)
       - [`7.0-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/7.0)
       - [`7.0-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.0)
       - [`7.0-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.0)
   - 5.6
-      - [`5.6-fpm`, `5.6-fpm-5`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
+      - [`5.6-fpm`, `5.6-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
+      - [`5.6-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/5.6)
       - [`5.6-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/5.6)
       - [`5.6-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/5.6)
       - [`5.6-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/5.6)
@@ -186,7 +190,7 @@ Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go t
 
 Please first setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
-Update the auth credentials within `./dev/auth.json`, replacing your public and private key respectively:
+Update the auth credentials within `./dev/composer/auth.json`, replacing your public and private key respectively:
 
 ```
 {
