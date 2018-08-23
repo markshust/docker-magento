@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added php ssh2 extension
 
+### Deprecated
+- The PHP 5.6 release will no longer be maintained, the last released version is 16.0.0
+
 ## [16.0.0] - 2018-08-22
 
 ### Changed
