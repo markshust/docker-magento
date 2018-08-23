@@ -15,7 +15,8 @@ View Dockerfiles:
   - 7.2
       - [`dev`, `7.2-fpm`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
   - 7.1
-      - [`latest`, `7.1-fpm`, `7.1-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+      - [`latest`, `7.1-fpm`, `7.1-fpm-7`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm-6`](https://github.com/markoshust/docker-magento/tree/16.0.0/images/php/7.1)
       - [`7.1-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/7.1)
       - [`7.1-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/7.1)
       - [`7.1-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.1)
@@ -23,7 +24,8 @@ View Dockerfiles:
       - [`7.1-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.1)
       - [`7.1-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.1)
   - 7.0
-      - [`7.0-fpm`, `7.0-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
+      - [`7.0-fpm`, `7.0-fpm-7`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
+      - [`7.0-fpm-6`](https://github.com/markoshust/docker-magento/tree/16.0.0/images/php/7.0)
       - [`7.0-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/7.0)
       - [`7.0-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/7.0)
       - [`7.0-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.0)
@@ -31,7 +33,8 @@ View Dockerfiles:
       - [`7.0-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.0)
       - [`7.0-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.0)
   - 5.6
-      - [`5.6-fpm`, `5.6-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
+      - [`5.6-fpm`, `5.6-fpm-7`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
+      - [`5.6-fpm-6`](https://github.com/markoshust/docker-magento/tree/16.0.0/images/php/5.6)
       - [`5.6-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/5.6)
       - [`5.6-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/5.6)
       - [`5.6-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/5.6)
