@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [16.1.0] - 2018-08-23
+
+### Added
+- Added php ssh2 extension
+
 ## [16.0.0] - 2018-08-22
 
 ### Changed
