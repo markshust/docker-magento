@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
-# Version 16.0.0
+# Version 16.1.1
 
 version: "3"
 
@@ -14,7 +14,6 @@ services:
     volumes: &appvolumes
       - ./src:/var/www/html:delegated
       - ~/.composer:/var/www/.composer:delegated
-      - ./dev/auth.json:/var/www/.composer/auth.json
       - sockdata:/sock
 
   phpfpm:

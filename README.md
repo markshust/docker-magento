@@ -118,7 +118,6 @@ git init
 
 7. You may now access your site at `http://magento2.test` (or whatever domain you setup).
 
-
 ## Existing Magento Project Setup
 
 See the `compose` folder for sample setups for both Magento 1 and Magento 2. Basically your source code should go in the `src` folder, and you can then kick your project off with `bin/start`. You may have to complete a few of the steps above to get things functioning properly.
@@ -161,6 +160,7 @@ Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure
     - for PHP 5.6: `/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so`
     - for PHP 7.0: `/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so`
     - for PHP 7.1: `/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so`
+    - for PHP 7.2: `/usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so`
   - Hitting the reload executable button should find the correct PHP Version and Xdebug debugger configuration.
 
 - `Path mappings`:
@@ -192,7 +192,7 @@ Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go t
 
 Please first setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
-Update the auth credentials within `./dev/composer/auth.json`, replacing your public and private key respectively:
+Update the auth credentials within `./src/auth.json`, replacing your public and private key respectively:
 
 ```
 {
@@ -204,8 +204,3 @@ Update the auth credentials within `./dev/composer/auth.json`, replacing your pu
     }
 }
 ```
-
-If you wish to use your system's `auth.json` file, you can also setup a symlink from your Composer home directory like so:
-
-    ln -s ~/.composer/auth.json dev/auth.json
-
