@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [16.2.1] - 2018-08-29
+- Updated docker-compose.yml file to volume mount vendor folder for 50% performance increase
+
 ## [16.1.0] - 2018-08-23
 
 ### Added
