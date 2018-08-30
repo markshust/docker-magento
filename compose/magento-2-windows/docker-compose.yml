@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
-# Version 16.2.1
+# Version 16.2.0
 
 version: "3"
 
