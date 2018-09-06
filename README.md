@@ -147,21 +147,15 @@ See the `compose` folder for sample setups for both Magento 1 and Magento 2. Bas
 
 - The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from a Docker container.
 
-### PHPStorm & Xdebug
+### Xdebug & PHPStorm
 
-First, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C, `bin/start`).
+First, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
 
 Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
 - `CLI Interpreter`:
-  - Create a new interpreter and specify `From Docker`, and name it `phpfpm`.
-  - Choose `Docker`, then select the `markoshust/magento-php:7-0-fpm` image name, and set the `PHP Executable` to `php`.
-  - Under `Additional > Debugger Extension`, enter
-    - for PHP 5.6: `/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so`
-    - for PHP 7.0: `/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so`
-    - for PHP 7.1: `/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so`
-    - for PHP 7.2: `/usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so`
-  - Hitting the reload executable button should find the correct PHP Version and Xdebug debugger configuration.
+  - Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-1-fpm`.
+  - Choose `Docker`, then select the `markoshust/magento-php:7-1-fpm` image name, and set the `PHP Executable` to `php`.
 
 - `Path mappings`:
   - Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
@@ -172,11 +166,7 @@ Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure
 
 Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
 
-Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set:
-
-- IDE key: `PHPSTORM`
-- Host: `10.254.254.254`
-- Port: `9001`
+Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
 
 Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
 
@@ -184,9 +174,35 @@ Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and creat
 - Set Port to `8000`
 - Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
 
-Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Set the Name to your domain (ex. `magento2.test`). Check `Filter debug connection by IDE Key`, select the server of your domain name (ex. `magento2.test`), and set IDE key to `PHPSTORM`. The `Validate` functionality will most likely not work with the Docker container, but doesn't affect the ability to use Xdebug.
+Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Set the Name to your domain (ex. `magento2.test`), then click OK.
 
-Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Be sure to install a plugin like [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) which sets the IDE key to `PHPStorm` automatically for you. Enable the browser extension and activate it on the site, and reload the site. Xdebug within PHPStorm should now enable the debugger and stop at the toggled breakpoint.
+Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Xdebug within PHPStorm should now enable the debugger and stop at the toggled breakpoint.
+
+### Xdebug & VS Code
+
+Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
+
+Create or edit the file at `.vscode/launch.json`:
+
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for XDebug",
+      "type": "php",
+      "request": "launch",
+      "pathMappings": {
+        "/var/www/html": "${workspaceFolder}/src"
+      },
+      "port": 9001
+    }
+  ]
+}
+```
+
+Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Debug > Start Debugging`, and open up a web browser. Xdebug within VS Code should now enable the debugger and stop at the toggled breakpoint.
+
 
 ### Composer Authentication
 
