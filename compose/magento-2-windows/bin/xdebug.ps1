@@ -5,9 +5,11 @@ Param(
 )
 if ( "$enable_disable_xdebug" -eq "disable" ) {
   bin/cli sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  bin/restart
   Write-Host "Xdebug has been disabled."
 } elseif ( "$enable_disable_xdebug" -eq "enable" ) {
   bin/cli sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  bin/restart
   Write-Host "Xdebug has been enabled."
 } else {
   Write-Host "Please specify either 'enable' or 'disable' as an argument"

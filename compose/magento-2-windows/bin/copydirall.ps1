@@ -1,0 +1,11 @@
+bin/copydir app
+bin/copydir bin
+bin/copydir dev
+bin/copydir generated
+bin/copydir lib
+bin/copydir phpserver
+bin/copydir pub
+bin/copydir setup
+bin/copydir update
+bin/copydir var
+bin/copydir vendor
