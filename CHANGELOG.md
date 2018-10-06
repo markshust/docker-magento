@@ -8,6 +8,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [18.0.0] - 2018-10-06
+
+### Changed
+- Changed the way bind mounts work with Docker compose and Magento 2.
+    - Note that `bin/start` now includes a call to `bin/copydirall` after the containers start. This helper script runs a `docker cp` command of all Magento directories from the container to the host. There is still a bind mount setup to `./src` root directory.
+    - There is a condition/bug within Docker that when named volumes overlap with bind mounts, the named volumes automatically sync back to the host once a `docker cp` command runs, while retaining their named volume status within the Docker container.
+    - We're tapping into this very odd bug and taking advantage of this as long as we can. Since data is still fetched from within the Docker container as a named volume, this should also allow not-so-performant computers to now run this Docker setup, as it provides near or truly native filesystem performance, since requests to these directories are still fetched through the named volume as far as Docker is concerned.
+- `bin/start` now runs in daemon mode, as we also need to run `bin/copydirall` immediately after starting containers so data syncs back to the host (and vice versa). This also eliminates the need to to have a terminal window open all the time for keeping containers running.
+
+### Added
+- Added back support for Magento 1 and PHP 5.6 containers. Magento 1 EOL will not be until 2020, so we should support these images and Docker Compose setup indefinitely for the time being.
+- Added new `bin/restart` helper script to stop and start all containers.
+- Added new `bin/remove` helper script to remove all containers.
+- Added new `bin/copydir` which copies whichever folder you wish from the container to the host.
+- Added new `bin/copydirall` which copies all Magento folders from the container to the host.
+- Added `lib/template` and `lib/onelinesetup` for much easier installation methods.
+- Added automatic Xdebug support for VS Code - no setup needed!
+
+### Removed
+- Removed `bin/initloopback` along with any references to `10.254.254.254` ip address. This may break existing Xdebug setups. Note that this ip address has been replaced with `host.docker.internal`, which should automatically resolve back to the host machine.
+
 ## [17.0.1] - 2018-10-06
 
 ### Removed

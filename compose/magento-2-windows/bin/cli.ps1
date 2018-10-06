@@ -2,5 +2,5 @@ if ($args.length -eq 0) {
     Write-Host "Please specify a CLI command (ex. ls)"
     exit
 } else {
-    docker-compose exec phpfpm $args
+    docker-compose exec -T phpfpm $args
 }

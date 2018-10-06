@@ -1,11 +1,13 @@
 bin/cli chmod u+x bin/magento
 
-docker-compose exec phpfpm /usr/local/bin/php bin/magento setup:install `
+BASE_URL=${1:-magento2.test}
+
+bin/cli bin/magento setup:install `
   --db-host=db `
   --db-name=magento `
   --db-user=magento `
   --db-password=magento `
-  --base-url=http://magento2.test/ `
+  --base-url=http://$BASE_URL/ `
   --admin-firstname=John `
   --admin-lastname=Smith `
   --admin-email=john.smith@gmail.com `
