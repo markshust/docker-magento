@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
-# Version 18.1.1
+# Version 19.0.0
 
 version: "3"
 
@@ -7,7 +7,8 @@ services:
   app:
     build: images/nginx
     ports:
-      - 80:8000
+      - "80:8000"
+      - "443:8443"
     links:
       - db
       - phpfpm
@@ -35,7 +36,7 @@ services:
   db:
     image: percona:5.7
     ports:
-      - 3306:3306
+      - "3306:3306"
     env_file: env/db.env
     volumes:
       - dbdata:/var/lib/mysql

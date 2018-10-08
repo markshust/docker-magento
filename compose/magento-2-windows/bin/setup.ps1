@@ -7,7 +7,7 @@ bin/cli bin/magento setup:install `
   --db-name=magento `
   --db-user=magento `
   --db-password=magento `
-  --base-url=http://$BASE_URL/ `
+  --base-url=https://$BASE_URL/ `
   --admin-firstname=John `
   --admin-lastname=Smith `
   --admin-email=john.smith@gmail.com `
