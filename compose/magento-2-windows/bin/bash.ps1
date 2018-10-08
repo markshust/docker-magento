@@ -1,1 +1,1 @@
-bin/cli bash
+docker-compose exec phpfpm bash

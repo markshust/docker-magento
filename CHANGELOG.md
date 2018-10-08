@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [18.0.1] - 2018-10-08
+
+### Fixed
+- Reverted old `bin/cli` usage and created `bin/clinotty` for non-tty sessions. Updated calls in `bin/setup` and other scripts where appropriate to `bin/clinotty`.
+
 ## [18.0.0] - 2018-10-06
 
 ### Changed
