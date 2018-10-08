@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [18.1.1] - 2018-10-08
+
+### Updated
+- Magento 2 nginx configuration now includes `nginx.conf.sample` file from root installation directory for configuration, instead of having standalone configuration.
+
 ## [18.0.1] - 2018-10-08
 
 ### Fixed
