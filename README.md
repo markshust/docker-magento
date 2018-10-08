@@ -6,7 +6,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.13
-      - [`latest`, `1.13`, `1.13-5`](https://github.com/markoshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`latest`, `1.13`, `1.13-6`](https://github.com/markoshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`1.13-5`](https://github.com/markoshust/docker-magento/tree/18.1.1/images/nginx/1.13)
       - [`1.13-4`](https://github.com/markoshust/docker-magento/tree/18.0.1/images/nginx/1.13)
       - [`1.13-3`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/nginx/1.13)
       - [`1.13-2`](https://github.com/markoshust/docker-magento/tree/12.0.0/images/nginx/1.13)
@@ -74,7 +75,7 @@ This configuration has been tested on Mac, Linux and Windows.
 Run this automated one-liner from the directory you want to install your project to:
 
 ```
-curl https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/onelinesetup|bash -s - mymagento.test 2.2.6
+curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/onelinesetup|bash -s - mymagento.test 2.2.6
 ```
 
 The `mymagento.test` above defines the hostname to use, and the `2.2.6` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
@@ -87,7 +88,7 @@ Same result as the one-liner above. Just replace `mymagento` references with the
 
 ```
 # Quick setup for a new instance of Magento 2, using magento226.test as a base:
-curl https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2
+curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2
 bin/download 2.2.6
 echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
 bin/start
@@ -98,7 +99,7 @@ open http://mymagento.test
 ## Setup a New Magento 2 Project
 
 1. Create the project template by going to the place you want the new project (ex. cd ~/Sites/magento2), then run
-	- `curl https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2`
+	- `curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2`
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with:
     - `bin/download 2.2.6`
@@ -120,7 +121,7 @@ open http://mymagento.test
 The following scripts are meant to run with Powershell. Note that the execution policy for scripts needs to be set accordingly [Execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-executionpolicy?view=powershell-6).
 
 1. Create the project template by going to the place you want the new project (ex. cd ~/Sites/magento2), then run
-	- `curl https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2-windows`
+	- `curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2-windows`
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with the following line. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available:
     - `bin/download 2.2.6`
@@ -172,7 +173,7 @@ First setup Magento Marketplace authentication (details in the [DevDocs](http://
 
 After doing so, copy the auth sample file to:
 
-- `cp ./src/auth.json.sample ./src/auth.json`
+- `cp src/auth.json.sample src/auth.json`
 
 Then update the username and password values with your Magento public and private keys, respectively.
 

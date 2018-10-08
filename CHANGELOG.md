@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [19.0.0] - 2018-10-08
+
+### Added
+- Added SSL support and made it enabled by default in the nginx config. All http requests will also be forwarded to https.
+
 ## [18.1.1] - 2018-10-08
 
 ### Updated
