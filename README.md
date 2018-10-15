@@ -89,10 +89,18 @@ Same result as the one-liner above. Just replace `mymagento` references with the
 ```
 # Quick setup for a new instance of Magento 2, using magento226.test as a base:
 curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2
+
 bin/download 2.2.6
+# or if you'd rather install with Composer, run:
+# rm -rf src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition src
+
 echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
+
 bin/start
+
 bin/setup mymagento.test
+
 open http://mymagento.test
 ```
 
