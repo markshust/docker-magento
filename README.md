@@ -82,7 +82,7 @@ The `mymagento.test` above defines the hostname to use, and the `2.2.6` defines 
 
 After the one-liner above completes running, you should be able to access your site at `http://mymagento.test`.
 
-### Manual Quick Setup
+### Manual Quick Setup (New Project)
 
 Same result as the one-liner above. Just replace `mymagento` references with the hostname that you wish to setup.
 
@@ -100,6 +100,23 @@ echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
 bin/start
 
 bin/setup mymagento.test
+
+open http://mymagento.test
+```
+
+### Manual Quick Setup (Existing Project)
+
+Just replace `mymagento.test` references with the hostname that you wish to use.
+
+```
+# Quick setup for an existing instance of Magento 2
+curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2
+
+# Replace the contents of /src with the source code of your existing Magento instance
+
+echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
+
+bin/start
 
 open http://mymagento.test
 ```
