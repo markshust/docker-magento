@@ -118,6 +118,8 @@ echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
 
 bin/start
 
+bin/composer install
+
 open http://mymagento.test
 ```
 
