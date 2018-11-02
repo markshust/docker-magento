@@ -212,7 +212,9 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 ### Xdebug & PHPStorm
 
-First, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
+First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PHPStorm from the list and click Save.
+
+Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
 
 Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
@@ -237,6 +239,6 @@ Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and creat
 - Set Port to `8000`
 - Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
 
-Create a new `PHP Remote Debug` configuration at `Run > Edit Configurations`. Set the Name to your domain (ex. `magento2.test`), then click OK.
+Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
-Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Xdebug within PHPStorm should now enable the debugger and stop at the toggled breakpoint.
+Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
