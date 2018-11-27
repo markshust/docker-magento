@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New PHP 7.2 image is now available on the dev tag. Please report any issues.
 
+## [20.0.0] - 2018-11-27
+
+### Added
+- Official support for Magento 2.3 & PHP 7.2. Officially tagging `7.2-fpm-0` php image.
+
+### Updated
+- Various updates to README, including references now being made to Magento 2.3.
+- Added comments to docker-compose for fixes needed on Linux machines (volume mounts and host.docker.internal fix).
+
+### Fixed
+- Volume mount issues on linux. Updated `bin/start` to ignore call to `bin/copydirall` when ran on Linux.
+
 ## [19.0.0] - 2018-10-08
 
 ### Added

@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
-# Version 19.0.0
+# Version 20.0.0
 
 version: "3"
 
@@ -16,6 +16,7 @@ services:
       - ./src:/var/www/html:delegated
       - ~/.composer:/var/www/.composer:delegated
       - appdata:/sock
+      # Linux only: uncomment the below volume mounts
       - appdata:/var/www/html/app
       - appdata:/var/www/html/bin
       - appdata:/var/www/html/dev
@@ -29,14 +30,18 @@ services:
       - appdata:/var/www/html/vendor
 
   phpfpm:
-    image: markoshust/magento-php:7.1-fpm-9
+    image: markoshust/magento-php:7.2-fpm-0
     links:
       - db
     volumes: *appvolumes
+    # Linux only: host.docker.internal doesn't exist https://github.com/docker/for-linux/issues/264
+    # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    #extra_hosts:
+    #  - "host.docker.internal:IP"
 
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
-  #  image: markoshust/magento-php:7.1-fpm-9
+  #  image: markoshust/magento-php:7.2-fpm-0
   #  user: root
   #  command: /usr/local/bin/cronstart
   #  tty: true

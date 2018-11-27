@@ -1,4 +1,23 @@
-Mark Shust's Docker Configuration for Magento
+<h1 align="center">markoshust/docker-magento</h1> 
+
+<div align="center">
+  <p>Mark Shust's Docker Configuration for Magento</p>
+  <img src="https://img.shields.io/badge/magento-1.X%20|%202.X-brightgreen.svg?logo=magento&longCache=true&style=flat-square" alt="Supported Magento Versions" />
+  <a href="https://hub.docker.com/r/markoshust/magento-nginx/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-nginx.svg?label=nginx%20docker%20pulls" alt="Docker Hub Pulls - Nginx" /></a>
+  <a href="https://hub.docker.com/r/markoshust/magento-php/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-php.svg?label=php%20docker%20pulls" alt="Docker Hub Pulls - PHP" /></a>
+  <a href="https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity" target="_blank"><img src="https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square" alt="Maintained - Yes" /></a>
+  <a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+</div>
+
+## Table of contents
+
+- [Docker Hub](#docker-hub)
+- [Usage](#usage)
+- [Prerequisites](#prerequisites)
+- [Quick Setup](#quick-setup)
+- [Custom CLI Commands](#custom-cli-comamnds)
+- [Misc Info](#misc-info)
+- [License](#license)
 
 ## Docker Hub
 
@@ -15,9 +34,9 @@ View Dockerfiles:
       - [`1.13-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - 7.2
-      - [`dev`, `7.2-fpm`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
+      - [`latest`, `7.2-fpm`, `7.2-fpm-0`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.2)
   - 7.1
-      - [`latest`, `7.1-fpm`, `7.1-fpm-9`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm`, `7.1-fpm-9`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.1)
       - [`7.1-fpm-8`](https://github.com/markoshust/docker-magento/tree/17.0.1/images/php/7.1)
       - [`7.1-fpm-7`](https://github.com/markoshust/docker-magento/tree/16.2.0/images/php/7.1)
       - [`7.1-fpm-6`](https://github.com/markoshust/docker-magento/tree/16.0.0/images/php/7.1)
@@ -62,38 +81,46 @@ The PHP images are fairly agnostic to which version of Magento you are running. 
 
 ## Prerequisites
 
-This setup assumes you are running Docker on a computer with at least 8GB RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Community Edition](https://www.docker.com/community-edition#/download).
+This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Community Edition](https://www.docker.com/community-edition#/download).
 
 This configuration has been tested on Mac, Linux and Windows.
 
-## Automated One Line Setup & Quick Setup (NEW!)
+## Quick Setup
 
-### One Line Setup
+### Automated Setup (New Project)
 
 > Magento 2, OS X & Linux Only
 
 Run this automated one-liner from the directory you want to install your project to:
 
 ```
-curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/onelinesetup|bash -s -- mymagento.test 2.2.6
+curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/onelinesetup|bash -s -- mymagento.test 2.3.0
 ```
 
-The `mymagento.test` above defines the hostname to use, and the `2.2.6` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `mymagento.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `http://mymagento.test`.
 
-### Manual Quick Setup (New Project)
+### Manual Setup (New Project)
 
 Same result as the one-liner above. Just replace `mymagento` references with the hostname that you wish to setup.
 
 ```
-# Quick setup for a new instance of Magento 2, using magento226.test as a base:
+# Quick setup for a new instance of Magento 2, using magento230.test as a base:
 curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2
 
-bin/download 2.2.6
+bin/download 2.3.0
 # or if you'd rather install with Composer, run:
+#
+# OPEN SOURCE:
+#
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.3.0 src
+#
+# COMMERCE:
+#
+# rm -rf src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.0 src
 
 echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
 
@@ -104,7 +131,7 @@ bin/setup mymagento.test
 open http://mymagento.test
 ```
 
-### Manual Quick Setup (Existing Project)
+### Manual Setup (Existing Project)
 
 Just replace `mymagento.test` references with the hostname that you wish to use.
 
@@ -129,10 +156,10 @@ open http://mymagento.test
 	- `curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2`
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with:
-    - `bin/download 2.2.6`
+    - `bin/download 2.3.0`
 
 3. Add an entry to your local hosts file with your custom domain. Assuming the domain you want to setup is `magento2.test`, enter the below. Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
-    - `echo "127.0.0.1 magento226.test" | sudo tee -a /etc/hosts`
+    - `echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts`
 
 4. Start your Docker containers with the provided helper script:
     - `bin/start`
@@ -151,7 +178,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 	- `curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2-windows`
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with the following line. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available:
-    - `bin/download 2.2.6`
+    - `bin/download 2.3.0`
 
 3. Copy magento into the docker container with `bin/copymagento`. This is needed because of permission restrictions of shared data in Windows (see [Troubleshooting Docker](https://docs.docker.com/docker-for-windows/troubleshoot/#permissions-errors-on-data-directories-for-shared-volumes)). The `app` folder will however be shared with Windows for ease of development. For this folder the default permission 755 works just fine.
 
@@ -174,7 +201,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copydir`: Copy a directory from the container to the host. Ex. `bin/copydir vendor`
 - `bin/copydirall`: Copy all Magento directories from the container to the host. Ex. `bin/copydirall`
-- `bin/download`: Download a version of Magento to the `src` directory. Ex. `bin/download 2.2.2`
+- `bin/download`: Download a version of Magento to the `src` directory. Ex. `bin/download 2.3.0`
 - `bin/fixperms`: This will fix filesystem ownerships and permissions within Docker.
 - `bin/grunt`: Run the grunt binary. Note that this runs the version from the node_modules directory for project version parity. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
@@ -183,7 +210,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 - `bin/remove`: Remove all containers. Ex. `bin/remove`
 - `bin/restart`: Stop and then start all containers. Ex. `bin/restart`
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
-- `bin/setup`: Run the Magento setup process to install Magento from the source code. Ex. `bin/setup`
+- `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional version number. Ex. `bin/setup 2.3.0`
 - `bin/start`: Start all containers. This includes helper for bi-directional file sync, so be sure to use this instead of `docker-compose up -d`. Ex. `bin/start`
 - `bin/stop`: Stop all containers. Ex. `bin/stop`
 - `bin/xdebug`: Disable or enable Xdebug. Ex. `bin/xdebug enable`
@@ -219,7 +246,7 @@ Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, th
 Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
 - `CLI Interpreter`:
-  - Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-1-fpm`.
+  - Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
   - Choose `Docker`, then select the `markoshust/magento-php:7-1-fpm` image name, and set the `PHP Executable` to `php`.
 
 - `Path mappings`:
@@ -242,3 +269,7 @@ Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and creat
 Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
 Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
