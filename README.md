@@ -210,7 +210,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 - `bin/remove`: Remove all containers. Ex. `bin/remove`
 - `bin/restart`: Stop and then start all containers. Ex. `bin/restart`
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
-- `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional version number. Ex. `bin/setup 2.3.0`
+- `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
 - `bin/start`: Start all containers. This includes helper for bi-directional file sync, so be sure to use this instead of `docker-compose up -d`. Ex. `bin/start`
 - `bin/stop`: Stop all containers. Ex. `bin/stop`
 - `bin/xdebug`: Disable or enable Xdebug. Ex. `bin/xdebug enable`
