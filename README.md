@@ -15,7 +15,7 @@
 - [Usage](#usage)
 - [Prerequisites](#prerequisites)
 - [Quick Setup](#quick-setup)
-- [Custom CLI Commands](#custom-cli-comamnds)
+- [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
 - [License](#license)
 
