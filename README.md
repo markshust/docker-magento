@@ -94,19 +94,19 @@ This configuration has been tested on Mac, Linux and Windows.
 Run this automated one-liner from the directory you want to install your project to:
 
 ```
-curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/onelinesetup|bash -s -- mymagento.test 2.3.0
+curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/onelinesetup|bash -s -- magento2.test 2.3.0
 ```
 
-The `mymagento.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento2.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
-After the one-liner above completes running, you should be able to access your site at `http://mymagento.test`.
+After the one-liner above completes running, you should be able to access your site at `http://magento2.test`.
 
 ### Manual Setup (New Project)
 
-Same result as the one-liner above. Just replace `mymagento` references with the hostname that you wish to setup.
+Same result as the one-liner above. Just replace `magento2` references with the hostname that you wish to setup.
 
 ```
-# Quick setup for a new instance of Magento 2, using magento230.test as a base:
+# Quick setup for a new instance of Magento 2, using magento2.test as a base:
 curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2
 
 bin/download 2.3.0
@@ -122,18 +122,18 @@ bin/download 2.3.0
 # rm -rf src
 # composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.0 src
 
-echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
+echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 
 bin/start
 
-bin/setup mymagento.test
+bin/setup magento2.test
 
-open http://mymagento.test
+open http://magento2.test
 ```
 
 ### Manual Setup (Existing Project)
 
-Just replace `mymagento.test` references with the hostname that you wish to use.
+Just replace `magento2.test` references with the hostname that you wish to use.
 
 ```
 # Quick setup for an existing instance of Magento 2
@@ -141,13 +141,13 @@ curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/t
 
 # Replace the contents of /src with the source code of your existing Magento instance
 
-echo "127.0.0.1 mymagento.test" | sudo tee -a /etc/hosts
+echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 
 bin/start
 
 bin/composer install
 
-open http://mymagento.test
+open http://magento2.test
 ```
 
 ## Setup a New Magento 2 Project
@@ -165,7 +165,7 @@ open http://mymagento.test
     - `bin/start`
 
 5. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 3. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
-    - `bin/setup`
+    - `bin/setup magento2.test`
 
 6. You may now access your site! Check out whatever domain you setup from within a web browser.
     - `open http://magento2.test`
@@ -188,7 +188,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
     - `bin/start`
 
 6. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 4. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
-    - `bin/setup`
+    - `bin/setup magento2.test`
 
 7. You may now access your site! Check out whatever domain you setup from within a web browser.
     - `open http://magento2.test`
