@@ -219,7 +219,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 
 ### Database
 
-- The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container.
+- The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
 
 ### Composer Authentication
 
