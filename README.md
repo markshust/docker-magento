@@ -103,10 +103,10 @@ After the one-liner above completes running, you should be able to access your s
 
 ### Manual Setup (New Project)
 
-Same result as the one-liner above. Just replace `magento2` references with the hostname that you wish to setup.
+Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to setup.
 
 ```
-# Quick setup for a new instance of Magento 2, using magento2.test as a base:
+# Quick setup for a new instance of Magento 2:
 curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2
 
 bin/download 2.3.0
@@ -247,7 +247,7 @@ Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure
 
 - `CLI Interpreter`:
   - Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
-  - Choose `Docker`, then select the `markoshust/magento-php:7-1-fpm` image name, and set the `PHP Executable` to `php`.
+  - Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
 
 - `Path mappings`:
   - Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
