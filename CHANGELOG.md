@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- New PHP 7.2 image is now available on the dev tag. Please report any issues.
+- N/A
+
+## [20.1.0] - 2018-12-03
+
+### Added
+- Official support for Elasticsearch. Go to Admin > Stores > Configuration > Catalog > Catalog > Catalog Search, and select "Elasticsarch 5.0+" from the list of options. Keep all defaults the same, but set Elasticsearch Server Hostname to `elasticsearch`. Save, clear the cache, and run `bin/magento indexer:reindex` to enable.
 
 ## [20.0.0] - 2018-11-27
 
