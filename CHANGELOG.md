@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [20.1.1] - 2018-12-10
+
+### Fixed
+- Fixed typo in docker-compose.yml for linux
+
 ## [20.1.0] - 2018-12-03
 
 ### Added
