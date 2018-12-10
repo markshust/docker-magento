@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
-# Version 20.1.0
+# Version 20.1.1
 
 version: "3"
 
@@ -16,7 +16,7 @@ services:
       - ./src:/var/www/html:delegated
       - ~/.composer:/var/www/.composer:delegated
       - appdata:/sock
-      # Linux only: uncomment the below volume mounts
+      # Linux only: comment the below volume mounts
       - appdata:/var/www/html/app
       - appdata:/var/www/html/bin
       - appdata:/var/www/html/dev
