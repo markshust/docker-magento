@@ -1,8 +1,2 @@
 #!/bin/bash
-docker-compose up -d
-
-if [[ "$OSTYPE" != "linux-gnu" ]]; then
-  echo "Initiating bi-directional sync between host & containers..."
-  bin/copydirall
-  echo "All containers have started successfully."
-fi
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d

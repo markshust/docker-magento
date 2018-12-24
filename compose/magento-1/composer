@@ -1,3 +1,0 @@
-#!/bin/bash
-[ -z "$1" ] && echo "Please specify a composer command (ex. install)" && exit
-docker-compose exec phpfpm composer "$@"
