@@ -8,6 +8,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [21.0.0] - 2018-12-24
+
+🎅 Santa Shust wishes you a very Merry Christmas!
+
+### Changed
+- 💯 performance improvements (14 second load times now take 7 seconds!)
+  - The `bin/start` helper script no longer copies docker volumes introduced in version 18.0.0. The `docker-compose.yml` setup has been updated to only reference native Docker volumes. A new `docker-compose.dev.yml` file has been added to reference development-specific settings, including host bind mounts. Only `.composer`, `app/code`, `app/design`, `app/etc`, `composer.json`, `composer.lock`, and `nginx.conf` filesystem locations are host bind mounted. Being very specific in which files and folders are being mounted leads to drastically faster response times. The main culprit in performance penalties before was mounting `generated` and `var` folders as host bind mounts. These directories are considered "caching" folders and should never be host bind mounted.
+  - If you need access to specific files that are created within the container and are not host bind mounted, you can use `bin/cli` or `bin/bash` commands to go into the container to access the files. You can also use the new `bin/copyfromcontainer` and `bin/copytocontainer` bin helper scripts to copy files & folders from or to containers.
+  - If you need to host bind mount files or folders, feel free to do so within the `docker-compose.dev.yml` file! Just be aware there is a performance penalty for doing so.
+- Updated `nginx` Docker image to look for `nginx.conf` file instead of `nginx.conf.sample` file. This will now require copying the `nginx.conf.sample` file to `nginx.conf`, or using a host bind mount. This location allows overrides that aren't overridden when you upgrade Magento, and allow customizations for projects. Tagged new image as `markoshust/magento-nginx:1.13-7`.
+- The `bin/setup` helper script uses ohly the `docker-compose.yml` file, with only native docker volume mounts.
+- The `bin/start` helper script uses both `docker-compose.yml` and `docker-compose.dev.yml` files. Development-only specifications should now be placed within `docker-compose.dev.yml`, such as host bind volume mounts.
+- The `docker-compose.yml` file now uses a `sockdata` volume mount to mount the `/sock` directory. You may need to delete the `appdata` volume mount (`docker volume rm NAME`) and rebuild it with `bin/copytocontainer --all`.
+- Removed call to `bin/fixperms` within `bin/setup` to speed up initial installation.
+
+### Added
+- Added `bin/copyfromcontainer` and `bin/copytocontainer` helper scripts to copy folders or files from or to containers. Specify the `--all` option to copy entire web directory structure.
+- Added `bin/rootnotty` to run root commands with no TTY (needed for unassisted one-line setup with new volume setup).
+- Added `bin/fixowns` to fix filesystem ownerships within the Docker container.
+- Added `docker-compose.dev.yml` file for development-only specifications.
+
+### Removed
+- The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markoshust/docker-magento/tree/master/compose/magento-1), but please be aware these images are no longer maintained.
+- The PHP 5.6 and 7.0 images have been deprecated, as both of these versions have reached end-of-life. These versions have been removed from the README and are no longer maintained. If you still wish to use these images, please reference the [README on tag 20.1.1](https://github.com/markoshust/docker-magento/blob/master/README.md), but please be aware these images are no longer maintained.
+- Removed `bin/copydir` and `bin/copydirall` helper scripts.
+
 ## [20.1.1] - 2018-12-10
 
 ### Fixed

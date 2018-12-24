@@ -2,7 +2,7 @@
 
 <div align="center">
   <p>Mark Shust's Docker Configuration for Magento</p>
-  <img src="https://img.shields.io/badge/magento-1.X%20|%202.X-brightgreen.svg?logo=magento&longCache=true&style=flat-square" alt="Supported Magento Versions" />
+  <img src="https://img.shields.io/badge/magento-2.X-brightgreen.svg?logo=magento&longCache=true&style=flat-square" alt="Supported Magento Versions" />
   <a href="https://hub.docker.com/r/markoshust/magento-nginx/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-nginx.svg?label=nginx%20docker%20pulls" alt="Docker Hub Pulls - Nginx" /></a>
   <a href="https://hub.docker.com/r/markoshust/magento-php/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-php.svg?label=php%20docker%20pulls" alt="Docker Hub Pulls - PHP" /></a>
   <a href="https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity" target="_blank"><img src="https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square" alt="Maintained - Yes" /></a>
@@ -25,7 +25,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.13
-      - [`latest`, `1.13`, `1.13-6`](https://github.com/markoshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`latest`, `1.13`, `1.13-7`](https://github.com/markoshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`1.13-6`](https://github.com/markoshust/docker-magento/tree/20.1.1/images/nginx/1.13)
       - [`1.13-5`](https://github.com/markoshust/docker-magento/tree/18.1.1/images/nginx/1.13)
       - [`1.13-4`](https://github.com/markoshust/docker-magento/tree/18.0.1/images/nginx/1.13)
       - [`1.13-3`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/nginx/1.13)
@@ -46,50 +47,31 @@ View Dockerfiles:
       - [`7.1-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/7.1)
       - [`7.1-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.1)
       - [`7.1-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.1)
-  - 7.0
-      - [`7.0-fpm`, `7.0-fpm-9`](https://github.com/markoshust/docker-magento/tree/master/images/php/7.0)
-      - [`7.0-fpm-8`](https://github.com/markoshust/docker-magento/tree/17.0.1/images/php/7.0)
-      - [`7.0-fpm-7`](https://github.com/markoshust/docker-magento/tree/16.2.0/images/php/7.0)
-      - [`7.0-fpm-6`](https://github.com/markoshust/docker-magento/tree/16.0.0/images/php/7.0)
-      - [`7.0-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/7.0)
-      - [`7.0-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/7.0)
-      - [`7.0-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/7.0)
-      - [`7.0-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/7.0)
-      - [`7.0-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/7.0)
-      - [`7.0-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/7.0)
-  - 5.6
-      - [`5.6-fpm`, `5.6-fpm-6`](https://github.com/markoshust/docker-magento/tree/master/images/php/5.6)
-      - [`5.6-fpm-5`](https://github.com/markoshust/docker-magento/tree/15.0.1/images/php/5.6)
-      - [`5.6-fpm-4`](https://github.com/markoshust/docker-magento/tree/15.0.0/images/php/5.6)
-      - [`5.6-fpm-3`](https://github.com/markoshust/docker-magento/tree/14.0.1/images/php/5.6)
-      - [`5.6-fpm-2`](https://github.com/markoshust/docker-magento/tree/13.0.0/images/php/5.6)
-      - [`5.6-fpm-1`](https://github.com/markoshust/docker-magento/tree/11.1.5/images/php/5.6)
-      - [`5.6-fpm-0`](https://github.com/markoshust/docker-magento/tree/11.0.0/images/php/5.6)
 
 ## Usage
 
-This configuration is intended to be used as a Docker-based development environment for both Magento 1 and Magento 2.
+This configuration is intended to be used as a Docker-based development environment for Magento 2.
 
 Folders:
 
 - `images`: Docker images for nginx and php
 - `compose`: sample setups with Docker Compose
 
-Nginx assumes you are running Magento 2, however you can easily run it with Magento 1 using [the provided configuration file](https://github.com/markoshust/docker-magento/blob/master/images/nginx/1.13/conf/default.magento1.conf). Here is an [example of this setup with Docker Compose](https://github.com/markoshust/docker-magento/tree/master/compose/magento-1).
-
-The PHP images are fairly agnostic to which version of Magento you are running. The PHP 5 images do assume you are running Magento 1, and the PHP 7 images do assume you are running Magento 2, however the main difference is cronjob setup, and they can be easily modified for inverse usage.
+> The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markoshust/docker-magento/tree/master/compose/magento-1), but please be aware these images are no longer maintained.
 
 ## Prerequisites
 
 This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Community Edition](https://www.docker.com/community-edition#/download).
 
-This configuration has been tested on Mac, Linux and Windows.
+This configuration has been tested on Mac & Linux.
+
+> **Windows Configurations**: The Windows configuration does not currently work and is in need of a contributor to get functional once again. Please see [issue 100](https://github.com/markoshust/docker-magento/issues/100) to contribute.
 
 ## Quick Setup
 
 ### Automated Setup (New Project)
 
-> Magento 2, OS X & Linux Only
+> macOS & Linux Only
 
 Run this automated one-liner from the directory you want to install your project to:
 
@@ -99,17 +81,19 @@ curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/o
 
 The `magento2.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
-After the one-liner above completes running, you should be able to access your site at `http://magento2.test`.
+After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
 
-### Manual Setup (New Project)
+### Manual Setup
 
-Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to setup.
+Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to use.
 
 ```
 # Quick setup for a new instance of Magento 2:
 curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2
 
+# New projects can easily download by version:
 bin/download 2.3.0
+
 # or if you'd rather install with Composer, run:
 #
 # OPEN SOURCE:
@@ -122,87 +106,34 @@ bin/download 2.3.0
 # rm -rf src
 # composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.0 src
 
+# Existing projects, instead of running the above replace the contents of /src with the source code of your existing Magento instance
+
 echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 
-bin/start
-
+# For new setups:
 bin/setup magento2.test
 
-open http://magento2.test
+# For existing installations:
+# bin/start
+# bin/composer install
+
+open https://magento2.test
 ```
 
-### Manual Setup (Existing Project)
-
-Just replace `magento2.test` references with the hostname that you wish to use.
-
-```
-# Quick setup for an existing instance of Magento 2
-curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2
-
-# Replace the contents of /src with the source code of your existing Magento instance
-
-echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
-
-bin/start
-
-bin/composer install
-
-open http://magento2.test
-```
-
-## Setup a New Magento 2 Project
-
-1. Create the project template by going to the place you want the new project (ex. cd ~/Sites/magento2), then run
-	- `curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2`
-
-2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with:
-    - `bin/download 2.3.0`
-
-3. Add an entry to your local hosts file with your custom domain. Assuming the domain you want to setup is `magento2.test`, enter the below. Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
-    - `echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts`
-
-4. Start your Docker containers with the provided helper script:
-    - `bin/start`
-
-5. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 3. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
-    - `bin/setup magento2.test`
-
-6. You may now access your site! Check out whatever domain you setup from within a web browser.
-    - `open http://magento2.test`
-
-## Setup a New Magento 2 Project (Windows)
-
-The following scripts are meant to run with Powershell. Note that the execution policy for scripts needs to be set accordingly [Execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-executionpolicy?view=powershell-6).
-
-1. Create the project template by going to the place you want the new project (ex. cd ~/Sites/magento2), then run
-	- `curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s -- magento-2-windows`
-
-2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with the following line. Note that the default untar command is quite slow. If you want to speed that up install [7-Zip](http://www.7-zip.org/) and add it to your PATH. The script will automatically use 7-Zip if it is available:
-    - `bin/download 2.3.0`
-
-3. Copy magento into the docker container with `bin/copymagento`. This is needed because of permission restrictions of shared data in Windows (see [Troubleshooting Docker](https://docs.docker.com/docker-for-windows/troubleshoot/#permissions-errors-on-data-directories-for-shared-volumes)). The `app` folder will however be shared with Windows for ease of development. For this folder the default permission 755 works just fine.
-
-4. Add an entry to `C:\Windows\System32\drivers\etc\hosts` with your custom domain: `127.0.0.1 magento2.test` (assuming the domain  you want to setup is `magento2.test`). Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
-
-5. Start your Docker containers with the provided helper script:
-    - `bin/start`
-
-6. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 4. Also, be sure to setup [Composer Authentication](https://github.com/markoshust/docker-magento#composer-authentication) before initiating the setup script.
-    - `bin/setup magento2.test`
-
-7. You may now access your site! Check out whatever domain you setup from within a web browser.
-    - `open http://magento2.test`
+> For more details on how everything works, see the extended [setup readme](https://github.com/markoshust/docker-magento/blob/master/SETUP.md).
 
 ## Custom CLI Commands
 
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
+- `bin/clinotty`: Run any CLI command with no TTY. Ex. `bin/clinotty chmod u+x bin/magento`
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
-- `bin/copydir`: Copy a directory from the container to the host. Ex. `bin/copydir vendor`
-- `bin/copydirall`: Copy all Magento directories from the container to the host. Ex. `bin/copydirall`
-- `bin/download`: Download a version of Magento to the `src` directory. Ex. `bin/download 2.3.0`
-- `bin/fixperms`: This will fix filesystem ownerships and permissions within Docker.
+- `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
+- `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
+- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.0`
+- `bin/fixowns`: This will fix filesystem ownerships within the container.
+- `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Note that this runs the version from the node_modules directory for project version parity. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
@@ -210,6 +141,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 - `bin/remove`: Remove all containers. Ex. `bin/remove`
 - `bin/restart`: Stop and then start all containers. Ex. `bin/restart`
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
+- `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
 - `bin/start`: Start all containers. This includes helper for bi-directional file sync, so be sure to use this instead of `docker-compose up -d`. Ex. `bin/start`
 - `bin/stop`: Stop all containers. Ex. `bin/stop`
@@ -219,7 +151,7 @@ The following scripts are meant to run with Powershell. Note that the execution 
 
 ### Database
 
-- The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
+The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
 
 ### Composer Authentication
 

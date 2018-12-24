@@ -1,4 +1,13 @@
 #!/bin/bash
+bin/stop
+
+docker-compose -f docker-compose.yml up -d
+
+echo "Copying all files from host to container..."
+bin/copytocontainer --all
+
+bin/fixowns
+
 bin/clinotty chmod u+x bin/magento
 
 BASE_URL=${1:-magento2.test}
@@ -19,9 +28,14 @@ bin/clinotty bin/magento setup:install \
   --timezone=America/New_York \
   --use-rewrites=1
 
-bin/fixperms
-
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
 
 bin/clinotty bin/magento indexer:reindex
+
+bin/copyfromcontainer app
+
+echo "Restarting containers with host bind mounts..."
+bin/restart
+
+echo "Docker development environment setup complete."

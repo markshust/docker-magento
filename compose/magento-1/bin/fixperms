@@ -1,8 +1,0 @@
-#!/bin/bash
-echo "Correcting filesystem permissions..."
-
-bin/cli find media var -type f -exec chmod u+w {} \;
-bin/cli find media var -type d -exec chmod u+w {} \;
-bin/cli chmod u+x mage
-
-echo "Filesystem permissions corrected."
