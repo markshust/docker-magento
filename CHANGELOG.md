@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [21.1.0] - 2018-12-26
+
+### Added
+- Helper script `bin/removevolumes` to remove docker volumes easily.
+- Added removal of `vendor` folder and force of composer install to `bin/setup` script. When installed from zip, it's possible Magento isn't installing all deps properly and assigning wrong permissions in Docker. Forcing a reinstall fixes this issue.
+- Force deploy of static content when running `bin/setup` to speed up initial requests.
+
+### Fixed
+- Fixed helper script `bin/dev-urn-catalog-generate` to copy file to host.
+
 ## [21.0.0] - 2018-12-24
 
 🎅 Santa Shust wishes you a very Merry Christmas!
