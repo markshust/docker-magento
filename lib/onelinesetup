@@ -4,5 +4,8 @@ VERSION=${2:-2.3.0}
 
 curl -s https://raw.githubusercontent.com/markoshust/docker-magento/master/lib/template|bash -s - magento-2
 bin/download $VERSION
+
+echo "Your system password has been requested to add an entry to /etc/hosts..."
 echo "127.0.0.1 $DOMAIN" | sudo tee -a /etc/hosts
+
 bin/setup $DOMAIN

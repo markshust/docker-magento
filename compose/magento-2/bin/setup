@@ -2,8 +2,10 @@
 bin/stop
 
 docker-compose -f docker-compose.yml up -d
+sleep 1 #Ensure containers are started...
 
 echo "Copying all files from host to container..."
+rm -rf src/vendor #Clear for step below
 bin/copytocontainer --all
 
 bin/fixowns
@@ -11,6 +13,9 @@ bin/fixowns
 bin/clinotty chmod u+x bin/magento
 
 BASE_URL=${1:-magento2.test}
+
+echo "Forcing reinstall of composer deps to ensure perms & reqs..."
+bin/clinotty composer install
 
 bin/clinotty bin/magento setup:install \
   --db-host=db \
@@ -33,9 +38,17 @@ bin/clinotty bin/magento deploy:mode:set developer
 
 bin/clinotty bin/magento indexer:reindex
 
-bin/copyfromcontainer app
+echo "Forcing deploy of static content to speed up initial requests..."
+bin/clinotty bin/magento setup:static-content:deploy -f 
 
-echo "Restarting containers with host bind mounts..."
+echo "Clearing the cache for good measure..."
+bin/clinotty bin/magento cache:flush
+
+echo "Copying files from container to host after install..."
+bin/copyfromcontainer app
+bin/copyfromcontainer vendor
+
+echo "Restarting containers with host bind mounts for dev..."
 bin/restart
 
 echo "Docker development environment setup complete."
