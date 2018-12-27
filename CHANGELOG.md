@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [21.1.1] - 2018-12-27
+
+### Fixed
+- Helper script `bin/copytocontainer` now calls `bin/fixowns` afterwards to ensure correct file ownerships are set.
+
 ## [21.1.0] - 2018-12-26
 
 ### Added

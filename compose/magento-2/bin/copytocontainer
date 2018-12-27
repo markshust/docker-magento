@@ -8,3 +8,5 @@ else
   docker cp src/$1 $(docker-compose ps|grep phpfpm|awk '{print $1}'):/var/www/html/
   echo "Completed copying $1 from host to container"
 fi
+
+bin/fixowns
