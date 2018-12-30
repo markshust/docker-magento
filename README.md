@@ -57,7 +57,7 @@ Folders:
 - `images`: Docker images for nginx and php
 - `compose`: sample setups with Docker Compose
 
-> The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markoshust/docker-magento/tree/master/compose/magento-1), but please be aware these images are no longer maintained.
+> The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markoshust/docker-magento/tree/20.1.1/compose/magento-1), but please be aware these images are no longer maintained.
 
 ## Prerequisites
 
