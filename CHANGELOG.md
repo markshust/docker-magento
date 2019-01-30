@@ -45,8 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `docker-compose.dev.yml` file for development-only specifications.
 
 ### Removed
-- The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markoshust/docker-magento/tree/master/compose/magento-1), but please be aware these images are no longer maintained.
-- The PHP 5.6 and 7.0 images have been deprecated, as both of these versions have reached end-of-life. These versions have been removed from the README and are no longer maintained. If you still wish to use these images, please reference the [README on tag 20.1.1](https://github.com/markoshust/docker-magento/blob/master/README.md), but please be aware these images are no longer maintained.
+- The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markshust/docker-magento/tree/master/compose/magento-1), but please be aware these images are no longer maintained.
+- The PHP 5.6 and 7.0 images have been deprecated, as both of these versions have reached end-of-life. These versions have been removed from the README and are no longer maintained. If you still wish to use these images, please reference the [README on tag 20.1.1](https://github.com/markshust/docker-magento/blob/master/README.md), but please be aware these images are no longer maintained.
 - Removed `bin/copydir` and `bin/copydirall` helper scripts.
 
 ## [20.1.1] - 2018-12-10
