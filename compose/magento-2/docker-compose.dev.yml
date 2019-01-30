@@ -1,4 +1,4 @@
-# Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
+# Mark Shust's Docker Configuration for Magento (https://github.com/markshust/docker-magento)
 # Version 21.1.1
 
 version: "3"
