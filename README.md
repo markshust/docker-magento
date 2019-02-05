@@ -158,7 +158,9 @@ The hostname of each service is the name of the service within the `docker-compo
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
-After doing so, copy the auth sample file to:
+After doing so, copy `src/auth.json.sample` to `~/.composer/auth.json`. Then update the username and password values with your Magento public and private keys, respectively. The entire `~/.composer` directory is remotely mounted to the container, so Composer will automatically see your keys to authenticate.
+
+The other option is copy `src/auth.json.sample` to `src/auth.json`. Then, update your 
 
 - `cp src/auth.json.sample src/auth.json`
 
