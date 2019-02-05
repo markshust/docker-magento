@@ -160,11 +160,9 @@ First setup Magento Marketplace authentication (details in the [DevDocs](http://
 
 After doing so, copy `src/auth.json.sample` to `~/.composer/auth.json`. Then update the username and password values with your Magento public and private keys, respectively. The entire `~/.composer` directory is remotely mounted to the container, so Composer will automatically see your keys to authenticate.
 
-The other option is copy `src/auth.json.sample` to `src/auth.json`. Then, update your 
+The other option is copy `src/auth.json.sample` to `src/auth.json`. Then, uncomment the following line in `docker-compose.dev.yml` so it reads:
 
-- `cp src/auth.json.sample src/auth.json`
-
-Then update the username and password values with your Magento public and private keys, respectively.
+`- ./src/auth.json:/var/www/html/auth.json:delegated`
 
 ### Xdebug & VS Code
 
