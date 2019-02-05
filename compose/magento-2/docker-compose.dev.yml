@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markshust/docker-magento)
-# Version 21.1.1
+# Version 21.1.2
 
 version: "3"
 
@@ -7,7 +7,7 @@ services:
   app:
     volumes: &appvolumes
       # Host mounts with performance penalty, only put what is necessary here
-      - ~/.composer:/var/www/.composer:delegated
+      #- ./src/auth.json:/var/www/html/auth.json:delegated
       - ./src/app/code:/var/www/html/app/code:delegated
       - ./src/app/design:/var/www/html/app/design:delegated
       - ./src/app/etc:/var/www/html/app/etc:delegated
