@@ -8,8 +8,6 @@ echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
 bin/copytocontainer --all
 
-bin/fixowns
-
 bin/clinotty chmod u+x bin/magento
 
 BASE_URL=${1:-magento2.test}
