@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markshust/docker-magento)
-# Version 21.1.2
+# Version 21.2.0
 
 version: "3"
 
@@ -30,6 +30,9 @@ services:
     env_file: env/db.env
     volumes:
       - dbdata:/var/lib/mysql
+
+  redis:
+    image: redis:5.0
 
   elasticsearch:
     image: elasticsearch:5.6
