@@ -211,7 +211,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
 
     * Set Name and Host to your domain name (ex. `magento2.test`)
-    * Set Port to `8000`
+    * Keep port set to `80`
     * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
 
 7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
