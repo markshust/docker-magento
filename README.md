@@ -138,6 +138,7 @@ open https://magento2.test
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
+- `bin/redis`: Run a command from the redis container. Ex `bin/redis redis-cli monitor`
 - `bin/remove`: Remove all containers.
 - `bin/removevolumes`: Remove all volumes.
 - `bin/restart`: Stop and then start all containers.
@@ -158,11 +159,25 @@ The hostname of each service is the name of the service within the `docker-compo
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
-After doing so, copy `src/auth.json.sample` to `~/.composer/auth.json`. Then update the username and password values with your Magento public and private keys, respectively. The entire `~/.composer` directory is remotely mounted to the container, so Composer will automatically see your keys to authenticate.
+Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
 
-The other option is copy `src/auth.json.sample` to `src/auth.json`. Then, uncomment the following line in `docker-compose.dev.yml` so it reads:
+### Redis
 
-`- ./src/auth.json:/var/www/html/auth.json:delegated`
+Redis is now the default cache and session storage engine, and is automatically configured & enabled when running `bin/setup` on new installs.
+
+Use the following lines to enable Redis on existing installs:
+
+**Enable for Cache:**
+
+`bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0`
+
+**Enable for Session:**
+
+`bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=1`
+
+You may also monitor Redis by running: `bin/redis redis-cli monitor`
+
+For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.3/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
 
 ### Xdebug & VS Code
 

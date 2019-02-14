@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [22.0.0] - 2018-02-14
+
+### Added
+- Host bind mount `var/log` folder in `docker-compose.dev.yml` for debugging purposes.
+- Redis is now the default storage engine for cache and session. Massively improved performance for local dev! 🚀
+- Added commented-out line in `docker-compose.dev.yml` file to easily mount `auth.json` file, with updated usage in README
+
+### Fixed
+- Cron not working correctly
+
 ## [21.1.2] - 2018-02-04
 
 ### Fixed
