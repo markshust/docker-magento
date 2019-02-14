@@ -1,4 +1,6 @@
 #!/bin/bash
+BASE_URL=${1:-magento2.test}
+
 bin/stop
 
 docker-compose -f docker-compose.yml up -d
@@ -9,8 +11,6 @@ rm -rf src/vendor #Clear for step below
 bin/copytocontainer --all
 
 bin/clinotty chmod u+x bin/magento
-
-BASE_URL=${1:-magento2.test}
 
 echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer install
@@ -50,3 +50,4 @@ echo "Restarting containers with host bind mounts for dev..."
 bin/restart
 
 echo "Docker development environment setup complete."
+echo "You may now access your Magento instance at https://${BASE_URL}/"
