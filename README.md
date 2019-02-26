@@ -155,6 +155,12 @@ open https://magento2.test
 
 The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
 
+Here's an example of how to connect to the MySQL cli tool of the Docker instance:
+
+```
+bin/cli mysql -h db -umagento -pmagento magento
+```
+
 ### Composer Authentication
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
