@@ -1,0 +1,3 @@
+#!/bin/bash
+[ -z "$1" ] && echo "Please specify a varnish command (ex. varnishstat)" && exit
+docker-compose exec varnish "$@"

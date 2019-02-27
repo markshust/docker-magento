@@ -1,14 +1,38 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markshust/docker-magento)
-# Version 22.0.0
+# Version 23.0.0
 
 version: "3"
 
 services:
-  app:
-    image: markoshust/magento-nginx:1.13-7
+  proxy:
+    #image: markoshust/magento-proxy:1.13-0
+    image: willemwigman/magento-proxy:1.13-0
     ports:
-      - "80:8000"
       - "443:8443"
+    depends_on:
+      - varnish
+    links:
+      - varnish
+
+  varnish:
+    #image: markoshust/magento-varnish:latest
+    image: willemwigman/magento-varnish:latest
+    ports:
+      - "80:80"
+      - "6082:6082"
+    depends_on:
+      - app
+    links:
+      - app
+
+  app:
+    #image: markoshust/magento-nginx:1.13-8
+    image: willemwigman/magento-nginx:1.13-8
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - phpfpm
     links:
       - db
       - phpfpm
@@ -18,7 +42,11 @@ services:
       - sockdata:/sock
 
   phpfpm:
-    image: markoshust/magento-php:7.2-fpm-0
+    #image: markoshust/magento-php:7.2-fpm-0
+    #image: markoshust/magento-php:7.1-fpm-1
+    image: willemwigman/magento-php:7.2-fpm-0
+    depends_on:
+      - db
     links:
       - db
     volumes: *appvolumes

@@ -13,9 +13,9 @@ RUN mkdir /etc/nginx/certs \
 RUN chown -R app:app /etc/nginx/certs /sock /var/cache/nginx/ /var/run/nginx.pid /sock
 
 COPY ./conf/nginx.conf /etc/nginx/
-COPY ./conf/default.conf /etc/nginx/conf.d/
+COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 8000
+EXPOSE 8443
 
 USER app:app
 
