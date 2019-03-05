@@ -161,6 +161,12 @@ Here's an example of how to connect to the MySQL cli tool of the Docker instance
 bin/cli mysql -h db -umagento -pmagento magento
 ```
 
+You can use the `bin/clinotty` helper script to import a database. This example uses the root MySQL user, and looks for the `dbdump.sql` file in your local host directory:
+
+```
+bin/clinotty mysql -h db -u root -pmagento magento < dbdump.sql
+```
+
 ### Composer Authentication
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
