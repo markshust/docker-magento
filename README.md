@@ -114,8 +114,10 @@ echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 bin/setup magento2.test
 
 # For existing installations:
-# bin/start
+# docker-compose up -d
+# bin/copytocontainer --all
 # bin/composer install
+# bin/restart
 
 open https://magento2.test
 ```
