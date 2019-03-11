@@ -114,8 +114,10 @@ echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 bin/setup magento2.test
 
 # For existing installations:
-# bin/start
+# docker-compose up -d
+# bin/copytocontainer --all
 # bin/composer install
+# bin/restart
 
 open https://magento2.test
 ```
@@ -159,6 +161,12 @@ Here's an example of how to connect to the MySQL cli tool of the Docker instance
 
 ```
 bin/cli mysql -h db -umagento -pmagento magento
+```
+
+You can use the `bin/clinotty` helper script to import a database. This example uses the root MySQL user, and looks for the `dbdump.sql` file in your local host directory:
+
+```
+bin/clinotty mysql -h db -u root -pmagento magento < dbdump.sql
 ```
 
 ### Composer Authentication
