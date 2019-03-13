@@ -149,6 +149,7 @@ open https://magento2.test
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/stop`: Stop all containers.
+- `bin/varnish`: Run commands in the Varnish container. Ex `bin/varnish varnishlog -q 'ReqURL ~ "^/$"'` to monitor requests to homepage, or `bin/vanirsh varnishlog -g request -q 'ReqMethod eq "PURGE"'` to monitor PURGE requests
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
 
 ## Misc Info
@@ -232,6 +233,16 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
+## Credits
+
+- [Mark Shust][link-author]
+- [Willem Wigman][link-author2]
+- [All Contributors][link-contributors]
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
+
+[link-author]: https://github.com/markshust
+[link-author2]: https://github.com/wigman
+[link-contributors]: ../../contributors

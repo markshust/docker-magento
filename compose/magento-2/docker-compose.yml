@@ -5,8 +5,7 @@ version: "3"
 
 services:
   proxy:
-    #image: markoshust/magento-proxy:1.13-0
-    image: willemwigman/magento-proxy:1.13-0
+    image: markoshust/magento-proxy:1.13-0
     ports:
       - "443:8443"
     depends_on:
@@ -15,8 +14,7 @@ services:
       - varnish
 
   varnish:
-    #image: markoshust/magento-varnish:latest
-    image: willemwigman/magento-varnish:latest
+    image: markoshust/magento-varnish:latest
     ports:
       - "80:80"
       - "6082:6082"
@@ -26,8 +24,7 @@ services:
       - app
 
   app:
-    #image: markoshust/magento-nginx:1.13-8
-    image: willemwigman/magento-nginx:1.13-8
+    image: markoshust/magento-nginx:1.13-8
     ports:
       - "8000:8000"
     depends_on:
@@ -42,9 +39,8 @@ services:
       - sockdata:/sock
 
   phpfpm:
-    #image: markoshust/magento-php:7.2-fpm-0
+    image: markoshust/magento-php:7.2-fpm-0
     #image: markoshust/magento-php:7.1-fpm-1
-    image: willemwigman/magento-php:7.2-fpm-0
     depends_on:
       - db
     links:
