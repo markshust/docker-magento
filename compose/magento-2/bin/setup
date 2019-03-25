@@ -3,6 +3,10 @@ BASE_URL=${1:-magento2.test}
 
 bin/stop
 
+# get rid of vertex/module-tax, not required and causes checksum errors on composer install
+# https://github.com/markshust/docker-magento/issues/135
+sed -e 's/"require-dev": {/"replace": { "vertex\/module-tax": "*" },\ "require-dev": {/' src/composer.json | tee 'src/composer.json' > /dev/null
+
 docker-compose -f docker-compose.yml up -d
 sleep 1 #Ensure containers are started...
 
