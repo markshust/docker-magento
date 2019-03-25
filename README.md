@@ -87,11 +87,13 @@ After the one-liner above completes running, you should be able to access your s
 
 Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to use.
 
+#### New Projects
+
 ```bash
-# Quick setup for a new instance of Magento 2:
+# Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
 
-# New projects can easily download by version:
+# Download the version of Magento you want to use with:
 bin/download 2.3.0
 
 # or if you'd rather install with Composer, run:
@@ -106,18 +108,32 @@ bin/download 2.3.0
 # rm -rf src
 # composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.0 src
 
-# Existing projects, instead of running the above replace the contents of /src with the source code of your existing Magento instance
-
+# Create a DNS host entry for the site:
 echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 
-# For new setups:
+# Run the setup installer for Magento:
 bin/setup magento2.test
 
-# For existing installations:
-# docker-compose up -d
-# bin/copytocontainer --all
-# bin/composer install
-# bin/restart
+open https://magento2.test
+```
+
+#### Existing Projects
+
+```bash
+# Download the Docker Compose template:
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
+
+# Replace the contents of /src with the source code of your existing Magento instance
+# Example: git clone git@github.com:myrepo.git src
+
+# Create a DNS host entry for the site:
+echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
+
+# Copy some files to the containers and install dependencies, then restart the containers:
+docker-compose up -d
+bin/copytocontainer --all
+bin/composer install
+bin/restart
 
 open https://magento2.test
 ```
