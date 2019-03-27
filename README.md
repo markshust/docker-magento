@@ -76,10 +76,10 @@ This configuration has been tested on Mac & Linux.
 Run this automated one-liner from the directory you want to install your project to:
 
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.1
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.0
 ```
 
-The `magento2.test` above defines the hostname to use, and the `2.3.1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento2.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
 
@@ -94,19 +94,19 @@ Same result as the one-liner above. Just replace `magento2.test` references with
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
 
 # Download the version of Magento you want to use with:
-bin/download 2.3.1
+bin/download 2.3.0
 
 # or if you'd rather install with Composer, run:
 #
 # OPEN SOURCE:
 #
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.3.1 src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.3.0 src
 #
 # COMMERCE:
 #
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.1 src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.0 src
 
 # Create a DNS host entry for the site:
 echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
@@ -149,7 +149,7 @@ open https://magento2.test
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
-- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.1`
+- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.0`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Note that this runs the version from the node_modules directory for project version parity. Ex. `bin/grunt exec`
