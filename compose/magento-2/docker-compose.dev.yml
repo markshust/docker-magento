@@ -13,7 +13,7 @@ services:
       - ./src/composer.json:/var/www/html/composer.json:delegated
       - ./src/composer.lock:/var/www/html/composer.lock:delegated
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:delegated
-      - ./src/var/log:/var/www/html/var/log:delegated
+      #- ./src/var/log:/var/www/html/var/log:delegated
 
   phpfpm:
     volumes: *appvolumes
