@@ -17,6 +17,7 @@
 - [Quick Setup](#quick-setup)
 - [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
+- [Credits](#credits)
 - [License](#license)
 
 ## Docker Hub
@@ -76,10 +77,10 @@ This configuration has been tested on Mac & Linux.
 Run this automated one-liner from the directory you want to install your project to:
 
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.0
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.1
 ```
 
-The `magento2.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento2.test` above defines the hostname to use, and the `2.3.1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
 
@@ -87,37 +88,53 @@ After the one-liner above completes running, you should be able to access your s
 
 Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to use.
 
+#### New Projects
+
 ```bash
-# Quick setup for a new instance of Magento 2:
+# Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
 
-# New projects can easily download by version:
-bin/download 2.3.0
+# Download the version of Magento you want to use with:
+bin/download 2.3.1
 
 # or if you'd rather install with Composer, run:
 #
 # OPEN SOURCE:
 #
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.3.0 src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.3.1 src
 #
 # COMMERCE:
 #
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.0 src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.1 src
 
-# Existing projects, instead of running the above replace the contents of /src with the source code of your existing Magento instance
-
+# Create a DNS host entry for the site:
 echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 
-# For new setups:
+# Run the setup installer for Magento:
 bin/setup magento2.test
 
-# For existing installations:
-# docker-compose up -d
-# bin/copytocontainer --all
-# bin/composer install
-# bin/restart
+open https://magento2.test
+```
+
+#### Existing Projects
+
+```bash
+# Download the Docker Compose template:
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
+
+# Replace the contents of /src with the source code of your existing Magento instance
+# Example: git clone git@github.com:myrepo.git src
+
+# Create a DNS host entry for the site:
+echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
+
+# Copy some files to the containers and install dependencies, then restart the containers:
+docker-compose up -d
+bin/copytocontainer --all
+bin/composer install
+bin/restart
 
 open https://magento2.test
 ```
@@ -133,7 +150,7 @@ open https://magento2.test
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
-- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.0`
+- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.1`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Note that this runs the version from the node_modules directory for project version parity. Ex. `bin/grunt exec`
@@ -148,6 +165,7 @@ open https://magento2.test
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
+- `bin/status`: Check the container status.
 - `bin/stop`: Stop all containers.
 - `bin/varnish`: Run commands in the Varnish container. Ex `bin/varnish varnishlog -q 'ReqURL ~ "^/$"'` to monitor requests to homepage, or `bin/vanirsh varnishlog -g request -q 'ReqMethod eq "PURGE"'` to monitor PURGE requests
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
@@ -235,14 +253,17 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 ## Credits
 
-- [Mark Shust][link-author]
-- [Willem Wigman][link-author2]
-- [All Contributors][link-contributors]
+### Mark Shust
+
+I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> and <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read technical articles on my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
+
+### Nexcess
+
+A special thanks goes out to <a href="https://www.nexcess.net/" target="_blank">Nexcess</a> for hosting <a href="http://pubfiles.nexcess.net/magento/ce-packages/" target="_blank">public archives of every version of Magento</a> 💙. I've used their Magento hosting services in the past also (both <a href="https://www.nexcess.net/magento/hosting/" target="_blank">shared</a> and <a href="https://www.nexcess.net/magento/enterprise-hosting/" target="_blank">enteprise</a> offerings) and they're great, ...highly recommended!
+
+### Willem Wigman
+Implemented Varnish support with https proxy <a href="https://github.com/wigman" target="_blank">Willem Wigman</a>
 
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
-
-[link-author]: https://github.com/markshust
-[link-author2]: https://github.com/wigman
-[link-contributors]: ../../contributors
