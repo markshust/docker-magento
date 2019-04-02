@@ -137,7 +137,10 @@ echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 # Copy some files to the containers and install dependencies, then restart the containers:
 docker-compose up -d
 bin/copytocontainer --all
+
+# Install composer dependencies, then copy artifacts back to the host:
 bin/composer install
+bin/copyfromcontainer vendor
 
 # Import existing database:
 bin/clinotty mysql -hdb -umagento -pmagento magento < existing/magento.sql
