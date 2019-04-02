@@ -124,8 +124,12 @@ open https://magento2.test
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
 
-# Replace the contents of /src with the source code of your existing Magento instance
-# Example: git clone git@github.com:myrepo.git src
+# Remove existing src directory:
+rm -rf src
+
+# Replace with existing source code of your existing Magento instance:
+cp ~/Sites/existing src
+# or: git clone git@github.com:myrepo.git src
 
 # Create a DNS host entry for the site:
 echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
@@ -134,6 +138,13 @@ echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
 docker-compose up -d
 bin/copytocontainer --all
 bin/composer install
+
+# Import existing database:
+bin/clinotty mysql -hdb -umagento -pmagento magento < existing/magento.sql
+
+# Update database connection details:
+# vi src/app/etc/env.php
+
 bin/restart
 
 open https://magento2.test
