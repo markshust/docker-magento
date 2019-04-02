@@ -145,6 +145,10 @@ bin/clinotty mysql -hdb -umagento -pmagento magento < existing/magento.sql
 # Update database connection details:
 # vi src/app/etc/env.php
 
+# Set base URLs to local environment URL:
+bin/magento config:set web/secure/base_url https://magento2.test/
+bin/magento config:set web/unsecure/base_url https://magento2.test/
+
 bin/restart
 
 open https://magento2.test
