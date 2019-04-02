@@ -8,7 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
-## [22.0.0] - 2018-02-14
+## [23.0.0] - 2019-04-02
+
+### Added
+- Allow setup without SSH credentials.
+- Documentation for connecting to MySQL.
+- `bin/status` to check container status
+
+### Updated
+- Readme for existing installs
+- `bin/dev-urn-catalog-generate` to look at `src` folder as project root.
+
+### Fixed
+- Readme usage of pasting command into non-standard terminal.
+
+## [22.0.0] - 2019-02-14
 
 ### Added
 - Host bind mount `var/log` folder in `docker-compose.dev.yml` for debugging purposes.
@@ -18,7 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Cron not working correctly
 
-## [21.1.2] - 2018-02-04
+## [21.1.2] - 2019-02-04
 
 ### Fixed
 - Helper script `bin/fixowns` now fixes permissions on `/var/www` instead of `/var/www/html` folder.
