@@ -5,7 +5,10 @@ bin/stop
 
 # get rid of vertex/module-tax, not required and causes checksum errors on composer install
 # https://github.com/markshust/docker-magento/issues/135
-sed -e 's/"conflict": {/"replace": { "vertex\/module-tax": "*" },\ "conflict": {/' src/composer.json > composer.json && mv composer.json src/composer.json
+# prevent double or more insertion
+if ! grep -qF '"replace": { "vertex/module-tax": "*" }' src/composer.json; then
+    sed -e 's/"conflict": {/"replace": { "vertex\/module-tax": "*" },\ "conflict": {/' src/composer.json > composer.json && mv composer.json src/composer.json
+fi
 
 docker-compose -f docker-compose.yml up -d
 sleep 1 #Ensure containers are started...
