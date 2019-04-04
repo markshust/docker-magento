@@ -4,7 +4,7 @@ bin/copyfromcontainer misc.xml
 
 sed -i .bak 's?/var/www/html?'`pwd`/src'?' src/misc.xml
 rm src/misc.xml.bak
-mkdir -p .idea
-mv src/misc.xml .idea/misc.xml
+mkdir -p src/.idea
+mv src/misc.xml src/.idea/misc.xml
 
 echo "URN's have been generated, you may now restart PHPStorm"
