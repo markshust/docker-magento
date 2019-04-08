@@ -11,6 +11,7 @@
 
 ## Table of contents
 
+- [Free Course](#free-course)
 - [Docker Hub](#docker-hub)
 - [Usage](#usage)
 - [Prerequisites](#prerequisites)
@@ -19,6 +20,15 @@
 - [Misc Info](#misc-info)
 - [Credits](#credits)
 - [License](#license)
+
+## Free Course
+
+I created a free course which details the basic usage of this project:
+
+<a href="https://courses.markshust.com/p/setup-magento-2-development-environment-docker" target="_blank">
+<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Setup a Magento 2 Development Environment with Docker"><br />
+Setup a Magento 2 Development Environment with Docker
+</a>
 
 ## Docker Hub
 
