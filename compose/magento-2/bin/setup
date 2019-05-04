@@ -46,8 +46,11 @@ bin/clinotty bin/magento setup:static-content:deploy -f
 echo "Enabling redis for cache..."
 bin/clinotty bin/magento setup:config:set --no-interaction --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0
 
+echo "Enabling Redis for Full Page Cache..."
+bin/clinotty bin/magento setup:config:set --no-interaction  --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
+
 echo "Enabling Redis for session..."
-bin/clinotty bin/magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=1
+bin/clinotty bin/magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
 
 echo "Clearing the cache for good measure..."
 bin/clinotty bin/magento cache:flush
