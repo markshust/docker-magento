@@ -231,9 +231,12 @@ Use the following lines to enable Redis on existing installs:
 
 `bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0`
 
+**Enable for Full Page Cache:**
+`bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1`
+
 **Enable for Session:**
 
-`bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=1`
+`bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2`
 
 You may also monitor Redis by running: `bin/redis redis-cli monitor`
 
