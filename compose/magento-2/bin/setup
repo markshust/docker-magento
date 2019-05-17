@@ -5,7 +5,10 @@ bin/stop
 
 # get rid of vertex/module-tax, not required and causes checksum errors on composer install
 # https://github.com/markshust/docker-magento/issues/135
-sed -e 's/"conflict": {/"replace": { "vertex\/module-tax": "*" },\ "conflict": {/' src/composer.json > composer.json && mv composer.json src/composer.json
+# prevent double or more insertion
+if ! grep -qF '"replace": { "vertex/module-tax": "*" }' src/composer.json; then
+    sed -e 's/"conflict": {/"replace": { "vertex\/module-tax": "*" },\ "conflict": {/' src/composer.json > composer.json && mv composer.json src/composer.json
+fi
 
 docker-compose -f docker-compose.yml up -d
 sleep 1 #Ensure containers are started...
@@ -15,6 +18,36 @@ rm -rf src/vendor #Clear for step below
 bin/copytocontainer --all
 
 bin/clinotty chmod u+x bin/magento
+
+if hash composer 2>/dev/null; then
+    PUBLIC_KEY="$(composer config -gl | grep '\[http-basic.repo.magento.com.username\]' | cut -c40-)"
+    PRIVATE_KEY="$(composer config -gl | grep '\[http-basic.repo.magento.com.password\]' | cut -c40-)"
+fi
+
+if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
+    exec < /dev/tty
+    echo
+    echo
+    echo "    Authentication required (repo.magento.com, public_key and private_key):"
+    read -p "        Username: " PUBLIC_KEY
+    read -p "        Password: " PRIVATE_KEY
+    echo
+    if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ] && hash composer 2>/dev/null; then
+        read -p "    Add authentication information to host composer config? y/n: " ADD_AUTH
+        echo
+        if [[ $ADD_AUTH =~ ^[Yy]$ ]]; then
+            composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
+        fi
+        ADD_AUTH=''
+    fi
+    exec <&-
+fi
+
+if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
+    bin/clinotty composer config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
+    PUBLIC_KEY=''
+    PRIVATE_KEY=''
+fi
 
 echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer install
