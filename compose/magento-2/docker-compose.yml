@@ -18,7 +18,7 @@ services:
       - sockdata:/sock
 
   phpfpm:
-    image: markoshust/magento-php:7.2-fpm-0
+    image: markoshust/magento-php:7.2-fpm-1
     links:
       - db
     volumes: *appvolumes
@@ -42,7 +42,7 @@ services:
 
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
-  #  image: markoshust/magento-php:7.2-fpm-0
+  #  image: markoshust/magento-php:7.2-fpm-1
   #  user: root
   #  command: /usr/local/bin/cronstart
   #  tty: true
