@@ -8,15 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [23.1.0] - 2019-06-27
+
+### Added
+- `libsodium-dev` package and `sodium` PHP extension for Magento 2.3.2 support.
+- New PHP docker versions `7.1-fpm-10`, `7.2-fpm-1`
+
 ## [23.0.0] - 2019-04-02
 
 ### Added
 - Allow setup without SSH credentials.
 - Documentation for connecting to MySQL.
-- `bin/status` to check container status
+- `bin/status` to check container status.
 
 ### Updated
-- Readme for existing installs
+- Readme for existing installs.
 - `bin/dev-urn-catalog-generate` to look at `src` folder as project root.
 
 ### Fixed
