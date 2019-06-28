@@ -33,9 +33,11 @@ RUN docker-php-ext-install \
   opcache \
   pdo_mysql \
   soap \
-  sodium \
   xsl \
   zip
+
+RUN pecl install -f libsodium-1.0.17 \
+  && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/sodium.ini
 
 RUN pecl channel-update pecl.php.net \
   && pecl install xdebug \
