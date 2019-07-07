@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [23.2.0] - 2019-07-07
+
+### Added
+- View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
+
 ## [23.1.1] - 2019-07-01
 
 ### Updated
