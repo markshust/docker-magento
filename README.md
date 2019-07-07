@@ -46,10 +46,12 @@ View Dockerfiles:
       - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - 7.2
-      - [`latest`, `7.2-fpm`, `7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+      - [`latest`, `7.2-fpm`, `7.2-fpm-2`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+      - [`7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.2)
       - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
   - 7.1
-      - [`7.1-fpm`, `7.1-fpm-10`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm`, `7.1-fpm-11`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm-10`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.1)
       - [`7.1-fpm-9`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.1)
       - [`7.1-fpm-8`](https://github.com/markshust/docker-magento/tree/17.0.1/images/php/7.1)
       - [`7.1-fpm-7`](https://github.com/markshust/docker-magento/tree/16.2.0/images/php/7.1)
@@ -222,6 +224,10 @@ bin/clinotty mysql -h db -u root -pmagento magento < dbdump.sql
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
 Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
+
+### Email / Mailhog
+
+View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
 
 ### Redis
 
