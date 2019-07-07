@@ -140,7 +140,7 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/te
 rm -rf src
 
 # Replace with existing source code of your existing Magento instance:
-cp ~/Sites/existing src
+cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
 # Create a DNS host entry for the site:
