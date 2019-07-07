@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [23.1.1] - 2019-07-01
+
+### Updated
+- Make Dockerfile consistent between versions
+- Move Docker layers to bottom for smaller downloads, useful for those using previous versions
+- Same Docker version tag, so just remove Docker image locally and re-pull to use
+
 ## [23.1.0] - 2019-06-27
 
 ### Added
