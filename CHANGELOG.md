@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [23.2.1] - 2019-07-11
+
+### Fixed
+- Mailhog container doesn't stop when running bin/stop
+
 ## [23.2.0] - 2019-07-07
 
 ### Added
