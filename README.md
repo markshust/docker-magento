@@ -23,9 +23,9 @@
 
 ## Free Course
 
-I created a free course which details the basic usage of this project:
+I created a free screencast course which details the basic usage of this project:
 
-<a href="https://courses.markshust.com/p/setup-magento-2-development-environment-docker" target="_blank">
+<a href="https://m.academy/p/setup-magento-2-development-environment-docker" target="_blank">
 <img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Setup a Magento 2 Development Environment with Docker"><br />
 Setup a Magento 2 Development Environment with Docker
 </a>
@@ -46,11 +46,13 @@ View Dockerfiles:
       - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - 7.2
-      - [`latest`, `7.2-fpm`, `7.2-fpm-2`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+      - [`latest`, `7.2-fpm`, `7.2-fpm-3`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+      - [`7.2-fpm-2`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.2)
       - [`7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.2)
       - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
   - 7.1
-      - [`7.1-fpm`, `7.1-fpm-11`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm`, `7.1-fpm-12`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
+      - [`7.1-fpm-11`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.1)
       - [`7.1-fpm-10`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.1)
       - [`7.1-fpm-9`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.1)
       - [`7.1-fpm-8`](https://github.com/markshust/docker-magento/tree/17.0.1/images/php/7.1)
