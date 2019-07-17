@@ -6,9 +6,12 @@
       "type": "php",
       "request": "launch",
       "pathMappings": {
-        "/var/www/html": "${workspaceFolder}/src"
+        "/var/www/html": "${workspaceFolder}"
       },
-      "port": 9001
+      "port": 9001,
+      "xdebugSettings": {
+        "idekey": "VSCODE"
+      }
     }
   ]
 }
