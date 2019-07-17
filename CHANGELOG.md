@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [23.2.2] - 2019-07-17
+
+### Fixed
+- Xdebug breakpoints not triggering
+
+### Added
+- New PHP docker image versions `7.1-fpm-12`, `7.2-fpm-3`
+
 ## [23.2.1] - 2019-07-11
 
 ### Fixed
