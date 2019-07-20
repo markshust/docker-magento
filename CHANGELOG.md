@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - N/A
 
+## [23.2.3] - 2019-07-20
+
+### Fixed
+- The `php` base Docker image changed from Debian Stretch to Buster and broke a lot of packages, which caused a failed build for `7.1-fpm-12` & `7.2-fpm-3` tags. This update pegs the `php` Docker image to Debian Stretch.
+
 ## [23.2.2] - 2019-07-17
 
 ### Fixed

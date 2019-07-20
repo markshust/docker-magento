@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.1-fpm-stretch
 MAINTAINER Mark Shust <mark@shust.com>
 
 RUN apt-get update && apt-get install -y \
