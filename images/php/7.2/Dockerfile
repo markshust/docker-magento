@@ -21,6 +21,7 @@ RUN docker-php-ext-configure \
 
 RUN docker-php-ext-install \
   bcmath \
+  sockets \
   gd \
   intl \
   mbstring \
