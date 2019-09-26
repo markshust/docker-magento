@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- N/A
+### Added
+- 2019-09-26 - New image `7.3-fpm` for Magento 2.3.3 support. Image will be tagged with specific version after release of Magento 2.3.3.
 
 ## [23.2.3] - 2019-07-20
 
