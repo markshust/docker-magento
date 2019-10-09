@@ -1,0 +1,9 @@
+#!/bin/bash
+mkdir -p tmpupdate
+cd tmpupdate
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template|bash -s - magento-2
+rm -rf .git
+rsync -av ./ ../
+cd ..
+rm -rf tmpupdate
+echo "docker-magento has been updated"

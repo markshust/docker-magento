@@ -6,8 +6,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+N/A
+
+## [24.0.0] - 2019-10-09
+
 ### Added
-- 2019-09-26 - New image `7.3-fpm` for Magento 2.3.3 support. Image will be tagged with specific version after release of Magento 2.3.3.
+- New PHP docker image version `7.3-fpm-0` for Magento 2.3.3 support
+- New Elasticsearch docker image `markoshust/magento-elasticsearch:6.5.4-0` which comes bundled with icu and phonetic plugins. The initial `6.5` version is for parity with Magento Cloud.
+- New `bin/update` helper script that updates your docker-magento setup to the latest version
+- Added `.gitignore` file to project root to ignore `src` directory. It is recommended to keep your root docker config files in one repository, and your Magento code setup in another. This ensures the Magento base path lives at the top of one specific repository, which makes automated build pipelines and deployments easy to manage, and maintains compatibility with projects such as Magento Cloud.
+- Install n98-magerun2 when setup is executed, and added related `bin/n98-magerun` and `bin/devconsole` helper scripts.
+- Added `bin/setup-pwa-studio` (BETA) helper script to easily install PWA Studio, usage accepts a single parameter being the site URL you wish PWA Studio to connect to (ex. `bin/setup-pwa-studio magento2.test`)
+- Added `bin/pwa-studio` (BETA) helper script to easily run the PWA Studio NodeJS web server
+
+### Fixed
+- The `bin/dev-urn-catalog-generate` helper script has been updated for compatibility with more recent versions of PHPStorm
+
+### Removed
+- The `vertex/module-tax` Composer package installs correctly as of 2.3.0, so the line within the `bin/setup` script which prevented it from being installed was removed. If one is having issues installing an older version of Magento 2, add the following line to your `composer.json` file to prevent this package from being installed:
+
+  `{"replace": { "vertex/module-tax": "*" }}`
 
 ## [23.2.3] - 2019-07-20
 
