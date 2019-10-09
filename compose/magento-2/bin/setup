@@ -13,6 +13,10 @@ fi
 docker-compose -f docker-compose.yml up -d
 sleep 1 #Ensure containers are started...
 
+curl -O https://files.magerun.net/n98-magerun2.phar
+chmod +x n98-magerun2.phar
+mv n98-magerun2.phar src/bin/n98-magerun2
+
 echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
 bin/copytocontainer --all

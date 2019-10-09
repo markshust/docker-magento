@@ -2,8 +2,6 @@
 bin/magento dev:urn-catalog:generate misc.xml
 bin/copyfromcontainer misc.xml
 
-sed -i .bak 's?/var/www/html?'`pwd`/src'?' src/misc.xml
-rm src/misc.xml.bak
 mkdir -p src/.idea
 mv src/misc.xml src/.idea/misc.xml
 
