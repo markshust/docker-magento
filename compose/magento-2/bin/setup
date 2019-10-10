@@ -3,12 +3,8 @@ BASE_URL=${1:-magento2.test}
 
 bin/stop
 
-# get rid of vertex/module-tax, not required and causes checksum errors on composer install
-# https://github.com/markshust/docker-magento/issues/135
-# prevent double or more insertion
-if ! grep -qF '"replace": { "vertex/module-tax": "*" }' src/composer.json; then
-    sed -e 's/"conflict": {/"replace": { "vertex\/module-tax": "*" },\ "conflict": {/' src/composer.json > composer.json && mv composer.json src/composer.json
-fi
+# fix for invalid google-shopping-api checksum contained in archive installs (temporary fix until nexcess archive is patched)
+sed -e 's/5f5929ef9f2ec4ca048a2add261d22c92807630f/ce31e720d60451784b9fdb3769e43e149f50d436/' src/composer.lock > composer.lock && mv composer.lock src/composer.lock
 
 docker-compose -f docker-compose.yml up -d
 sleep 1 #Ensure containers are started...
@@ -54,6 +50,7 @@ if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
 fi
 
 echo "Forcing reinstall of composer deps to ensure perms & reqs..."
+bin/clinotty composer global require hirak/prestissimo
 bin/clinotty composer install
 
 bin/clinotty bin/magento setup:install \
