@@ -185,11 +185,23 @@ open https://magento2.test
 
 To update your project to the latest version of `docker-magento`, run:
 
-```bin/update```
+```
+bin/update
+```
 
 We recommend keeping your docker config files in version control, so you can monitor the changes to files after updates. After reviewing the code updates and ensuring they updated as intended, run `bin/restart` to restart your containers to have the new configuration take effect.
 
 It is recommended to keep your root docker config files in one repository, and your Magento code setup in another. This ensures the Magento base path lives at the top of one specific repository, which makes automated build pipelines and deployments easy to manage, and maintains compatibility with projects such as Magento Cloud.
+
+### Older Versions
+
+Versions older than `24.0.0` did not include a `bin/update` helper script. In this situation, you can download the file to your project by running:
+
+```
+(cd bin && curl -OL https://raw.githubusercontent.com/markshust/docker-magento/master/compose/magento-2/bin/update && chmod +x update)
+```
+
+You'll now have the `bin/update` helper script, and can run it to update your project.
 
 ## Custom CLI Commands
 

@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [24.1.0] - 2019-10-10
+
+### Added
+- Documented in README how to retrieve `bin/update` file for previous versions that did not include it
+- Added `hirak/prestissimo` composer package to `bin/setup` helper script for much faster composer installs
+- Downloaded archive installs are now cached on the user's machine, so subsequent installs of Magento will no longer re-download the archive if previously downloaded. Downloaded archives are stored in the `~/.docker-magento` folder.
+
+## Fixed
+- There is an invalid checksum reference in the Nexcess archive of 2.3.3, replaced checksum reference in `bin/setup` to resolve the error
+
+## Removed
+- The previous CHANGELOG for `24.0.0` referenced `vertex/module-tax` being removed but for some reason it was not removed, now it is
+
 ## [24.0.0] - 2019-10-09
 
 ### Added
