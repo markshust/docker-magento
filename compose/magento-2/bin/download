@@ -5,4 +5,5 @@ if [ ! -f "~/.docker-magento/magento2-$1.tar.gz" ]; then
     (cd ~/.docker-magento && curl -OL http://pubfiles.nexcess.net/magento/ce-packages/magento2-$1.tar.gz)
 fi
 
+echo "Extracting magento2-$1.tar.gz to ./src"
 mkdir -p src && tar xzf ~/.docker-magento/magento2-$1.tar.gz -o -C src
