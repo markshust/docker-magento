@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [24.1.2] - 2019-10-15
+
+### Fixed
+- Fixed `bin/copyfromcontainer` and `bin/copytocontainer` referencing incorrect destination file locations
+
 ## [24.1.1] - 2019-10-11
 
 ### Fixed
