@@ -4,9 +4,12 @@
 if [ "$1" == "--all" ]; then
   docker cp src/./ $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/
   echo "Completed copying all files from host to container"
+  bin/fixowns
+  bin/fixperms
 else
-  docker cp src/$1 $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/$1
+  bin/cli mkdir -p $1
+  docker cp src/$1 $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/$1/../
   echo "Completed copying $1 from host to container"
+  bin/fixowns $1
+  bin/fixperms $1
 fi
-
-bin/fixowns
