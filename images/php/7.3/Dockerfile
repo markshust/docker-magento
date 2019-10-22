@@ -5,11 +5,14 @@ RUN apt-get update && apt-get install -y \
   cron \
   git \
   gzip \
+  libbz2-dev \
   libfreetype6-dev \
   libicu-dev \
   libjpeg62-turbo-dev \
   libmcrypt-dev \
   libpng-dev \
+  libsodium-dev \
+  libssh2-1-dev \
   libxslt1-dev \
   libzip-dev \
   lsof \
@@ -22,41 +25,41 @@ RUN docker-php-ext-configure \
 
 RUN docker-php-ext-install \
   bcmath \
+  bz2 \
+  calendar \
+  exif \
   gd \
+  gettext \
   intl \
   mbstring \
+  mysqli \
   opcache \
+  pcntl \
   pdo_mysql \
   soap \
+  sockets \
+  sysvmsg \
+  sysvsem \
+  sysvshm \
   xsl \
   zip
 
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
-
-RUN apt-get update && apt-get -t stretch-backports install -y \
-  libsodium-dev
-
-RUN pecl install -f libsodium-1.0.17
-
 RUN pecl channel-update pecl.php.net \
-  && pecl install xdebug \
-  && docker-php-ext-enable xdebug \
+  && pecl install libsodium \
+  && pecl install xdebug
+
+RUN docker-php-ext-enable xdebug \
   && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 ## Replace next lines with below commented out version once issue is resolved
-RUN apt-get install -y libssh2-1-dev \
-  && curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
+# https://github.com/php/pecl-networking-ssh2/pull/36
+# https://bugs.php.net/bug.php?id=78560
+RUN curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
   && pear install /tmp/ssh2-1.2.tgz \
   && rm /tmp/ssh2-1.2.tgz \
   && docker-php-ext-enable ssh2
-## https://github.com/php/pecl-networking-ssh2/pull/36
-## https://bugs.php.net/bug.php?id=78560
-#RUN apt-get install -y libssh2-1-dev \
-#  && pecl install ssh2-1.2 \
+#RUN pecl install ssh2-1.2 \
 #  && docker-php-ext-enable ssh2
-
-RUN curl -sS https://getcomposer.org/installer | \
-  php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN groupadd -g 1000 app \
  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
@@ -72,17 +75,20 @@ RUN curl -sSLO https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mh
   && chmod +x mhsendmail_linux_amd64 \
   && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
 
-RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/update/cron.php\n' >> /etc/crontab
-RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento cron:run\n' >> /etc/crontab
-RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento setup:cron:run\n#\n' >> /etc/crontab
+RUN curl -sS https://getcomposer.org/installer | \
+  php -- --version=1.9.0 --install-dir=/usr/local/bin --filename=composer
+
+RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/update/cron.php\n' >> /etc/crontab \
+  && printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento cron:run\n' >> /etc/crontab \
+  && printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento setup:cron:run\n#\n' >> /etc/crontab
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
 COPY conf/php.ini /usr/local/etc/php/
 COPY conf/php-fpm.conf /usr/local/etc/
 COPY bin/cronstart /usr/local/bin/
 
-RUN mkdir -p /etc/nginx/html /var/www/html /sock
-RUN chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
+RUN mkdir -p /etc/nginx/html /var/www/html /sock \
+  && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
 
 USER app:app
 

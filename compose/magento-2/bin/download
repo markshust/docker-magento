@@ -1,6 +1,6 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify the version to download (ex. 2.0.0)" && exit
-if [ ! -f "~/.docker-magento/magento2-$1.tar.gz" ]; then
+if [ ! -f ~/.docker-magento/magento2-$1.tar.gz ]; then
     mkdir -p ~/.docker-magento
     (cd ~/.docker-magento && curl -OL http://pubfiles.nexcess.net/magento/ce-packages/magento2-$1.tar.gz)
 fi
