@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [25.0.0] - 2019-10-22
+
+### Added
+- Full parity with [Magento Cloud PHP extensions](https://devdocs.magento.com/guides/v2.3/cloud/project/project-conf-files_magento-app.html#php-extensions)
+
+### Updated
+- Optimized Dockerfile install order and layer usage for all PHP images (7.1, 7.2 & 7.3)
+- Updated few lib dependencies in Dockerfiles with new versions
+- Pegged Composer to version 1.9.0 for predictability, moved to lower layer so updating version doesn't require full rebuild of all layers
+
 ## [24.2.0] - 2019-10-18
 
 ### Fixed
