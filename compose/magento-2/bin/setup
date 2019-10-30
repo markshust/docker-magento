@@ -13,6 +13,8 @@ curl -O https://files.magerun.net/n98-magerun2.phar
 chmod +x n98-magerun2.phar
 mv n98-magerun2.phar src/bin/n98-magerun2
 
+curl -o /etc/bash_completion.d/n98-magerun2.phar.bash https://raw.githubusercontent.com/netz98/n98-magerun2/master/res/autocompletion/bash/n98-magerun2.phar.bash
+
 echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
 bin/copytocontainer --all
