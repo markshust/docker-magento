@@ -55,7 +55,7 @@ View Dockerfiles:
       - [`7.2-fpm-2`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.2)
       - [`7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.2)
       - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
-  - 7.1
+  - 7.1 (All images deprecated with PHP 7.1 EOL effective December 1, 2019)
       - [`7.1-fpm`, `7.1-fpm-13`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
       - [`7.1-fpm-12`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.1)
       - [`7.1-fpm-11`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.1)
@@ -157,25 +157,30 @@ cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
 # Create a DNS host entry for the site:
-echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
+echo "127.0.0.1 yoursite.test" | sudo tee -a /etc/hosts
 
-# Copy some files to the containers and install dependencies, then restart the containers:
+# Start some containers, copy files ot them and then restart the containers:
 docker-compose up -d
-bin/copytocontainer --all
+rm -rf src/vendor
+bin/copytocontainer --all ## Initial copy will take a few minutes...
 
-# Install composer dependencies, then copy artifacts back to the host:
+# Install composer dependencies, then copy artifacts back to the host (for debugging purposes):
 bin/composer install
 bin/copyfromcontainer vendor
 
 # Import existing database:
 bin/clinotty mysql -hdb -umagento -pmagento magento < existing/magento.sql
 
-# Update database connection details:
+# Update database connection details to use the above Docker MySQL credentials:
+# Also note: creds for the MySQL server are defined at startup from env/db.env
 # vi src/app/etc/env.php
 
-# Set base URLs to local environment URL:
-bin/magento config:set web/secure/base_url https://magento2.test/
-bin/magento config:set web/unsecure/base_url https://magento2.test/
+# Import app-specific environment settings:
+bin/magento app:config:import
+
+# Set base URLs to local environment URL (if not defined in env.php file):
+bin/magento config:set web/secure/base_url https://yoursite.test/
+bin/magento config:set web/unsecure/base_url https://yoursite.test/
 
 bin/restart
 
