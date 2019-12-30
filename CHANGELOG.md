@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [26.0.0] - 2019-12-30
+
+## Added
+- Ability for `src` directory to be a symlink
+
+### Fixed
+- Fixed Magento2 setup script with n98-magerun2.phar
+- Fixed dev-urn-catalog-generate script
+
+## Removed
+- All Windows-specific setup and helper scripts. This involved changing directory structure of `compose` folder, there is no longer specific `magento-2` and `magento-2-windows` specific folders. Windows support works on Docker with WSL.
+- Support for PHP 7.1 (EOL)
+
 ## [25.0.0] - 2019-10-22
 
 ### Added
