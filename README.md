@@ -117,7 +117,7 @@ Same result as the one-liner above. Just replace `magento2.test` references with
 
 ```bash
 # Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
 bin/download 2.3.3
@@ -147,7 +147,7 @@ open https://magento2.test
 
 ```bash
 # Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Remove existing src directory:
 rm -rf src
@@ -203,13 +203,13 @@ It is recommended to keep your root docker config files in one repository, and y
 
 ### Older Versions
 
-Versions older than `24.0.0` did not include a `bin/update` helper script. In this situation, you can download the file to your project by running:
+Versions older than `24.0.0` did not include a `bin/update` helper script, and versions older than `26.0.0` had a different directory structure. For both of these situations, you can download the most recent file to your project by running:
 
 ```
-(cd bin && curl -OL https://raw.githubusercontent.com/markshust/docker-magento/master/compose/magento-2/bin/update && chmod +x update)
+(cd bin && curl -OL https://raw.githubusercontent.com/markshust/docker-magento/master/compose/bin/update && chmod +x update)
 ```
 
-You'll now have the `bin/update` helper script, and can run it to update your project.
+You'll now have an updated `bin/update` helper script, and can run it to update your project.
 
 ## Custom CLI Commands
 
@@ -297,7 +297,7 @@ For more information about Redis usage with Magento, <a href="https://devdocs.ma
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
 
-Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/magento-2/.vscode/launch.json) file.
+Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
 ### Xdebug & PHPStorm
 
