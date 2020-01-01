@@ -334,6 +334,22 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
+### Blackfire.io
+
+These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
+
+```
+bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
+```
+
+Next, open up the `bin/start` helper script and uncomment the line:
+
+```
+#bin/root /etc/init.d/blackfire-agent start
+```
+
+Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
+
 ## Credits
 
 ### Mark Shust
