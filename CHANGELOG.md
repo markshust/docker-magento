@@ -8,16 +8,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [27.0.0] - 2020-01-01
+
+Happy new year! 🎉
+
+### Updated
+- Updated the PHP base images from Debian Stretch to Buster
+- Updated PHP libsodium package to `1.0.17` to support `HASH_VERSION_ARGON2ID13` <a href="https://github.com/markshust/docker-magento/issues/193">#193</a>
+
+### Added
+- Built-in support for Blackfire.io
+- New PHP image tags `7.2-fpm-5`, `7.3-fpm-2`
+
 ## [26.0.0] - 2019-12-30
 
-## Added
+### Added
 - Ability for `src` directory to be a symlink
 
 ### Fixed
 - Fixed Magento2 setup script with n98-magerun2.phar
 - Fixed dev-urn-catalog-generate script
 
-## Removed
+### Removed
 - All Windows-specific setup and helper scripts. This involved changing directory structure of `compose` folder, there is no longer specific `magento-2` and `magento-2-windows` specific folders. Windows support works on Docker with WSL.
 - Support for PHP 7.1 (EOL)
 
