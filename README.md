@@ -89,15 +89,11 @@ Folders:
 
 This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Desktop](https://www.docker.com/products/docker-desktop).
 
-This configuration has been tested on Mac & Linux.
-
-> **Windows Configurations**: The Windows configuration does not currently work and is in need of a contributor to get functional once again. Please see [issue 100](https://github.com/markshust/docker-magento/issues/100) to contribute.
+This configuration has been tested on Mac & Linux. Windows is supported through the use of Docker on WSL.
 
 ## Setup
 
 ### Automated Setup (New Project)
-
-> macOS & Linux Only
 
 Run this automated one-liner from the directory you want to install your project to:
 
@@ -340,7 +336,16 @@ Running Docker on Linux should be pretty straight-forward. Note that you need to
 
 ### Mark Shust
 
-I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> and <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read technical articles on my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
+I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> & <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
+
+### M.academy
+
+At <a href="https://m.academy" target="_blank">M.academy</a> you can learn the basics of Magento 2 programming & architecture, explained simply by a Certified Magento Developer.
+
+#### Available Courses:
+
+- <a href="https://m.academy/p/setup-magento-2-development-environment-docker" target="_blank">Setup a Magento 2 Development Environment with Docker</a> (FREE!) - The easiest way to install, manage, configure & standardize Magento development environments across your team.
+- <a href="https://m.academy/p/magento-2-coding-kickstart" target="_blank">Magento 2 Coding Kickstart 🚀</a> - Start to become productive in Magento 2 programming within one week with no prior experience.
 
 ### Nexcess
 
