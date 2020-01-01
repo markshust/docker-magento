@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-stretch
+FROM php:7.2-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 RUN apt-get update && apt-get install -y \
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
   libssh2-1-dev \
   libxslt1-dev \
   lsof \
-  mysql-client \
+  default-mysql-client \
   vim \
   zip
 
@@ -37,6 +37,7 @@ RUN docker-php-ext-install \
   pdo_mysql \
   soap \
   sockets \
+  sodium \
   sysvmsg \
   sysvsem \
   sysvshm \
@@ -44,7 +45,6 @@ RUN docker-php-ext-install \
   zip
 
 RUN pecl channel-update pecl.php.net \
-  && pecl install libsodium \
   && pecl install ssh2-1.1.2 \
   && pecl install xdebug
 
