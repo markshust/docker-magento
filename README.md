@@ -334,6 +334,14 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
+You may have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
+
+Add following line to `/etc/sysctl.conf`:
+
+```
+vm.max_map_count=262144
+```
+
 ### Blackfire.io
 
 These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
