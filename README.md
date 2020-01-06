@@ -291,6 +291,15 @@ You may also monitor Redis by running: `bin/redis redis-cli monitor`
 
 For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.3/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
 
+### Elasticsearch
+
+Linux on Elasticsearch requires the virtual memory to be increased on the host. This can be accomplished by running:
+
+```
+# Only needed on Linux hosts
+sudo sysctl -w vm.max_map_count=262144
+```
+
 ### Xdebug & VS Code
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
