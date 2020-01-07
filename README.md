@@ -133,7 +133,7 @@ bin/download 2.3.3
 # composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.3 src
 
 # Create a DNS host entry for the site:
-echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts
+echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
 
 # Run the setup installer for Magento:
 bin/setup magento2.test
@@ -155,7 +155,7 @@ cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
 # Create a DNS host entry for the site:
-echo "127.0.0.1 yoursite.test" | sudo tee -a /etc/hosts
+echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
 
 # Start some containers, copy files ot them and then restart the containers:
 docker-compose up -d
