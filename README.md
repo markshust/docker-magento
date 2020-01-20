@@ -37,7 +37,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.13
-      - [`latest`, `1.13`, `1.13-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`latest`, `1.13`, `1.13-8`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.13)
+      - [`1.13-7`](https://github.com/markshust/docker-magento/tree/27.0.0/images/nginx/1.13)
       - [`1.13-6`](https://github.com/markshust/docker-magento/tree/20.1.1/images/nginx/1.13)
       - [`1.13-5`](https://github.com/markshust/docker-magento/tree/18.1.1/images/nginx/1.13)
       - [`1.13-4`](https://github.com/markshust/docker-magento/tree/18.0.1/images/nginx/1.13)
@@ -228,7 +229,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
-- `bin/redis`: Run a command from the redis container. Ex `bin/redis redis-cli monitor`
+- `bin/redis`: Run a command from the redis container. Ex. `bin/redis redis-cli monitor`
 - `bin/remove`: Remove all containers.
 - `bin/removevolumes`: Remove all volumes.
 - `bin/restart`: Stop and then start all containers.
@@ -236,6 +237,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
 - `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento2.test`
+- `bin/setup-ssl`: Generate an SSL certificate and install the cert authority on the host. Ex. `bin/setup-ssl magento2.test`
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/status`: Check the container status.
 - `bin/stop`: Stop all containers.
