@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [27.1.0] - 2020-01-20
+
+### Added
+- New `bin/setup-ssl` script to generate valid SSL certificates <a href="https://github.com/markshust/docker-magento/issues/211">#211</a>
+- New `markoshust/magento-nginx:1.13-8` image containing mkcert script
+
+### Updated
+- Updated `bin/setup` to use new `bin/setup-ssl` script
+
 ## [27.0.0] - 2020-01-01
 
 Happy new year! 🎉

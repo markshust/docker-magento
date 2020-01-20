@@ -93,8 +93,8 @@ echo "Copying files from container to host after install..."
 bin/copyfromcontainer app
 bin/copyfromcontainer vendor
 
-echo "Restarting containers with host bind mounts for dev..."
-bin/restart
+echo "Generating SSL certificate..."
+bin/setup-ssl $BASE_URL
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
