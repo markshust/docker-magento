@@ -67,6 +67,11 @@ bin/clinotty bin/magento setup:install \
   --language=en_US \
   --currency=USD \
   --timezone=America/New_York \
+  --amqp-host=rabbitmq \
+  --amqp-port=5672 \
+  --amqp-user=guest \
+  --amqp-password=guest \
+  --amqp-virtualhost=/ \
   --use-rewrites=1
 
 echo "Turning on developer mode.."
