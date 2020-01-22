@@ -40,7 +40,13 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
   #  image: markoshust/magento-php:7.3-fpm-2
@@ -56,3 +62,4 @@ volumes:
   dbdata:
   sockdata:
   ssldata:
+  rabbitmqdata:
