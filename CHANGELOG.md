@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [27.2.0] - 2020-01-22
+
+### Added
+- Support for RabbitMQ <a href="https://github.com/markshust/docker-magento/pull/212">PR #212</a>
+
 ## [27.1.0] - 2020-01-20
 
 ### Added
