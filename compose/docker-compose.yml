@@ -1,5 +1,5 @@
 # Mark Shust's Docker Configuration for Magento (https://github.com/markshust/docker-magento)
-# Version 27.1.0
+# Version 27.2.0
 
 version: "3"
 
@@ -40,6 +40,7 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+
   rabbitmq:
     image: rabbitmq:3.7-management
     ports:
@@ -47,6 +48,7 @@ services:
       - "5672:5672"
     volumes:
       - rabbitmqdata:/var/lib/rabbitmq
+
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
   #  image: markoshust/magento-php:7.3-fpm-2
@@ -60,6 +62,6 @@ services:
 volumes:
   appdata:
   dbdata:
+  rabbitmqdata:
   sockdata:
   ssldata:
-  rabbitmqdata:
