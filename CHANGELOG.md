@@ -6,7 +6,107 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- N/A
+N/A
+
+## [27.2.0] - 2020-01-22
+
+### Added
+- Support for RabbitMQ <a href="https://github.com/markshust/docker-magento/pull/212">PR #212</a>
+
+## [27.1.0] - 2020-01-20
+
+### Added
+- New `bin/setup-ssl` script to generate valid SSL certificates <a href="https://github.com/markshust/docker-magento/issues/211">#211</a>
+- New `markoshust/magento-nginx:1.13-8` image containing mkcert script
+
+### Updated
+- Updated `bin/setup` to use new `bin/setup-ssl` script
+
+## [27.0.0] - 2020-01-01
+
+Happy new year! 🎉
+
+### Updated
+- Updated the PHP base images from Debian Stretch to Buster
+- Updated PHP libsodium package to `1.0.17` to support `HASH_VERSION_ARGON2ID13` <a href="https://github.com/markshust/docker-magento/issues/193">#193</a>
+
+### Added
+- Built-in support for Blackfire.io
+- New PHP image tags `7.2-fpm-5`, `7.3-fpm-2`
+
+## [26.0.0] - 2019-12-30
+
+### Added
+- Ability for `src` directory to be a symlink
+
+### Fixed
+- Fixed Magento2 setup script with n98-magerun2.phar
+- Fixed dev-urn-catalog-generate script
+
+### Removed
+- All Windows-specific setup and helper scripts. This involved changing directory structure of `compose` folder, there is no longer specific `magento-2` and `magento-2-windows` specific folders. Windows support works on Docker with WSL.
+- Support for PHP 7.1 (EOL)
+
+## [25.0.0] - 2019-10-22
+
+### Added
+- Full parity with [Magento Cloud PHP extensions](https://devdocs.magento.com/guides/v2.3/cloud/project/project-conf-files_magento-app.html#php-extensions)
+
+### Updated
+- Optimized Dockerfile install order and layer usage for all PHP images (7.1, 7.2 & 7.3)
+- Updated few lib dependencies in Dockerfiles with new versions
+- Pegged Composer to version 1.9.0 for predictability, moved to lower layer so updating version doesn't require full rebuild of all layers
+
+## [24.2.0] - 2019-10-18
+
+### Fixed
+- Fixed logic of `bin/copyfromcontainer` and `bin/copytocontainer` so subdirectories are now properly copied from and to the container
+
+### Added
+- The `bin/fixowns` script now includes the ability to fix ownerships at the subdirectory level 
+- The `bin/copyfromcontainer` and `bin/copytocontainer` scripts now fixes permissions and ownerships of just the subdirectories that are copied
+
+## [24.1.2] - 2019-10-15
+
+### Fixed
+- Fixed `bin/copyfromcontainer` and `bin/copytocontainer` referencing incorrect destination file locations
+
+## [24.1.1] - 2019-10-11
+
+### Fixed
+- Added missing `bin/pwa-studio` and `bin/setup-pwa-studio` bash scripts
+
+## [24.1.0] - 2019-10-10
+
+### Added
+- Documented in README how to retrieve `bin/update` file for previous versions that did not include it
+- Added `hirak/prestissimo` composer package to `bin/setup` helper script for much faster composer installs
+- Downloaded archive installs are now cached on the user's machine, so subsequent installs of Magento will no longer re-download the archive if previously downloaded. Downloaded archives are stored in the `~/.docker-magento` folder.
+
+### Fixed
+- There is an invalid checksum reference in the Nexcess archive of 2.3.3, replaced checksum reference in `bin/setup` to resolve the error
+
+### Removed
+- The previous CHANGELOG for `24.0.0` referenced `vertex/module-tax` being removed but for some reason it was not removed, now it is
+
+## [24.0.0] - 2019-10-09
+
+### Added
+- New PHP docker image version `7.3-fpm-0` for Magento 2.3.3 support
+- New Elasticsearch docker image `markoshust/magento-elasticsearch:6.5.4-0` which comes bundled with icu and phonetic plugins. The initial `6.5` version is for parity with Magento Cloud.
+- New `bin/update` helper script that updates your docker-magento setup to the latest version
+- Added `.gitignore` file to project root to ignore `src` directory. It is recommended to keep your root docker config files in one repository, and your Magento code setup in another. This ensures the Magento base path lives at the top of one specific repository, which makes automated build pipelines and deployments easy to manage, and maintains compatibility with projects such as Magento Cloud.
+- Install n98-magerun2 when setup is executed, and added related `bin/n98-magerun` and `bin/devconsole` helper scripts.
+- Added `bin/setup-pwa-studio` (BETA) helper script to easily install PWA Studio, usage accepts a single parameter being the site URL you wish PWA Studio to connect to (ex. `bin/setup-pwa-studio magento2.test`)
+- Added `bin/pwa-studio` (BETA) helper script to easily run the PWA Studio NodeJS web server
+
+### Fixed
+- The `bin/dev-urn-catalog-generate` helper script has been updated for compatibility with more recent versions of PHPStorm
+
+### Removed
+- The `vertex/module-tax` Composer package installs correctly as of 2.3.0, so the line within the `bin/setup` script which prevented it from being installed was removed. If one is having issues installing an older version of Magento 2, add the following line to your `composer.json` file to prevent this package from being installed:
+
+  `{"replace": { "vertex/module-tax": "*" }}`
 
 ## [23.2.3] - 2019-07-20
 

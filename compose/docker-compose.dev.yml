@@ -1,0 +1,34 @@
+# Mark Shust's Docker Configuration for Magento (https://github.com/markshust/docker-magento)
+# Version 27.2.0
+
+version: "3"
+
+services:
+  app:
+    volumes: &appvolumes
+      # Host mounts with performance penalty, only put what is necessary here
+      - ./src/app/code:/var/www/html/app/code:delegated
+      - ./src/app/design:/var/www/html/app/design:delegated
+      - ./src/app/etc:/var/www/html/app/etc:delegated
+      - ./src/composer.json:/var/www/html/composer.json:delegated
+      - ./src/composer.lock:/var/www/html/composer.lock:delegated
+      - ./src/nginx.conf.sample:/var/www/html/nginx.conf:delegated
+      #- ./src/var/log:/var/www/html/var/log:delegated
+      #- ./src/var/report:/var/www/html/var/report:delegated
+
+  phpfpm:
+    volumes: *appvolumes
+    # Linux only: host.docker.internal doesn't exist https://github.com/docker/for-linux/issues/264
+    # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    #extra_hosts:
+    #  - "host.docker.internal:IP"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025"
+      - "8025:8025"
+
+  # Disabling cron by default as it uses higher CPU, enable if needed
+  #cron:
+  #  volumes: *appvolumes

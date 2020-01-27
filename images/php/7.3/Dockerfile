@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-buster
+FROM php:7.3-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 RUN apt-get update && apt-get install -y \
@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
   libsodium-dev \
   libssh2-1-dev \
   libxslt1-dev \
+  libzip-dev \
   lsof \
   default-mysql-client \
   vim \
@@ -44,30 +45,24 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
-RUN cd /tmp \
-  && curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
-  && tar -xvvzf ioncube.tar.gz \
-  && mv ioncube/ioncube_loader_lin_7.2.so /usr/local/lib/php/extensions/* \
-  && rm -Rf ioncube.tar.gz ioncube \
-  && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.2.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.2.ini 
-
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
-
-RUN apt-get update && apt-get -t stretch-backports install -y \
-  libsodium-dev
-
-RUN pecl install -f libsodium-1.0.17
-
 RUN pecl channel-update pecl.php.net \
-  && pecl install ssh2-1.1.2 \
   && pecl install xdebug
 
-RUN docker-php-ext-enable ssh2 \
-  && docker-php-ext-enable xdebug \
+RUN docker-php-ext-enable xdebug \
   && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
+## Replace next lines with below commented out version once issue is resolved
+# https://github.com/php/pecl-networking-ssh2/pull/36
+# https://bugs.php.net/bug.php?id=78560
+RUN curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
+  && pear install /tmp/ssh2-1.2.tgz \
+  && rm /tmp/ssh2-1.2.tgz \
+  && docker-php-ext-enable ssh2
+#RUN pecl install ssh2-1.2 \
+#  && docker-php-ext-enable ssh2
+
 RUN groupadd -g 1000 app \
-  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
+ && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
 
 RUN apt-get install -y gnupg \
   && curl -sL https://deb.nodesource.com/setup_8.x | bash - \

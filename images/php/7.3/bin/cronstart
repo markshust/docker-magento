@@ -1,0 +1,7 @@
+#!/bin/bash
+service cron start
+
+touch /var/www/html/var/.setup_cronjob_status /var/www/html/var/.update_cronjob_status
+chown app:app /var/www/html/var/.setup_cronjob_status /var/www/html/var/.update_cronjob_status
+
+/usr/bin/crontab
