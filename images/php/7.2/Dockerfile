@@ -51,13 +51,6 @@ RUN cd /tmp \
   && rm -Rf ioncube.tar.gz ioncube \
   && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.2.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.2.ini 
 
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
-
-RUN apt-get update && apt-get -t stretch-backports install -y \
-  libsodium-dev
-
-RUN pecl install -f libsodium-1.0.17
-
 RUN pecl channel-update pecl.php.net \
   && pecl install ssh2-1.1.2 \
   && pecl install xdebug

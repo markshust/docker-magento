@@ -44,21 +44,12 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
-
 RUN cd /tmp \
   && curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
   && tar -xvvzf ioncube.tar.gz \
   && mv ioncube/ioncube_loader_lin_7.1.so /usr/local/lib/php/extensions/* \
   && rm -Rf ioncube.tar.gz ioncube \
-  && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.1.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.1.ini 
-
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
-
-RUN apt-get update && apt-get -t stretch-backports install -y \
-  libsodium-dev
-
-RUN pecl install -f libsodium-1.0.17 \
-  && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/sodium.ini
+  && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.1.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.1.ini
 
 RUN pecl channel-update pecl.php.net \
   && pecl install libsodium \
