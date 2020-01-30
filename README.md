@@ -237,7 +237,8 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
 - `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento2.test`
-- `bin/setup-ssl`: Generate an SSL certificate and install the cert authority on the host. Ex. `bin/setup-ssl magento2.test`
+- `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento2.test magento3.test`
+- `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/status`: Check the container status.
 - `bin/stop`: Stop all containers.
