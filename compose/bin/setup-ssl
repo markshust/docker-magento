@@ -1,19 +1,16 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify a domain (ex. mydomain.test)" && exit
 
-# Generate certificate authority and copy back to the host
-docker-compose exec -u root app mkcert -install
-docker cp $(docker-compose ps -q app|awk '{print $1}'):/root/.local/share/mkcert/rootCA.pem .
-echo "System password requested to install certificate authority on host..."
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain rootCA.pem
-rm rootCA.pem
+# Generate certificate authority if not already setup
+if ! docker-compose exec -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
+  bin/setup-ssl-ca
+fi
 
 # Generate the certificate for the specified domain
-docker-compose exec -u root app mkcert $1
-echo "Renaming $1 certificate and moving to /etc/nginx/certs/..."
-docker-compose exec -u root app chown app:app $1.pem $1-key.pem
-docker-compose exec -u root app mv $1.pem /etc/nginx/certs/nginx.crt
-docker-compose exec -u root app mv $1-key.pem /etc/nginx/certs/nginx.key
+docker-compose exec -u root app mkcert -key-file nginx.key -cert-file nginx.crt "$@"
+echo "Moving key and cert to /etc/nginx/certs/..."
+docker-compose exec -u root app chown app:app nginx.key nginx.crt
+docker-compose exec -u root app mv nginx.key nginx.crt /etc/nginx/certs/
 
 # Restart nginx to apply the updates
 echo "Restarting containers to apply updates..."
