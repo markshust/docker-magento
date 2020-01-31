@@ -65,7 +65,7 @@ RUN groupadd -g 1000 app \
  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
 
 RUN apt-get install -y gnupg \
-  && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+  && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && apt-get install -y nodejs \
   && mkdir /var/www/.config /var/www/.npm \
   && chown app:app /var/www/.config /var/www/.npm \
