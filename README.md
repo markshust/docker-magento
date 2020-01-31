@@ -116,7 +116,7 @@ Same result as the one-liner above. Just replace `magento2.test` references with
 
 ```bash
 # Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
+curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
 bin/download 2.3.3
@@ -146,7 +146,7 @@ open https://magento2.test
 
 ```bash
 # Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
+curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash
 
 # Remove existing src directory:
 rm -rf src
