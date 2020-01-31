@@ -15,16 +15,16 @@ services:
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:delegated
       - ./src/var/log:/var/www/html/var/log:delegated
       #- ./src/var/report:/var/www/html/var/report:delegated
-      - ./extensions/services-id/ServicesId:/var/www/html/app/code/Magento/ServicesId:delegated
-      - ./extensions/data-services/DataServices:/var/www/html/app/code/Magento/DataServices:delegated
-      - ./extensions/saas-export/app/code/Magento/DataExporter:/var/www/html/app/code/Magento/DataExporter:delegated
-      - ./extensions/saas-export/app/code/Magento/CatalogDataExporter:/var/www/html/app/code/Magento/CatalogDataExporter:delegated
-      - ./extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter:/var/www/html/app/code/Magento/CatalogInventoryDataExporter:delegated
-      - ./extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter:/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter:delegated
-      - ./extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter:/var/www/html/app/code/Magento/ConfigurableProductDataExporter:delegated
-      - ./extensions/saas-export/app/code/Magento/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog:delegated
-      - ./extensions/product-recommendations/ProductRecommendations:/var/www/html/app/code/Magento/ProductRecommendations:delegated
-      - ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout:delegated
+      #- ./extensions/services-id/ServicesId:/var/www/html/app/code/Magento/ServicesId:delegated
+      #- ./extensions/data-services/DataServices:/var/www/html/app/code/Magento/DataServices:delegated
+      #- ./extensions/saas-export/app/code/Magento/DataExporter:/var/www/html/app/code/Magento/DataExporter:delegated
+      #- ./extensions/saas-export/app/code/Magento/CatalogDataExporter:/var/www/html/app/code/Magento/CatalogDataExporter:delegated
+      #- ./extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter:/var/www/html/app/code/Magento/CatalogInventoryDataExporter:delegated
+      #- ./extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter:/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter:delegated
+      #- ./extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter:/var/www/html/app/code/Magento/ConfigurableProductDataExporter:delegated
+      #- ./extensions/saas-export/app/code/Magento/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog:delegated
+      #- ./extensions/product-recommendations/ProductRecommendations:/var/www/html/app/code/Magento/ProductRecommendations:delegated
+      #- ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout:delegated
 
   phpfpm:
     volumes: *appvolumes

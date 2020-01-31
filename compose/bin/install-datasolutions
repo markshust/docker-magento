@@ -18,3 +18,5 @@ bin/clinotty bin/magento module:enable --all
 bin/clinotty bin/magento setup:upgrade
 bin/clinotty bin/magento setup:di:compile
 bin/clinotty bin/magento cache:flush
+
+sed -i '' -e 's/#- .\/extensions/- .\/extensions/g' docker-compose.dev.yml
