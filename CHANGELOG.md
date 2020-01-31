@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [28.0.0] - 2020-01-31
+
+### Updated
+- Upgraded NodeJS to 10.x, as 8.x was failing to install npm due to source repository updates <a href="https://github.com/markshust/docker-magento/issues/210">#210</a>
+
+### Removed
+- Removed PHP 7.1 image from filesystem as it has been deprecated. If you need to reference the last version of these images, they are available at <a href="https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.1">https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.1</a>
+
 ## [27.2.0] - 2020-01-22
 
 ### Added
