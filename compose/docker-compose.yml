@@ -28,7 +28,7 @@ services:
     image: percona:5.7
     ports:
       - "3306:3306"
-    env_file: env/db.env
+    env_file: .env
     volumes:
       - dbdata:/var/lib/mysql
 
@@ -50,14 +50,14 @@ services:
       - rabbitmqdata:/var/lib/rabbitmq
 
   # Disabling cron by default as it uses higher CPU, enable if needed
-  #cron:
-  #  image: markoshust/magento-php:7.3-fpm-2
-  #  user: root
-  #  command: /usr/local/bin/cronstart
-  #  tty: true
-  #  links:
-  #    - db
-  #  volumes: *appvolumes
+  cron:
+    image: markoshust/magento-php:7.3-fpm-2
+    user: root
+    command: /usr/local/bin/cronstart
+    tty: true
+    links:
+      - db
+    volumes: *appvolumes
 
 volumes:
   appdata:

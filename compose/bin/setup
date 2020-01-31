@@ -1,5 +1,6 @@
 #!/bin/bash
-BASE_URL=${1:-magento2.test}
+
+source .env
 
 bin/stop
 
@@ -36,7 +37,7 @@ if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
         read -p "    Add authentication information to host composer config? y/n: " ADD_AUTH
         echo
         if [[ $ADD_AUTH =~ ^[Yy]$ ]]; then
-            composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
+            composer global config http-basic.repo.magento.com "$PUBLIC_KEY" "$PRIVATE_KEY"
         fi
         ADD_AUTH=''
     fi
@@ -44,7 +45,7 @@ if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
 fi
 
 if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
-    bin/clinotty composer config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
+    bin/clinotty composer config http-basic.repo.magento.com "$PUBLIC_KEY" "$PRIVATE_KEY"
     PUBLIC_KEY=''
     PRIVATE_KEY=''
 fi
@@ -54,19 +55,22 @@ bin/clinotty composer global require hirak/prestissimo
 bin/clinotty composer install
 
 bin/clinotty bin/magento setup:install \
+  --base-url="$MAGENTO_BASE_URL" \
+  --use-secure="$MAGENTO_USE_SECURE" \
   --db-host=db \
-  --db-name=magento \
-  --db-user=magento \
-  --db-password=magento \
-  --base-url=https://$BASE_URL/ \
-  --admin-firstname=John \
-  --admin-lastname=Smith \
-  --admin-email=john.smith@gmail.com \
-  --admin-user=john.smith \
-  --admin-password=password123 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/New_York \
+  --db-name="$MYSQL_DATABASE" \
+  --db-user="$MYSQL_USER" \
+  --db-password="$MYSQL_PASSWORD" \
+  --backend-frontname="$MAGENTO_BACKEND_FRONTNAME" \
+  --language="$MAGENTO_LANGUAGE" \
+  --timezone="$MAGENTO_TIMEZONE" \
+  --currency="$MAGENTO_DEFAULT_CURRENCY" \
+  --use-secure-admin="$MAGENTO_USE_SECURE_ADMIN" \
+  --admin-firstname="$MAGENTO_ADMIN_FIRSTNAME" \
+  --admin-lastname="$MAGENTO_ADMIN_LASTNAME" \
+  --admin-email="$MAGENTO_ADMIN_EMAIL" \
+  --admin-user="$MAGENTO_ADMIN_USERNAME" \
+  --admin-password="$MAGENTO_ADMIN_PASSWORD" \
   --amqp-host=rabbitmq \
   --amqp-port=5672 \
   --amqp-user=guest \
@@ -76,6 +80,14 @@ bin/clinotty bin/magento setup:install \
 
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
+
+if [[ "$DATA_SOLUTIONS_MODE" == true ]]; then
+  bin/install-datasolutions
+fi
+
+if [[ "$INSTALL_SAMPLE_DATA" == true ]]; then
+  bin/install-sampledata
+fi
 
 bin/clinotty bin/magento indexer:reindex
 
@@ -99,7 +111,7 @@ bin/copyfromcontainer app
 bin/copyfromcontainer vendor
 
 echo "Generating SSL certificate..."
-bin/setup-ssl $BASE_URL
+bin/setup-ssl "$(basename "$MAGENTO_BASE_URL")"
 
 echo "Docker development environment setup complete."
-echo "You may now access your Magento instance at https://${BASE_URL}/"
+echo "You may now access your Magento instance at $MAGENTO_BASE_URL"

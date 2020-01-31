@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source .env
+
+echo "Installing Data Solutions extensions..."
+
+rm -rf extensions
+mkdir extensions
+
+bin/clinotty composer require magento/services-connector
+
+git clone git@github.com:magento/data-services.git extensions/data-services
+git clone git@github.com:magento/data-solutions-services-id.git extensions/services-id
+git clone git@github.com:magento/saas-export.git extensions/saas-export
+git clone git@github.com:magento/magento-product-recommendations.git extensions/product-recommendations
+
+bin/clinotty bin/magento module:enable --all
+bin/clinotty bin/magento setup:upgrade
+bin/clinotty bin/magento setup:di:compile
+bin/clinotty bin/magento cache:flush
