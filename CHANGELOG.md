@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [29.0.0] - 2020-01-31
+
+### Fixed
+- Fixed implementation of grunt. The grunt-cli is now installed globally on the image and doesn't depend on contents of the `vendor` directory.
+
 ## [28.0.0] - 2020-01-31
 
 ### Updated
