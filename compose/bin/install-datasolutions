@@ -14,9 +14,14 @@ git clone git@github.com:magento/data-solutions-services-id.git extensions/servi
 git clone git@github.com:magento/saas-export.git extensions/saas-export
 git clone git@github.com:magento/magento-product-recommendations.git extensions/product-recommendations
 
+sed -i '' -e 's/commerce.adobedtm.com/js.magento-datasolutions.com/g' extensions/data-services/DataServices/view/frontend/requirejs-config.js
+sed -i '' -e 's/magento-recs-sdk.adobe.net\/v1\/index/sdk.magento-datasolutions.com\/qa\/index/g' extensions/data-services/ProductRecommendationsLayout/view/frontend/requirejs-config.js
+
 bin/clinotty bin/magento module:enable --all
 bin/clinotty bin/magento setup:upgrade
 bin/clinotty bin/magento setup:di:compile
 bin/clinotty bin/magento cache:flush
+
+bin/copyfromcontainer app/code
 
 sed -i '' -e 's/#- .\/extensions/- .\/extensions/g' docker-compose.dev.yml

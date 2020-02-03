@@ -113,5 +113,8 @@ bin/copyfromcontainer vendor
 echo "Generating SSL certificate..."
 bin/setup-ssl "$(basename "$MAGENTO_BASE_URL")"
 
+echo "Enabling XDebug..."
+bin/xdebug enable
+
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at $MAGENTO_BASE_URL"
