@@ -2,9 +2,10 @@
 
 source .env
 
-echo "Installing Data Solutions extensions..."
-
+echo "Removing existing extentions..."
 rm -rf extensions
+
+echo "Installing Data Solutions extensions..."
 mkdir extensions
 
 bin/clinotty composer require magento/services-connector

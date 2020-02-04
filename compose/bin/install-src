@@ -1,0 +1,65 @@
+#!/bin/bash
+
+source .env
+
+echo "Removing existing src directory..."
+rm -rf src
+
+echo "Installing Magento into host src directory..."
+
+FULL_HOST_INSTALL_PATH="$PWD/src"
+
+if [[ "$INSTALL_SOURCE" == "git" ]]; then
+  if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
+    mkdir src
+    git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2 "$FULL_HOST_INSTALL_PATH" &&
+      git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2ee "$FULL_HOST_INSTALL_PATH"/magento2ee &&
+      cd "$FULL_HOST_INSTALL_PATH/magento2ee" &&
+      composer update &&
+      composer install &&
+      cd "$FULL_HOST_INSTALL_PATH" &&
+      php "$FULL_HOST_INSTALL_PATH"/magento2ee/dev/tools/build-ee.php --command link --ce-source "$FULL_HOST_INSTALL_PATH" --ee-source magento2ee &&
+      composer update &&
+      composer install &&
+      if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
+        git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data "$FULL_HOST_INSTALL_PATH"/sample-data &&
+          git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data-ee "$FULL_HOST_INSTALL_PATH"/magento2ee/sample-data-ee &&
+          php -f "$FULL_HOST_INSTALL_PATH"/sample-data/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH" &&
+          php -f "$FULL_HOST_INSTALL_PATH"/sample-data-ee/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH" --ee-source="$FULL_HOST_INSTALL_PATH/magento2ee"
+      fi
+  elif [[ "$MAGENTO_EDITION" == "open-source" ]]; then
+    mkdir src
+    git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2 "$FULL_HOST_INSTALL_PATH"
+    cd "$FULL_HOST_INSTALL_PATH" &&
+      composer update &&
+      composer install &&
+      if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
+        git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data "$FULL_HOST_INSTALL_PATH"/sample-data &&
+          php -f "$FULL_HOST_INSTALL_PATH"/sample-data/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH"
+      fi
+  fi
+elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
+  if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
+    mkdir src
+    composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
+  elif [[ "$MAGENTO_EDITION" == "open-source" ]]; then
+    mkdir src
+    composer create-project --repository=https://repo.magento.com/ magento/project-community-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
+  fi
+elif [[ "$INSTALL_SOURCE" == "nexcess" ]]; then
+  if [[ "$MAGENTO_EDITION" == "open-source" ]]; then
+    if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
+      mkdir src
+      curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-with-samples-"$MAGENTO_VERSION".tar.gz | tar xzf - -o -C "$FULL_HOST_INSTALL_PATH"
+    else
+      mkdir src
+      curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-"$MAGENTO_VERSION".tar.gz | tar xzf - -o -C "$FULL_HOST_INSTALL_PATH"
+    fi
+  else
+    printf "\n"
+    echo "Magento install combination $MAGENTO_VERSION $MAGENTO_EDITION from $INSTALL_SOURCE is not available"
+  fi
+else
+  printf "\n"
+  echo "Magento install combination $MAGENTO_VERSION $MAGENTO_EDITION from $INSTALL_SOURCE is not available"
+fi
