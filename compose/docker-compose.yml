@@ -22,7 +22,6 @@ services:
     image: markoshust/magento-php:7.3-fpm-4
     links:
       - db
-    env_file: env/magento.env
     volumes: *appvolumes
 
   db:

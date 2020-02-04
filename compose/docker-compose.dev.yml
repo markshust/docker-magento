@@ -27,6 +27,7 @@ services:
       #- ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout
 
   phpfpm:
+    env_file: env/magento.env
     volumes: *appvolumes
     # Linux only: host.docker.internal doesn't exist https://github.com/docker/for-linux/issues/264
     # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
