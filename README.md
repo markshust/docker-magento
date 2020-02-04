@@ -102,31 +102,20 @@ View Dockerfiles:
       - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - 7.3
-      - [`latest`, `7.3-fpm`, `7.3-fpm-2`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`latest`, `7.3-fpm`, `7.3-fpm-4`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-3`](https://github.com/markshust/docker-magento/tree/28.0.0/images/php/7.3)
+      - [`7.3-fpm-2`](https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.3)
       - [`7.3-fpm-1`](https://github.com/markshust/docker-magento/tree/26.0.0/images/php/7.3)
       - [`7.3-fpm-0`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.3)
   - 7.2
-      - [`7.2-fpm`, `7.2-fpm-5`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+      - [`7.2-fpm`, `7.2-fpm-7`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+      - [`7.2-fpm-6`](https://github.com/markshust/docker-magento/tree/28.0.0/images/php/7.2)
+      - [`7.2-fpm-5`](https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.2)
       - [`7.2-fpm-4`](https://github.com/markshust/docker-magento/tree/26.0.0/images/php/7.2)
       - [`7.2-fpm-3`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.2)
       - [`7.2-fpm-2`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.2)
       - [`7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.2)
       - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
-  - 7.1 (All images deprecated with PHP 7.1 EOL effective December 1, 2019)
-      - [`7.1-fpm`, `7.1-fpm-13`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
-      - [`7.1-fpm-12`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.1)
-      - [`7.1-fpm-11`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.1)
-      - [`7.1-fpm-10`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.1)
-      - [`7.1-fpm-9`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.1)
-      - [`7.1-fpm-8`](https://github.com/markshust/docker-magento/tree/17.0.1/images/php/7.1)
-      - [`7.1-fpm-7`](https://github.com/markshust/docker-magento/tree/16.2.0/images/php/7.1)
-      - [`7.1-fpm-6`](https://github.com/markshust/docker-magento/tree/16.0.0/images/php/7.1)
-      - [`7.1-fpm-5`](https://github.com/markshust/docker-magento/tree/15.0.1/images/php/7.1)
-      - [`7.1-fpm-4`](https://github.com/markshust/docker-magento/tree/15.0.0/images/php/7.1)
-      - [`7.1-fpm-3`](https://github.com/markshust/docker-magento/tree/14.0.1/images/php/7.1)
-      - [`7.1-fpm-2`](https://github.com/markshust/docker-magento/tree/13.0.0/images/php/7.1)
-      - [`7.1-fpm-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/php/7.1)
-      - [`7.1-fpm-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/php/7.1)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
   - 6.5
       - [`latest`, `6.5`, `6.5.4-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/6.5)
@@ -277,7 +266,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.3`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
-- `bin/grunt`: Run the grunt binary. Note that this runs the version from the node_modules directory for project version parity. Ex. `bin/grunt exec`
+- `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
