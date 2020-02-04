@@ -2,6 +2,6 @@
 
 echo "Installing Sample Data..."
 
-bin/clinotty bin/magento sampledata:deploy
-bin/clinotty bin/magento setup:upgrade
-bin/clinotty bin/magento setup:di:compile
+bin/magento sampledata:deploy
+bin/magento setup:upgrade
+bin/magento setup:di:compile
