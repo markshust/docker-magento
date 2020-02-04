@@ -5,7 +5,13 @@ This is a customized repository forked from https://github.com/markshust/docker-
 ### Data Solutions Install/Setup Instructions
 
 ```bash
-# Download the Docker Compose template:
+# Create project directory
+mkdir magento2
+
+# CD into new project directory
+cd magento2
+
+# Download the Docker Compose template into your project directory
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash
 
 # Configure .env file to specify Magento version, edition, install source, and if you need Luma sample data
