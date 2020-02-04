@@ -5,7 +5,7 @@ VERSION=${2:-2.3.3}
 PROJECT_DIRECTORY=${$DOMAIN%%.*}
 
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash -s -- $PROJECT_DIRECTORY
-bin/download $VERSION
+bin/download "$VERSION"
 
 echo "Your system password has been requested to add an entry to /etc/hosts..."
 echo "127.0.0.1 ::1 $DOMAIN" | sudo tee -a /etc/hosts

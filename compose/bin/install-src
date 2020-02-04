@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .env
+source env/install.env
 
 echo "Removing existing src directory..."
 rm -rf src
@@ -11,7 +11,6 @@ FULL_HOST_INSTALL_PATH="$PWD/src"
 
 if [[ "$INSTALL_SOURCE" == "git" ]]; then
   if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
-    mkdir src
     git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2 "$FULL_HOST_INSTALL_PATH" &&
       git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2ee "$FULL_HOST_INSTALL_PATH"/magento2ee &&
       cd "$FULL_HOST_INSTALL_PATH/magento2ee" &&
@@ -28,7 +27,6 @@ if [[ "$INSTALL_SOURCE" == "git" ]]; then
           php -f "$FULL_HOST_INSTALL_PATH"/sample-data-ee/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH" --ee-source="$FULL_HOST_INSTALL_PATH/magento2ee"
       fi
   elif [[ "$MAGENTO_EDITION" == "open-source" ]]; then
-    mkdir src
     git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2 "$FULL_HOST_INSTALL_PATH"
     cd "$FULL_HOST_INSTALL_PATH" &&
       composer update &&
@@ -40,7 +38,6 @@ if [[ "$INSTALL_SOURCE" == "git" ]]; then
   fi
 elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
   if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
-    mkdir src
     composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
   elif [[ "$MAGENTO_EDITION" == "open-source" ]]; then
     mkdir src
@@ -49,10 +46,8 @@ elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
 elif [[ "$INSTALL_SOURCE" == "nexcess" ]]; then
   if [[ "$MAGENTO_EDITION" == "open-source" ]]; then
     if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
-      mkdir src
       curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-with-samples-"$MAGENTO_VERSION".tar.gz | tar xzf - -o -C "$FULL_HOST_INSTALL_PATH"
     else
-      mkdir src
       curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-"$MAGENTO_VERSION".tar.gz | tar xzf - -o -C "$FULL_HOST_INSTALL_PATH"
     fi
   else

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .env
+source env/install.env
 
 echo "Removing existing extentions..."
 rm -rf extensions

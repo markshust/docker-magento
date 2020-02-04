@@ -8,22 +8,23 @@ This is a customized repository forked from https://github.com/markshust/docker-
 # Download the Docker Compose template into the specified project directory (Ex. magento2)
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash -s -- magento2
 
-# Configure .env file to specify Magento version, edition, install source, and if you need Luma sample data
+# Configure env/install.env file to specify Magento version, edition, install source, and if you need Luma sample data
 # Example:
 #MAGENTO_VERSION=2.3.3
 #MAGENTO_EDITION=open-source
 #INSTALL_SOURCE=composer
 #INSTALL_SAMPLE_DATA=true
 
-# Install the Magento source as configured in your .env file
+# Install the Magento source as configured in env/install.env
+# Skip this step if you want to use a pre-existing src code directory
 bin/install-src
 
 # Create a DNS host entry for the site
-# Default site is magento2.test. You may customize this with the MAGENTO_BASE_URL variable in your .env file
+# Default site is magento2.test. You may customize this with the MAGENTO_BASE_URL variable in env/install.env
 echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
 
 # Run the setup installer for Magento:
-# Set the following variable in your .env file if you want to install Data Solutions extensions during setup
+# Set the following variable in env/install.env if you want to install Data Solutions extensions during setup
 # DATA_SOLUTIONS_MODE=true
 # Then run:
 bin/setup

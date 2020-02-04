@@ -22,14 +22,14 @@ services:
     image: markoshust/magento-php:7.3-fpm-4
     links:
       - db
-    env_file: .env
+    env_file: env/magento.env
     volumes: *appvolumes
 
   db:
     image: percona:5.7
     ports:
       - "3306:3306"
-    env_file: .env
+    env_file: env/install.env
     volumes:
       - dbdata:/var/lib/mysql
 

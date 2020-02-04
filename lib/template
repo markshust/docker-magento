@@ -1,8 +1,8 @@
 #!/bin/bash
 PROJECT_DIRECTORY=${1:-magento2}
 
-mkdir $PROJECT_DIRECTORY
-cd $PROJECT_DIRECTORY
+mkdir "$PROJECT_DIRECTORY"
+cd "$PROJECT_DIRECTORY" || exit
 
 git init -qqq
 git remote add origin https://github.com/rossbrandon/docker-magento
@@ -10,6 +10,5 @@ git fetch origin -qqq
 git checkout origin/master -- compose
 mv compose/* ./
 mv compose/.vscode ./
-mv compose/.env .env
 rm -rf compose .git
 git init
