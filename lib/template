@@ -1,4 +1,9 @@
 #!/bin/bash
+PROJECT_DIRECTORY=${1:-magento2}
+
+mkdir $PROJECT_DIRECTORY
+cd $PROJECT_DIRECTORY
+
 git init -qqq
 git remote add origin https://github.com/rossbrandon/docker-magento
 git fetch origin -qqq
