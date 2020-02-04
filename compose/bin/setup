@@ -81,7 +81,7 @@ bin/clinotty bin/magento setup:install \
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
 
-if [[ "$INSTALL_SAMPLE_DATA" == true ]]; then
+if [[ "$INSTALL_SAMPLE_DATA" == true ]] && [[ "$INSTALL_SOURCE" != "git" ]]; then
   bin/install-sampledata
 fi
 
