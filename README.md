@@ -1,4 +1,50 @@
-<h1 align="center">markshust/docker-magento</h1> 
+# Data Solutions Docker Magento
+
+This is a customized repository forked from https://github.com/markshust/docker-magento
+
+### Data Solutions Install/Setup Instructions
+
+```bash
+# Download the Docker Compose template:
+curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash
+
+# Configure .env file to specify Magento version, edition, install source, and if you need Luma sample data
+# Example:
+#MAGENTO_VERSION=2.3.3
+#MAGENTO_EDITION=open-source
+#INSTALL_SOURCE=composer
+#INSTALL_SAMPLE_DATA=true
+
+# Install the Magento source as configured in your .env file
+bin/install-src
+
+# Create a DNS host entry for the site
+# Default site is magento2.test. You may customize this with the MAGENTO_BASE_URL variable in your .env file
+echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
+
+# Run the setup installer for Magento:
+# Set the following variable in your .env file if you want to install Data Solutions extensions during setup
+# DATA_SOLUTIONS_MODE=true
+# Then run:
+bin/setup
+
+# Open site
+open https://magento2.test
+```
+
+### Automated Setup (New Project)
+
+Run this automated one-liner from the directory you want to install your project to:
+
+```bash
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.3
+```
+
+---
+
+# Original Repo Documentation
+
+<h1 align="center">markshust/docker-magento</h1>
 
 <div align="center">
   <p>Mark Shust's Docker Configuration for Magento</p>
