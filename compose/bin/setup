@@ -113,7 +113,7 @@ bin/copyfromcontainer vendor
 echo "Generating SSL certificate..."
 bin/setup-ssl "$(basename "$MAGENTO_BASE_URL")"
 
-echo "Enabling XDebug..."
+#echo "Enabling XDebug..."
 #bin/xdebug enable
 
 echo "Docker development environment setup complete."
