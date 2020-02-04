@@ -8,7 +8,7 @@ rm -rf extensions
 echo "Installing Data Solutions extensions..."
 mkdir extensions
 
-bin/clinotty composer require magento/services-connector
+bin/composer require magento/services-connector
 
 git clone git@github.com:magento/data-services.git extensions/data-services
 git clone git@github.com:magento/data-solutions-services-id.git extensions/services-id

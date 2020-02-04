@@ -81,10 +81,6 @@ bin/clinotty bin/magento setup:install \
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
 
-if [[ "$DATA_SOLUTIONS_MODE" == true ]]; then
-  bin/install-datasolutions
-fi
-
 if [[ "$INSTALL_SAMPLE_DATA" == true ]]; then
   bin/install-sampledata
 fi

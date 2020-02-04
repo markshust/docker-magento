@@ -24,10 +24,11 @@ bin/install-src
 echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
 
 # Run the setup installer for Magento:
-# Set the following variable in env/install.env if you want to install Data Solutions extensions during setup
-# DATA_SOLUTIONS_MODE=true
 # Then run:
 bin/setup
+
+# To install Data Solutions modules (ServicesConnector, ServicesId, DataServices, SaasExport, ProductRecommendations)
+bin/install-datasolutions
 
 # Open site
 open https://magento2.test
