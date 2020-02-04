@@ -40,6 +40,14 @@ Run this automated one-liner from the directory you want to install your project
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.3
 ```
 
+### CLI Commands Added
+
+- `bin/destroy`: Stops docker containers and prunes containers, networks, and volumes - Use when rebuilding entirely
+- `bin/install-datasolutions`: Installs Data Solutions extensions
+- `bin/install-sampledata`: Installs Magento Luma sample data
+- `bin/install-src`: Installs Magento code into `src` directory based upon configuration in `.env`
+- `bin/setup`: Existing script but was customized to fit Data Solutions developer use cases and driven by `.env` configuration
+
 ---
 
 # Original Repo Documentation
