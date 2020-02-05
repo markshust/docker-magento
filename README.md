@@ -133,17 +133,17 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
     * Keep port set to `80`
     * Check the Path Mappings box
     * Add the following path mappings (to match the volume bindings from step 3c above):
-        * `/var/www/html` -> `<path_to_project>/src`
-        * `/var/www/html/app/code/Magento/DataServices` -> `<path_to_project>/extensions/data-services/DataServices`
-        * `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
-        * `/var/www/html/app/code/Magento/ProductRecommendations` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendations`
-        * `/var/www/html/app/code/Magento/ProductRecommendationsLayout` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendationsLayout`
-        * `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogDataExporter`
-        * `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter`
-        * `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter`
-        * `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter`
-        * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/DataExporter`
-        * `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
+        * `./src` -> `/var/www/html`
+        * `./extensions/data-services/DataServices` -> `/var/www/html/app/code/Magento/DataServices`
+        * `./extensions/services-id/ServicesId` -> `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
+        * `./extensions/product-recommendations/ProductRecommendations` -> `/var/www/html/app/code/Magento/ProductRecommendations`
+        * `./extensions/product-recommendations/ProductRecommendationsLayout` -> `/var/www/html/app/code/Magento/ProductRecommendationsLayout`
+        * `./extensions/saas-export/app/code/Magento/CatalogDataExporter` -> `/var/www/html/app/code/Magento/CatalogDataExporter`
+        * `./extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter` -> `/var/www/html/app/code/Magento/CatalogInventoryDataExporter`
+        * `./extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter` -> `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter`
+        * `./extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter` -> `/var/www/html/app/code/Magento/ConfigurableProductDataExporter`
+        * `./extensions/saas-export/app/code/Magento/DataExporter` -> `/var/www/html/app/code/Magento/DataExporter`
+        * `./extensions/saas-export/app/code/Magento/SaaSCatalog` -> `/var/www/html/app/code/Magento/SaaSCatalog`
 
             ![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
 
