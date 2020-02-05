@@ -11,4 +11,3 @@ git checkout origin/master -- compose
 mv compose/* ./
 mv compose/.vscode ./
 rm -rf compose .git
-git init
