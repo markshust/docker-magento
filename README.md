@@ -2,9 +2,17 @@
 
 This is a customized repository forked from https://github.com/markshust/docker-magento
 
-## Data Solutions Install/Setup Instructions
+## Table of contents
 
-### Templated Install
+- [Data Solutions Install Instructions](#data-solutions-install-instructions)
+- [CLI Commands](#cli-commands)
+- [Debug Setup](#debug-setup)
+
+---
+
+### Data Solutions Install Instructions
+
+#### Templated Install
 
 ```bash
 # Download the Docker Compose template into the specified project directory (Ex. magento2)
@@ -36,7 +44,7 @@ bin/install-datasolutions
 open https://magento2.test
 ```
 
-### Automated Setup (New Project)
+#### Automated Setup (New Project)
 
 Run this automated one-liner from the directory you want to install your project to:
 
@@ -44,7 +52,9 @@ Run this automated one-liner from the directory you want to install your project
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.3
 ```
 
-## CLI Commands
+---
+
+### CLI Commands
 
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
@@ -83,15 +93,17 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
 
-## Debug Setup
+---
 
-### Xdebug & VS Code
+### Debug Setup
+
+#### Xdebug & VS Code
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
 
 Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
-### Xdebug & PHPStorm
+#### Xdebug & PHPStorm
 
 1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PHPStorm from the list and click Save.
 
