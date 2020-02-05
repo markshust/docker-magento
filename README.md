@@ -100,8 +100,8 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
     * `CLI Interpreter`
-        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
-        * Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
+        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-4-fpm`.
+        * Choose `Docker`, then select the `markoshust/magento-php:7-4-fpm` image name, and set the `PHP Executable` to `php`.
 
     * `Path mappings`
         * Don't do anything here as the next `Docker container` step will automatically setup a path mappings.
@@ -121,7 +121,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
             * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/DataExporter`
             * `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
 
-                ![PHPStorm Docker Mappings](docs/docker_mappings.png)
+![PHPStorm Docker Mappings](docs/docker_mappings.png)
 
 4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
 
@@ -145,7 +145,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
         * `./extensions/saas-export/app/code/Magento/DataExporter` -> `/var/www/html/app/code/Magento/DataExporter`
         * `./extensions/saas-export/app/code/Magento/SaaSCatalog` -> `/var/www/html/app/code/Magento/SaaSCatalog`
 
-            ![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
+![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
 
 7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
