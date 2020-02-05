@@ -27,4 +27,5 @@ bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:flush
 
+bin/copyfromcontainer vendor
 bin/copyfromcontainer app/code

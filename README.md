@@ -2,7 +2,7 @@
 
 This is a customized repository forked from https://github.com/markshust/docker-magento
 
-## Table of contents
+## Table of Contents
 
 - [Data Solutions Install Instructions](#data-solutions-install-instructions)
 - [CLI Commands](#cli-commands)
