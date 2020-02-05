@@ -100,8 +100,8 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
     * `CLI Interpreter`
-        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-4-fpm`.
-        * Choose `Docker`, then select the `markoshust/magento-php:7-4-fpm` image name, and set the `PHP Executable` to `php`.
+        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-3-fpm`.
+        * Choose `Docker`, then select the `markoshust/magento-php:7-3-fpm` image name, and set the `PHP Executable` to `php`.
 
     * `Path mappings`
         * Don't do anything here as the next `Docker container` step will automatically setup a path mappings.
