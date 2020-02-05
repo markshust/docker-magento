@@ -2,7 +2,9 @@
 
 This is a customized repository forked from https://github.com/markshust/docker-magento
 
-### Data Solutions Install/Setup Instructions
+## Data Solutions Install/Setup Instructions
+
+### Templated Install
 
 ```bash
 # Download the Docker Compose template into the specified project directory (Ex. magento2)
@@ -10,7 +12,7 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 
 # Configure env/install.env file to specify Magento version, edition, install source, and if you need Luma sample data
 # Example:
-#MAGENTO_VERSION=2.3.3
+#MAGENTO_VERSION=2.3.4
 #MAGENTO_EDITION=open-source
 #INSTALL_SOURCE=composer
 #INSTALL_SAMPLE_DATA=true
@@ -42,220 +44,7 @@ Run this automated one-liner from the directory you want to install your project
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.3
 ```
 
-### CLI Commands Added
-
-- `bin/destroy`: Stops docker containers and prunes containers, networks, and volumes - Use when rebuilding entirely
-- `bin/install-datasolutions`: Installs Data Solutions extensions to `extensions` directory
-- `bin/install-sampledata`: Installs Magento Luma sample data
-- `bin/install-src`: Installs Magento code into `src` directory based upon configuration in `.env`
-- `bin/setup`: Existing script but was customized to fit Data Solutions developer use cases and driven by `.env` configuration
-
----
-
-# Original Repo Documentation
-
-<h1 align="center">markshust/docker-magento</h1>
-
-<div align="center">
-  <p>Mark Shust's Docker Configuration for Magento</p>
-  <img src="https://img.shields.io/badge/magento-2.X-brightgreen.svg?logo=magento&longCache=true&style=flat-square" alt="Supported Magento Versions" />
-  <a href="https://hub.docker.com/r/markoshust/magento-nginx/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-nginx.svg?label=nginx%20docker%20pulls" alt="Docker Hub Pulls - Nginx" /></a>
-  <a href="https://hub.docker.com/r/markoshust/magento-php/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-php.svg?label=php%20docker%20pulls" alt="Docker Hub Pulls - PHP" /></a>
-  <a href="https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity" target="_blank"><img src="https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square" alt="Maintained - Yes" /></a>
-  <a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
-</div>
-
-## Table of contents
-
-- [Free Course](#free-course)
-- [Docker Hub](#docker-hub)
-- [Usage](#usage)
-- [Prerequisites](#prerequisites)
-- [Setup](#setup)
-- [Updates](#updates)
-- [Custom CLI Commands](#custom-cli-commands)
-- [Misc Info](#misc-info)
-- [Credits](#credits)
-- [License](#license)
-
-## Free Course
-
-I created a free screencast course which details the basic usage of this project:
-
-<a href="https://m.academy/p/setup-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Setup a Magento 2 Development Environment with Docker"><br />
-Setup a Magento 2 Development Environment with Docker
-</a>
-
-## Docker Hub
-
-View Dockerfiles:
-
-- [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
-  - 1.13
-      - [`latest`, `1.13`, `1.13-8`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.13)
-      - [`1.13-7`](https://github.com/markshust/docker-magento/tree/27.0.0/images/nginx/1.13)
-      - [`1.13-6`](https://github.com/markshust/docker-magento/tree/20.1.1/images/nginx/1.13)
-      - [`1.13-5`](https://github.com/markshust/docker-magento/tree/18.1.1/images/nginx/1.13)
-      - [`1.13-4`](https://github.com/markshust/docker-magento/tree/18.0.1/images/nginx/1.13)
-      - [`1.13-3`](https://github.com/markshust/docker-magento/tree/15.0.1/images/nginx/1.13)
-      - [`1.13-2`](https://github.com/markshust/docker-magento/tree/12.0.0/images/nginx/1.13)
-      - [`1.13-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/nginx/1.13)
-      - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
-- [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - 7.3
-      - [`latest`, `7.3-fpm`, `7.3-fpm-4`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
-      - [`7.3-fpm-3`](https://github.com/markshust/docker-magento/tree/28.0.0/images/php/7.3)
-      - [`7.3-fpm-2`](https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.3)
-      - [`7.3-fpm-1`](https://github.com/markshust/docker-magento/tree/26.0.0/images/php/7.3)
-      - [`7.3-fpm-0`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.3)
-  - 7.2
-      - [`7.2-fpm`, `7.2-fpm-7`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
-      - [`7.2-fpm-6`](https://github.com/markshust/docker-magento/tree/28.0.0/images/php/7.2)
-      - [`7.2-fpm-5`](https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.2)
-      - [`7.2-fpm-4`](https://github.com/markshust/docker-magento/tree/26.0.0/images/php/7.2)
-      - [`7.2-fpm-3`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.2)
-      - [`7.2-fpm-2`](https://github.com/markshust/docker-magento/tree/23.2.1/images/php/7.2)
-      - [`7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.2)
-      - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
-- [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
-  - 6.5
-      - [`latest`, `6.5`, `6.5.4-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/6.5)
-
-## Usage
-
-This configuration is intended to be used as a Docker-based development environment for Magento 2.
-
-Folders:
-
-- `images`: Docker images for nginx and php
-- `compose`: sample setups with Docker Compose
-
-> The Magento 1 version of this development environment has been deprecated and is no longer supported. PHP 5 was used as it's base, and that version has reached end-of-life. If you still wish to use this setup, please reference [compose/magento-1 on tag 20.1.1](https://github.com/markshust/docker-magento/tree/20.1.1/compose/magento-1), but please be aware these images are no longer maintained.
-
-## Prerequisites
-
-This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Desktop](https://www.docker.com/products/docker-desktop).
-
-This configuration has been tested on Mac & Linux. Windows is supported through the use of Docker on WSL.
-
-## Setup
-
-### Automated Setup (New Project)
-
-Run this automated one-liner from the directory you want to install your project to:
-
-```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.3
-```
-
-The `magento2.test` above defines the hostname to use, and the `2.3.3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
-
-After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
-
-### Manual Setup
-
-Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to use.
-
-#### New Projects
-
-```bash
-# Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash
-
-# Download the version of Magento you want to use with:
-bin/download 2.3.3
-
-# or if you'd rather install with Composer, run:
-#
-# OPEN SOURCE:
-#
-# rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.3.3 src
-#
-# COMMERCE:
-#
-# rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.3.3 src
-
-# Create a DNS host entry for the site:
-echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
-
-# Run the setup installer for Magento:
-bin/setup magento2.test
-
-open https://magento2.test
-```
-
-#### Existing Projects
-
-```bash
-# Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash
-
-# Remove existing src directory:
-rm -rf src
-
-# Replace with existing source code of your existing Magento instance:
-cp -R ~/Sites/existing src
-# or: git clone git@github.com:myrepo.git src
-
-# Create a DNS host entry for the site:
-echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
-
-# Start some containers, copy files ot them and then restart the containers:
-docker-compose up -d
-rm -rf src/vendor
-bin/copytocontainer --all ## Initial copy will take a few minutes...
-
-# Install composer dependencies, then copy artifacts back to the host (for debugging purposes):
-bin/composer install
-bin/copyfromcontainer vendor
-
-# Import existing database:
-bin/clinotty mysql -hdb -umagento -pmagento magento < existing/magento.sql
-
-# Update database connection details to use the above Docker MySQL credentials:
-# Also note: creds for the MySQL server are defined at startup from env/db.env
-# vi src/app/etc/env.php
-
-# Import app-specific environment settings:
-bin/magento app:config:import
-
-# Set base URLs to local environment URL (if not defined in env.php file):
-bin/magento config:set web/secure/base_url https://yoursite.test/
-bin/magento config:set web/unsecure/base_url https://yoursite.test/
-
-bin/restart
-
-open https://magento2.test
-```
-
-> For more details on how everything works, see the extended [setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).
-
-## Updates
-
-To update your project to the latest version of `docker-magento`, run:
-
-```
-bin/update
-```
-
-We recommend keeping your docker config files in version control, so you can monitor the changes to files after updates. After reviewing the code updates and ensuring they updated as intended, run `bin/restart` to restart your containers to have the new configuration take effect.
-
-It is recommended to keep your root docker config files in one repository, and your Magento code setup in another. This ensures the Magento base path lives at the top of one specific repository, which makes automated build pipelines and deployments easy to manage, and maintains compatibility with projects such as Magento Cloud.
-
-### Older Versions
-
-Versions older than `24.0.0` did not include a `bin/update` helper script, and versions older than `26.0.0` had a different directory structure. For both of these situations, you can download the most recent file to your project by running:
-
-```
-(cd bin && curl -OL https://raw.githubusercontent.com/markshust/docker-magento/master/compose/bin/update && chmod +x update)
-```
-
-You'll now have an updated `bin/update` helper script, and can run it to update your project.
-
-## Custom CLI Commands
+## CLI Commands
 
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
@@ -263,12 +52,16 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
+- `bin/destroy`: Stops docker containers and prunes containers, networks, and volumes - Use when rebuilding entirely
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.3`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
+- `bin/install-datasolutions`: Installs Data Solutions extensions to `extensions` directory
+- `bin/install-sampledata`: Installs Magento Luma sample data
+- `bin/install-src`: Installs Magento code into `src` directory based upon configuration in `.env`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
@@ -280,7 +73,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/restart`: Stop and then start all containers.
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
-- `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
+- `bin/setup`: Existing script but was customized to fit Data Solutions developer use cases and driven by `env/install.env` configuration
 - `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento2.test`
 - `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento2.test magento3.test`
 - `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
@@ -290,54 +83,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
 
-## Misc Info
-
-### Database
-
-The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
-
-Here's an example of how to connect to the MySQL cli tool of the Docker instance:
-
-```
-bin/cli mysql -h db -umagento -pmagento magento
-```
-
-You can use the `bin/clinotty` helper script to import a database. This example uses the root MySQL user, and looks for the `dbdump.sql` file in your local host directory:
-
-```
-bin/clinotty mysql -h db -u root -pmagento magento < dbdump.sql
-```
-
-### Composer Authentication
-
-First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
-
-Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
-
-### Email / Mailhog
-
-View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
-
-### Redis
-
-Redis is now the default cache and session storage engine, and is automatically configured & enabled when running `bin/setup` on new installs.
-
-Use the following lines to enable Redis on existing installs:
-
-**Enable for Cache:**
-
-`bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0`
-
-**Enable for Full Page Cache:**
-`bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1`
-
-**Enable for Session:**
-
-`bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2`
-
-You may also monitor Redis by running: `bin/redis redis-cli monitor`
-
-For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.3/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
+## Debug Setup
 
 ### Xdebug & VS Code
 
@@ -358,11 +104,24 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
         * Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
 
     * `Path mappings`
-        * Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
+        * Don't do anything here as the next `Docker container` step will automatically setup a path mappings.
 
     * `Docker container`
         * Remove any pre-existing volume bindings.
-        * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
+        * Add the following volume bindings:
+            * `/var/www/html` -> `<path_to_project>/src`
+            * `/var/www/html/app/code/Magento/DataServices` -> `<path_to_project>/extensions/data-services/DataServices`
+            * `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
+            * `/var/www/html/app/code/Magento/ProductRecommendations` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendations`
+            * `/var/www/html/app/code/Magento/ProductRecommendationsLayout` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendationsLayout`
+            * `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogDataExporter`
+            * `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter`
+            * `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter`
+            * `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter`
+            * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/DataExporter`
+            * `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
+
+                ![PHPStorm Docker Mappings](docs/docker_mappings.png)
 
 4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
 
@@ -372,59 +131,27 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
     * Set Name and Host to your domain name (ex. `magento2.test`)
     * Keep port set to `80`
-    * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+    * Check the Path Mappings box
+    * Add the following path mappings (to match the volume bindings from step 3c above):
+        * `/var/www/html` -> `<path_to_project>/src`
+        * `/var/www/html/app/code/Magento/DataServices` -> `<path_to_project>/extensions/data-services/DataServices`
+        * `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
+        * `/var/www/html/app/code/Magento/ProductRecommendations` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendations`
+        * `/var/www/html/app/code/Magento/ProductRecommendationsLayout` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendationsLayout`
+        * `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogDataExporter`
+        * `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter`
+        * `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter`
+        * `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter`
+        * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/DataExporter`
+        * `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
+
+            ![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
 
 7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
 8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
-### Linux
 
-Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
+---
 
-You may have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
-
-Add following line to `/etc/sysctl.conf`:
-
-```
-vm.max_map_count=262144
-```
-
-### Blackfire.io
-
-These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
-
-```
-bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
-```
-
-Next, open up the `bin/start` helper script and uncomment the line:
-
-```
-#bin/root /etc/init.d/blackfire-agent start
-```
-
-Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
-
-## Credits
-
-### Mark Shust
-
-I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> & <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
-
-### M.academy
-
-At <a href="https://m.academy" target="_blank">M.academy</a> you can learn the basics of Magento 2 programming & architecture, explained simply by a Certified Magento Developer.
-
-#### Available Courses:
-
-- <a href="https://m.academy/p/setup-magento-2-development-environment-docker" target="_blank">Setup a Magento 2 Development Environment with Docker</a> (FREE!) - The easiest way to install, manage, configure & standardize Magento development environments across your team.
-- <a href="https://m.academy/p/magento-2-coding-kickstart" target="_blank">Magento 2 Coding Kickstart 🚀</a> - Start to become productive in Magento 2 programming within one week with no prior experience.
-
-### Nexcess
-
-A special thanks goes out to <a href="https://www.nexcess.net/" target="_blank">Nexcess</a> for hosting <a href="http://pubfiles.nexcess.net/magento/ce-packages/" target="_blank">public archives of every version of Magento</a> 💙. I've used their Magento hosting services in the past also (both <a href="https://www.nexcess.net/magento/hosting/" target="_blank">shared</a> and <a href="https://www.nexcess.net/magento/enterprise-hosting/" target="_blank">enteprise</a> offerings) and they're great, ...highly recommended!
-
-## License
-
-[MIT](https://opensource.org/licenses/MIT)
+[Original Repo Documentation](https://github.com/markshust/docker-magento/blob/master/README.md)
