@@ -45,11 +45,14 @@ RUN docker-php-ext-install \
   zip
 
 RUN cd /tmp \
-  && curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
-  && tar -xvvzf ioncube.tar.gz \
-  && mv ioncube/ioncube_loader_lin_7.2.so /usr/local/lib/php/extensions/ioncube_loader_lin_7.2.so \
-  && rm -Rf ioncube.tar.gz ioncube \
-  && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.2.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.2.ini 
+  && curl -O https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
+  && tar zxvf ioncube_loaders_lin_x86-64.tar.gz \
+  && export PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;") \
+  && export PHP_EXT_DIR=$(php-config --extension-dir) \
+  && cp "./ioncube/ioncube_loader_lin_${PHP_VERSION}.so" "${PHP_EXT_DIR}/ioncube.so" \
+  && rm -rf ./ioncube \
+  && rm ioncube_loaders_lin_x86-64.tar.gz \
+  && docker-php-ext-enable ioncube
 
 RUN pecl channel-update pecl.php.net \
   && pecl install ssh2-1.1.2 \
