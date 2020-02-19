@@ -1,0 +1,2 @@
+#!/bin/bash
+bin/cli mysql -hdb -umagento -pmagento magento
