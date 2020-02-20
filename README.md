@@ -18,11 +18,11 @@ This is a customized repository forked from https://github.com/markshust/docker-
 # Download the Docker Compose template into the specified project directory (Ex. magento2)
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash -s -- magento2
 
-# Configure env/install.env file to specify Magento version, edition, install source, and if you need Luma sample data
+# Configure env/install.env file to specify Magento version, edition, Magento install source, and if you need Luma sample data
 # Example:
 #MAGENTO_VERSION=2.3.4
 #MAGENTO_EDITION=open-source
-#INSTALL_SOURCE=composer
+#INSTALL_SOURCE=composer # This is the method used to install Magento only not Data Solutions extensions
 #INSTALL_SAMPLE_DATA=true
 
 # Install the Magento source as configured in env/install.env

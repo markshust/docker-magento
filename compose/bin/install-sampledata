@@ -2,6 +2,15 @@
 
 echo "Installing Sample Data..."
 
-bin/magento sampledata:deploy
+if [[ "$INSTALL_SOURCE" == "composer" ]]; then
+  bin/magento sampledata:deploy
+elif [[ "$INSTALL_SOURCE" == "git" ]]; then
+  bin/cli php -f /var/www/html/sample-data/dev/tools/build-sample-data.php -- --ce-source="/var/www/html"
+  if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
+    bin/cli php -f /var/www/html/sample-data-ee/dev/tools/build-sample-data.php -- --ce-source="/var/www/html" --ee-source="/var/www/html/magento2ee"
+  fi
+  bin/copyfromcontainer app
+fi
+
 bin/magento setup:upgrade
 bin/magento setup:di:compile
