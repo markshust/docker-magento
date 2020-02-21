@@ -17,14 +17,15 @@ services:
       #- ./src/var/report:/var/www/html/var/report:delegated
       #- ./extensions/services-id/ServicesId:/var/www/html/app/code/Magento/ServicesId
       #- ./extensions/data-services/DataServices:/var/www/html/app/code/Magento/DataServices
+      #- ./extensions/data-services/DataServicesMultishipping:/var/www/html/app/code/Magento/DataServicesMultishipping
       #- ./extensions/saas-export/app/code/Magento/DataExporter:/var/www/html/app/code/Magento/DataExporter
       #- ./extensions/saas-export/app/code/Magento/CatalogDataExporter:/var/www/html/app/code/Magento/CatalogDataExporter
       #- ./extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter:/var/www/html/app/code/Magento/CatalogInventoryDataExporter
       #- ./extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter:/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter
       #- ./extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter:/var/www/html/app/code/Magento/ConfigurableProductDataExporter
       #- ./extensions/saas-export/app/code/Magento/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog
-      #- ./extensions/product-recommendations/ProductRecommendations:/var/www/html/app/code/Magento/ProductRecommendations
-      #- ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout
+      #- ./extensions/product-recommendations-admin/ProductRecommendationsAdmin:/var/www/html/app/code/Magento/ProductRecommendationsAdmin
+      #- ./extensions/product-recommendations/ProductRecommendationsStorefront:/var/www/html/app/code/Magento/ProductRecommendationsStorefront
 
   phpfpm:
     env_file: env/magento.env
