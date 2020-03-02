@@ -26,7 +26,7 @@
 
 I created a free screencast course which details the basic usage of this project:
 
-<a href="https://m.academy/p/setup-magento-2-development-environment-docker" target="_blank">
+<a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">
 <img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Setup a Magento 2 Development Environment with Docker"><br />
 Setup a Magento 2 Development Environment with Docker
 </a>
@@ -362,8 +362,8 @@ At <a href="https://m.academy" target="_blank">M.academy</a> you can learn the b
 
 #### Available Courses:
 
-- <a href="https://m.academy/p/setup-magento-2-development-environment-docker" target="_blank">Setup a Magento 2 Development Environment with Docker</a> (FREE!) - The easiest way to install, manage, configure & standardize Magento development environments across your team.
-- <a href="https://m.academy/p/magento-2-coding-kickstart" target="_blank">Magento 2 Coding Kickstart 🚀</a> - Start to become productive in Magento 2 programming within one week with no prior experience.
+- <a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">Setup a Magento 2 Development Environment with Docker</a> (FREE!) - The easiest way to install, manage, configure & standardize Magento development environments across your team.
+- <a href="https://m.academy/courses/magento-2-coding-kickstart" target="_blank">Magento 2 Coding Kickstart</a> - Start to become productive in Magento 2 programming within one week with no prior experience.
 
 ### Nexcess
 
