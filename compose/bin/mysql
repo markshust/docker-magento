@@ -1,2 +1,3 @@
 #!/bin/bash
-bin/cli mysql -hdb -umagento -pmagento magento "$@"
+source env/db.env
+bin/cli mysql -hdb -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} "$@"
