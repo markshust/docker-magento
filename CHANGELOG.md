@@ -21,7 +21,6 @@ N/A
 
 ### Fixed
 - Fixed PHP ioncube module missing ioncube.so file
-- Ensure directory name is converted to lowercase
 - Disable TTY on `bin/setup-ssl-ca script`
 - Fixed `bin/copytocontainer` script not copying files to proper directory
 
