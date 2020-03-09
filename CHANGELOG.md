@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+
+## [30.0.0] - 2020-03-09
+
+### Added
+- Added new CLI to connect to MySQL
+
+### Updated
+- Updated readme with new bin/mysql documentation
+- n98-magerun2 to install on exec of `bin/n98-magerun2` instead of `bin/setup` script
+- Increased `max_input_vars` to `10000` to prevent Invalid Form Post submission errors
+
+### Fixed
+- Fixed PHP ioncube module missing ioncube.so file
+- Ensure directory name is converted to lowercase
+- Disable TTY on `bin/setup-ssl-ca script`
+- Fixed `bin/copytocontainer` script not copying files to proper directory
+
 ## [29.0.0] - 2020-01-31
 
 ### Fixed
