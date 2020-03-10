@@ -1,5 +1,0 @@
-#!/bin/bash
-current_folder=${PWD##*/}
-docker volume rm ${current_folder}_appdata
-docker volume rm ${current_folder}_dbdata
-docker volume rm ${current_folder}_sockdata

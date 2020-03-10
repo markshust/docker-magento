@@ -1,2 +1,8 @@
 #!/bin/bash
-docker-compose rm
+if [ "$1" == "--all" ]; then
+    # Remove containers, networks, volumes, and images.
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --rmi all --volumes
+else
+    # Stop containers, and remove stopped containers
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml rm --stop
+fi
