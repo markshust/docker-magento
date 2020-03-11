@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose rm
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml rm --stop
