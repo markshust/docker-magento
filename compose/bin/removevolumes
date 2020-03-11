@@ -1,5 +1,8 @@
 #!/bin/bash
 current_folder=${PWD##*/}
-docker volume rm ${current_folder}_appdata
-docker volume rm ${current_folder}_dbdata
-docker volume rm ${current_folder}_sockdata
+volume_prefix=`echo $current_folder | awk '{print tolower($0)}' | sed 's/\.//g'`
+docker volume rm ${volume_prefix}_appdata
+docker volume rm ${volume_prefix}_dbdata
+docker volume rm ${volume_prefix}_rabbitmqdata
+docker volume rm ${volume_prefix}_sockdata
+docker volume rm ${volume_prefix}_ssldata
