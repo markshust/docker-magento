@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 N/A
 
 
+## [30.0.1] - 2020-03-18
+
+### Updated
+- Increased php.ini `memory_limit` to `4G` to get PHPUnit tests to pass
+- Increased php.ini `upload_max_filesize` and `post_max_size` to `100M` just to prevent issues from being filed in the future
+
+### Added
+- New PHP image tags `7.2-fpm-9`, `7.3-fpm-6`
+
 ## [30.0.0] - 2020-03-09
 
 ### Added
