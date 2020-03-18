@@ -24,12 +24,58 @@
 
 ## Free Course
 
-I created a free screencast course which details the basic usage of this project:
+This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>. Level up your Magento 2 skills with a collection of resources including lessons, courses & more.
+
+<a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
+
+A free screencast course is available, which details the basic usage of this project:
 
 <a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Setup a Magento 2 Development Environment with Docker"><br />
+<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Course image"><br />
+<br />
 Setup a Magento 2 Development Environment with Docker
 </a>
+
+### Course Curriculm
+
+#### Project Setup
+
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9205849" target="_blank">Setup Docker for Mac & configure preferences</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9273365" target="_blank">Setup global Composer auth credentials</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/8974570" target="_blank">Automated setup for new installs</a>
+
+#### Helper Scripts
+
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064258" target="_blank">Run CLI commands within containers</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9331008" target="_blank">Stop, start & restart containers</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064269" target="_blank">Run binaries within containers</a>
+
+#### Docker Filesystem & Volumes
+
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064334" target="_blank">Understand volumes & host bind mounts</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064338" target="_blank">Manage files & folders on containers</a>
+
+#### Customize Server Configuration
+
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064349" target="_blank">Customize the Nginx configuration</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064356" target="_blank">Quickly switch PHP versions</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064350" target="_blank">Install extensions & packages</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064477" target="_blank">Run additional services as containers</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances</a>
+
+#### PHPStorm & Xdebug
+
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9748834" target="_blank">Setup PHPStorm for a Magento Docker project</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9763893" target="_blank">Generate XML URNs for a Magento Docker project</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install Xdebug browser plugin</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064482" target="_blank">Enable, disable, & check Xdebug</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PHPStorm for Xdebug</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger Xdebug breakpoints with PHPStorm</a>
+
+#### Manual Setup (Optional)
+
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual Setup for New Magento Installs</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual Setup for an Existing Magento Instance</a>
 
 ## Docker Hub
 
@@ -355,18 +401,22 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ## Credits
 
-### Mark Shust
-
-I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> & <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
-
 ### M.academy
 
-At <a href="https://m.academy" target="_blank">M.academy</a> you can learn the basics of Magento 2 programming & architecture, explained simply by a Certified Magento Developer.
+This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>. Level up your Magento 2 skills.
+
+<a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
 
 #### Available Courses:
 
 - <a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">Setup a Magento 2 Development Environment with Docker</a> (FREE!) - The easiest way to install, manage, configure & standardize Magento development environments across your team.
 - <a href="https://m.academy/courses/magento-2-coding-kickstart" target="_blank">Magento 2 Coding Kickstart</a> - Start to become productive in Magento 2 programming within one week with no prior experience.
+
+Also available is the <a href="https://m.academy/library" target="_blank">M.academy Library</a>, a collection of resources including lessons, courses & more.
+
+### Mark Shust
+
+I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> & <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
 
 ### Nexcess
 
