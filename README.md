@@ -74,8 +74,8 @@ Setup a Magento 2 Development Environment with Docker
 
 #### Manual Setup (Optional)
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual Setup for New Magento Installs</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual Setup for an Existing Magento Instance</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual setup for new Magento installs</a>
+- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual setup for an existing Magento instance</a>
 
 ## Docker Hub
 
