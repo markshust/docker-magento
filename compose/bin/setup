@@ -98,7 +98,7 @@ echo "Generating SSL certificate..."
 bin/setup-ssl $BASE_URL
 
 echo "Disabling Temando_Shipping module to fix conflict with deploying sample data. Re-enable at your own risk."
-bin/magento module:disable Temando_Shipping
+bin/clinotty bin/magento module:disable Temando_Shipping
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
