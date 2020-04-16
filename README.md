@@ -271,6 +271,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
 - `bin/redis`: Run a command from the redis container. Ex. `bin/redis redis-cli monitor`
 - `bin/remove`: Remove all containers.
+- `bin/removeall`: Remove all containers, networks, volumes, and images.
 - `bin/removevolumes`: Remove all volumes.
 - `bin/restart`: Stop and then start all containers.
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
