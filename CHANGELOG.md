@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [30.0.2] - 2020-04-17
+
+### Fixed
+- The `Temando_Shipping` module conflicts with sample data installation. Added fix to `bin/magento` helper script to disable this module, install sample data, then re-enable it.
+
+### Added
+- Added a `--remove-orphans` flag to `bin/start` script to remove orphaned containers (applicable to cron service).
 
 ## [30.0.1] - 2020-03-18
 
