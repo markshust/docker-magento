@@ -5,7 +5,7 @@ bin/clinotty rm misc.xml
 
 REAL_SRC=$(cd -P "src" && pwd)
 
-sed --in-place=.bak "s?/var/www/html?$PROJECT_DIR$/src?g" $REAL_SRC/misc.xml
+sed -i .bak "s?/var/www/html?$PROJECT_DIR$/src?g" $REAL_SRC/misc.xml
 rm $REAL_SRC/misc.xml.bak
 
 mkdir -p $REAL_SRC/.idea
