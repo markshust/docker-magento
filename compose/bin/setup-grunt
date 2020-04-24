@@ -1,0 +1,43 @@
+#!/bin/bash
+DEFAULT_THEME_ID="select value from core_config_data where path = 'design/theme/theme_id'"
+THEME_PATH="select theme_path from theme where theme_id in ($DEFAULT_THEME_ID);"
+VENDOR_THEME=`bin/n98-magerun2 db:query "$THEME_PATH" | sed -n 2p | cut -d$'\r' -f1`
+THEME=`echo $VENDOR_THEME | cut -d'/' -f2`
+
+# Generate local-theme.js for custom theme
+read -d '' GEN_THEME_JS << EOM
+var fs = require('fs');
+var util = require('util');
+var theme = require('./dev/tools/grunt/configs/themes');
+
+theme['$THEME'] = {
+    area: 'frontend',
+    name: '$VENDOR_THEME',
+    locale: 'en_US',
+    files: [
+        'css/styles-m',
+        'css/styles-l'
+    ],
+    dsl: 'less'
+};
+fs.writeFileSync('./dev/tools/grunt/configs/local-themes.js', '"use strict"; module.exports = ' + util.inspect(theme), 'utf-8');
+EOM
+
+if [ -z "$VENDOR_THEME" ] || [ -z "$THEME" ]; then
+    echo "Using Magento/luma theme for grunt config"
+    THEME=luma
+    bin/clinotty cp ./dev/tools/grunt/configs/themes.js ./dev/tools/grunt/configs/local-themes.js
+else
+    echo "Using $VENDOR_THEME theme for grunt config"
+    bin/node -e "$GEN_THEME_JS"
+fi
+
+bin/clinotty cp package.json.sample package.json
+bin/clinotty cp Gruntfile.js.sample Gruntfile.js
+bin/clinotty cp grunt-config.json.sample grunt-config.json
+bin/npm install ajv@^5.0.0 --save
+bin/npm install
+bin/magento cache:clean
+bin/grunt clean
+bin/grunt exec:$THEME
+bin/grunt less:$THEME
