@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [30.0.3] - 2020-04-25
+
+### Updated
+- Reverted disabling Temando_Shipping module in bin/magento for sample data installation. <a href="https://github.com/markshust/docker-magento/issues/250">#250</a>
+
 ## [30.0.2] - 2020-04-17
 
 ### Fixed
