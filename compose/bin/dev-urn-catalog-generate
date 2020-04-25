@@ -1,6 +1,7 @@
 #!/bin/bash
 bin/magento dev:urn-catalog:generate misc.xml
 bin/copyfromcontainer misc.xml
+bin/clinotty rm misc.xml
 
 REAL_SRC=$(cd -P "src" && pwd)
 
