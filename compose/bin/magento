@@ -1,16 +1,2 @@
 #!/bin/bash
-if [ "$1" == "sampledata:deploy" ]; then
-  echo "Disabling Temando_Shipping module to fix conflict with deploying sample data."
-  bin/cli bin/magento module:disable Temando_Shipping
-  
-  bin/cli bin/magento sampledata:deploy
-  
-  echo "Automatically running setup:upgrade for you to populate sample data!"
-  bin/cli bin/magento setup:upgrade
-  
-  echo "Re-enabling Temando_Shipping module and flushing cache since sample data is now deployed."
-  bin/cli bin/magento module:enable Temando_Shipping
-  bin/cli bin/magento cache:flush
-else
-  bin/cli bin/magento "$@"
-fi
+bin/cli bin/magento "$@"
