@@ -1,13 +1,13 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 31.0.0
+# Version 31.0.1
 
 version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.18-0
+    image: markoshust/magento-nginx:1.18-1
     ports:
       - "80:8000"
       - "443:8443"

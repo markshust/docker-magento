@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [31.0.1] - 2020-04-30
+
+### Fixed
+- Reverted old SSL cert, it needs to exist as default cert until new certs are generated.
+
 ## [31.0.0] - 2020-04-30
 
 ### Added
