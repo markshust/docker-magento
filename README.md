@@ -82,16 +82,8 @@ Setup a Magento 2 Development Environment with Docker
 View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
-  - 1.13
-      - [`latest`, `1.13`, `1.13-8`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.13)
-      - [`1.13-7`](https://github.com/markshust/docker-magento/tree/27.0.0/images/nginx/1.13)
-      - [`1.13-6`](https://github.com/markshust/docker-magento/tree/20.1.1/images/nginx/1.13)
-      - [`1.13-5`](https://github.com/markshust/docker-magento/tree/18.1.1/images/nginx/1.13)
-      - [`1.13-4`](https://github.com/markshust/docker-magento/tree/18.0.1/images/nginx/1.13)
-      - [`1.13-3`](https://github.com/markshust/docker-magento/tree/15.0.1/images/nginx/1.13)
-      - [`1.13-2`](https://github.com/markshust/docker-magento/tree/12.0.0/images/nginx/1.13)
-      - [`1.13-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/nginx/1.13)
-      - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
+  - 1.18
+      - [`latest`, `1.18`, `1.18-0`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - 7.3
       - [`latest`, `7.3-fpm`, `7.3-fpm-6`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
@@ -113,8 +105,10 @@ View Dockerfiles:
       - [`7.2-fpm-1`](https://github.com/markshust/docker-magento/tree/23.1.1/images/php/7.2)
       - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
+  - 7.6
+      - [`latest`, `7.6`, `7.6.2-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.6)
   - 6.5
-      - [`latest`, `6.5`, `6.5.4-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/6.5)
+      - [`6.5`, `6.5.4-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/6.5)
 
 ## Usage
 
