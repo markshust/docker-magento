@@ -153,6 +153,8 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/on
 
 The `magento2.test` above defines the hostname to use, and the `2.3.5-p1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
+Prefix the version with `with-samples-` if you would like to automatically install sample data along with Magento.
+
 After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
 
 ### Manual Setup
