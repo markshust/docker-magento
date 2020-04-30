@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 30.0.3
+# Version 31.0.0
 
 version: "3"
 
@@ -15,8 +15,13 @@ services:
       - ./src/composer.json:/var/www/html/composer.json:delegated
       - ./src/composer.lock:/var/www/html/composer.lock:delegated
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:delegated
+      #- ./src/auth.json:/var/www/html/auth.json:delegated
+      #- ./src/m2-hotfixes:/var/www/html/m2-hotfixes:delegated
+      #- ./src/patches:/var/www/html/patches:delegated
       #- ./src/var/log:/var/www/html/var/log:delegated
       #- ./src/var/report:/var/www/html/var/report:delegated
+      # Linux only: remove the above lines and mount the entire src directory with:
+      #- ./src:/var/www/html:delegated
 
   phpfpm:
     volumes: *appvolumes

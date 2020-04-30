@@ -87,7 +87,13 @@ bin/clinotty bin/magento setup:config:set --no-interaction  --page-cache=redis -
 echo "Enabling Redis for session..."
 bin/clinotty bin/magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
 
-echo "Clearing the cache for good measure..."
+echo "Enabling Elasticsearch..."
+bin/clinotty bin/magento config:set catalog/search/elasticsearch7_server_hostname elasticsearch
+
+echo "Re-indexing with Elasticsearch..."
+bin/clinotty bin/magento indexer:reindex
+
+echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
 echo "Copying files from container to host after install..."

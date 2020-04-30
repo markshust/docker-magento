@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [31.0.0] - 2020-04-30
+
+### Added
+- New `magento-nginx:1.18` Docker image.
+- New `magento-elasticsearch:7.6` Docker image.
+- Documentation to install Magento directly with sample data (using `with-samples-` prefix (thanks Nexcess!).
+
+### Updated
+- The `bin/setup` helper script to enable Elasticsearch 7 and automatically reindex during installation.
+- The `docker-compose.yml` file now references the `magento-nginx:1.18-0` and `magento-elasticsearch:7.6.2-0` Docker images.
+- The `docker-compose.yml` adds the new environment variable `"discovery.type=single-node"` for compatibility with Elasticsearch 7.
+- The new `nginx:1.18` Docker image sets `fastcgi_buffer_size 64k;` and `fastcgi_buffers 8 128k;` directives for Magento 2.3.5 compatibility.
+
+### Removed
+- Old SSL cert being generated directly on Nginx image (deprecated).
+- References to Nginx 1.13 and Elasticsearch 6 images (deprecated).
+
 ## [30.0.3] - 2020-04-25
 
 ### Updated
