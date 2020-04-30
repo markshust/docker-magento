@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [31.0.2] - 2020-04-30
+
+### Fixed
+- Fixed typo in last build image, new version is `magento-nginx:1.18-2`.
+
 ## [31.0.1] - 2020-04-30
 
 ### Fixed
