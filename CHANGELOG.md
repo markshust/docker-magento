@@ -23,7 +23,7 @@ N/A
 
 ### Removed
 - Old SSL cert being generated directly on Nginx image (deprecated).
-- References to Nginx 1.13 and Elasticsearch 6 images (deprecated).
+- References to Nginx 1.13 images (deprecated).
 
 ## [30.0.3] - 2020-04-25
 
