@@ -7,7 +7,8 @@ bin/stop
 sed -e 's/5f5929ef9f2ec4ca048a2add261d22c92807630f/ce31e720d60451784b9fdb3769e43e149f50d436/' src/composer.lock > composer.lock && mv composer.lock src/composer.lock
 
 docker-compose -f docker-compose.yml up -d
-sleep 1 #Ensure containers are started...
+[ $? != 0 ] && echo "Failed to start Docker services" && exit
+sleep 5 #Ensure containers are started...
 
 echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
