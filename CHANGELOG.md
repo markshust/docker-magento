@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [32.0.0] - 2020-05-11
+
+### Fixed
+- Updated `bin/dev-urn-catalog-generate` to account for new versions of PHPStorm (simplified).
+- Indexing error with possible ElasticSearch modules ([#262](https://github.com/markshust/docker-magento/issues/262)).
+
+### Updated
+- Updated ElasticSearch 6 to version 6.8.
+
 ## [31.0.2] - 2020-04-30
 
 ### Fixed
