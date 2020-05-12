@@ -108,9 +108,12 @@ View Dockerfiles:
       - [`7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/23.0.0/images/php/7.2)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
   - 7
-      - [`latest`, `7.6`, `7.6.2-1`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.6)
+      - [`latest`, `7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.6)
+      - [`7.6.2-1`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/7.6)
+      - [`7.6.2-0`](https://github.com/markshust/docker-magento/tree/31.0.2/images/elasticsearch/7.6)
   - 6
-      - [`6.8`, `6.8.8-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/6.8)
+      - [`6.8`, `6.8.8-1`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/6.8)
+      - [`6.8`, `6.8.8-0`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/6.8)
       - [`6.5`, `6.5.4-0`](https://github.com/markshust/docker-magento/tree/31.0.2/images/elasticsearch/6.5)
 
 ## Usage
