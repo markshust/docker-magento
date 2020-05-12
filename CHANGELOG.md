@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [32.0.1] - 2020-05-12
+
+### Fixed
+- Backed out last Elasticsearch update with elasticsearch.yml, caused issues with startup.
+
 ## [32.0.0] - 2020-05-11
 
 ### Fixed

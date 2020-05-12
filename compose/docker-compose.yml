@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 32.0.0
+# Version 32.0.1
 
 version: "3"
 
@@ -38,7 +38,7 @@ services:
     image: redis:5.0
 
   elasticsearch:
-    image: markoshust/magento-elasticsearch:7.6.2-1
+    image: markoshust/magento-elasticsearch:7.6.2-2
     ports:
       - "9200:9200"
       - "9300:9300"
