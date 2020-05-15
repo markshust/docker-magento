@@ -274,6 +274,7 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
+- `bin/mftf`: Run the Magento MFTF. Ex: `bin/mftf build:project`
 - `bin/mysql`: Run the MySQL CLI with database config from env/db.env. Ex `bin/mysql -e "EXPLAIN core_config_data"`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
@@ -413,6 +414,33 @@ Next, open up the `bin/start` helper script and uncomment the line:
 ```
 
 Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
+
+### MFTF
+
+To work with MFTF you will need to first enable the `selenium` image in the `docker-compose.dev.yml` file.selenium
+Then you will need to run the following.
+
+1. Run mftf build process `bin/mftf build:project`. This should build the basic setup for mftf in your project,
+1. Update the extra host values to match your Magneto URL and IP in `docker-compose.dev.yml`,
+1. Update the values in `src/dev/tests/acceptance/.env`. Including adding the new line `SELENIUM_HOST=selenium` to define for Codeception which host to connect to,
+1. Run a sample test `bin/mftf run:test AdminLoginTest`
+1. Update your nginx.conf to allow access to the dev section with the following before the final deny all section.
+
+```
+location ~* ^/dev/tests/acceptance/utils($|/) {
+    root $MAGE_ROOT;
+    location ~ ^/dev/tests/acceptance/utils/command.php {
+        fastcgi_pass   fastcgi_backend;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
+```
+
+For debugging you can connect to the selenium image using a VCN client.
+Connect with the VCN option and `127.0.0.1:5900`
+You can also run `bin/mftf doctor` to validate all sections are setup correctly.
 
 ## Credits
 
