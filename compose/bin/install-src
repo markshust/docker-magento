@@ -22,7 +22,9 @@ if [[ "$INSTALL_SOURCE" == "git" ]]; then
       composer install &&
       if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
         git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data "$FULL_HOST_INSTALL_PATH"/sample-data &&
-          git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data-ee "$FULL_HOST_INSTALL_PATH"/magento2ee/sample-data-ee
+          git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data-ee "$FULL_HOST_INSTALL_PATH"/magento2ee/sample-data-ee &&
+          php -f "$FULL_HOST_INSTALL_PATH"/sample-data/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH" &&
+          php -f "$FULL_HOST_INSTALL_PATH"/magento2ee/sample-data-ee/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH" --ee-source="$FULL_HOST_INSTALL_PATH/magento2ee"
       fi
   elif [[ "$MAGENTO_EDITION" == "open-source" ]]; then
     git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2 "$FULL_HOST_INSTALL_PATH"
@@ -30,7 +32,8 @@ if [[ "$INSTALL_SOURCE" == "git" ]]; then
       composer update &&
       composer install &&
       if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
-        git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data "$FULL_HOST_INSTALL_PATH"/sample-data
+        git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data "$FULL_HOST_INSTALL_PATH"/sample-data &&
+          php -f "$FULL_HOST_INSTALL_PATH"/sample-data/dev/tools/build-sample-data.php -- --ce-source="$FULL_HOST_INSTALL_PATH"
       fi
   fi
 elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
