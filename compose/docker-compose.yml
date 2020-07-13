@@ -5,7 +5,7 @@ version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.13-8
+    image: markoshust/magento-nginx:1.18-2
     ports:
       - "80:8000"
       - "443:8443"
@@ -19,7 +19,10 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.3-fpm-4
+    # image: markoshust/magento-php:7.3-fpm-6
+    # container_name: magento2_phpfpm
+    build:
+      context: ./images/php
     links:
       - db
     volumes: *appvolumes
@@ -36,7 +39,7 @@ services:
     image: redis:5.0
 
   elasticsearch:
-    image: markoshust/magento-elasticsearch:6.5.4-0
+    image: markoshust/magento-elasticsearch:7.6.2-2
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -50,14 +53,16 @@ services:
       - rabbitmqdata:/var/lib/rabbitmq
 
   # Disabling cron by default as it uses higher CPU, enable if needed
-  cron:
-    image: markoshust/magento-php:7.3-fpm-4
-    user: root
-    command: /usr/local/bin/cronstart
-    tty: true
-    links:
-      - db
-    volumes: *appvolumes
+  #cron:
+  #  container_name: magento2_phpfpm
+  #  build:
+  #    context: ./images/php
+  #  user: root
+  #  command: /usr/local/bin/cronstart
+  #  tty: true
+  #  links:
+  #    - db
+  #  volumes: *appvolumes
 
 volumes:
   appdata:

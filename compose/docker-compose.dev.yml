@@ -26,6 +26,8 @@ services:
       #- ./extensions/saas-export/app/code/Magento/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog:consistent
       #- ./extensions/product-recommendations-admin/ProductRecommendationsAdmin:/var/www/html/app/code/Magento/ProductRecommendationsAdmin:consistent
       #- ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout:consistent
+      #- ./extensions/product-recommendations/PageBuilderProductRecommendations:/var/www/html/app/code/Magento/PageBuilderProductRecommendations:consistent
+      #- ./extensions/product-recommendations/VisualProductRecommendations:/var/www/html/app/code/Magento/VisualProductRecommendations:consistent
 
   phpfpm:
     env_file: env/magento.env
@@ -49,5 +51,5 @@ services:
       - db
 
   # Disabling cron by default as it uses higher CPU, enable if needed
-  cron:
-    volumes: *appvolumes
+  #cron:
+  #  volumes: *appvolumes
