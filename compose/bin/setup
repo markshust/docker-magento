@@ -54,6 +54,12 @@ echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer global require hirak/prestissimo
 bin/clinotty composer install
 
+# temporary fix for 2.4-develop install
+if [[ "$INSTALL_SOURCE" != "git" ]]; then
+  echo "Running sed command to fix Elasticsearch validation issue for 2.4 installations..."
+  bin/clinotty sed -i -e s/'return $errors'/'return []'/g /var/www/html/vendor/magento/module-elasticsearch/Setup/Validator.php
+fi
+
 bin/clinotty bin/magento setup:install \
   --base-url="$MAGENTO_BASE_URL" \
   --use-secure="$MAGENTO_USE_SECURE" \
