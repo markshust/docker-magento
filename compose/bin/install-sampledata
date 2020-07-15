@@ -2,17 +2,27 @@
 
 source env/install.env
 
+FULL_HOST_INSTALL_PATH="$PWD/src"
+
 echo "Installing Sample Data..."
 
-if [[ "$INSTALL_SOURCE" == "composer" ]]; then
+if [[ "$INSTALL_SOURCE" != "git" ]]; then
   bin/magento sampledata:deploy
-elif [[ "$INSTALL_SOURCE" == "git" ]]; then
-  bin/cli php -f /var/www/html/sample-data/dev/tools/build-sample-data.php -- --ce-source="/var/www/html"
-  if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
-    bin/cli php -f /var/www/html/sample-data-ee/dev/tools/build-sample-data.php -- --ce-source="/var/www/html" --ee-source="/var/www/html/magento2ee"
-  fi
-  bin/copyfromcontainer app
-fi
+  bin/magento setup:upgrade
+  bin/magento setup:di:compile
+  bin/magento cache:clean
+else
+  git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data "$FULL_HOST_INSTALL_PATH/sample-data"
+  bin/copytocontainer sample-data
+  bin/clinotty php -f /var/www/html/sample-data/dev/tools/build-sample-data.php -- --ce-source=/var/www/html
 
-bin/magento setup:upgrade
-bin/magento setup:di:compile
+  if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
+    git clone --single-branch --branch "$MAGENTO_VERSION" git@github.com:magento/magento2-sample-data-ee "$FULL_HOST_INSTALL_PATH/magento2ee/sample-data-ee"
+    bin/copytocontainer magento2ee/sample-data-ee
+    bin/clinotty php -f /var/www/html/magento2ee/sample-data-ee/dev/tools/build-sample-data.php -- --ce-source=/var/www/html --ee-source=/var/www/html/magento2ee
+  fi
+
+  bin/magento setup:upgrade
+  bin/magento setup:di:compile
+  bin/magento cache:clean
+fi

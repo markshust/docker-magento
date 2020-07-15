@@ -8,8 +8,7 @@ rm -rf extensions
 echo "Installing Data Solutions extensions..."
 mkdir extensions
 
-bin/composer require magento/services-connector
-
+git clone git@git.corp.adobe.com:magento-saas/magento-services-connector.git extensions/services-connector/ServicesConnector
 git clone git@github.com:magento/data-services.git extensions/data-services
 git clone git@github.com:magento/data-solutions-services-id.git extensions/services-id
 git clone git@github.com:magento/saas-export.git extensions/saas-export
@@ -28,5 +27,4 @@ bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:flush
 
-bin/copyfromcontainer vendor/magento/services-connector
 bin/copyfromcontainer app/code
