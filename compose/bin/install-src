@@ -34,10 +34,10 @@ if [[ "$INSTALL_SOURCE" == "git" ]]; then
   fi
 elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
   if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
-    composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
+    composer create-project --repository="$COMPOSER_REPO_URL" magento/project-enterprise-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
   elif [[ "$MAGENTO_EDITION" == "open-source" ]]; then
     mkdir src
-    composer create-project --repository=https://repo.magento.com/ magento/project-community-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
+    composer create-project --repository="$COMPOSER_REPO_URL" magento/project-community-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
   fi
 elif [[ "$INSTALL_SOURCE" == "nexcess" ]]; then
   if [[ "$MAGENTO_EDITION" == "open-source" ]]; then
