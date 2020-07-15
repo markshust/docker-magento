@@ -26,6 +26,12 @@ if [[ "$INSTALL_SOURCE" == "git" ]]; then
       composer update &&
       composer install
   fi
+
+  # temporary fix for 2.4-develop install
+  if [[ "$MAGENTO_VERSION" == "2.4-develop" ]]; then
+    echo "Running sed command to fix Elasticsearch validation issue for 2.4-develop installations..."
+    sed -i '' -e "s/\$this->validateSearchEngine()/\/\/\$this->validateSearchEngine()/g" "$FULL_HOST_INSTALL_PATH"/setup/src/Magento/Setup/Model/SearchConfig.php
+  fi
 elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
   if [[ "$MAGENTO_EDITION" == "commerce" ]]; then
     composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition="$MAGENTO_VERSION" "$FULL_HOST_INSTALL_PATH"
