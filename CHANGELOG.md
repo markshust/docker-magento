@@ -8,6 +8,84 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [32.0.1] - 2020-05-12
+
+### Fixed
+- Backed out last Elasticsearch update with elasticsearch.yml, caused issues with startup.
+
+## [32.0.0] - 2020-05-11
+
+### Fixed
+- Updated `bin/dev-urn-catalog-generate` to account for new versions of PHPStorm (simplified).
+- Indexing error with possible ElasticSearch modules ([#262](https://github.com/markshust/docker-magento/issues/262)).
+
+### Updated
+- Updated ElasticSearch 6 to version 6.8.
+
+## [31.0.2] - 2020-04-30
+
+### Fixed
+- Fixed typo in last build image, new version is `magento-nginx:1.18-2`.
+
+## [31.0.1] - 2020-04-30
+
+### Fixed
+- Reverted old SSL cert, it needs to exist as default cert until new certs are generated.
+
+## [31.0.0] - 2020-04-30
+
+### Added
+- New `magento-nginx:1.18` Docker image.
+- New `magento-elasticsearch:7.6` Docker image.
+- Documentation to install Magento directly with sample data (using `with-samples-` prefix (thanks Nexcess!).
+
+### Updated
+- The `bin/setup` helper script to enable Elasticsearch 7 and automatically reindex during installation.
+- The `docker-compose.yml` file now references the `magento-nginx:1.18-0` and `magento-elasticsearch:7.6.2-0` Docker images.
+- The `docker-compose.yml` adds the new environment variable `"discovery.type=single-node"` for compatibility with Elasticsearch 7.
+- The new `nginx:1.18` Docker image sets `fastcgi_buffer_size 64k;` and `fastcgi_buffers 8 128k;` directives for Magento 2.3.5 compatibility.
+
+### Removed
+- Old SSL cert being generated directly on Nginx image (deprecated).
+- References to Nginx 1.13 images (deprecated).
+
+## [30.0.3] - 2020-04-25
+
+### Updated
+- Reverted disabling Temando_Shipping module in bin/magento for sample data installation. <a href="https://github.com/markshust/docker-magento/issues/250">#250</a>
+
+## [30.0.2] - 2020-04-17
+
+### Fixed
+- The `Temando_Shipping` module conflicts with sample data installation. Added fix to `bin/magento` helper script to disable this module, install sample data, then re-enable it.
+
+### Added
+- Added a `--remove-orphans` flag to `bin/start` script to remove orphaned containers (applicable to cron service).
+
+## [30.0.1] - 2020-03-18
+
+### Updated
+- Increased php.ini `memory_limit` to `4G` to get PHPUnit tests to pass
+- Increased php.ini `upload_max_filesize` and `post_max_size` to `100M` just to prevent issues from being filed in the future
+
+### Added
+- New PHP image tags `7.2-fpm-9`, `7.3-fpm-6`
+
+## [30.0.0] - 2020-03-09
+
+### Added
+- Added new CLI to connect to MySQL
+
+### Updated
+- Updated readme with new bin/mysql documentation
+- n98-magerun2 to install on exec of `bin/n98-magerun2` instead of `bin/setup` script
+- Increased `max_input_vars` to `10000` to prevent Invalid Form Post submission errors
+
+### Fixed
+- Fixed PHP ioncube module missing ioncube.so file
+- Disable TTY on `bin/setup-ssl-ca script`
+- Fixed `bin/copytocontainer` script not copying files to proper directory
+
 ## [29.0.0] - 2020-01-31
 
 ### Fixed

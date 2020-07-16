@@ -73,12 +73,14 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/install-sampledata`: Installs Magento Luma sample data
 - `bin/install-src`: Installs Magento code into `src` directory based upon configuration in `.env`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
+- `bin/mysql`: Run the MySQL CLI with database config from env/db.env. Ex `bin/mysql -e "EXPLAIN core_config_data"`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
 - `bin/redis`: Run a command from the redis container. Ex. `bin/redis redis-cli monitor`
 - `bin/remove`: Remove all containers.
+- `bin/removeall`: Remove all containers, networks, volumes, and images.
 - `bin/removevolumes`: Remove all volumes.
 - `bin/restart`: Stop and then start all containers.
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`

@@ -1,4 +1,4 @@
-FROM nginx:1.13
+FROM nginx:1.18
 MAINTAINER Mark Shust <mark@shust.com>
 
 RUN groupadd -g 1000 app \
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir /etc/nginx/certs \
   && echo -e "\n\n\n\n\n\n\n" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/certs/nginx.key -out /etc/nginx/certs/nginx.crt
+
 RUN ( \
   cd /usr/local/bin/ \
   && curl -L https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 -o mkcert \

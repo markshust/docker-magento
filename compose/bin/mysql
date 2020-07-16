@@ -1,0 +1,3 @@
+#!/bin/bash
+source env/db.env
+bin/cli mysql -hdb -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} "$@"
