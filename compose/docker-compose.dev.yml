@@ -20,8 +20,8 @@ services:
       #- ./src/patches:/var/www/html/patches:cached
       #- ./src/var/log:/var/www/html/var/log:cached
       #- ./src/var/report:/var/www/html/var/report:cached
-      # To sync your SSH to the contiainer, uncomment the following line:
-      # - ~./ssh/id_rsa:/var/www/.ssh/id_rsa:cached
+      # To sync your SSH to the container, uncomment the following line:
+      # - ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
       # Linux only: remove the above lines and mount the entire src directory with:
       #- ./src:/var/www/html:cached
 
