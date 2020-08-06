@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
   lsof \
   default-mysql-client \
   vim \
-  zip
+  zip \
+  procps
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
