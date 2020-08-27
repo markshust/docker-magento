@@ -8,7 +8,11 @@ if [ "$1" == "--all" ]; then
   bin/fixowns
   bin/fixperms
 else
-  docker cp $REAL_SRC/$1 $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/
+  if [ -f "$REAL_SRC/$1" ]; then
+    docker cp $REAL_SRC/$1 $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/$1
+  else
+    docker cp $REAL_SRC/$1 $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/$(dirname $1)
+  fi
   echo "Completed copying $1 from host to container"
   bin/fixowns $1
   bin/fixperms $1
