@@ -1,19 +1,18 @@
 #!/bin/bash
 source env/db.env
 
-REAL_SRC=$(cd -P "src" && pwd)
-MYSQL_CONFIG=dev/tests/integration/etc/install-config-mysql.php
-INTEGRATION_DB=magento_integration_tests
-CREATE_DB="bin/clinotty mysqladmin -hdb -uroot -p${MYSQL_ROOT_PASSWORD} create ${INTEGRATION_DB}"  && echo "Database ${INTEGRATION_DB} created."
-bin/clinotty mysql -hdb -uroot -p${MYSQL_ROOT_PASSWORD} ${INTEGRATION_DB} -e exit &> /dev/null || $CREATE_DB
+MYSQL_INTEGRATION_CONFIG=dev/tests/integration/etc/install-config-mysql.php
 
-sed -e "s/'db-host' => 'localhost'/'db-host' => 'db'/" \
+# If database doesn't exist create it and add user permissions
+bin/clinotty mysql -h${MYSQL_INTEGRATION_HOST} -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_INTEGRATION_DATABASE} -e exit &> /dev/null || 
+  bin/clinotty mysqladmin -h${MYSQL_INTEGRATION_HOST} -uroot -p${MYSQL_ROOT_PASSWORD} create ${MYSQL_INTEGRATION_DATABASE} &&
+  echo "Database ${MYSQL_INTEGRATION_DATABASE} created." &&
+  bin/cli mysql -uroot -p${MYSQL_ROOT_PASSWORD} -h${MYSQL_INTEGRATION_HOST} \
+    -e "GRANT ALL PRIVILEGES ON ${MYSQL_INTEGRATION_DATABASE}.* TO '${MYSQL_INTEGRATION_USER}'@'%';FLUSH PRIVILEGES;"
+
+sed -e "s/'db-host' => 'localhost'/'db-host' => '${MYSQL_INTEGRATION_HOST}'/" \
   -e "s/'db-password' => '123123q'/'db-password' => '${MYSQL_ROOT_PASSWORD}'/" \
   -e "s/'amqp-host' => 'localhost'/'amqp-host' => 'rabbitmq'/" \
-  src/dev/tests/integration/etc/install-config-mysql.php.dist > src/dev/tests/integration/etc/install-config-mysql.php
+  src/${MYSQL_INTEGRATION_CONFIG}.dist > src/${MYSQL_INTEGRATION_CONFIG}
 
-# Workaround until coping nested files works as expected
-docker cp $REAL_SRC/$MYSQL_CONFIG $(docker-compose ps -q phpfpm|awk '{print $1}'):/var/www/html/$MYSQL_CONFIG
-echo "Completed copying $MYSQL_CONFIG from host to container"
-bin/fixowns $MYSQL_CONFIG
-bin/fixperms $MYSQL_CONFIG
+bin/copytocontainer ${MYSQL_INTEGRATION_CONFIG}
