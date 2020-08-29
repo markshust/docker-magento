@@ -223,8 +223,8 @@ bin/mysql < existing/magento.sql
 bin/magento app:config:import
 
 # Set base URLs to local environment URL (if not defined in env.php file):
-bin/magento setup:store-config:set web/secure/base_url https://yoursite.test/
-bin/magento setup:store-config:set web/unsecure/base_url https://yoursite.test/
+bin/magento config:set web/secure/base_url https://yoursite.test/
+bin/magento config:set web/unsecure/base_url https://yoursite.test/
 
 bin/restart
 
