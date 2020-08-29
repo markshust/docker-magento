@@ -263,7 +263,6 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
-- `bin/dbdump`: Dump configured Magento database with `mysqldump`. Ex. `bin/dbdump > dbdump.sql`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.3`
@@ -271,7 +270,8 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
-- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` and `bin/mysql < dbdump.sql`
+- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/mysqldump.sql`
+- `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/mysqldump.sql`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
@@ -300,22 +300,22 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 
 The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
 
-Here's an example of how to connect to the MySQL CLI tool of the Docker instance:
+To connect to the MySQL CLI tool of the Docker instance, run:
 
 ```
 bin/mysql
 ```
 
-You can use the `bin/mysql` script to import a database. The `dbdump.sql` file is in your local host directory:
+You can use the `bin/mysql` script to import a database, for example a file stored in your local host directory at `backups/mysqldump.sql`:
 
 ```
-bin/mysql < dbdump.sql
+bin/mysql < backups/mysqldump.sql
 ```
 
-You also can use `bin/dbdump` to export a database from magento in Docker container. The `dbdump.sql` file will appear in your local host directory:
+You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `backups/mysqldump.sql`:
 
 ```
-bin/dbdump > dbdump.sql
+bin/mysqldump > backups/mysqldump.sql
 ```
 
 ### Composer Authentication
