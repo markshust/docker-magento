@@ -26,17 +26,17 @@ function parseYaml {
   }'
 }
 
-# Check volume files exsit to avoid creating empty folder
+# Check if volume files exist to avoid creating an empty folder
 VOLUME_LIST=`parseYaml docker-compose.dev.yml services_app_volumes`
 IGNORE_LIST="./src/app/code ./src/m2-hotfixes ./src/patches ./src/var/log ./src/var/report ./src"
-VALID=true
+IS_VALID=true
 for file in $VOLUME_LIST; do
   if [ ! -e $file ] && [[ ! " $IGNORE_LIST " =~ " $file " ]]; then
     echo "$file: No such file or directory"
-    VALID=false
+    IS_VALID=false
   fi
 done
-[ $VALID = false ] && echo "Failed to start docker for missing volume files" && exit
+[ $IS_VALID = false ] && echo "Failed to start docker for missing volume files" && exit
 
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
 
