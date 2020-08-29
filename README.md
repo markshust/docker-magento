@@ -213,7 +213,7 @@ bin/composer install
 bin/copyfromcontainer vendor
 
 # Import existing database:
-bin/mysql < existing/magento.sql
+bin/mysql < backups/magento.sql
 
 # Update database connection details to use the above Docker MySQL credentials:
 # Also note: creds for the MySQL server are defined at startup from env/db.env
@@ -270,8 +270,8 @@ You'll now have an updated `bin/update` helper script, and can run it to update 
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
-- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/mysqldump.sql`
-- `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/mysqldump.sql`
+- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/magento.sql`
+- `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/magento.sql`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
@@ -306,16 +306,16 @@ To connect to the MySQL CLI tool of the Docker instance, run:
 bin/mysql
 ```
 
-You can use the `bin/mysql` script to import a database, for example a file stored in your local host directory at `backups/mysqldump.sql`:
+You can use the `bin/mysql` script to import a database, for example a file stored in your local host directory at `backups/magento.sql`:
 
 ```
-bin/mysql < backups/mysqldump.sql
+bin/mysql < backups/magento.sql
 ```
 
-You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `backups/mysqldump.sql`:
+You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `backups/magento.sql`:
 
 ```
-bin/mysqldump > backups/mysqldump.sql
+bin/mysqldump > backups/magento.sql
 ```
 
 ### Composer Authentication
