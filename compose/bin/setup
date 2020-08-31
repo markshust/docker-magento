@@ -1,4 +1,5 @@
 #!/bin/bash
+source env/db.env
 BASE_URL=${1:-magento2.test}
 
 bin/stop
@@ -48,10 +49,10 @@ bin/clinotty composer global require hirak/prestissimo
 bin/clinotty composer update
 
 bin/clinotty bin/magento setup:install \
-  --db-host=db \
-  --db-name=magento \
-  --db-user=magento \
-  --db-password=magento \
+  --db-host=$MYSQL_HOST \
+  --db-name=$MYSQL_DATABASE \
+  --db-user=$MYSQL_USER \
+  --db-password=$MYSQL_PASSWORD \
   --base-url=https://$BASE_URL/ \
   --admin-firstname=John \
   --admin-lastname=Smith \
