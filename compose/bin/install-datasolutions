@@ -15,8 +15,24 @@ git clone git@github.com:magento/saas-export.git extensions/saas-export
 git clone git@github.com:magento/magento-product-recommendations.git extensions/product-recommendations
 git clone git@github.com:magento/magento-product-recommendations-admin.git extensions/product-recommendations-admin
 
-sed -i '' -e 's/commerce.adobedtm.com/js.magento-datasolutions.com/g' extensions/data-services/DataServices/view/frontend/requirejs-config.js
-sed -i '' -e 's/magento-recs-sdk.adobe.net\/v1\/index/sdk.magento-datasolutions.com\/qa\/index/g' extensions/product-recommendations/ProductRecommendationsLayout/view/frontend/requirejs-config.js
+if [[ "$SAAS_ENVIRONMENT" == "qa" ]]; then
+    echo "Setting QA URLs in requirejs-config files..."
+    sed -i '' -e 's/commerce.adobedtm.com\/v4/js.magento-datasolutions.com\/qa/g' extensions/data-services/DataServices/view/frontend/requirejs-config.js
+    sed -i '' -e 's/magento-recs-sdk.adobe.net\/v1\/index/sdk.magento-datasolutions.com\/qa\/index/g' extensions/product-recommendations/ProductRecommendationsLayout/view/frontend/requirejs-config.js
+
+    echo "Setting QA URLs in csp_whitelist.xml files..."
+    sed -i '' -e 's/api.magento.com/qa-api.magedevteam.com/g' extensions/services-id/ServicesId/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobe.io/commerce-beta.adobe.io/g' extensions/services-id/ServicesId/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobedtm.com/js.magento-datasolutions.com/g' extensions/data-services/DataServices/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobedc.net/com-magento-prod1.mini.snplow.net/g' extensions/data-services/DataServices/etc/csp_whitelist.xml
+    sed -i '' -e 's/api.magento.com/qa-api.magedevteam.com/g' extensions/product-recommendations/ProductRecommendationsLayout/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobe.io/commerce-beta.adobe.io/g' extensions/product-recommendations/ProductRecommendationsLayout/etc/csp_whitelist.xml
+    sed -i '' -e 's/magento-recs-sdk.adobe.net/sdk.magento-datasolutions.com/g' extensions/product-recommendations/ProductRecommendationsLayout/etc/csp_whitelist.xml
+    sed -i '' -e 's/api.magento.com/qa-api.magedevteam.com/g' extensions/product-recommendations-admin/ProductRecommendationsAdmin/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobe.io/commerce-beta.adobe.io/g' extensions/product-recommendations-admin/ProductRecommendationsAdmin/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobe.net/admin-ui-qa.magento-datasolutions.com/g' extensions/product-recommendations-admin/ProductRecommendationsAdmin/etc/csp_whitelist.xml
+    sed -i '' -e 's/commerce.adobe.net/admin-ui-qa.magento-datasolutions.com/g' extensions/product-recommendations-admin/ProductRecommendationsAdmin/etc/config.xml
+fi
 
 sed -i '' -e 's/#- .\/extensions/- .\/extensions/g' docker-compose.dev.yml
 
