@@ -4,11 +4,9 @@ source env/install.env
 
 bin/stop
 
-# fix for invalid google-shopping-api checksum contained in archive installs (temporary fix until nexcess archive is patched)
-sed -e 's/5f5929ef9f2ec4ca048a2add261d22c92807630f/ce31e720d60451784b9fdb3769e43e149f50d436/' src/composer.lock > composer.lock && mv composer.lock src/composer.lock
-
 docker-compose -f docker-compose.yml up -d
-sleep 1 #Ensure containers are started...
+[ $? != 0 ] && echo "Failed to start Docker services" && exit
+sleep 5 #Ensure containers are started...
 
 echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
@@ -48,7 +46,7 @@ fi
 
 echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer global require hirak/prestissimo
-bin/clinotty composer install
+bin/clinotty composer update
 
 # temporary fix for 2.4-develop install
 if [[ "$INSTALL_SOURCE" != "git" ]]; then
@@ -78,6 +76,8 @@ bin/clinotty bin/magento setup:install \
   --amqp-user=guest \
   --amqp-password=guest \
   --amqp-virtualhost=/ \
+  --search-engine=elasticsearch7 \
+  --elasticsearch-host=elasticsearch \
   --use-rewrites=1
 
 echo "Turning on developer mode.."
@@ -100,9 +100,6 @@ bin/clinotty bin/magento setup:config:set --no-interaction  --page-cache=redis -
 
 echo "Enabling Redis for session..."
 bin/clinotty bin/magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
-
-echo "Enabling Elasticsearch..."
-bin/clinotty bin/magento config:set catalog/search/elasticsearch7_server_hostname elasticsearch
 
 echo "Re-indexing with Elasticsearch..."
 bin/clinotty bin/magento indexer:reindex

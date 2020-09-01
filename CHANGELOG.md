@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [33.0.0] - 2020-07-30
+
+### Added
+- The `php:7.4-fpm` Docker image has been setup with full support for Magento 2.4 (see [images/php/7.4](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)).
+- Added easy way to mount an SSH key to the container (see [#89](https://github.com/markshust/docker-magento/issues/89)).
+- The `bin/download` script now falls back to Hypernode's Magento Download mirror in the event the archive doesn't exist or fails to download from Nexcess.
+
+### Updated
+- All Docker volumes now use `:cached` rather than `:delegated`. The `delegated` volume functionality is changing in a future version of Docker for Mac to use Mutagen volumes, and the implementation is very buggy & awkward. Using the `cached` flag retains the current functionality we've been using in `delegated` without any changes (confirmed in [docker/for-mac#1592](https://github.com/docker/for-mac/issues/1592#issuecomment-662504816)).
+- Updated `bin/setup-ssl-ca` so SSL generation works on Linux ([#222](https://github.com/markshust/docker-magento/issues/222))
+- Updated `php` Docker images to use most recent version of Composer (1.10.9).
+- The `bin/setup` script now runs `composer update` rather than `composer install`. There was an error happening with `composer install`, and with the start of the project it's best to just get the most recent Composer packages anyway.
+- The `bin/setup` script now sets Elasticsearch 7 as the default catalog search engine directly when executing `bin/magento setup:install`.
+
+### Removed
+- All `latest` tags have been removed on all Docker images. It is bad practice to not use a specific version. The `latest` tag will no longer be recompiled when new images are released.
+- The `php:7.2` Docker images have been deprecated, as that version is no longer supported in Magento.
+- The `elasticsearch:6` Docker images have been deprecated, as those versions are no longer supported in Magento.
+- Removed invalid checksum hack fix in `bin/setup` for `google-shopping-api` package, as that is only applicable to older versions of Magento.
+
 ## [32.0.1] - 2020-05-12
 
 ### Fixed
