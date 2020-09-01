@@ -46,7 +46,7 @@ fi
 
 echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer global require hirak/prestissimo
-bin/clinotty composer update
+bin/clinotty composer install
 
 # temporary fix for 2.4-develop install
 if [[ "$INSTALL_SOURCE" != "git" ]]; then
