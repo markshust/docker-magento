@@ -65,7 +65,7 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/destroy`: Stops docker containers and prunes containers, networks, and volumes - Use when rebuilding entirely
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.3.3`
+- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.4.0`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -73,7 +73,8 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/install-sampledata`: Installs Magento Luma sample data
 - `bin/install-src`: Installs Magento code into `src` directory based upon configuration in `.env`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
-- `bin/mysql`: Run the MySQL CLI with database config from env/db.env. Ex `bin/mysql -e "EXPLAIN core_config_data"`
+- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/magento.sql`
+- `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/magento.sql`
 - `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
