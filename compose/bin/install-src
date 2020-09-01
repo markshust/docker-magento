@@ -41,6 +41,7 @@ elif [[ "$INSTALL_SOURCE" == "composer" ]]; then
   fi
 elif [[ "$INSTALL_SOURCE" == "nexcess" ]]; then
   if [[ "$MAGENTO_EDITION" == "open-source" ]]; then
+    mkdir src
     if [[ "${INSTALL_SAMPLE_DATA}" == true ]]; then
       curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-with-samples-"$MAGENTO_VERSION".tar.gz | tar xzf - -o -C "$FULL_HOST_INSTALL_PATH"
     else
