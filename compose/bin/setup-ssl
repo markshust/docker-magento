@@ -3,15 +3,19 @@
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Generate certificate authority if not already setup
-if ! docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
+if ! docker-compose -f "${__dir}/../docker-compose.yml" -f "${__dir}/../docker-compose.dev.yml" \
+  exec -T -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
   "${__dir}/setup-ssl-ca"
 fi
 
 # Generate the certificate for the specified domain
-docker-compose exec -T -u root app mkcert -key-file nginx.key -cert-file nginx.crt "$@"
+docker-compose -f "${__dir}/../docker-compose.yml" -f "${__dir}/../docker-compose.dev.yml" \
+  exec -T -u root app mkcert -key-file nginx.key -cert-file nginx.crt "$@"
 echo "Moving key and cert to /etc/nginx/certs/..."
-docker-compose exec -T -u root app chown app:app nginx.key nginx.crt
-docker-compose exec -T -u root app mv nginx.key nginx.crt /etc/nginx/certs/
+docker-compose -f "${__dir}/../docker-compose.yml" -f "${__dir}/../docker-compose.dev.yml" \
+  exec -T -u root app chown app:app nginx.key nginx.crt
+docker-compose -f "${__dir}/../docker-compose.yml" -f "${__dir}/../docker-compose.dev.yml" \
+  exec -T -u root app mv nginx.key nginx.crt /etc/nginx/certs/
 
 # Restart nginx to apply the updates
 echo "Restarting containers to apply updates..."
