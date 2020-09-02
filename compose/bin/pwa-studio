@@ -1,8 +1,11 @@
 #!/bin/bash
-if [ ! -d pwa-studio ]; then
+set -o errexit
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ ! -d "${__dir}/../pwa-studio" ]; then
     echo "PWA studio must first be installed by running bin/setup-pwa-studio"
     exit
 fi
 
-cd pwa-studio
+cd "{__dir}/../pwa-studio"
 NODE_TLS_REJECT_UNAUTHORIZED=0 yarn run watch:all

@@ -1,4 +1,8 @@
 #!/bin/bash
+set -o errexit
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 function parseYaml {
   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
   sed -ne "s|,$s\]$s\$|]|" \
@@ -26,6 +30,8 @@ function parseYaml {
   }'
 }
 
+cd "${__dir}/.."
+
 # Check if volume files exist to avoid creating an empty folder
 VOLUME_LIST=`parseYaml docker-compose.dev.yml services_app_volumes`
 IGNORE_LIST="./src/app/code ./src/m2-hotfixes ./src/patches ./src/var/log ./src/var/report ./src"
@@ -45,6 +51,6 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-or
 ## Blackfire support
 # ------------------
 ## First register the blackfire agent with:
-#bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
+#"${__dir}/root" blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
 ## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
-#bin/root /etc/init.d/blackfire-agent start
+#"${__dir}/root" /etc/init.d/blackfire-agent start

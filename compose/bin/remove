@@ -1,2 +1,3 @@
 #!/bin/bash
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml rm --stop
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+docker-compose -f "${__dir}/../docker-compose.yml" -f "${__dir}/../docker-compose.dev.yml" rm --stop

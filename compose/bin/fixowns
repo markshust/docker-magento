@@ -1,10 +1,11 @@
 #!/bin/bash
+set -o errexit
 echo "Correcting filesystem ownerships..."
-
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ -z "$1" ]; then
-  bin/rootnotty chown -R app:app /var/www/
+  "${__dir}/rootnotty" chown -R app:app /var/www/
 else
-  bin/rootnotty chown -R app:app /var/www/html/$1
+  "${__dir}/rootnotty" chown -R app:app /var/www/html/"$1"
 fi
 
 echo "Filesystem ownerships corrected."

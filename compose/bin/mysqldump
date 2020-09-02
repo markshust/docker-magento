@@ -1,2 +1,3 @@
 #!/bin/bash
-bin/n98-magerun2 db:dump --stdout "$@"
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+"${__dir}/n98-magerun2" db:dump --stdout "$@"

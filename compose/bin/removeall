@@ -1,3 +1,4 @@
 #!/bin/bash
-bin/remove
-bin/removevolumes
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+"${__dir}/remove"
+"${__dir}/removevolumes"

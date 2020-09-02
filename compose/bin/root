@@ -1,3 +1,4 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify a CLI command (ex. ls)" && exit
-docker-compose exec -u root phpfpm "$@"
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+docker-compose "${__dir}/../docker-compose.yml" -f "${__dir}/../docker-compose.dev.yml" exec -u root phpfpm "$@"

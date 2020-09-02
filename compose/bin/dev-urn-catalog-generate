@@ -1,6 +1,7 @@
 #!/bin/bash
-bin/magento dev:urn-catalog:generate misc.xml
-bin/copyfromcontainer misc.xml
-mv src/misc.xml src/.idea/misc.xml 
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+"${__dir}/magento" dev:urn-catalog:generate misc.xml
+"${__dir}/copyfromcontainer" misc.xml
+mv "${__dir}/../src/misc.xml" "${__dir}/../src/.idea/misc.xml"
 
 echo "URN's have been generated, you may now restart PHPStorm"

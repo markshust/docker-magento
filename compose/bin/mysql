@@ -1,9 +1,10 @@
 #!/bin/bash
-source env/db.env
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${__dir}/../env/db.env"
 if [ -t 0 ]; then
   # Need tty to run mysql shell
-  bin/cli mysql -h${MYSQL_HOST} -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} "$@"
+  "${__dir}/cli" mysql -h"${MYSQL_HOST}" -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" "$@"
 else
   # Read from stdin, ex: bin/mysql < dbdump.sql
-  bin/clinotty mysql -h${MYSQL_HOST} -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} "$@"
+  "${__dir}/clinotty" mysql -h"${MYSQL_HOST}" -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" "$@"
 fi

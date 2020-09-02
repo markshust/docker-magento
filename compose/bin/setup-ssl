@@ -1,9 +1,10 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify a domain (ex. mydomain.test)" && exit
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Generate certificate authority if not already setup
 if ! docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
-  bin/setup-ssl-ca
+  "${__dir}/setup-ssl-ca"
 fi
 
 # Generate the certificate for the specified domain
@@ -14,4 +15,4 @@ docker-compose exec -T -u root app mv nginx.key nginx.crt /etc/nginx/certs/
 
 # Restart nginx to apply the updates
 echo "Restarting containers to apply updates..."
-bin/restart
+"${__dir}/restart"

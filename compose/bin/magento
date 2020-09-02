@@ -1,2 +1,3 @@
 #!/bin/bash
-bin/cli bin/magento "$@"
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+"${__dir}/cli" bin/magento "$@"
