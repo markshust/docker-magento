@@ -3,6 +3,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../env/db.env
 source "${__dir}/../env/db.env"
 BASE_URL=${1:-magento2.test}
 
@@ -51,7 +52,7 @@ echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 "${__dir}/clinotty" composer global require hirak/prestissimo
 "${__dir}/clinotty" composer update
 
-"{$__dir}/clinotty" bin/magento setup:install \
+"${__dir}/clinotty" bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
   --db-name="$MYSQL_DATABASE" \
   --db-user="$MYSQL_USER" \

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 set -o errtrace
 set -o pipefail
 [ -z "$1" ] && echo "Please specify a directory or file to copy to container (ex. vendor, --all)" && exit
@@ -11,7 +12,6 @@ if [ "$1" == "--all" ]; then
   "${__dir}/fixowns"
   "${__dir}/fixperms"
 else
-  set -o errexit
   if [ -f "$REAL_SRC/$1" ]; then
     docker cp "$REAL_SRC/$1" "$(docker-compose -f "${__dir}/../docker-compose.yml" \
       -f "${__dir}/../docker-compose.dev.yml" ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1"
