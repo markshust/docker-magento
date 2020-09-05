@@ -1,5 +1,4 @@
 #!/bin/bash
-set -o errexit
 set -o nounset
 set -o pipefail
 [ -z "$1" ] && echo "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
@@ -10,6 +9,7 @@ if [ "$1" == "--all" ]; then
     -f "${__dir}/../docker-compose.dev.yml" ps -q phpfpm|awk '{print $1}')":/var/www/html/./ "$REAL_SRC/"
   echo "Completed copying all files from container to host"
 else
+  set -o errexit
   if [ -f "$1" ] ; then
     docker cp "$(docker-compose -f "${__dir}/../docker-compose.yml" \
       -f "${__dir}/../docker-compose.dev.yml" ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1" "$REAL_SRC/$1"

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if ! "${__dir}/clinotty" ls bin/n98-magerun2.phar 1> /dev/null 2>&1; then
   "${__dir}/clinotty" mkdir -p bin
