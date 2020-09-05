@@ -51,12 +51,14 @@ echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 "${__dir}/clinotty" composer global require hirak/prestissimo
 "${__dir}/clinotty" composer update
 
-"${__dir}/clinotty" bin/magento setup:install \
+"{$__dir}/clinotty" bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
   --db-name="$MYSQL_DATABASE" \
   --db-user="$MYSQL_USER" \
   --db-password="$MYSQL_PASSWORD" \
   --base-url=https://"$BASE_URL"/ \
+  --base-url-secure=https://"$BASE_URL"/ \
+  --backend-frontname=admin \
   --admin-firstname=John \
   --admin-lastname=Smith \
   --admin-email=john.smith@gmail.com \
@@ -70,6 +72,16 @@ echo "Forcing reinstall of composer deps to ensure perms & reqs..."
   --amqp-user=guest \
   --amqp-password=guest \
   --amqp-virtualhost=/ \
+  --cache-backend=redis \
+  --cache-backend-redis-server=redis \
+  --cache-backend-redis-db=0 \
+  --page-cache=redis \
+  --page-cache-redis-server=redis \
+  --page-cache-redis-db=1 \
+  --session-save=redis \
+  --session-save-redis-host=redis \
+  --session-save-redis-log-level=4 \
+  --session-save-redis-db=2 \
   --search-engine=elasticsearch7 \
   --elasticsearch-host=elasticsearch \
   --use-rewrites=1
@@ -81,15 +93,6 @@ echo "Turning on developer mode.."
 
 echo "Forcing deploy of static content to speed up initial requests..."
 "${__dir}/clinotty" bin/magento setup:static-content:deploy -f
-
-echo "Enabling Redis for cache..."
-"${__dir}/clinotty" bin/magento setup:config:set --no-interaction --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0
-
-echo "Enabling Redis for Full Page Cache..."
-"${__dir}/clinotty" bin/magento setup:config:set --no-interaction  --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
-
-echo "Enabling Redis for session..."
-"${__dir}/clinotty" bin/magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
 
 echo "Re-indexing with Elasticsearch..."
 "${__dir}/clinotty" bin/magento indexer:reindex
