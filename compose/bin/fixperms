@@ -3,8 +3,8 @@ set -o errexit
 echo "Correcting filesystem permissions..."
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ -z "$1" ]; then
-  "${__dir}/clinotty" find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
-  "${__dir}/clinotty" find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+  "${__dir}/clinotty" find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} 2>/dev/null \;
+  "${__dir}/clinotty" find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} 2>/dev/null \;
   "${__dir}/clinotty" chmod u+x bin/magento
 else
   "${__dir}/clinotty" find "$1" -type f -exec chmod u+w {} \;
