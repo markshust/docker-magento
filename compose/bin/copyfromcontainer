@@ -1,6 +1,5 @@
 #!/bin/bash
 set -o errexit
-set -o nounset
 set -o pipefail
 [ -z "$1" ] && echo "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
