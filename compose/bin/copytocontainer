@@ -7,7 +7,7 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REAL_SRC="${__dir}/../src"
 if [ "$1" == "--all" ]; then
   docker cp "$REAL_SRC/./" "$(docker-compose -f "${__dir}/../docker-compose.yml" \
-    -f "${__dir}/../docker-compose.dev.yml" ps -q phpfpm|awk '{print $1}')":/var/www/html/
+    -f "${__dir}/../docker-compose.dev.yml" ps -q phpfpm|awk '{print $1}')":/var/www/html/ || true
   echo "Completed copying all files from host to container"
   "${__dir}/fixowns"
   "${__dir}/fixperms"
