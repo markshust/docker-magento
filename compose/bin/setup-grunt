@@ -34,11 +34,11 @@ else
 fi
 
 "${__dir}/clinotty" cp package.json.sample package.json
-"${__dir}bin/clinotty" cp Gruntfile.js.sample Gruntfile.js
-"${__dir}bin/clinotty" cp grunt-config.json.sample grunt-config.json
-"${__dir}bin/npm" install ajv@^5.0.0 --save
-"${__dir}bin/npm" install
-"${__dir}in/magento" cache:clean
+"${__dir}/clinotty" cp Gruntfile.js.sample Gruntfile.js
+"${__dir}/clinotty" cp grunt-config.json.sample grunt-config.json
+"${__dir}/npm" install ajv@^5.0.0 --save
+"${__dir}/npm" install
+"${__dir}/magento" cache:clean
 "${__dir}/grunt" clean
-"${__dir}grunt" exec:$THEME
+"${__dir}/grunt" exec:$THEME
 "${__dir}/grunt" less:$THEME
