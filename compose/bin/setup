@@ -13,7 +13,7 @@ sleep 5 #Ensure containers are started...
 
 echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
-"${__dir}/copytocontainer" --all
+"${__dir}/copytocontainer" --all || true
 
 "${__dir}/clinotty" chmod u+x bin/magento
 

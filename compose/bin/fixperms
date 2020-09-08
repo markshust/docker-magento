@@ -1,5 +1,4 @@
 #!/bin/bash
-set -o errexit
 echo "Correcting filesystem permissions..."
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ -z "$1" ]; then
