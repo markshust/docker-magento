@@ -7,5 +7,5 @@ load test_helpers/running_docker.bash
   run "$(magento_docker_base_path)"/bin/n98-magerun2 db:info host
   echo "$output"
   [ "$status" -eq 0 ]
-  [[ "${lines[0]}" =~ "db" ]]
+  [[ "${lines[-1]}" =~ "db" ]]
 }
