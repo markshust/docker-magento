@@ -1,4 +1,4 @@
 #!/bin/bash
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-"${__dir}/stop"
-"${__dir}/start"
+"${__dir}/stop" "$@"
+"${__dir}/start" "$@"
