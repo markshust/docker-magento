@@ -46,7 +46,7 @@ done
 # Wait to exit until all missing files have been outputted to the user
 [ $IS_VALID = false ] && echo "Failed to start docker for missing volume files" && exit
 
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans "$@"
 
 ## Blackfire support
 # ------------------

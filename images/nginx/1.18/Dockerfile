@@ -1,14 +1,14 @@
-FROM nginx:1.18
+FROM nginx:1.18-alpine
 MAINTAINER Mark Shust <mark@shust.com>
 
-RUN groupadd -g 1000 app \
- && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
+RUN addgroup -g 1000 app \
+ && adduser -G app -u 1000 -h /var/www -s /bin/bash -S app
 RUN touch /var/run/nginx.pid
 RUN mkdir /sock
 
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
   curl \
-  libnss3-tools \
+  nss-tools \
   openssl
 
 RUN mkdir /etc/nginx/certs \
