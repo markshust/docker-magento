@@ -13,6 +13,7 @@ bin/clinotty mysql -h${MYSQL_INTEGRATION_HOST} -uroot -p${MYSQL_ROOT_PASSWORD} $
 sed -e "s/'db-host' => 'localhost'/'db-host' => '${MYSQL_INTEGRATION_HOST}'/" \
   -e "s/'db-password' => '123123q'/'db-password' => '${MYSQL_ROOT_PASSWORD}'/" \
   -e "s/'amqp-host' => 'localhost'/'amqp-host' => 'rabbitmq'/" \
+  -e "s/'elasticsearch-host' => 'localhost'/'elasticsearch-host' => 'elasticsearch'/" \
   src/${MYSQL_INTEGRATION_CONFIG}.dist > src/${MYSQL_INTEGRATION_CONFIG}
 
 bin/copytocontainer ${MYSQL_INTEGRATION_CONFIG}
