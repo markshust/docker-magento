@@ -91,7 +91,8 @@ View Dockerfiles:
       - [`7.4-fpm`, `7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
       - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
   - 7.3
-      - [`7.3-fpm`, `7.3-fpm-7`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm`, `7.3-fpm-8`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-7`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.3)
       - [`7.3-fpm-6`](https://github.com/markshust/docker-magento/tree/32.0.1/images/php/7.3)
       - [`7.3-fpm-5`](https://github.com/markshust/docker-magento/tree/30.0.0/images/php/7.3)
       - [`7.3-fpm-4`](https://github.com/markshust/docker-magento/tree/29.0.0/images/php/7.3)
