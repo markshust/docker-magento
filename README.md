@@ -416,20 +416,15 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ### M.academy
 
-This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>. Level up your Magento 2 skills.
+This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, which offers lessons and courses 100% dedicated to Magento 2.
 
 <a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
 
-#### Available Courses:
-
-- <a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">Setup a Magento 2 Development Environment with Docker</a> (FREE!) - The easiest way to install, manage, configure & standardize Magento development environments across your team.
-- <a href="https://m.academy/courses/magento-2-coding-kickstart" target="_blank">Magento 2 Coding Kickstart</a> - Start to become productive in Magento 2 programming within one week with no prior experience.
-
-Also available is the <a href="https://m.academy/library" target="_blank">M.academy Library</a>, a collection of resources including lessons, courses & more.
-
 ### Mark Shust
 
-I'm a <a href="https://u.magento.com/certification/directory/dev/883/" target="_blank">Certified Magento Developer & Architect</a> & <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a>, and available for consulting & development of your next project 🤓. You can read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a> or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
+My name is Mark Shust and I'm the creator of this repo. I'm a <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a> and <a href="https://www.youracclaim.com/users/mark-shust" target="_blank">Adobe Certified Magento Developer</a>, and have been involved since the early days of Magento (0.8!). I'm no longer available for consulting, but am creating course content full-time at <a href="https://m.academy" target="_blank">M.academy</a>.
+
+You can follow me on Twitter <a href="https://twitter.com/MarkShust" target="_blank">@MarkShust</a>, connect with me on LinkedIn <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">@MarkShust</a>, read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a>, or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
 
 ### Nexcess
 
