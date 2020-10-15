@@ -87,7 +87,7 @@ RUN curl -sSLO https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mh
   && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --version=1.10.9 --install-dir=/usr/local/bin --filename=composer
+  php -- --version=1.10.15 --install-dir=/usr/local/bin --filename=composer
 
 RUN curl -s https://packages.blackfire.io/gpg.key | apt-key add - \
   && echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list \
