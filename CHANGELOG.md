@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [34.2.0] - 2020-10-15
+
+### Updated
+- Updated Composer to version `1.10.15` to avoid nag update messages in new PHP Docker images `7.3-fpm-9`, `7.4-fpm-2`.
+
 ## [34.1.0] - 2020-10-15
 
 ### Added
