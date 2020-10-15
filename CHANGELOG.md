@@ -13,6 +13,9 @@ N/A
 ### Added
 - HTTP/2 added to Nginx image `1.18-4`
 
+### Updated
+- `bin/download` falls back to using Composer if archive download fails or is not found.
+
 ## [34.0.0] - 2020-10-11
 
 ### Added
