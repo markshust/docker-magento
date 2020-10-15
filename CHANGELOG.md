@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [34.1.0] - 2020-10-15
+
+### Added
+- HTTP/2 added to Nginx image `1.18-4`
+
 ## [34.0.0] - 2020-10-11
 
 ### Added
