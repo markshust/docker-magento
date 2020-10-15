@@ -23,5 +23,6 @@ else
     -f "${__dir}/../docker-compose.dev.yml" \
     ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1" "$REAL_SRC/$(dirname "$1")"
   fi
+  
   echo "Completed copying $1 from container to host"
 fi
