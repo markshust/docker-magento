@@ -8,6 +8,42 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 N/A
 
+## [34.2.0] - 2020-10-15
+
+### Updated
+- Updated Composer to version `1.10.15` to avoid nag update messages in new PHP Docker images `7.3-fpm-9`, `7.4-fpm-2`.
+
+## [34.1.0] - 2020-10-15
+
+### Added
+- HTTP/2 added to Nginx image `1.18-4`
+
+### Updated
+- `bin/download` falls back to using Composer if archive download fails or is not found.
+
+## [34.0.0] - 2020-10-11
+
+### Added
+- New `bin/setup-integration-tests` script to setup integration tests [3c021ff](https://github.com/markshust/docker-magento/commit/3c021ff6c92e49fad669deed0805cceae26bdccf).
+- Added `MYSQL_HOST` environment variable to `env/db.env` file.
+- New Nginx `1.18-3` Docker images uses Alpine as base image [PR #306](https://github.com/markshust/docker-magento/pull/306).
+
+### Updated
+- Prevent containers from starting if volume mapping doesn't exist, validate volumes to avoid empty folder creation [PR #256](https://github.com/markshust/docker-magento/pull/256).
+- Setup script uses MySQL `env/db.env` file for database connection credentials [PR #302](https://github.com/markshust/docker-magento/pull/302).
+- Increased MySQL's `max_allowed_packet` to `64M` in `docker-compose.yml` file [PR #303](https://github.com/markshust/docker-magento/pull/303).
+- `docker-compose.yml` now uses Alpine images for Redis and RabbitMQ [#305](https://github.com/markshust/docker-magento/pull/305).
+- `docker-compose.yml` file now uses new Alpine images for Redis, RabbitMQ & Nginx.
+- `bin/setup` script updated to use Redis for cache and session directly in installer script [PR #304](https://github.com/markshust/docker-magento/pull/304).
+- `bin/setup` script sets Admin URL to `/admin` [PR #304](https://github.com/markshust/docker-magento/pull/304).
+- Enabling/disabling Xdebug now only restarts `phpfpm` container rather than all containers [PR #314](https://github.com/markshust/docker-magento/pull/314).
+- `bin/setup` script moves `.vscode` directory to `src` after install [846d02c](https://github.com/markshust/docker-magento/commit/846d02c12c5af8005fe0cbb0b167b97f501db0c9).
+
+### Fixed
+- Exception while running integration tests [#292](https://github.com/markshust/docker-magento/pull/292).
+- Nested files not copying in copytocontainer script [#295](https://github.com/markshust/docker-magento/pull/295) [#296](https://github.com/markshust/docker-magento/pull/295).
+- Ubuntu unable to start because of missing volumes [#309](https://github.com/markshust/docker-magento/issues/309).
+
 ## [33.0.0] - 2020-07-30
 
 ### Added
