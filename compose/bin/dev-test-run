@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[ -z "$1" ] && echo "Please specify test type (ex. integration)" && exit
+
+TEST_TYPE="$1"
+shift
+bin/clinotty bash -c "cd dev/tests/${TEST_TYPE} && ../../../vendor/bin/phpunit $*"
