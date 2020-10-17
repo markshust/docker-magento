@@ -2,6 +2,9 @@
 source env/db.env
 BASE_URL=${1:-magento2.test}
 
+ES_HOST=elasticsearch
+ES_PORT=9200
+
 bin/stop
 
 docker-compose -f docker-compose.yml up -d
@@ -48,6 +51,14 @@ echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer global require hirak/prestissimo
 bin/clinotty composer update
 
+echo "Waiting for connection to Elasticsearch..."
+bin/clinotty timeout 30 bash -c "
+    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
+        printf '.'
+        sleep 5
+    done"
+[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
+
 bin/clinotty bin/magento setup:install \
   --db-host=$MYSQL_HOST \
   --db-name=$MYSQL_DATABASE \
@@ -80,7 +91,8 @@ bin/clinotty bin/magento setup:install \
   --session-save-redis-log-level=4 \
   --session-save-redis-db=2 \
   --search-engine=elasticsearch7 \
-  --elasticsearch-host=elasticsearch \
+  --elasticsearch-host=$ES_HOST \
+  --elasticsearch-port=$ES_PORT \
   --use-rewrites=1
 
 echo "Turning on developer mode.."
