@@ -1,6 +1,14 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify the version to download (ex. 2.0.0)" && exit
 
+edition=${2:-community}
+
+if [[ "$edition" == "enterprise" ]]; then
+    rm -rf src
+    composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=$1 src
+    exit 0
+fi
+
 if [ ! -f ~/.docker-magento/magento2-$1.tar.gz ]; then
     mkdir -p ~/.docker-magento
     (cd ~/.docker-magento && curl -OL http://pubfiles.nexcess.net/magento/ce-packages/magento2-$1.tar.gz)
