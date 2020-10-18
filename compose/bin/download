@@ -4,6 +4,7 @@
 edition=${2:-community}
 
 if [[ "$edition" == "enterprise" ]]; then
+    rm -rf src
     composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=$1 src
     exit 0
 fi
