@@ -4,9 +4,8 @@ BASE_URL=${1:-magento2.test}
 
 bin/stop
 
-docker-compose -f docker-compose.yml up -d
+bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
-sleep 5 #Ensure containers are started...
 
 echo "Copying all files from host to container..."
 rm -rf src/vendor #Clear for step below
