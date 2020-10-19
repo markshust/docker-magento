@@ -1,14 +1,54 @@
 #!/bin/bash
-if [ "$1" == "disable" ]; then
-  bin/cli sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-  sleep 1
-  bin/restart phpfpm
-  echo "Xdebug has been disabled."
-elif [ "$1" == "enable" ]; then
-  bin/cli sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-  sleep 1
-  bin/restart phpfpm
-  echo "Xdebug has been enabled."
+
+S=$(bin/cli cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini | grep -iGc '^;');
+
+xdebug_status() {
+    if [[ $S == 1 ]]; then
+        tput bold; echo "Xdebug is disabled";
+    else
+        tput bold; echo "Xdebug is enabled";
+    fi
+    tput sgr0
+}
+
+xdebug_toggle() {
+    if [[ $S == 1 ]]; then
+        xdebug_enable
+    else
+        xdebug_disable
+    fi
+}
+
+xdebug_enable() {
+    if [[ $S == 1 ]]; then
+        bin/cli sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        sleep 1
+        bin/restart phpfpm
+        tput bold; echo "Xdebug has been enabled."; tput sgr0
+    else
+        tput bold; echo "Xdebug is already enabled."; tput sgr0
+    fi
+}
+
+xdebug_disable() {
+    if [[ $S == 0 ]]; then
+        bin/cli sed -i -e 's/^\zend_extension/;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        sleep 1
+        bin/restart phpfpm
+        tput bold; echo "Xdebug has been disabled."; tput sgr0
+    else
+        tput bold; echo "Xdebug is already disabled."; tput sgr0
+    fi
+}
+
+if [[ "$1" == "disable" ]]; then
+    xdebug_disable
+elif [[ "$1" == "enable" ]]; then
+    xdebug_enable
+elif [[ "$1" == "toggle" ]]; then
+    xdebug_toggle
+elif [[ "$1" == "status" ]]; then
+    xdebug_status
 else
-  echo "Please specify either 'enable' or 'disable' as an argument"
+    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument\nEx: bin/xdebug status\n"
 fi
