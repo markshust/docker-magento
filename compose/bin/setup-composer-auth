@@ -1,0 +1,99 @@
+#!/bin/bash
+
+GLOBAL_AUTH=~/.composer/auth.json
+PROJECT_AUTH=./src/auth.json
+NEED_AUTH=false
+
+hash composer 2>/dev/null && USE_COMPOSER=true
+hash python3 2>/dev/null && USE_PYTHON3=true
+
+[ ! $USE_COMPOSER ] && [ ! $USE_PYTHON3 ] && echo "Failed to setup composer auth, it needs composer or python3" && exit 1
+
+# Get composer auth: username and password
+if [ $USE_COMPOSER ]; then
+    COMPOSER_USER="http-basic.repo.magento.com.username"
+    COMPOSER_PASS="http-basic.repo.magento.com.password"
+
+    PUBLIC_KEY="$(composer config -g $COMPOSER_USER 2>/dev/null)"
+    PRIVATE_KEY="$(composer config -g $COMPOSER_PASS 2>/dev/null)"
+
+    if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
+        PUBLIC_KEY="$(composer config -d ./src $COMPOSER_USER 2>/dev/null)"
+        PRIVATE_KEY="$(composer config -d ./src $COMPOSER_PASS 2>/dev/null)"
+        NEED_AUTH=true
+    fi
+elif [ $USE_PYTHON3 ]; then
+    PY3_USER="import sys, json; print(json.load(sys.stdin)['http-basic']['repo.magento.com']['username'])"
+    PY3_PASS="import sys, json; print(json.load(sys.stdin)['http-basic']['repo.magento.com']['password'])"
+
+    if [ -f "$GLOBAL_AUTH" ]; then
+        PUBLIC_KEY=$(cat "$GLOBAL_AUTH" | python3 -c "$PY3_USER" 2>/dev/null)
+        PRIVATE_KEY=$(cat "$GLOBAL_AUTH" | python3 -c "$PY3_USER" 2>/dev/null)
+    fi
+
+    if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
+        if [ -f "$PROJECT_AUTH" ]; then
+            PUBLIC_KEY=$(cat "$PROJECT_AUTH" | python3 -c "$PY3_USER" 2>/dev/null)
+            PRIVATE_KEY=$(cat "$PROJECT_AUTH" | python3 -c "$PY3_PASS" 2>/dev/null)
+            NEED_AUTH=true
+        fi
+    fi
+fi
+
+if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ] && [ $NEED_AUTH = false ]; then
+    echo "Global composer auth already exists" && exit
+fi
+
+# The last chance to enter manually
+if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
+    exec < /dev/tty
+    echo
+    echo "    Authentication required (repo.magento.com, public_key and private_key):"
+    read -p "        Username: " PUBLIC_KEY
+    read -p "        Password: " PRIVATE_KEY
+    echo
+    exec <&-
+fi
+
+if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
+    echo "Please enter composer auth for repo.magento.com" && exit 1
+fi
+
+# For docker-compose.yml setting: ~/.composer:/var/www/.composer:cached
+echo "Authentication will add to host composer global config ($GLOBAL_AUTH) for docekr container"
+if [ $USE_COMPOSER ]; then
+    composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
+elif [ $USE_PYTHON3 ]; then
+    PY3_MERGE_AUTH="""
+import sys, json;
+
+data = json.load(sys.stdin)
+auth= {
+    'http-basic': {
+        'repo.magento.com': {
+            'username': '${PUBLIC_KEY}',
+            'password': '${PRIVATE_KEY}'
+        }
+    }
+}
+
+def merge(src, dest):
+    for key, val in src.items():
+        if isinstance(val, dict):
+            node = dest.setdefault(key, {})
+            merge(val, node)
+        else:
+            dest[key] = val
+    return dest
+
+print(json.dumps(merge(auth, data), indent=4))
+"""
+    if [ -f "$GLOBAL_AUTH" ]; then
+        mkdir -p $(dirname "$GLOBAL_AUTH")
+        echo "{}" > "$GLOBAL_AUTH"
+    fi
+    mv "$GLOBAL_AUTH" "$GLOBAL_AUTH.bak"
+    cat "$GLOBAL_AUTH.bak" | python3 -c "$PY3_MERGE_AUTH" > "$GLOBAL_AUTH"
+fi
+
+echo "Success to setup composer auth"
