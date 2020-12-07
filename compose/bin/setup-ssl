@@ -1,10 +1,7 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify a domain (ex. mydomain.test)" && exit
 
-# Generate a new local CA "/root/.local/share/mkcert"
-docker-compose exec -T -u root app mkcert -install
-
-# Read the CA install for requested hostname
+# Generate certificate authority if not already setup
 if ! docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
   bin/setup-ssl-ca
 fi
