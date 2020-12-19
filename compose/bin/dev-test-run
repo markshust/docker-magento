@@ -4,4 +4,4 @@
 
 TEST_TYPE="$1"
 shift
-bin/clinotty bash -c "cd dev/tests/${TEST_TYPE} && ../../../vendor/bin/phpunit $*"
+bin/clinotty bash -c "cd dev/tests/${TEST_TYPE} && ../../../vendor/bin/phpunit -c phpunit.xml.dist $*"
