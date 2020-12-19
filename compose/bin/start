@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 function parseYaml {
   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
   sed -ne "s|,$s\]$s\$|]|" \
