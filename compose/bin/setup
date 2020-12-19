@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 source env/db.env
 BASE_URL=${1:-magento2.test}
 
