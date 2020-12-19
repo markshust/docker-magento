@@ -89,6 +89,8 @@ View Dockerfiles:
       - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
       - [`1.18-0`](https://github.com/markshust/docker-magento/tree/31.0.0/images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
+  - 8.0 (Currently in "development" for testing purposes.)
+      - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
   - 7.4
       - [`7.4-fpm`, `7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
       - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
@@ -171,12 +173,12 @@ bin/download 2.4.1
 # OPEN SOURCE:
 #
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.4.1 src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs --prefer-dist magento/project-community-edition=2.4.1 src
 #
 # COMMERCE:
 #
 # rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.4.1 src
+# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs --prefer-dist magento/project-enterprise-edition=2.4.1 src
 
 # Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
