@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-N/A
+- New PHP image with tag `8.0-fpm-develop` available for testing purposes.
 
 ## [34.2.0] - 2020-10-15
 
