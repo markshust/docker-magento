@@ -202,7 +202,7 @@ cp -R ~/Sites/existing src
 # Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
 
-# Start some containers, copy files ot them and then restart the containers:
+# Start some containers, copy files to them and then restart the containers:
 docker-compose up -d
 rm -rf src/vendor
 bin/copytocontainer --all ## Initial copy will take a few minutes...
