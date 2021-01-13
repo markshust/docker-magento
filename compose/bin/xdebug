@@ -1,10 +1,11 @@
 #!/bin/bash
-if [ "$1" == "disable" ]; then
+initialDiEn="$(echo $1 | head -c 1)"
+if [ $initialDiEn == "d" ]; then
   bin/cli sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
   sleep 1
   bin/restart phpfpm
   echo "Xdebug has been disabled."
-elif [ "$1" == "enable" ]; then
+elif [ $initialDiEn == "e" ]; then
   bin/cli sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
   sleep 1
   bin/restart phpfpm
