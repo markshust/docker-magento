@@ -1,4 +1,9 @@
 #!/bin/bash
+
+## The following lines are commented oout per https://github.com/markshust/docker-magento/issues/351
+
+<< 'COMMENTING-OUT'
+
 function parseYaml {
   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
   sed -ne "s|,$s\]$s\$|]|" \
@@ -39,6 +44,8 @@ for file in $VOLUME_LIST; do
 done
 # Wait to exit until all missing files have been outputted to the user
 [ $IS_VALID = false ] && echo "Failed to start docker for missing volume files" && exit
+
+COMMENTING-OUT
 
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans "$@"
 
