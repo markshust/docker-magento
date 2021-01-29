@@ -1,0 +1,2 @@
+#!/bin/bash
+bin/cliq /var/www/.composer-global/vendor/bin/cache-clean.js "$@"
