@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- New PHP image with tag `8.0-fpm-develop` available for testing purposes.
+- PHP image `8.0-fpm-develop` now available for testing purposes.
+
+## [35.0.0] - 2021-01-29
+
+### Added
+- Automatically purge caches for a better dev experience [#380](https://github.com/markshust/docker-magento/issues/380).
+- Stop script execution on error [#363](https://github.com/markshust/docker-magento/pull/363/).
+- Make xdebug command understand partials [#371](https://github.com/markshust/docker-magento/pull/371).
+- Extended functionality for `bin/xdebug`, including new `status` and `toggle` commands [#332](https://github.com/markshust/docker-magento/pull/332).
+- Check Elasticsearch connection before setup:install [#326](https://github.com/markshust/docker-magento/pull/326).
+
+### Updated
+- The onelinesetup now accepts a `community` or `enterprise` param to pick version to install [b2399ff1](https://github.com/markshust/docker-magento/commit/ad573f6f3c8d2f7066034cbde936a86eb2399ff1).
+- Fix bin/start for macOS Big Sur [#355](https://github.com/markshust/docker-magento/pull/355/).
 
 ## [34.2.0] - 2020-10-15
 
