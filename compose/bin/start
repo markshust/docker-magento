@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o errexit
+
 # Ref: https://stackoverflow.com/a/51789677/9821321
 function parseYaml {
   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
@@ -48,3 +49,5 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-or
 #bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
 ## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
 #bin/root /etc/init.d/blackfire-agent start
+
+bin/cache-clean --quiet --watch &
