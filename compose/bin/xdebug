@@ -4,11 +4,10 @@ S=$(bin/cli cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini | grep -iGc 
 
 xdebug_status() {
     if [[ $S == 1 ]]; then
-        tput bold; echo "Xdebug is disabled";
+        echo "Xdebug is disabled."
     else
-        tput bold; echo "Xdebug is enabled";
+        echo "Xdebug is enabled."
     fi
-    tput sgr0
 }
 
 xdebug_toggle() {
@@ -24,9 +23,9 @@ xdebug_enable() {
         bin/cli sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
         sleep 1
         bin/restart phpfpm
-        tput bold; echo "Xdebug has been enabled."; tput sgr0
+        echo "Xdebug has been enabled."
     else
-        tput bold; echo "Xdebug is already enabled."; tput sgr0
+        echo "Xdebug is already enabled."
     fi
 }
 
@@ -35,20 +34,22 @@ xdebug_disable() {
         bin/cli sed -i -e 's/^\zend_extension/;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
         sleep 1
         bin/restart phpfpm
-        tput bold; echo "Xdebug has been disabled."; tput sgr0
+        echo "Xdebug has been disabled."
     else
-        tput bold; echo "Xdebug is already disabled."; tput sgr0
+        echo "Xdebug is already disabled."
     fi
 }
 
-if [[ "$1" == "disable" ]]; then
+firstArgLetter="$(echo $1 | head -c 1)"
+
+if [[ $firstArgLetter == "d" ]]; then
     xdebug_disable
-elif [[ "$1" == "enable" ]]; then
+elif [[ $firstArgLetter == "e" ]]; then
     xdebug_enable
-elif [[ "$1" == "toggle" ]]; then
+elif [[ $firstArgLetter == "t" ]]; then
     xdebug_toggle
-elif [[ "$1" == "status" ]]; then
+elif [[ $firstArgLetter == "s" ]]; then
     xdebug_status
 else
-    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument\nEx: bin/xdebug status\n"
+    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument.\nEx: bin/xdebug status\n"
 fi
