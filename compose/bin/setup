@@ -1,6 +1,10 @@
 #!/bin/bash
+set -o errexit
 source env/db.env
 BASE_URL=${1:-magento2.test}
+
+ES_HOST=elasticsearch
+ES_PORT=9200
 
 bin/stop
 
@@ -13,39 +17,19 @@ bin/copytocontainer --all
 
 bin/clinotty chmod u+x bin/magento
 
-if hash composer 2>/dev/null; then
-    PUBLIC_KEY="$(composer config -gl | grep '\[http-basic.repo.magento.com.username\]' | cut -c40-)"
-    PRIVATE_KEY="$(composer config -gl | grep '\[http-basic.repo.magento.com.password\]' | cut -c40-)"
-fi
-
-if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
-    exec < /dev/tty
-    echo
-    echo
-    echo "    Authentication required (repo.magento.com, public_key and private_key):"
-    read -p "        Username: " PUBLIC_KEY
-    read -p "        Password: " PRIVATE_KEY
-    echo
-    if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ] && hash composer 2>/dev/null; then
-        read -p "    Add authentication information to host composer config? y/n: " ADD_AUTH
-        echo
-        if [[ $ADD_AUTH =~ ^[Yy]$ ]]; then
-            composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
-        fi
-        ADD_AUTH=''
-    fi
-    exec <&-
-fi
-
-if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
-    bin/clinotty composer config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
-    PUBLIC_KEY=''
-    PRIVATE_KEY=''
-fi
+bin/setup-composer-auth
 
 echo "Forcing reinstall of composer deps to ensure perms & reqs..."
 bin/clinotty composer global require hirak/prestissimo
 bin/clinotty composer update
+
+echo "Waiting for connection to Elasticsearch..."
+bin/clinotty timeout 30 bash -c "
+    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
+        printf '.'
+        sleep 5
+    done"
+[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
 bin/clinotty bin/magento setup:install \
   --db-host=$MYSQL_HOST \
@@ -79,7 +63,8 @@ bin/clinotty bin/magento setup:install \
   --session-save-redis-log-level=4 \
   --session-save-redis-db=2 \
   --search-engine=elasticsearch7 \
-  --elasticsearch-host=elasticsearch \
+  --elasticsearch-host=$ES_HOST \
+  --elasticsearch-port=$ES_PORT \
   --use-rewrites=1
 
 echo "Turning on developer mode.."
