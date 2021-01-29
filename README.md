@@ -249,7 +249,6 @@ It is recommended to keep your root docker config files in one repository, and y
 ## Custom CLI Commands
 
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
-- `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) script from within the container. The watcher is automatically started when `bin/start` is executed. Ex. `bin/cache-clean full_page`
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
 - `bin/clinotty`: Run any CLI command with no TTY. Ex. `bin/clinotty chmod u+x bin/magento`
 - `bin/cliq`: The same as `bin/cli`, but pipes all output to `/dev/null`. Useful for a quiet CLI, or implementing long-running processes.
@@ -258,6 +257,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
+- `bin/devtools-cli-check`: Check & install the CLI devtools if missing from system.
 - `bin/download`: Download & extract specific Magento version to the `src` directory. If the archive download fails, it will attempt to download with Composer. Ex. `bin/download 2.4.1`.
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
@@ -293,7 +293,7 @@ It is recommended to keep your root docker config files in one repository, and y
 
 For an improved developer experience, caches are automatically refreshed when related files are updated, courtesy of [cache-clean](https://github.com/mage2tv/magento-cache-clean). This means you can keep all of the standard Magento caches enabled, and this script will only clear the specific caches needed, and only when necessary.
 
-To disable this functionality, uncomment the last line in the `bin/start` file which starts the `bin/cache-clean` watcher.
+To disable this functionality, uncomment the last line in the `bin/start` file to disable the watcher.
 
 ### Database
 
