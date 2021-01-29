@@ -1,8 +1,5 @@
 #!/bin/bash
-
-## The following lines are commented oout per https://github.com/markshust/docker-magento/issues/351
-
-<< 'COMMENTING-OUT'
+set -o errexit
 
 function parseYaml {
   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
