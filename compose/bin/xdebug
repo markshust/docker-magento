@@ -40,7 +40,7 @@ xdebug_disable() {
     fi
 }
 
-firstArgLetter="$(echo $1 | head -c 1)"
+firstArgLetter="$(echo "$1" | head -c 1)"
 
 if [[ $firstArgLetter == "d" ]]; then
     xdebug_disable
