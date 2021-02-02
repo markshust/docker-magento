@@ -27,14 +27,14 @@ elif [ $USE_PYTHON3 ]; then
     PY3_PASS="import sys, json; print(json.load(sys.stdin)['http-basic']['repo.magento.com']['password'])"
 
     if [ -f "$GLOBAL_AUTH" ]; then
-        PUBLIC_KEY=$(cat "$GLOBAL_AUTH" | python3 -c "$PY3_USER" 2>/dev/null)
-        PRIVATE_KEY=$(cat "$GLOBAL_AUTH" | python3 -c "$PY3_USER" 2>/dev/null)
+        PUBLIC_KEY=$(python3 -c "$PY3_USER" 2>/dev/null < "$GLOBAL_AUTH")
+        PRIVATE_KEY=$(python3 -c "$PY3_USER" 2>/dev/null < "$GLOBAL_AUTH")
     fi
 
     if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
         if [ -f "$PROJECT_AUTH" ]; then
-            PUBLIC_KEY=$(cat "$PROJECT_AUTH" | python3 -c "$PY3_USER" 2>/dev/null)
-            PRIVATE_KEY=$(cat "$PROJECT_AUTH" | python3 -c "$PY3_PASS" 2>/dev/null)
+            PUBLIC_KEY=$(python3 -c "$PY3_USER" 2>/dev/null < "$PROJECT_AUTH")
+            PRIVATE_KEY=$(python3 -c "$PY3_PASS" 2>/dev/null < "$PROJECT_AUTH")
             NEED_AUTH=true
         fi
     fi
@@ -49,8 +49,8 @@ if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
     exec < /dev/tty
     echo
     echo "    Authentication required (repo.magento.com, public_key and private_key):"
-    read -p "        Username: " PUBLIC_KEY
-    read -p "        Password: " PRIVATE_KEY
+    read -r -p "        Username: " PUBLIC_KEY
+    read -r -p "        Password: " PRIVATE_KEY
     echo
     exec <&-
 fi
@@ -62,7 +62,7 @@ fi
 # For docker-compose.yml setting: ~/.composer:/var/www/.composer:cached
 echo "Authentication will add to host composer global config ($GLOBAL_AUTH) for docekr container"
 if [ $USE_COMPOSER ]; then
-    composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
+    composer global config http-basic.repo.magento.com "$PUBLIC_KEY" "$PRIVATE_KEY"
 elif [ $USE_PYTHON3 ]; then
     PY3_MERGE_AUTH="""
 import sys, json;
@@ -89,11 +89,11 @@ def merge(src, dest):
 print(json.dumps(merge(auth, data), indent=4))
 """
     if [ -f "$GLOBAL_AUTH" ]; then
-        mkdir -p $(dirname "$GLOBAL_AUTH")
+        mkdir -p "$(dirname "$GLOBAL_AUTH")"
         echo "{}" > "$GLOBAL_AUTH"
     fi
     mv "$GLOBAL_AUTH" "$GLOBAL_AUTH.bak"
-    cat "$GLOBAL_AUTH.bak" | python3 -c "$PY3_MERGE_AUTH" > "$GLOBAL_AUTH"
+    python3 -c "$PY3_MERGE_AUTH" > "$GLOBAL_AUTH" < "$GLOBAL_AUTH.bak"
 fi
 
 echo "Success to setup composer auth"
