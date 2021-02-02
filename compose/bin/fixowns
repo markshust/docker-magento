@@ -2,7 +2,7 @@
 echo "Correcting filesystem ownerships..."
 
 if [ -z "$1" ]; then
-  bin/rootnotty chown -R app:app /var/www/
+  bin/rootnotty chown -R app:app /var/www/html
 else
   bin/rootnotty chown -R app:app /var/www/html/"$1"
 fi
