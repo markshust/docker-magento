@@ -1,5 +1,7 @@
 #!/bin/bash
 set -o errexit
+
+# shellcheck source=../env/db.env
 source env/db.env
 BASE_URL=${1:-magento2.test}
 
@@ -33,12 +35,12 @@ bin/clinotty timeout 30 bash -c "
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
 bin/clinotty bin/magento setup:install \
-  --db-host=$MYSQL_HOST \
-  --db-name=$MYSQL_DATABASE \
-  --db-user=$MYSQL_USER \
-  --db-password=$MYSQL_PASSWORD \
-  --base-url=https://$BASE_URL/ \
-  --base-url-secure=https://$BASE_URL/ \
+  --db-host="$MYSQL_HOST" \
+  --db-name="$MYSQL_DATABASE" \
+  --db-user="$MYSQL_USER" \
+  --db-password="$MYSQL_PASSWORD" \
+  --base-url=https://"$BASE_URL"/ \
+  --base-url-secure=https://"$BASE_URL"/ \
   --backend-frontname=admin \
   --admin-firstname=John \
   --admin-lastname=Smith \
@@ -87,7 +89,7 @@ bin/copyfromcontainer app
 bin/copyfromcontainer vendor
 
 echo "Generating SSL certificate..."
-bin/setup-ssl $BASE_URL
+bin/setup-ssl "$BASE_URL"
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
