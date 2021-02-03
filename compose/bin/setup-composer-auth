@@ -60,7 +60,7 @@ if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
 fi
 
 # For docker-compose.yml setting: ~/.composer:/var/www/.composer:cached
-echo "Authentication will add to host composer global config ($GLOBAL_AUTH) for docekr container"
+echo "Authentication will add to host composer global config ($GLOBAL_AUTH) for docker container"
 if [ $USE_COMPOSER ]; then
     composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
 elif [ $USE_PYTHON3 ]; then
