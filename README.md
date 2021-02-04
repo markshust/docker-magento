@@ -376,7 +376,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
         * Remove any pre-existing volume bindings.
         * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
 
-4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
+4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001,9003`.
 
 5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
 
