@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [36.0.1] - 2021-02-04
+
+### Updated
+- Reverted DB image back to `percona:5.7` until issues with MySQL 8.0 image are resolved.
+
 ## [36.0.0] - 2021-02-04
 
 ### Added
