@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 36.0.0
+# Version 36.0.1
 
 version: "3"
 
@@ -27,7 +27,7 @@ services:
     volumes: *appvolumes
 
   db:
-    image: mysql:8.0.23
+    image: percona:5.7
     command: --max_allowed_packet=64M
     ports:
       - "3306:3306"
