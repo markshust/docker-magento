@@ -55,5 +55,4 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-or
 ## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
 #bin/root /etc/init.d/blackfire-agent start
 
-bin/devtools-cli-check
-bin/cliq /var/www/.composer-global/vendor/bin/cache-clean.js --quiet --watch &
+bin/cache-clean --watch
