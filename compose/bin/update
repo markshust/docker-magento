@@ -1,5 +1,6 @@
 #!/bin/bash
-mkdir -p tmpupdate && cd $_
+set -o errexit
+mkdir -p tmpupdate && cd "$_"
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 rm -rf .git
 rsync -av ./ ../

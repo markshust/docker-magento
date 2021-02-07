@@ -89,14 +89,16 @@ View Dockerfiles:
       - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
       - [`1.18-0`](https://github.com/markshust/docker-magento/tree/31.0.0/images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - 8.0 (Currently in "development" for testing purposes.)
+  - 8.0 (available for alpha testing)
       - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
   - 7.4
-      - [`7.4-fpm`, `7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm`, `7.4-fpm-3`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.4)
       - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
       - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
   - 7.3
-      - [`7.3-fpm`, `7.3-fpm-9`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm`, `7.3-fpm-10`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-9`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.3)
       - [`7.3-fpm-8`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.3)
       - [`7.3-fpm-7`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.3)
       - [`7.3-fpm-6`](https://github.com/markshust/docker-magento/tree/32.0.1/images/php/7.3)
@@ -108,7 +110,8 @@ View Dockerfiles:
       - [`7.3-fpm-0`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.3)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
   - 7
-      - [`7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.6)
+      - [`7.7`, `7.7.1-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.7)
+      - [`7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/35.0.0/images/elasticsearch/7.6)
       - [`7.6.2-1`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/7.6)
       - [`7.6.2-0`](https://github.com/markshust/docker-magento/tree/31.0.2/images/elasticsearch/7.6)
 
@@ -202,7 +205,7 @@ cp -R ~/Sites/existing src
 # Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
 
-# Start some containers, copy files ot them and then restart the containers:
+# Start some containers, copy files to them and then restart the containers:
 docker-compose up -d
 rm -rf src/vendor
 bin/copytocontainer --all ## Initial copy will take a few minutes...
@@ -247,21 +250,24 @@ It is recommended to keep your root docker config files in one repository, and y
 ## Custom CLI Commands
 
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
+- `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
 - `bin/clinotty`: Run any CLI command with no TTY. Ex. `bin/clinotty chmod u+x bin/magento`
+- `bin/cliq`: The same as `bin/cli`, but pipes all output to `/dev/null`. Useful for a quiet CLI, or implementing long-running processes.
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/download`: Download & extract specific Magento version to the `src` directory. If the archive download fails, it will attempt to download with Composer. Ex. `bin/download 2.4.1`.
+- `bin/devtools-cli-check`: Check & install the CLI devtools if missing from system.
+- `bin/download`: Download & extract specific Magento version to the `src` directory. If the archive download fails, it will attempt to download with Composer. Ex. `bin/download 2.4.1`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/magento.sql`
 - `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/magento.sql`
-- `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
+- `bin/n98-magerun2`: Access the [n98-magerun2](https://github.com/netz98/n98-magerun2) CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
@@ -284,6 +290,12 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
 
 ## Misc Info
+
+### Caching
+
+For an improved developer experience, caches are automatically refreshed when related files are updated, courtesy of [cache-clean](https://github.com/mage2tv/magento-cache-clean). This means you can keep all of the standard Magento caches enabled, and this script will only clear the specific caches needed, and only when necessary.
+
+To disable this functionality, uncomment the last line in the `bin/start` file to disable the watcher.
 
 ### Database
 
@@ -364,7 +376,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
         * Remove any pre-existing volume bindings.
         * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
 
-4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
+4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001,9003`.
 
 5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
 
@@ -382,12 +394,20 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
-You may have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
+Be sure to see the "Linux only" documentation in the [docker-compose.dev.yml](https://github.com/markshust/docker-magento/blob/master/compose/docker-compose.dev.yml#L30) file. The `extra_hosts` param is required to be defined on Linux for proper DNS resolution.
+
+You may also have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 
 Add following line to `/etc/sysctl.conf`:
 
 ```
 vm.max_map_count=262144
+```
+
+To enable Xdebug on linux, you'll also need to open port 9001 on the firewall with:
+
+```
+sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
 ```
 
 ### Blackfire.io

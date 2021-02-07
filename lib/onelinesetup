@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 DOMAIN=${1:-magento2.test}
 VERSION=${2:-2.4.0}
 EDITION=${3:-community}
