@@ -6,7 +6,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- New PHP image with tag `8.0-fpm-develop` available for testing purposes.
+- PHP image `8.0-fpm-develop` now available for testing purposes.
+
+## [36.0.1] - 2021-02-04
+
+### Updated
+- Reverted DB image back to `percona:5.7` until issues with MySQL 8.0 image are resolved.
+
+## [36.0.0] - 2021-02-04
+
+### Added
+- New Elasticsearch Docker images `7.7`, `7.7.1-0` [#392](https://github.com/markshust/docker-magento/issues/392).
+- SpellCheck GitHub Action for continuous integration checks of shell scripts [#387](https://github.com/markshust/docker-magento/pull/387), [#388](https://github.com/markshust/docker-magento/pull/388).
+
+### Fixed
+- Support filesystem paths with spaces [e5f22e56](https://github.com/markshust/docker-magento/commit/e5f22e56fcd382b8339d5804a9d236dd6b238a3d).
+- Added missing `bin/cache-clean` file [f0e57202](https://github.com/markshust/docker-magento/commit/f0e5720281cd9f536f163bd5bdfe5bd66a956dc6).
+
+### Updated
+- Updated PHP images to NodeJS version 14 LTS [4a81f2b8](https://github.com/markshust/docker-magento/commit/4a81f2b8c61674b261ee7b42752e21fc8d5e945d).
+- Changed `db` service to use MySQL 8.0 Docker image.
+
+## [35.0.0] - 2021-01-29
+
+### Added
+- Automatically purge caches for a better dev experience [#380](https://github.com/markshust/docker-magento/issues/380).
+- Stop script execution on error [#363](https://github.com/markshust/docker-magento/pull/363/).
+- Make xdebug command understand partials [#371](https://github.com/markshust/docker-magento/pull/371).
+- Extended functionality for `bin/xdebug`, including new `status` and `toggle` commands [#332](https://github.com/markshust/docker-magento/pull/332).
+- Check Elasticsearch connection before setup:install [#326](https://github.com/markshust/docker-magento/pull/326).
+
+### Updated
+- The onelinesetup now accepts a `community` or `enterprise` param to pick version to install [b2399ff1](https://github.com/markshust/docker-magento/commit/ad573f6f3c8d2f7066034cbde936a86eb2399ff1).
+- Fix bin/start for macOS Big Sur [#355](https://github.com/markshust/docker-magento/pull/355/).
 
 ## [34.2.0] - 2020-10-15
 

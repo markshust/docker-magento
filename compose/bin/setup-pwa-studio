@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 echo "Install NodeJS and Yarn on host machine, otherwise setup will fail"
 
 BASE_URL=${1:-master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud}

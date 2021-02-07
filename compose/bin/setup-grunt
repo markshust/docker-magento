@@ -1,11 +1,11 @@
 #!/bin/bash
 DEFAULT_THEME_ID="select value from core_config_data where path = 'design/theme/theme_id'"
 THEME_PATH="select theme_path from theme where theme_id in ($DEFAULT_THEME_ID);"
-VENDOR_THEME=`bin/n98-magerun2 db:query "$THEME_PATH" | sed -n 2p | cut -d$'\r' -f1`
-THEME=`echo $VENDOR_THEME | cut -d'/' -f2`
+VENDOR_THEME=$(bin/n98-magerun2 db:query "$THEME_PATH" | sed -n 2p | cut -d$'\r' -f1)
+THEME=$(echo "$VENDOR_THEME" | cut -d'/' -f2)
 
 # Generate local-theme.js for custom theme
-read -d '' GEN_THEME_JS << EOM
+read -r -d '' GEN_THEME_JS << EOM
 var fs = require('fs');
 var util = require('util');
 var theme = require('./dev/tools/grunt/configs/themes');
