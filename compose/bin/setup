@@ -3,6 +3,9 @@ set -o errexit
 
 # shellcheck source=../env/db.env
 source env/db.env
+# shellcheck source=../env/magento.env
+source env/magento.env
+
 BASE_URL=${1:-magento2.test}
 
 ES_HOST=elasticsearch
@@ -41,15 +44,15 @@ bin/clinotty bin/magento setup:install \
   --db-password="$MYSQL_PASSWORD" \
   --base-url=https://"$BASE_URL"/ \
   --base-url-secure=https://"$BASE_URL"/ \
-  --backend-frontname=admin \
-  --admin-firstname=John \
-  --admin-lastname=Smith \
-  --admin-email=john.smith@gmail.com \
-  --admin-user=john.smith \
-  --admin-password=password123 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/New_York \
+  --backend-frontname="$MAGENTO_ADMIN_FRONTNAME" \
+  --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
+  --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
+  --admin-email="$MAGENTO_ADMIN_EMAIL" \
+  --admin-user="$MAGENTO_ADMIN_USER" \
+  --admin-password="$MAGENTO_ADMIN_PASSWORD" \
+  --language="$MAGENTO_LOCALE" \
+  --currency="$MAGENTO_CURRENCY" \
+  --timezone="$MAGENTO_TIMEZONE" \
   --amqp-host=rabbitmq \
   --amqp-port=5672 \
   --amqp-user=guest \
