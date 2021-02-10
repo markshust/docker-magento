@@ -16,7 +16,7 @@ RUN mkdir /etc/nginx/certs \
 
 RUN ( \
   cd /usr/local/bin/ \
-  && curl -L https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 -o mkcert \
+  && curl -L https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-arm64 -o mkcert \
   && chmod +x mkcert \
   )
 
