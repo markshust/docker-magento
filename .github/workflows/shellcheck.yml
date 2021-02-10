@@ -2,8 +2,14 @@ name: 'ShellCheck'
 
 on: 
   push:
-    branches: ["master"]
+    paths:
+    - 'compose/bin/**'
+    branches:
+    - "master"
+
   pull_request:
+    paths:
+    - 'compose/bin/**'
 
 jobs:
   shellcheck:
