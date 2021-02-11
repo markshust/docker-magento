@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o errexit
+
 [ -z "$1" ] && echo "Please specify the version to download (ex. 2.0.0)" && exit
 
 edition=${2:-community}
@@ -12,12 +13,12 @@ fi
 
 if [ ! -f ~/.docker-magento/magento2-"$1".tar.gz ]; then
     mkdir -p ~/.docker-magento
-    (cd ~/.docker-magento && curl -fOL http://pubfiles.nexcess.net/magento/ce-packages/magento2-"$1".tar.gz)
+    (cd ~/.docker-magento && curl -fOL http://pubfiles.nexcess.net/magento/ce-packages/magento2-"$1".tar.gz) || true
 fi
 
 # Fallback download to hypernode if archive doesn't exist on Nexcess (smaller than 1MB)
 if ! tar -tzf  ~/.docker-magento/magento2-"$1".tar.gz -O &>/dev/null; then
-    (cd ~/.docker-magento && curl -o magento2-"$1".tar.gz -fOL https://www.magento.mirror.hypernode.com/releases/magento-"$1".tar.gz)
+    (cd ~/.docker-magento && curl -o magento2-"$1".tar.gz -fOL https://www.magento.mirror.hypernode.com/releases/magento-"$1".tar.gz) || true
 fi
 
 # Final fallback. If no archive exists, let's use Composer!
