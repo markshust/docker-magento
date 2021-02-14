@@ -57,7 +57,7 @@ RUN cd /tmp \
   && docker-php-ext-enable ioncube
 
 RUN pecl channel-update pecl.php.net \
-  && pecl install xdebug
+  && pecl install xdebug-2.9.8
 
 RUN docker-php-ext-enable xdebug \
   && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

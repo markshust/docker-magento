@@ -92,12 +92,14 @@ View Dockerfiles:
   - 8.0 (available for alpha testing)
       - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
   - 7.4
-      - [`7.4-fpm`, `7.4-fpm-3`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm`, `7.4-fpm-4`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-3`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.4)
       - [`7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.4)
       - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
       - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
   - 7.3
-      - [`7.3-fpm`, `7.3-fpm-10`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm`, `7.3-fpm-11`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-10`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.3)
       - [`7.3-fpm-9`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.3)
       - [`7.3-fpm-8`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.3)
       - [`7.3-fpm-7`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.3)
@@ -149,6 +151,8 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/on
 ```bash
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test with-samples-2.4.1
 ```
+
+> Note there is a current issue using `with-samples-2.4.2` as that archive has not been bundled yet. The workaround for now is to install Magento without sample data, then add the sample data after installation by running `bin/magento sampledata:deploy` followed by `bin/magento setup:upgrade`.
 
 The `magento2.test` above defines the hostname to use, and the `2.4.1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 

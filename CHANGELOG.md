@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [36.0.2] - 2021-02-14
+
+### Updated
+- Reverted Xdebug to version 2 for backwards-compatible support [#390](https://github.com/markshust/docker-magento/issues/390).
+
 ## [36.0.1] - 2021-02-04
 
 ### Updated
