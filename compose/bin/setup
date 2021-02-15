@@ -17,7 +17,7 @@ docker-compose -f docker-compose.yml up -d
 sleep 5 #Ensure containers are started...
 
 bin/clinotty chmod u+x bin/magento
-mv .vscode src/
+mv .vscode src
 
 echo "Waiting for connection to Elasticsearch..."
 bin/clinotty timeout 30 bash -c "
