@@ -11,4 +11,4 @@ docker-compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 sleep 5 #Ensure containers are started...
 
-bin/composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-$edition-edition="$1" .
+bin/clinotty composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-$edition-edition="$1" .
