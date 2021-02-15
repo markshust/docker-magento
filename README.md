@@ -142,25 +142,22 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 Run this automated one-liner from the directory you want to install your project.
 
-#### No sample data
-
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.4.1
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.4.2
 ```
 
-#### With sample data
-
-```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test with-samples-2.4.1
-```
-
-> Note there is a current issue using `with-samples-2.4.2` as that archive has not been bundled yet. The workaround for now is to install Magento without sample data, then add the sample data after installation by running `bin/magento sampledata:deploy` followed by `bin/magento setup:upgrade`.
-
-The `magento2.test` above defines the hostname to use, and the `2.4.1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
-
-Prefix the version with `with-samples-` if you would like to automatically install sample data along with Magento.
+The `magento2.test` above defines the hostname to use, and the `2.4.2` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
+
+#### Install sample data
+
+After the above installation is complete, run the following lines to install sample data:
+
+```bash
+bin/magento sampledata:deploy
+bin/magento setup:upgrade
+```
 
 ### Manual Setup
 
@@ -173,7 +170,7 @@ Same result as the one-liner above. Just replace `magento2.test` references with
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.1
+bin/download 2.4.2
 
 # Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
@@ -247,7 +244,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/devtools-cli-check`: Check & install the CLI devtools if missing from system.
-- `bin/download`: Download & extract specific Magento version to the `src` directory. If the archive download fails, it will attempt to download with Composer. Ex. `bin/download 2.4.1`
+- `bin/download`: Download & extract specific Magento version to the `src` directory. If the archive download fails, it will attempt to download with Composer. Ex. `bin/download 2.4.2`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -426,10 +423,6 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 My name is Mark Shust and I'm the creator of this repo. I'm a <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a> and <a href="https://www.youracclaim.com/users/mark-shust" target="_blank">Adobe Certified Magento Developer</a>, and have been involved since the early days of Magento (0.8!). I'm no longer available for consulting, but am creating course content full-time at <a href="https://m.academy" target="_blank">M.academy</a>.
 
 You can follow me on Twitter <a href="https://twitter.com/MarkShust" target="_blank">@MarkShust</a>, connect with me on LinkedIn <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">@MarkShust</a>, read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a>, or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
-
-### Nexcess
-
-A special thanks goes out to <a href="https://www.nexcess.net/" target="_blank">Nexcess</a> for hosting <a href="http://pubfiles.nexcess.net/magento/ce-packages/" target="_blank">public archives of every version of Magento</a> 💙. I've used their Magento hosting services in the past also (both <a href="https://www.nexcess.net/magento/hosting/" target="_blank">shared</a> and <a href="https://www.nexcess.net/magento/enterprise-hosting/" target="_blank">enteprise</a> offerings) and they're great, ...highly recommended!
 
 ## License
 
