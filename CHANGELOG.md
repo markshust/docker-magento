@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [37.0.1] - 2021-02-15
+
+### Fixed
+- Fix onelinesetup script bug.
+
 ## [37.0.0] - 2021-02-14
 
 ### Added
