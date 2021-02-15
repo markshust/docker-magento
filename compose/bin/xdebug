@@ -1,12 +1,12 @@
 #!/bin/bash
 
-S=$(bin/cli cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini | grep -iGc '^;');
+S=$(bin/cli cat /usr/local/etc/php/php.ini | grep -iGc 'xdebug.mode = off');
 
 xdebug_status() {
     if [[ $S == 1 ]]; then
-        echo "Xdebug is disabled."
+        echo "Xdebug debug mode is disabled."
     else
-        echo "Xdebug is enabled."
+        echo "Xdebug debug mode is enabled."
     fi
 }
 
@@ -20,23 +20,23 @@ xdebug_toggle() {
 
 xdebug_enable() {
     if [[ $S == 1 ]]; then
-        bin/cli sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        bin/root sed -i -e 's/^xdebug.mode = off/xdebug.mode = debug/g' /usr/local/etc/php/php.ini
         sleep 1
         bin/restart phpfpm
-        echo "Xdebug has been enabled."
+        echo "Xdebug debug mode has been enabled."
     else
-        echo "Xdebug is already enabled."
+        echo "Xdebug debug mode is already enabled."
     fi
 }
 
 xdebug_disable() {
     if [[ $S == 0 ]]; then
-        bin/cli sed -i -e 's/^\zend_extension/;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        bin/root sed -i -e 's/^xdebug.mode = debug/xdebug.mode = off/g' /usr/local/etc/php/php.ini
         sleep 1
         bin/restart phpfpm
-        echo "Xdebug has been disabled."
+        echo "Xdebug debug mode has been disabled."
     else
-        echo "Xdebug is already disabled."
+        echo "Xdebug debug mode is already disabled."
     fi
 }
 
