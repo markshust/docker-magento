@@ -143,12 +143,12 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 Run this automated one-liner from the directory you want to install your project.
 
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.4.2
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.2
 ```
 
-The `magento2.test` above defines the hostname to use, and the `2.4.2` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, and the `2.4.2` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
-After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
+After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
 #### Install sample data
 
@@ -161,7 +161,7 @@ bin/magento setup:upgrade
 
 ### Manual Setup
 
-Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to use.
+Same result as the one-liner above. Just replace `magento.test` references with the hostname that you wish to use.
 
 #### New Projects
 
@@ -173,12 +173,12 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/te
 bin/download 2.4.2
 
 # Create a DNS host entry for the site:
-echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
+echo "127.0.0.1 ::1 magento.test" | sudo tee -a /etc/hosts
 
 # Run the setup installer for Magento:
-bin/setup magento2.test
+bin/setup magento.test
 
-open https://magento2.test
+open https://magento.test
 ```
 
 #### Existing Projects
@@ -214,7 +214,7 @@ bin/magento config:set web/unsecure/base_url https://yoursite.test/
 
 bin/restart
 
-open https://magento2.test
+open https://magento.test
 ```
 
 > For more details on how everything works, see the extended [setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).
@@ -244,7 +244,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/devtools-cli-check`: Check & install the CLI devtools if missing from system.
-- `bin/download`: Download & extract specific Magento version to the `src` directory. If the archive download fails, it will attempt to download with Composer. Ex. `bin/download 2.4.2`
+- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.2 community`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -262,10 +262,10 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/restart`: Stop and then start all containers.
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
-- `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento2.test`. Ex. `bin/setup magento2.test`
+- `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento.test`. Ex. `bin/setup magento.test`
 - `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
-- `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento2.test`
-- `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento2.test magento3.test`
+- `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento.test`
+- `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento.test foo.test`
 - `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/status`: Check the container status.
@@ -366,13 +366,13 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
 
-    * Set Name and Host to your domain name (ex. `magento2.test`)
+    * Set Name and Host to your domain name (ex. `magento.test`)
     * Keep port set to `80`
     * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
 
-7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
-8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
 ### Linux
 

@@ -1,14 +1,11 @@
 #!/bin/bash
 set -o errexit
 
-[ -z "$1" ] && echo "Please specify the version to download (ex. 2.0.0)" && exit
-
-edition=${2:-community}
+VERSION=${1:-2.4.2}
+EDITION=${2:-community}
 
 bin/stop
-
 docker-compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
-sleep 5 #Ensure containers are started...
 
-bin/clinotty composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-$edition-edition="$1" .
+bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-${EDITION}-edition="${VERSION}" .
