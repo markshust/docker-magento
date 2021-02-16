@@ -9,7 +9,7 @@
 
 This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Desktop](https://www.docker.com/products/docker-desktop).
 
-This configuration has been tested on Mac & Linux. Windows is supported through the use of Docker on WSL.
+This configuration has been tested on Mac with M1.
 
 ## Setup
 
