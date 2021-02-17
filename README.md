@@ -263,6 +263,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento.test`. Ex. `bin/setup magento.test`
+- `bin/setup-composer-auth`: Setup authentication credentials for Composer.
 - `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
 - `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento.test`
 - `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento.test foo.test`

@@ -11,9 +11,9 @@ fi
 if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
     exec < /dev/tty
     echo
-    echo "    Authentication required (repo.magento.com, public_key and private_key):"
-    read -r -p "        Username: " PUBLIC_KEY
-    read -r -p "        Password: " PRIVATE_KEY
+    echo "Composer authentication required (repo.magento.com public and private keys):"
+    read -r -p "    Username: " PUBLIC_KEY
+    read -r -p "    Password: " PRIVATE_KEY
     echo
     exec <&-
 fi
@@ -22,6 +22,7 @@ if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
     echo "Please setup Composer auth for repo.magento.com to continue." && exit 1
 fi
 
-bin/clinotty composer config --global http-basic.repo.magento.com "$PUBLIC_KEY" "$PRIVATE_KEY"
+# Output must be piped otherwise file descriptor errors occur. Carriage returns?
+echo "composer config --global http-basic.repo.magento.com ${PUBLIC_KEY} ${PRIVATE_KEY}" | bin/clinotty bash -
 
 echo "Composer auth has been setup."
