@@ -14,7 +14,6 @@ bin/stop
 
 docker-compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
-sleep 5 #Ensure containers are started...
 
 bin/clinotty chmod u+x bin/magento
 mv .vscode src

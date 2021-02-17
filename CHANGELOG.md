@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [37.0.2] - 2021-02-17
+
+### Added
+- New `bin/setup-composer-auth` file to setup Composer auth creds.
+
 ## [37.0.1] - 2021-02-15
 
 ### Fixed
