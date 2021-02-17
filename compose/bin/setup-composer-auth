@@ -1,6 +1,4 @@
 #!/bin/bash
-set -o errexit
-
 MAGENTO_USERNAME_PROP="http-basic.repo.magento.com.username"
 MAGENTO_PASSWORD_PROP="http-basic.repo.magento.com.password"
 hash composer 2>/dev/null && IS_COMPOSER_ON_HOST=true
