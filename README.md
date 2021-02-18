@@ -176,7 +176,7 @@ bin/download 2.4.2
 # docker-compose -f docker-compose.yml up -d
 # bin/setup-composer-auth
 # bin/cli git clone git@github.com:magento/magento2.git .
-# git checkout 2.4-develop
+# bin/cli git checkout 2.4-develop
 
 # Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 magento.test" | sudo tee -a /etc/hosts
