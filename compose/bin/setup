@@ -6,7 +6,7 @@ source env/db.env
 # shellcheck source=../env/magento.env
 source env/magento.env
 
-BASE_URL=${1:-magento2.test}
+DOMAIN=${1:-magento.test}
 ES_HOST=elasticsearch
 ES_PORT=9200
 
@@ -31,8 +31,8 @@ bin/clinotty bin/magento setup:install \
   --db-name="$MYSQL_DATABASE" \
   --db-user="$MYSQL_USER" \
   --db-password="$MYSQL_PASSWORD" \
-  --base-url=https://"$BASE_URL"/ \
-  --base-url-secure=https://"$BASE_URL"/ \
+  --base-url=https://"$DOMAIN"/ \
+  --base-url-secure=https://"$DOMAIN"/ \
   --backend-frontname="$MAGENTO_ADMIN_FRONTNAME" \
   --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
   --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
@@ -74,11 +74,11 @@ bin/clinotty bin/magento setup:static-content:deploy -f
 echo "Re-indexing with Elasticsearch..."
 bin/clinotty bin/magento indexer:reindex
 
+echo "Setting basic URL and generating SSL certificate..."
+bin/setup-domain "${DOMAIN}"
+
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
-echo "Generating SSL certificate..."
-bin/setup-ssl "$BASE_URL"
-
 echo "Docker development environment setup complete."
-echo "You may now access your Magento instance at https://${BASE_URL}/"
+echo "You may now access your Magento instance at https://${DOMAIN}/"
