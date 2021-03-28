@@ -12,9 +12,11 @@ bin/clinotty mysql -h"${MYSQL_INTEGRATION_HOST}" -uroot -p"${MYSQL_ROOT_PASSWORD
   bin/cli mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" -h"${MYSQL_INTEGRATION_HOST}" \
     -e "GRANT ALL PRIVILEGES ON ${MYSQL_INTEGRATION_DATABASE}.* TO '${MYSQL_INTEGRATION_USER}'@'%';FLUSH PRIVILEGES;"
 
-sed -e "s/'db-host' => 'localhost'/'db-host' => '${MYSQL_INTEGRATION_HOST}'/" \
-  -e "s/'db-password' => '123123q'/'db-password' => '${MYSQL_ROOT_PASSWORD}'/" \
-  -e "s/'amqp-host' => 'localhost'/'amqp-host' => 'rabbitmq'/" \
-  src/${MYSQL_INTEGRATION_CONFIG}.dist > src/${MYSQL_INTEGRATION_CONFIG}
+if [[ ! -f "src/${MYSQL_INTEGRATION_CONFIG}" ]]; then
+  MAGENTO_VERSION=$(bin/magento --version --no-ansi | cut -d" " -f 3)
+  IFS=. read -r -a MAGENTO_VERSION_SEGMENTS <<< "${MAGENTO_VERSION}"
+  MAGENTO_MAJOR="${MAGENTO_VERSION_SEGMENTS[0]}.${MAGENTO_VERSION_SEGMENTS[1]}"
+  cp template/"${MYSQL_INTEGRATION_CONFIG}"."${MAGENTO_MAJOR}".dist src/${MYSQL_INTEGRATION_CONFIG}
+fi
 
 bin/copytocontainer ${MYSQL_INTEGRATION_CONFIG}
