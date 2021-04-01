@@ -24,58 +24,58 @@
 
 ## Free Course
 
-This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>. Level up your Magento 2 skills with a collection of resources including lessons, courses & more.
+This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, the simplest way to learn Magento.
 
 <a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
 
 A free screencast course is available, which details the basic usage of this project:
 
-<a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Course image"><br />
+<a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
+<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/set-up-magento-2-development-environment-docker-og.png" alt="Course image"><br />
 <br />
-Setup a Magento 2 Development Environment with Docker
+Set Up a Magento 2 Development Environment with Docker
 </a>
 
 ### Course Curriculm
 
 #### Project Setup
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9205849" target="_blank">Setup Docker for Mac & configure preferences</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9273365" target="_blank">Setup global Composer auth credentials</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/8974570" target="_blank">Automated setup for new installs</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9205849" target="_blank">Setup Docker for Mac & configure preferences</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9273365" target="_blank">Setup global Composer auth credentials</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/8974570" target="_blank">Automated setup for new installs</a>
 
 #### Helper Scripts
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064258" target="_blank">Run CLI commands within containers</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9331008" target="_blank">Stop, start & restart containers</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064269" target="_blank">Run binaries within containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064258" target="_blank">Run CLI commands within containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9331008" target="_blank">Stop, start & restart containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064269" target="_blank">Run binaries within containers</a>
 
 #### Docker Filesystem & Volumes
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064334" target="_blank">Understand volumes & host bind mounts</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064338" target="_blank">Manage files & folders on containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064334" target="_blank">Understand volumes & host bind mounts</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064338" target="_blank">Manage files & folders on containers</a>
 
 #### Customize Server Configuration
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064349" target="_blank">Customize the Nginx configuration</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064356" target="_blank">Quickly switch PHP versions</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064350" target="_blank">Install extensions & packages</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064477" target="_blank">Run additional services as containers</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064349" target="_blank">Customize the Nginx configuration</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064356" target="_blank">Quickly switch PHP versions</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064350" target="_blank">Install extensions & packages</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064477" target="_blank">Run additional services as containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances</a>
 
 #### PHPStorm & Xdebug
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9748834" target="_blank">Setup PHPStorm for a Magento Docker project</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9763893" target="_blank">Generate XML URNs for a Magento Docker project</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install Xdebug browser plugin</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064482" target="_blank">Enable, disable, & check Xdebug</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PHPStorm for Xdebug</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger Xdebug breakpoints with PHPStorm</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9748834" target="_blank">Setup PHPStorm for a Magento Docker project</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9763893" target="_blank">Generate XML URNs for a Magento Docker project</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install Xdebug browser plugin</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064482" target="_blank">Enable, disable, & check Xdebug</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PHPStorm for Xdebug</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger Xdebug breakpoints with PHPStorm</a>
 
 #### Manual Setup (Optional)
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual setup for new Magento installs</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual setup for an existing Magento instance</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual setup for new Magento installs</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual setup for an existing Magento instance</a>
 
 ## Docker Hub
 
@@ -421,7 +421,7 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ### M.academy
 
-This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, which offers lessons and courses 100% dedicated to Magento 2.
+This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, the simplest way to learn Magento.
 
 <a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
 
