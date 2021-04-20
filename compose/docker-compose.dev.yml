@@ -32,12 +32,10 @@ services:
     #extra_hosts:
     #  - "host.docker.internal:IP"
 
-  mailhog:
-    image: mailhog/mailhog
+  mailcatcher:
+    image: schickling/mailcatcher
     ports:
-      - "1025"
-      - "8025:8025"
-
+      - "1080:1080"
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
   #  volumes: *appvolumes

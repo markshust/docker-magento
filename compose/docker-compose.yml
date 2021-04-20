@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 36.0.1
+# Version 35.0.0
 
 version: "3"
 
@@ -45,7 +45,6 @@ services:
       - "9300:9300"
     environment:
       - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
 
   rabbitmq:
     image: rabbitmq:3.7-management-alpine

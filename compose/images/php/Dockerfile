@@ -57,7 +57,7 @@ RUN cd /tmp \
   && docker-php-ext-enable ioncube
 
 RUN pecl channel-update pecl.php.net \
-  && pecl install xdebug-2.9.8
+  && pecl install -f xdebug-2.9.8
 
 RUN docker-php-ext-enable xdebug \
   && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
@@ -82,9 +82,8 @@ RUN apt-get install -y gnupg \
   && chown app:app /var/www/.config /var/www/.npm \
   && npm install -g grunt-cli
 
-RUN curl -sSLO https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_arm \
-  && chmod +x mhsendmail_linux_arm \
-  && mv mhsendmail_linux_arm /usr/local/bin/mhsendmail
+RUN apt-get install -y msmtp mailutils
+COPY conf/msmtprc /etc/msmtprc
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --1 --install-dir=/usr/local/bin --filename=composer
