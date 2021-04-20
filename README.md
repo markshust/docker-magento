@@ -7,7 +7,7 @@
 
 ## Prerequisites
 
-This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Desktop](https://www.docker.com/products/docker-desktop).
+This setup assumes you are running Docker on a computer with at least 4GB of allocated RAM, a dual-core, and an SSD hard drive. [Download & Install Docker Desktop](hhttps://docs.docker.com/docker-for-mac/apple-m1).
 
 This configuration has been tested on Mac with M1.
 
