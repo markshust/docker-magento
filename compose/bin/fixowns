@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Correcting filesystem ownerships..."
+echo "Fixing filesystem ownerships..."
 
 if [ -z "$1" ]; then
   bin/rootnotty chown -R app:app /var/www/
@@ -7,4 +7,4 @@ else
   bin/rootnotty chown -R app:app /var/www/html/"$1"
 fi
 
-echo "Filesystem ownerships corrected."
+echo "Filesystem ownerships fixed."
