@@ -19,7 +19,7 @@ bin/clinotty chmod u+x bin/magento
 mv .vscode src
 
 echo "Waiting for connection to Elasticsearch..."
-bin/clinotty timeout 30 bash -c "
+bin/clinotty timeout 100 bash -c "
     until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
         printf '.'
         sleep 5
