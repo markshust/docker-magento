@@ -1,0 +1,14 @@
+FROM markoshust/magento-php:7.3-fpm
+
+USER root
+
+RUN cd /tmp \
+    && curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
+    && tar -xvvzf ioncube.tar.gz \
+    && mv ioncube/ioncube_loader_lin_7.3.so /usr/local/lib/php/extensions/* \
+    && rm -Rf ioncube.tar.gz ioncube \
+    && sh -c "echo \"zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20180731/ioncube_loader_lin_7.3.so\" > /usr/local/etc/php/conf.d/docker-php-ext-ioncube_loader_lin_7.3.ini"
+
+RUN composer self-update 1.10.16
+
+USER app
