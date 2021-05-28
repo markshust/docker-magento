@@ -282,6 +282,17 @@ It is recommended to keep your root docker config files in one repository, and y
 
 ## Misc Info
 
+### Multi Factor Auth / MFA
+If you encounter this message after a successful login
+> You need to configure Two-Factor Authorization in order to proceed to your store's admin area. An E-mail was sent to you with further instructions
+
+You can disable the 2fa with via those command 
+
+```sh
+bin/magento module:disable Magento_TwoFactorAuth
+bin/magento setup:upgrade
+```
+
 ### Caching
 
 For an improved developer experience, caches are automatically refreshed when related files are updated, courtesy of [cache-clean](https://github.com/mage2tv/magento-cache-clean). This means you can keep all of the standard Magento caches enabled, and this script will only clear the specific caches needed, and only when necessary.
