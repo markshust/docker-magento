@@ -21,16 +21,24 @@ services:
       #- ./extensions/services-id/ServicesId:/var/www/html/app/code/Magento/ServicesId:consistent
       #- ./extensions/data-services/DataServices:/var/www/html/app/code/Magento/DataServices:consistent
       #- ./extensions/data-services/DataServicesMultishipping:/var/www/html/app/code/Magento/DataServicesMultishipping:consistent
-      #- ./extensions/saas-export/app/code/Magento/DataExporter:/var/www/html/app/code/Magento/DataExporter:consistent
-      #- ./extensions/saas-export/app/code/Magento/CatalogDataExporter:/var/www/html/app/code/Magento/CatalogDataExporter:consistent
-      #- ./extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter:/var/www/html/app/code/Magento/CatalogInventoryDataExporter:consistent
-      #- ./extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter:/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter:consistent
-      #- ./extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter:/var/www/html/app/code/Magento/ConfigurableProductDataExporter:consistent
-      #- ./extensions/saas-export/app/code/Magento/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog:consistent
+      #- ./extensions/commerce-data-export/CatalogDataExporter:/var/www/html/app/code/Magento/CatalogDataExporter:consistent
+      #- ./extensions/commerce-data-export/CatalogInventoryDataExporter:/var/www/html/app/code/Magento/CatalogInventoryDataExporter:consistent
+      #- ./extensions/commerce-data-export/CatalogUrlRewriteDataExporter:/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter:consistent
+      #- ./extensions/commerce-data-export/ConfigurableProductDataExporter:/var/www/html/app/code/Magento/ConfigurableProductDataExporter:consistent
+      #- ./extensions/commerce-data-export/BundleProductDataExporter:/var/www/html/app/code/Magento/BundleProductDataExporter:consistent
+      #- ./extensions/commerce-data-export/DataExporter:/var/www/html/app/code/Magento/DataExporter:consistent
+      #- ./extensions/commerce-data-export/ParentProductDataExporter:/var/www/html/app/code/Magento/ParentProductDataExporter:consistent
+      #- ./extensions/commerce-data-export/ProductOverrideDataExporter:/var/www/html/app/code/Magento/ProductOverrideDataExporter:consistent
+      #- ./extensions/commerce-data-export/ProductReviewDataExporter:/var/www/html/app/code/Magento/ProductReviewDataExporter:consistent
+      #- ./extensions/commerce-data-export/ProductVariantDataExporter:/var/www/html/app/code/Magento/ProductVariantDataExporter:consistent
+      #- ./extensions/commerce-data-export/QueryXml:/var/www/html/app/code/Magento/QueryXml:consistent
+      #- ./extensions/saas-export/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog:consistent
       #- ./extensions/product-recommendations-admin/ProductRecommendationsAdmin:/var/www/html/app/code/Magento/ProductRecommendationsAdmin:consistent
       #- ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout:consistent
       #- ./extensions/product-recommendations/PageBuilderProductRecommendations:/var/www/html/app/code/Magento/PageBuilderProductRecommendations:consistent
       #- ./extensions/product-recommendations/VisualProductRecommendations:/var/www/html/app/code/Magento/VisualProductRecommendations:consistent
+      #- ./extensions/product-recommendations-admin/ProductRecommendationsSyncAdmin:/var/www/html/app/code/Magento/ProductRecommendationsSyncAdmin:consistent
+      #- ./extensions/catalog-sync-admin/CatalogSyncAdmin:/var/www/html/app/code/Magento/CatalogSyncAdmin:consistent
 
   phpfpm:
     env_file: env/magento.env
@@ -55,4 +63,4 @@ services:
 
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
-  #  volumes: *appvolumes
+  # volumes: *appvolumes
