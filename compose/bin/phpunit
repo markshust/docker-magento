@@ -1,0 +1,4 @@
+#!/bin/bash
+bin/clinotty vendor/bin/phpunit \
+  -c /var/www/html/dev/tests/unit/phpunit.xml.dist \
+  "$@"

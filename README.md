@@ -260,6 +260,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/n98-magerun2`: Access the [n98-magerun2](https://github.com/netz98/n98-magerun2) CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
+- `bin/phpunit`: Run the phpunit binary. Ex. `bin/phpunit app/code/`
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
 - `bin/redis`: Run a command from the redis container. Ex. `bin/redis redis-cli monitor`
 - `bin/remove`: Remove all containers.
