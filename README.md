@@ -14,6 +14,9 @@ This is a customized repository forked from https://github.com/markshust/docker-
 
 #### Templated Install
 
+Before running, make sure you do not have any server running on ports 80, 443, 3306 or 9000.
+If you have apache, nginx, mysql or php-fpm running locally, be sure to stop these services so that install does not fail
+
 ```bash
 # Download the Docker Compose template into the specified project directory (Ex. magento2)
 curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/template | bash -s -- magento2
@@ -38,6 +41,7 @@ echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
 bin/setup
 
 # To install Data Solutions modules (ServicesConnector, ServicesId, DataServices, SaasExport, ProductRecommendations)
+# Update the INSTALL_PREX and INSTALL_SEARCH in env/install.env to select the extension you want to install.
 bin/install-datasolutions
 
 # Open site
@@ -130,12 +134,19 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
             * `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
             * `/var/www/html/app/code/Magento/ProductRecommendations` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendations`
             * `/var/www/html/app/code/Magento/ProductRecommendationsLayout` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendationsLayout`
-            * `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogDataExporter`
-            * `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter`
-            * `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter`
-            * `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter`
-            * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/saas-export/app/code/Magento/DataExporter`
+            * `/var/www/html/app/code/Magento/BundleProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/BundleProductDataExporter`
+            * `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogDataExporter`
+            * `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogInventoryDataExporter`
+            * `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogUrlRewriteDataExporter`
+            * `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ConfigurableProductDataExporter`
+            * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/DataExporter`
+            * `/var/www/html/app/code/Magento/ParentProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ParentProductDataExporter`
+            * `/var/www/html/app/code/Magento/ProductVariantDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ProductVariantDataExporter`
             * `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
+            * `/var/www/html/app/code/Magento/SaaSCommon` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCommon`
+            * `/var/www/html/app/code/Magento/LiveSearch` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearch`
+            * `/var/www/html/app/code/Magento/LiveSearchAdapter` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearchAdapter`
+            * `/var/www/html/app/code/Magento/LiveSearchStorefrontPopover` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearchStorefrontPopover`
 
 ![PHPStorm Docker Mappings](docs/docker_mappings.png)
 
@@ -154,12 +165,19 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
         * `./extensions/services-id/ServicesId` -> `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
         * `./extensions/product-recommendations/ProductRecommendations` -> `/var/www/html/app/code/Magento/ProductRecommendations`
         * `./extensions/product-recommendations/ProductRecommendationsLayout` -> `/var/www/html/app/code/Magento/ProductRecommendationsLayout`
-        * `./extensions/saas-export/app/code/Magento/CatalogDataExporter` -> `/var/www/html/app/code/Magento/CatalogDataExporter`
-        * `./extensions/saas-export/app/code/Magento/CatalogInventoryDataExporter` -> `/var/www/html/app/code/Magento/CatalogInventoryDataExporter`
-        * `./extensions/saas-export/app/code/Magento/CatalogUrlRewriteDataExporter` -> `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter`
-        * `./extensions/saas-export/app/code/Magento/ConfigurableProductDataExporter` -> `/var/www/html/app/code/Magento/ConfigurableProductDataExporter`
-        * `./extensions/saas-export/app/code/Magento/DataExporter` -> `/var/www/html/app/code/Magento/DataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/BundleProductDataExporter` -> `/var/www/html/app/code/Magento/BundleProductDataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/CatalogDataExporter` -> `/var/www/html/app/code/Magento/CatalogDataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/CatalogInventoryDataExporter` -> `/var/www/html/app/code/Magento/CatalogInventoryDataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/CatalogUrlRewriteDataExporter` -> `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/ConfigurableProductDataExporter` -> `/var/www/html/app/code/Magento/ConfigurableProductDataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/DataExporter` -> `/var/www/html/app/code/Magento/DataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/ParentProductDataExporter` -> `/var/www/html/app/code/Magento/ParentProductDataExporter`
+        * `./extensions/commerce-data-export/app/code/Magento/ProductVariantDataExporter` -> `/var/www/html/app/code/Magento/ProductVariantDataExporter`
         * `./extensions/saas-export/app/code/Magento/SaaSCatalog` -> `/var/www/html/app/code/Magento/SaaSCatalog`
+        * `./extensions/saas-export/app/code/Magento/SaaSCommon` -> `/var/www/html/app/code/Magento/SaaSCommon`
+        * `./extensions/magento-live-search/app/code/Magento/LiveSearch` -> `/var/www/html/app/code/Magento/LiveSearch`
+        * `./extensions/magento-live-search/app/code/Magento/LiveSearchAdapter` -> `/var/www/html/app/code/Magento/LiveSearchAdapter`
+        * `./extensions/magento-live-search/app/code/Magento/LiveSearchStorefrontPopover` -> `/var/www/html/app/code/Magento/LiveSearchStorefrontPopover`
 
 ![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
 
