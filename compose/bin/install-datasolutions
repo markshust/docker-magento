@@ -66,7 +66,19 @@ if [[ "$SAAS_ENVIRONMENT" == "qa" ]]; then
     fi
 fi
 
-sed -i '' -e 's/#- .\/extensions/- .\/extensions/g' docker-compose.dev.yml
+sed -i '' -e 's/#- .\/extensions\/services-connector/- .\/extensions\/services-connector/g' docker-compose.dev.yml
+sed -i '' -e 's/#- .\/extensions\/services-id/- .\/extensions\/services-id/g' docker-compose.dev.yml
+sed -i '' -e 's/#- .\/extensions\/data-services/- .\/extensions\/data-services/g' docker-compose.dev.yml
+sed -i '' -e 's/#- .\/extensions\/commerce-data-export/- .\/extensions\/commerce-data-export/g' docker-compose.dev.yml
+sed -i '' -e 's/#- .\/extensions\/saas-export/- .\/extensions\/saas-export/g' docker-compose.dev.yml
+
+if [[ "$INSTALL_PREX" ]]; then
+    sed -i '' -e 's/#- .\/extensions\/product-recommendations/- .\/extensions\/product-recommendations/g' docker-compose.dev.yml
+    sed -i '' -e 's/#- .\/extensions\/catalog-sync-admin/- .\/extensions\/catalog-sync-admin/g' docker-compose.dev.yml
+fi
+if [[ "$INSTALL_SEARCH" ]]; then
+    sed -i '' -e 's/#- .\/extensions\/magento-live-search/- .\/extensions\/magento-live-search/g' docker-compose.dev.yml
+fi
 
 bin/restart
 
