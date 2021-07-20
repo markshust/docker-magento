@@ -385,7 +385,11 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
-Be sure to see the "Linux only" documentation in the [docker-compose.dev.yml](https://github.com/markshust/docker-magento/blob/master/compose/docker-compose.dev.yml#L30) file. The `extra_hosts` param is required to be defined on Linux for proper DNS resolution.
+The `host.docker.internal` hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8), but this hostname does not exist on Linux. To make this hostname resolve, uncomment the `extra_hosts` param in the `docker-compose.dev.yml` file, and replace `IP` with result of:
+
+```
+docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+```
 
 You may also have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 
@@ -395,7 +399,7 @@ Add following line to `/etc/sysctl.conf`:
 vm.max_map_count=262144
 ```
 
-To enable Xdebug on linux, you'll also need to open port 9001 on the firewall with:
+To enable Xdebug on Linux, you'll also need to open port 9001 on the firewall by running:
 
 ```
 sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
