@@ -1,14 +1,14 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 37.0.2
+# Version 38.0.0
 
 version: "3"
 
 services:
   app:
     volumes: &appvolumes
-      # Host mounts with performance penalty, only put what is necessary here
+      ## Host mounts with performance penalty, only put what is necessary here
       - ./src/app/code:/var/www/html/app/code:cached
       - ./src/app/design:/var/www/html/app/design:cached
       - ./src/app/etc:/var/www/html/app/etc:cached
@@ -20,14 +20,14 @@ services:
       #- ./src/patches:/var/www/html/patches:cached
       #- ./src/var/log:/var/www/html/var/log:cached
       #- ./src/var/report:/var/www/html/var/report:cached
-      # To sync your SSH to the container, uncomment the following line:
+      ## To sync your SSH to the container, uncomment the following line:
       #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
-      # Linux only: remove the above lines (except nginx.conf line) and mount the entire src directory with:
+      ## Linux only: remove the above lines (except nginx.conf line) and mount the entire src directory with:
       #- ./src:/var/www/html:cached
 
   phpfpm:
     volumes: *appvolumes
-    # Linux users, see https://github.com/markshust/docker-magento#linux for updates needed below
+    ## Linux users, see https://github.com/markshust/docker-magento#linux for updates needed below
     #extra_hosts:
     #  - "host.docker.internal:IP"
 
@@ -37,6 +37,6 @@ services:
       - "1025"
       - "8025:8025"
 
-  # Disabling cron by default as it uses higher CPU, enable if needed
+  ## Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
   #  volumes: *appvolumes
