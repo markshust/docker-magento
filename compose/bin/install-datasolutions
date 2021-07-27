@@ -25,6 +25,8 @@ fi
 
 bin/cli composer require firebase/php-jwt
 
+bin/cli composer update
+
 if [[ "$SAAS_ENVIRONMENT" == "qa" ]]; then
     echo "Setting QA URLs in requirejs-config files..."
     sed -i '' -e 's/commerce.adobedtm.com\/v6/js.magento-datasolutions.com\/qa\/snowplow\/events\/v6/g' extensions/data-services/DataServices/view/frontend/requirejs-config.js
@@ -83,6 +85,13 @@ fi
 bin/restart
 
 bin/magento module:enable --all
+if [[ "$INSTALL_SEARCH" ]]; then
+  if [[ "$MAGENTO_EDITION" == 'open-source' ]]; then
+    php bin/magento module:disable Magento_Elasticsearch Magento_Elasticsearch6 Magento_Elasticsearch7 Magento_AdvancedSearch
+  else
+    php bin/magento module:disable Magento_Elasticsearch Magento_Elasticsearch6 Magento_Elasticsearch7 Magento_ElasticsearchCatalogPermissions Magento_AdvancedSearch Magento_InventoryElasticsearch
+  fi
+fi
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:flush
