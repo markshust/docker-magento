@@ -25,4 +25,7 @@ fi
 # Output must be piped otherwise file descriptor errors occur. Carriage returns?
 echo "composer config --global http-basic.repo.magento.com ${PUBLIC_KEY} ${PRIVATE_KEY}" | bin/clinotty bash -
 
+# Also make sure alternate auth.json is setup (Magento uses this internally)
+bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
+
 echo "Composer auth has been setup."

@@ -22,7 +22,7 @@ echo "Waiting for connection to Elasticsearch..."
 bin/clinotty timeout 100 bash -c "
     until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
         printf '.'
-        sleep 5
+        sleep 2
     done"
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
@@ -79,6 +79,9 @@ bin/clinotty bin/magento cache:flush
 
 echo "Generating SSL certificate..."
 bin/setup-ssl "$BASE_URL"
+
+echo "Ensuring Composer auth.json is setup..."
+bin/setup-composer-auth
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
