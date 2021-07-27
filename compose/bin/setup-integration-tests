@@ -5,7 +5,7 @@ source env/db.env
 
 MYSQL_INTEGRATION_CONFIG=dev/tests/integration/etc/install-config-mysql.php
 
-# If database doesn't exist create it and add user permissions
+# If database doesn't exist, create it and add user permissions
 bin/clinotty mysql -h"${MYSQL_INTEGRATION_HOST}" -uroot -p"${MYSQL_ROOT_PASSWORD}" "${MYSQL_INTEGRATION_DATABASE}" -e exit &> /dev/null ||
   bin/clinotty mysqladmin -h"${MYSQL_INTEGRATION_HOST}" -uroot -p"${MYSQL_ROOT_PASSWORD}" create "${MYSQL_INTEGRATION_DATABASE}" &&
   echo "Database ${MYSQL_INTEGRATION_DATABASE} created." &&
