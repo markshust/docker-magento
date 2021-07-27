@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [38.0.0] - 2021-07-27
+
+### Added
+- Composer 2 support [#409](https://github.com/markshust/docker-magento/issues/409).
+
+### Fixed
+- Composer `auth.json` not properly set after installation [#42](https://github.com/markshust/docker-magento/issues/42).
+- `bin/remove` not removing containers in newer versions of Docker Compose.
+- Invalid template error with Docker 3.5.1 [#486](https://github.com/markshust/docker-magento/issues/486).
+
 ## [37.0.2] - 2021-02-17
 
 ### Added
