@@ -1,0 +1,15 @@
+#!/bin/bash
+set -o errexit
+
+# shellcheck source=../env/db.env
+source env/db.env
+# shellcheck source=../env/magento.env
+source env/magento.env
+
+echo "Create admin user"
+bin/clinotty bin/magento admin:user:create --quiet \
+    --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
+    --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
+    --admin-email="$MAGENTO_ADMIN_EMAIL" \
+    --admin-user="$MAGENTO_ADMIN_USER" \
+    --admin-password="$MAGENTO_ADMIN_PASSWORD" || echo "Admin user alread exists"

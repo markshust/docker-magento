@@ -1,0 +1,23 @@
+#!/bin/bash
+set -o errexit   # abort on nonzero exitstatus
+set -o pipefail  # don't hide errors within pipes
+
+# shellcheck source=../env/deploy.env
+source env/deploy.env
+
+BUILD_HASH=${1:-$(git rev-parse --short HEAD)}
+PACKAGE_NAME=${PACKAGE_NAME:-"package"}
+
+if [ ! -f "artifacts/${PACKAGE_NAME}.tar.gz" ]; then
+    echo "Please create artifacts/${PACKAGE_NAME}.tar.gz first (ex. bin/package)!"
+    exit 1;
+fi
+
+ssh ${DEPLOY_USER}@${DEPLOY_HOST} "mkdir -p ${BUILD_PATH%/}/${BUILD_HASH}"
+
+scp artifacts/MD5SUMS \
+    artifacts/${PACKAGE_NAME}.tar.gz \
+    artifacts/${PACKAGE_NAME}.extra.tar.gz \
+    ${DEPLOY_USER}@${DEPLOY_HOST}:${BUILD_PATH%/}/${BUILD_HASH}/
+
+echo "Completed copying all artifacts to server"

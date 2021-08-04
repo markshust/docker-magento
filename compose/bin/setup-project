@@ -1,0 +1,69 @@
+#!/bin/bash
+set -o errexit
+
+# shellcheck source=../env/db.env
+source env/db.env
+# shellcheck source=../env/magento.env
+source env/magento.env
+
+[ -z "$BASE_URL" ] && BASE_URL=magento2.test
+ES_HOST=elasticsearch
+ES_PORT=9200
+
+bin/stop
+
+docker-compose -f docker-compose.yml up -d
+[ $? != 0 ] && echo "Failed to start Docker services" && exit
+
+echo "Copying files from host to container before install..."
+bin/copytocontainer --all
+
+echo "Install composer packages"
+bin/clinotty composer install
+
+bin/clinotty chmod u+x bin/magento
+#mv .vscode src
+
+echo "Waiting for connection to Elasticsearch..."
+bin/clinotty timeout 100 bash -c "
+    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
+        printf '.'
+        sleep 5
+    done"
+[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
+
+echo "Import configuration"
+bin/clinotty bin/magento app:config:import
+
+echo "Run Magento upgrade"
+bin/clinotty bin/magento setup:upgrade
+
+echo "Create admin user"
+bin/setup-admin-user
+
+echo "Copying files from container to host after install..."
+bin/copyfromcontainer --all
+
+echo "Turning on developer mode.."
+bin/clinotty bin/magento deploy:mode:set developer
+
+echo "Forcing deploy of static content to speed up initial requests..."
+bin/clinotty bin/magento setup:static-content:deploy -f
+
+echo "Re-indexing with Elasticsearch..."
+bin/clinotty bin/magento indexer:reindex
+
+echo "Clearing the cache to apply updates..."
+bin/clinotty bin/magento cache:flush
+
+echo "Adding domain to /etc/hosts"
+bin/setup-hosts "$BASE_URL"
+
+echo "Generating SSL certificate..."
+bin/setup-ssl "$BASE_URL"
+
+echo "Generate XML URNs for PHPStorm"
+bin/dev-urn-catalog-generate
+
+echo "Docker development environment setup complete."
+echo "You may now access your Magento instance at https://${BASE_URL}/"

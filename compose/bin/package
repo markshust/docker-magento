@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# shellcheck source=../env/db.env
+source env/db.env
+
+# shellcheck source=../env/deploy.env
+source env/deploy.env
+
+BUILD_NUMBER=${1:-0}
+BUILD_HASH=${2:-$(git rev-parse --short HEAD)}
+
+[ -d "artifacts" ] || mkdir -p "artifacts"
+REAL_SRC=$(cd -P "artifacts" && pwd)
+
+bin/rootnotty mkdir -p /var/www/artifacts
+
+bin/rootnotty vendor/ambimax/magento2-deployscripts/scripts/package.sh \
+  --filename ${PACKAGE_NAME:-"package"}.tar.gz \
+  --skip-config-dump \
+  --exclude-file /var/www/html/.package_exclude \
+  --target-dir /var/www/artifacts \
+  --build ${BUILD_NUMBER} \
+  --git-revision ${BUILD_HASH} \
+  --source-dir /var/www/html
+
+docker cp "$(docker-compose ps -q phpfpm|awk '{print $1}')":/var/www/artifacts/./ "$REAL_SRC/"
+echo "Completed copying all artifacts from container to host"

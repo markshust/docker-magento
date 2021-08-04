@@ -1,0 +1,33 @@
+#!/bin/bash
+set -o errexit   # abort on nonzero exitstatus
+set -o pipefail  # don't hide errors within pipes
+
+error_exit() {
+    echo -e "$1"
+    exit 1
+} 
+
+# shellcheck source=../env/deploy.env
+source env/deploy.env
+
+if [ -n "$1" ]; then
+    BUILD_HASH=$1
+fi
+
+PACKAGE_NAME=${PACKAGE_NAME:-"package"}
+
+[ -n "$BUILD_HASH" ] || error_exit "Please specify build hash"
+[ -n "$DEPLOY_USER" ] || error_exit "Please specify deploy user"
+[ -n "$DEPLOY_HOST" ] || error_exit "Please specify deploy host"
+[ -n "$DEPLOY_TARGET_DIR" ] || error_exit "Please specify deploy target dir"
+[ -n "$DEPLOY_SHARED_DIR" ] || error_exit "Please specify deploy shared dir"
+[ -n "$DEPLOY_ENVIRONMENT" ] || error_exit "Please specify deploy environment"
+[ -n "$DEPLOY_SCRIPT_PATH" ] || error_exit "Please specify deploy script path"
+
+ssh ${DEPLOY_USER}@${DEPLOY_HOST} "${DEPLOY_SCRIPT_PATH} \
+    --package-url ${BUILD_PATH%/}/${BUILD_HASH}/${PACKAGE_NAME}.tar.gz \
+    --target-dir ${DEPLOY_TARGET_DIR} \
+    --shared-dir ${DEPLOY_SHARED_DIR} \
+    --environment ${DEPLOY_ENVIRONMENT}"
+
+echo "Completed deployment to ${DEPLOY_ENVIRONMENT}"

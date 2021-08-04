@@ -1,0 +1,12 @@
+#!/bin/bash
+[ -z "$1" ] && echo "Please specify a domain (ex. mydomain.test)" && exit
+
+DOMAIN=${1}
+LINE="127.0.0.1 ::1 $DOMAIN"
+
+if grep "$LINE" /etc/hosts &> /dev/null; then
+    echo "Domain $DOMAIN already exists in /etc/hosts. Skipping."
+else
+    echo "$LINE" | sudo tee -a /etc/hosts
+    echo "Domain $DOMAIN added to /etc/hosts."
+fi
