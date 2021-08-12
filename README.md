@@ -6,6 +6,7 @@ This is a customized repository forked from https://github.com/markshust/docker-
 
 - [Data Solutions Install Instructions](#data-solutions-install-instructions)
 - [CLI Commands](#cli-commands)
+- [Cron](#cron)
 - [Debug Setup](#debug-setup)
 
 ---
@@ -103,6 +104,32 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 
 ---
 
+### Cron
+
+By default, the `cron` container is disabled. To enable it, modify the Docker `compose` files.
+
+In `docker-compose.yml`, uncomment the [following lines](https://github.com/rossbrandon/docker-magento/blob/main/compose/docker-compose.yml#L58-L65).
+
+```yml
+#cron:
+#  image: markoshust/magento-php:7.4-fpm-0
+#  user: root
+#  command: /usr/local/bin/cronstart
+#  tty: true
+#  links:
+#    - db
+#  volumes: *appvolumes
+```
+
+In `docker-compose.dev.yml`, uncomment the [following lines](https://github.com/rossbrandon/docker-magento/blob/main/compose/docker-compose.dev.yml#L69-L70).
+
+```yml
+#cron:
+# volumes: *appvolumes
+```
+
+---
+
 ### Debug Setup
 
 #### Xdebug & VS Code
@@ -119,34 +146,36 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
-    * `CLI Interpreter`
-        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-3-fpm`.
-        * Choose `Docker`, then select the `markoshust/magento-php:7-3-fpm` image name, and set the `PHP Executable` to `php`.
+    - `CLI Interpreter`
 
-    * `Path mappings`
-        * Don't do anything here as the next `Docker container` step will automatically setup a path mappings.
+      - Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-3-fpm`.
+      - Choose `Docker`, then select the `markoshust/magento-php:7-3-fpm` image name, and set the `PHP Executable` to `php`.
 
-    * `Docker container`
-        * Remove any pre-existing volume bindings.
-        * Add the following volume bindings:
-            * `/var/www/html` -> `<path_to_project>/src`
-            * `/var/www/html/app/code/Magento/DataServices` -> `<path_to_project>/extensions/data-services/DataServices`
-            * `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
-            * `/var/www/html/app/code/Magento/ProductRecommendations` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendations`
-            * `/var/www/html/app/code/Magento/ProductRecommendationsLayout` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendationsLayout`
-            * `/var/www/html/app/code/Magento/BundleProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/BundleProductDataExporter`
-            * `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogDataExporter`
-            * `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogInventoryDataExporter`
-            * `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogUrlRewriteDataExporter`
-            * `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ConfigurableProductDataExporter`
-            * `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/DataExporter`
-            * `/var/www/html/app/code/Magento/ParentProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ParentProductDataExporter`
-            * `/var/www/html/app/code/Magento/ProductVariantDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ProductVariantDataExporter`
-            * `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
-            * `/var/www/html/app/code/Magento/SaaSCommon` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCommon`
-            * `/var/www/html/app/code/Magento/LiveSearch` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearch`
-            * `/var/www/html/app/code/Magento/LiveSearchAdapter` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearchAdapter`
-            * `/var/www/html/app/code/Magento/LiveSearchStorefrontPopover` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearchStorefrontPopover`
+    - `Path mappings`
+
+      - Don't do anything here as the next `Docker container` step will automatically setup a path mappings.
+
+    - `Docker container`
+      - Remove any pre-existing volume bindings.
+      - Add the following volume bindings:
+        - `/var/www/html` -> `<path_to_project>/src`
+        - `/var/www/html/app/code/Magento/DataServices` -> `<path_to_project>/extensions/data-services/DataServices`
+        - `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
+        - `/var/www/html/app/code/Magento/ProductRecommendations` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendations`
+        - `/var/www/html/app/code/Magento/ProductRecommendationsLayout` -> `<path_to_project>/extensions/product-recommendations/ProductRecommendationsLayout`
+        - `/var/www/html/app/code/Magento/BundleProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/BundleProductDataExporter`
+        - `/var/www/html/app/code/Magento/CatalogDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogDataExporter`
+        - `/var/www/html/app/code/Magento/CatalogInventoryDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogInventoryDataExporter`
+        - `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/CatalogUrlRewriteDataExporter`
+        - `/var/www/html/app/code/Magento/ConfigurableProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ConfigurableProductDataExporter`
+        - `/var/www/html/app/code/Magento/DataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/DataExporter`
+        - `/var/www/html/app/code/Magento/ParentProductDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ParentProductDataExporter`
+        - `/var/www/html/app/code/Magento/ProductVariantDataExporter` -> `<path_to_project>/extensions/commerce-data-export/app/code/Magento/ProductVariantDataExporter`
+        - `/var/www/html/app/code/Magento/SaaSCatalog` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCatalog`
+        - `/var/www/html/app/code/Magento/SaaSCommon` -> `<path_to_project>/extensions/saas-export/app/code/Magento/SaaSCommon`
+        - `/var/www/html/app/code/Magento/LiveSearch` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearch`
+        - `/var/www/html/app/code/Magento/LiveSearchAdapter` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearchAdapter`
+        - `/var/www/html/app/code/Magento/LiveSearchStorefrontPopover` -> `<path_to_project>/extensions/magento-live-search/app/code/Magento/LiveSearchStorefrontPopover`
 
 ![PHPStorm Docker Mappings](docs/docker_mappings.png)
 
@@ -156,35 +185,34 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
 
-    * Set Name and Host to your domain name (ex. `magento2.test`)
-    * Keep port set to `80`
-    * Check the Path Mappings box
-    * Add the following path mappings (to match the volume bindings from step 3c above):
-        * `./src` -> `/var/www/html`
-        * `./extensions/data-services/DataServices` -> `/var/www/html/app/code/Magento/DataServices`
-        * `./extensions/services-id/ServicesId` -> `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
-        * `./extensions/product-recommendations/ProductRecommendations` -> `/var/www/html/app/code/Magento/ProductRecommendations`
-        * `./extensions/product-recommendations/ProductRecommendationsLayout` -> `/var/www/html/app/code/Magento/ProductRecommendationsLayout`
-        * `./extensions/commerce-data-export/app/code/Magento/BundleProductDataExporter` -> `/var/www/html/app/code/Magento/BundleProductDataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/CatalogDataExporter` -> `/var/www/html/app/code/Magento/CatalogDataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/CatalogInventoryDataExporter` -> `/var/www/html/app/code/Magento/CatalogInventoryDataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/CatalogUrlRewriteDataExporter` -> `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/ConfigurableProductDataExporter` -> `/var/www/html/app/code/Magento/ConfigurableProductDataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/DataExporter` -> `/var/www/html/app/code/Magento/DataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/ParentProductDataExporter` -> `/var/www/html/app/code/Magento/ParentProductDataExporter`
-        * `./extensions/commerce-data-export/app/code/Magento/ProductVariantDataExporter` -> `/var/www/html/app/code/Magento/ProductVariantDataExporter`
-        * `./extensions/saas-export/app/code/Magento/SaaSCatalog` -> `/var/www/html/app/code/Magento/SaaSCatalog`
-        * `./extensions/saas-export/app/code/Magento/SaaSCommon` -> `/var/www/html/app/code/Magento/SaaSCommon`
-        * `./extensions/magento-live-search/app/code/Magento/LiveSearch` -> `/var/www/html/app/code/Magento/LiveSearch`
-        * `./extensions/magento-live-search/app/code/Magento/LiveSearchAdapter` -> `/var/www/html/app/code/Magento/LiveSearchAdapter`
-        * `./extensions/magento-live-search/app/code/Magento/LiveSearchStorefrontPopover` -> `/var/www/html/app/code/Magento/LiveSearchStorefrontPopover`
+   - Set Name and Host to your domain name (ex. `magento2.test`)
+   - Keep port set to `80`
+   - Check the Path Mappings box
+   - Add the following path mappings (to match the volume bindings from step 3c above):
+     - `./src` -> `/var/www/html`
+     - `./extensions/data-services/DataServices` -> `/var/www/html/app/code/Magento/DataServices`
+     - `./extensions/services-id/ServicesId` -> `/var/www/html/app/code/Magento/ServicesId` -> `<path_to_project>/extensions/services-id/ServicesId`
+     - `./extensions/product-recommendations/ProductRecommendations` -> `/var/www/html/app/code/Magento/ProductRecommendations`
+     - `./extensions/product-recommendations/ProductRecommendationsLayout` -> `/var/www/html/app/code/Magento/ProductRecommendationsLayout`
+     - `./extensions/commerce-data-export/app/code/Magento/BundleProductDataExporter` -> `/var/www/html/app/code/Magento/BundleProductDataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/CatalogDataExporter` -> `/var/www/html/app/code/Magento/CatalogDataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/CatalogInventoryDataExporter` -> `/var/www/html/app/code/Magento/CatalogInventoryDataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/CatalogUrlRewriteDataExporter` -> `/var/www/html/app/code/Magento/CatalogUrlRewriteDataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/ConfigurableProductDataExporter` -> `/var/www/html/app/code/Magento/ConfigurableProductDataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/DataExporter` -> `/var/www/html/app/code/Magento/DataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/ParentProductDataExporter` -> `/var/www/html/app/code/Magento/ParentProductDataExporter`
+     - `./extensions/commerce-data-export/app/code/Magento/ProductVariantDataExporter` -> `/var/www/html/app/code/Magento/ProductVariantDataExporter`
+     - `./extensions/saas-export/app/code/Magento/SaaSCatalog` -> `/var/www/html/app/code/Magento/SaaSCatalog`
+     - `./extensions/saas-export/app/code/Magento/SaaSCommon` -> `/var/www/html/app/code/Magento/SaaSCommon`
+     - `./extensions/magento-live-search/app/code/Magento/LiveSearch` -> `/var/www/html/app/code/Magento/LiveSearch`
+     - `./extensions/magento-live-search/app/code/Magento/LiveSearchAdapter` -> `/var/www/html/app/code/Magento/LiveSearchAdapter`
+     - `./extensions/magento-live-search/app/code/Magento/LiveSearchStorefrontPopover` -> `/var/www/html/app/code/Magento/LiveSearchStorefrontPopover`
 
 ![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
 
 7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
 8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
-
 
 ---
 
