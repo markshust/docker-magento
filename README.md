@@ -207,7 +207,9 @@ docker-compose -f docker-compose.yml up -d
 bin/copytocontainer --all ## Initial copy will take a few minutes...
 
 # Import existing database:
-bin/clinotty mysql -hdb -uroot -pmagento magento < backups/magento.sql
+cat backups/magento.sql | sed -e 's/DEFINER[ ]*=[ ]*[^*]*\*/\*/' | bin/mysql
+# or if your db is compressed:
+#tzcat backups/magento.sql.qz | sed -e 's/DEFINER[ ]*=[ ]*[^*]*\*/\*/' | bin/mysql
 
 # Update database connection details to use the above Docker MySQL credentials:
 # Also note: creds for the MySQL server are defined at startup from env/db.env
