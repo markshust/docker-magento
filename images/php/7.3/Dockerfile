@@ -46,14 +46,17 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
+ARG TARGETARCH
+
 RUN cd /tmp \
-  && curl -O https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
-  && tar zxvf ioncube_loaders_lin_x86-64.tar.gz \
+  && ARCH=$(if [ "$TARGETARCH" = "arm64" ]; then echo aarch64; else echo x86-64; fi;) \
+  && curl -O https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_$ARCH.tar.gz \
+  && tar zxvf ioncube_loaders_lin_$ARCH.tar.gz \
   && export PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;") \
   && export PHP_EXT_DIR=$(php-config --extension-dir) \
   && cp "./ioncube/ioncube_loader_lin_${PHP_VERSION}.so" "${PHP_EXT_DIR}/ioncube.so" \
   && rm -rf ./ioncube \
-  && rm ioncube_loaders_lin_x86-64.tar.gz \
+  && rm ioncube_loaders_lin_$ARCH.tar.gz \
   && docker-php-ext-enable ioncube
 
 RUN pecl channel-update pecl.php.net \
@@ -80,10 +83,6 @@ RUN apt-get install -y gnupg \
   && mkdir /var/www/.config /var/www/.npm \
   && chown app:app /var/www/.config /var/www/.npm \
   && npm install -g grunt-cli
-
-RUN curl -sSLO https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
-  && chmod +x mhsendmail_linux_amd64 \
-  && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
