@@ -1,6 +1,8 @@
 FROM php:8.0-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
+ARG COMPOSE_USER=1000
+
 RUN apt-get update && apt-get install -y \
   cron \
   default-mysql-client \
@@ -51,8 +53,8 @@ RUN pecl channel-update pecl.php.net \
 RUN docker-php-ext-enable xdebug \
   && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-RUN groupadd -g 1000 app \
- && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
+RUN groupadd -g "$COMPOSE_USER" app \
+  && useradd -g "$COMPOSE_USER" -u "$COMPOSE_USER" -d /var/www -s /bin/bash app
 
 RUN apt-get install -y gnupg \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
