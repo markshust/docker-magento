@@ -83,5 +83,8 @@ bin/setup-ssl "$BASE_URL"
 echo "Ensuring Composer auth.json is setup..."
 bin/setup-composer-auth
 
+echo "Installing cron (see docker-compose.yml to enable)..."
+bin/magento cron:install
+
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
