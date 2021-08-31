@@ -314,6 +314,15 @@ You also can use `bin/mysqldump` to export the database. The file will appear in
 bin/mysqldump > backups/magento.sql
 ```
 
+> Getting an "Access denied, you need (at least one of) the SUPER privilege(s) for this operation." message when running one of the above lines? Try running it as root with:
+> ```
+> bin/clinotty mysql -hdb -uroot -pmagento magento < src/backup.sql
+> ```
+> You can also remove the DEFINER lines from the MySQL backu pfile with:
+> ```
+> sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i src/backup.sql
+> ```
+
 ### Composer Authentication
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
