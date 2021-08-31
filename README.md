@@ -318,7 +318,7 @@ bin/mysqldump > backups/magento.sql
 > ```
 > bin/clinotty mysql -hdb -uroot -pmagento magento < src/backup.sql
 > ```
-> You can also remove the DEFINER lines from the MySQL backu pfile with:
+> You can also remove the DEFINER lines from the MySQL backup file with:
 > ```
 > sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i src/backup.sql
 > ```
