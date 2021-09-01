@@ -28,17 +28,17 @@ services:
       #- ./extensions/commerce-data-export/BundleProductDataExporter:/var/www/html/app/code/Magento/BundleProductDataExporter:consistent
       #- ./extensions/commerce-data-export/DataExporter:/var/www/html/app/code/Magento/DataExporter:consistent
       #- ./extensions/commerce-data-export/ParentProductDataExporter:/var/www/html/app/code/Magento/ParentProductDataExporter:consistent
-      #- ./extensions/commerce-data-export/ProductOverrideDataExporter:/var/www/html/app/code/Magento/ProductOverrideDataExporter:consistent
       #- ./extensions/commerce-data-export/ProductReviewDataExporter:/var/www/html/app/code/Magento/ProductReviewDataExporter:consistent
       #- ./extensions/commerce-data-export/ProductVariantDataExporter:/var/www/html/app/code/Magento/ProductVariantDataExporter:consistent
       #- ./extensions/commerce-data-export/QueryXml:/var/www/html/app/code/Magento/QueryXml:consistent
+      #- ./extensions/commerce-data-export-ee/ProductOverrideDataExporter:/var/www/html/app/code/Magento/ProductOverrideDataExporter:consistent
       #- ./extensions/saas-export/SaaSCatalog:/var/www/html/app/code/Magento/SaaSCatalog:consistent
       #- ./extensions/saas-export/SaaSCommon:/var/www/html/app/code/Magento/SaaSCommon:consistent
       #- ./extensions/product-recommendations-admin/ProductRecommendationsAdmin:/var/www/html/app/code/Magento/ProductRecommendationsAdmin:consistent
+      #- ./extensions/product-recommendations-admin/ProductRecommendationsSyncAdmin:/var/www/html/app/code/Magento/ProductRecommendationsSyncAdmin:consistent
       #- ./extensions/product-recommendations/ProductRecommendationsLayout:/var/www/html/app/code/Magento/ProductRecommendationsLayout:consistent
       #- ./extensions/product-recommendations/PageBuilderProductRecommendations:/var/www/html/app/code/Magento/PageBuilderProductRecommendations:consistent
       #- ./extensions/product-recommendations/VisualProductRecommendations:/var/www/html/app/code/Magento/VisualProductRecommendations:consistent
-      #- ./extensions/product-recommendations-admin/ProductRecommendationsSyncAdmin:/var/www/html/app/code/Magento/ProductRecommendationsSyncAdmin:consistent
       #- ./extensions/catalog-sync-admin/CatalogSyncAdmin:/var/www/html/app/code/Magento/CatalogSyncAdmin:consistent
       #- ./extensions/magento-live-search/LiveSearch:/var/www/html/app/code/Magento/LiveSearch:consistent
       #- ./extensions/magento-live-search/LiveSearchAdapter:/var/www/html/app/code/Magento/LiveSearchAdapter:consistent
