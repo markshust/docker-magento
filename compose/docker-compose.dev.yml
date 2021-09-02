@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 33.0.0
+# Version 38.0.0
 
 version: "3"
 
@@ -47,8 +47,7 @@ services:
   phpfpm:
     env_file: env/magento.env
     volumes: *appvolumes
-    # Linux only: host.docker.internal doesn't exist https://github.com/docker/for-linux/issues/264
-    # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    ## Linux users, see https://github.com/markshust/docker-magento#linux for updates needed below
     #extra_hosts:
     #  - "host.docker.internal:IP"
 

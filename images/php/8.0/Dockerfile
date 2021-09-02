@@ -1,8 +1,9 @@
-FROM php:7.4-fpm-buster
+FROM php:8.0-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 RUN apt-get update && apt-get install -y \
   cron \
+  default-mysql-client \
   git \
   gzip \
   libbz2-dev \
@@ -13,14 +14,12 @@ RUN apt-get update && apt-get install -y \
   libonig-dev \
   libpng-dev \
   libsodium-dev \
-  libssh2-1-dev \
   libxslt1-dev \
   libzip-dev \
   lsof \
-  default-mysql-client \
+  procps \
   vim \
-  zip \
-  procps
+  zip
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
@@ -46,30 +45,11 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
-RUN cd /tmp \
-  && curl -O https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
-  && tar zxvf ioncube_loaders_lin_x86-64.tar.gz \
-  && export PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;") \
-  && export PHP_EXT_DIR=$(php-config --extension-dir) \
-  && cp "./ioncube/ioncube_loader_lin_${PHP_VERSION}.so" "${PHP_EXT_DIR}/ioncube.so" \
-  && rm -rf ./ioncube \
-  && rm ioncube_loaders_lin_x86-64.tar.gz \
-  && docker-php-ext-enable ioncube
-
 RUN pecl channel-update pecl.php.net \
   && pecl install xdebug
 
-RUN docker-php-ext-enable xdebug
-
-## Replace next lines with below commented out version once issue is resolved
-# https://github.com/php/pecl-networking-ssh2/pull/36
-# https://bugs.php.net/bug.php?id=78560
-RUN curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
-  && pear install /tmp/ssh2-1.2.tgz \
-  && rm /tmp/ssh2-1.2.tgz \
-  && docker-php-ext-enable ssh2
-#RUN pecl install ssh2-1.2 \
-#  && docker-php-ext-enable ssh2
+RUN docker-php-ext-enable xdebug \
+  && sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN groupadd -g 1000 app \
  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app

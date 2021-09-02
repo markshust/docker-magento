@@ -6,7 +6,106 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-N/A
+- PHP image `8.0-fpm-develop` now available for testing purposes.
+
+## [38.0.0] - 2021-07-27
+
+### Added
+- Composer 2 support [#409](https://github.com/markshust/docker-magento/issues/409).
+
+### Fixed
+- Composer `auth.json` not properly set after installation [#42](https://github.com/markshust/docker-magento/issues/42).
+- `bin/remove` not removing containers in newer versions of Docker Compose.
+- Invalid template error with Docker 3.5.1 [#486](https://github.com/markshust/docker-magento/issues/486).
+
+## [37.0.2] - 2021-02-17
+
+### Added
+- New `bin/setup-composer-auth` file to setup Composer auth creds.
+
+## [37.0.1] - 2021-02-15
+
+### Fixed
+- Fix onelinesetup script bug.
+
+## [37.0.0] - 2021-02-14
+
+### Added
+- Official support for Xdebug 3 [#390](https://github.com/markshust/docker-magento/issues/390). The new PHP images are `7.3-fpm-12` & `7.4-fpm-5`.
+- If you need to still use Xdebug 2, update your docker-compose.yml files to instead look at PHP image `7.3-fpm-11` or `7.4-fpm-4`. These images are exactly the same other than being pegged to Xdebug 2.
+
+## [36.0.2] - 2021-02-14
+
+### Updated
+- Reverted Xdebug to version 2 for backwards-compatible support [#390](https://github.com/markshust/docker-magento/issues/390).
+
+## [36.0.1] - 2021-02-04
+
+### Updated
+- Reverted DB image back to `percona:5.7` until issues with MySQL 8.0 image are resolved.
+
+## [36.0.0] - 2021-02-04
+
+### Added
+- New Elasticsearch Docker images `7.7`, `7.7.1-0` [#392](https://github.com/markshust/docker-magento/issues/392).
+- SpellCheck GitHub Action for continuous integration checks of shell scripts [#387](https://github.com/markshust/docker-magento/pull/387), [#388](https://github.com/markshust/docker-magento/pull/388).
+
+### Fixed
+- Support filesystem paths with spaces [e5f22e56](https://github.com/markshust/docker-magento/commit/e5f22e56fcd382b8339d5804a9d236dd6b238a3d).
+- Added missing `bin/cache-clean` file [f0e57202](https://github.com/markshust/docker-magento/commit/f0e5720281cd9f536f163bd5bdfe5bd66a956dc6).
+
+### Updated
+- Updated PHP images to NodeJS version 14 LTS [4a81f2b8](https://github.com/markshust/docker-magento/commit/4a81f2b8c61674b261ee7b42752e21fc8d5e945d).
+- Changed `db` service to use MySQL 8.0 Docker image.
+
+## [35.0.0] - 2021-01-29
+
+### Added
+- Automatically purge caches for a better dev experience [#380](https://github.com/markshust/docker-magento/issues/380).
+- Stop script execution on error [#363](https://github.com/markshust/docker-magento/pull/363/).
+- Make xdebug command understand partials [#371](https://github.com/markshust/docker-magento/pull/371).
+- Extended functionality for `bin/xdebug`, including new `status` and `toggle` commands [#332](https://github.com/markshust/docker-magento/pull/332).
+- Check Elasticsearch connection before setup:install [#326](https://github.com/markshust/docker-magento/pull/326).
+
+### Updated
+- The onelinesetup now accepts a `community` or `enterprise` param to pick version to install [b2399ff1](https://github.com/markshust/docker-magento/commit/ad573f6f3c8d2f7066034cbde936a86eb2399ff1).
+- Fix bin/start for macOS Big Sur [#355](https://github.com/markshust/docker-magento/pull/355/).
+
+## [34.2.0] - 2020-10-15
+
+### Updated
+- Updated Composer to version `1.10.15` to avoid nag update messages in new PHP Docker images `7.3-fpm-9`, `7.4-fpm-2`.
+
+## [34.1.0] - 2020-10-15
+
+### Added
+- HTTP/2 added to Nginx image `1.18-4`
+
+### Updated
+- `bin/download` falls back to using Composer if archive download fails or is not found.
+
+## [34.0.0] - 2020-10-11
+
+### Added
+- New `bin/setup-integration-tests` script to setup integration tests [3c021ff](https://github.com/markshust/docker-magento/commit/3c021ff6c92e49fad669deed0805cceae26bdccf).
+- Added `MYSQL_HOST` environment variable to `env/db.env` file.
+- New Nginx `1.18-3` Docker images uses Alpine as base image [PR #306](https://github.com/markshust/docker-magento/pull/306).
+
+### Updated
+- Prevent containers from starting if volume mapping doesn't exist, validate volumes to avoid empty folder creation [PR #256](https://github.com/markshust/docker-magento/pull/256).
+- Setup script uses MySQL `env/db.env` file for database connection credentials [PR #302](https://github.com/markshust/docker-magento/pull/302).
+- Increased MySQL's `max_allowed_packet` to `64M` in `docker-compose.yml` file [PR #303](https://github.com/markshust/docker-magento/pull/303).
+- `docker-compose.yml` now uses Alpine images for Redis and RabbitMQ [#305](https://github.com/markshust/docker-magento/pull/305).
+- `docker-compose.yml` file now uses new Alpine images for Redis, RabbitMQ & Nginx.
+- `bin/setup` script updated to use Redis for cache and session directly in installer script [PR #304](https://github.com/markshust/docker-magento/pull/304).
+- `bin/setup` script sets Admin URL to `/admin` [PR #304](https://github.com/markshust/docker-magento/pull/304).
+- Enabling/disabling Xdebug now only restarts `phpfpm` container rather than all containers [PR #314](https://github.com/markshust/docker-magento/pull/314).
+- `bin/setup` script moves `.vscode` directory to `src` after install [846d02c](https://github.com/markshust/docker-magento/commit/846d02c12c5af8005fe0cbb0b167b97f501db0c9).
+
+### Fixed
+- Exception while running integration tests [#292](https://github.com/markshust/docker-magento/pull/292).
+- Nested files not copying in copytocontainer script [#295](https://github.com/markshust/docker-magento/pull/295) [#296](https://github.com/markshust/docker-magento/pull/295).
+- Ubuntu unable to start because of missing volumes [#309](https://github.com/markshust/docker-magento/issues/309).
 
 ## [33.0.0] - 2020-07-30
 

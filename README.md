@@ -4,10 +4,21 @@ This is a customized repository forked from https://github.com/markshust/docker-
 
 ## Table of Contents
 
-- [Data Solutions Install Instructions](#data-solutions-install-instructions)
-- [CLI Commands](#cli-commands)
-- [Cron](#cron)
-- [Debug Setup](#debug-setup)
+- [Data Solutions Docker Magento](#data-solutions-docker-magento)
+  - [Table of Contents](#table-of-contents)
+    - [Data Solutions Install Instructions](#data-solutions-install-instructions)
+      - [Templated Install](#templated-install)
+      - [Automated Setup (New Project)](#automated-setup-new-project)
+    - [CLI Commands](#cli-commands)
+    - [Caching](#caching)
+    - [Cron](#cron)
+    - [Database](#database)
+    - [Composer Authentication](#composer-authentication)
+    - [Debug Setup](#debug-setup)
+    - [Email / Mailhog](#email--mailhog)
+    - [Redis](#redis)
+    - [Xdebug & VS Code](#xdebug--vs-code)
+      - [Xdebug & PHPStorm](#xdebug--phpstorm)
 
 ---
 
@@ -62,15 +73,18 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 ### CLI Commands
 
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
+- `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
 - `bin/clinotty`: Run any CLI command with no TTY. Ex. `bin/clinotty chmod u+x bin/magento`
+- `bin/cliq`: The same as `bin/cli`, but pipes all output to `/dev/null`. Useful for a quiet CLI, or implementing long-running processes.
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/destroy`: Stops docker containers and prunes containers, networks, and volumes - Use when rebuilding entirely
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/download`: Download & extract specific Magento version to the `src` directory. Ex. `bin/download 2.4.0`
+- `bin/devtools-cli-check`: Check & install the CLI devtools if missing from system.
+- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.2 community`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -80,7 +94,7 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/magento.sql`
 - `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/magento.sql`
-- `bin/n98-magerun2`: Access the n98 magerun CLI. Ex: `bin/n98-magerun2 dev:console`
+- `bin/n98-magerun2`: Access the [n98-magerun2](https://github.com/netz98/n98-magerun2) CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
@@ -94,7 +108,10 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/setup`: Existing script but was customized to fit Data Solutions developer use cases and driven by `env/install.env` configuration
 - `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
 - `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `magento2.test` will be used. Ex: `bin/setup-pwa-studio magento2.test`
-- `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento2.test magento3.test`
+- `bin/setup-composer-auth`: Setup authentication credentials for Composer.
+- `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
+- `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento.test`
+- `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento.test foo.test`
 - `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/status`: Check the container status.
@@ -103,6 +120,12 @@ curl -s https://raw.githubusercontent.com/rossbrandon/docker-magento/master/lib/
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
 
 ---
+
+### Caching
+
+For an improved developer experience, caches are automatically refreshed when related files are updated, courtesy of [cache-clean](https://github.com/mage2tv/magento-cache-clean). This means you can keep all of the standard Magento caches enabled, and this script will only clear the specific caches needed, and only when necessary.
+
+To disable this functionality, uncomment the last line in the `bin/start` file to disable the watcher.
 
 ### Cron
 
@@ -128,11 +151,60 @@ In `docker-compose.dev.yml`, uncomment the [following lines](https://github.com/
 # volumes: *appvolumes
 ```
 
+### Database
+
+```
+bin/mysql < backups/magento.sql
+```
+
+You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `backups/magento.sql`:
+
+```
+bin/mysqldump > backups/magento.sql
+```
+
+> Getting an "Access denied, you need (at least one of) the SUPER privilege(s) for this operation." message when running one of the above lines? Try running it as root with:
+> ```
+> bin/clinotty mysql -hdb -uroot -pmagento magento < src/backup.sql
+> ```
+> You can also remove the DEFINER lines from the MySQL backup file with:
+> ```
+> sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i src/backup.sql
+> ```
+
+### Composer Authentication
+
 ---
 
 ### Debug Setup
 
-#### Xdebug & VS Code
+### Email / Mailhog
+
+View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
+
+### Redis
+
+Redis is now the default cache and session storage engine, and is automatically configured & enabled when running `bin/setup` on new installs.
+
+Use the following lines to enable Redis on existing installs:
+
+**Enable for Cache:**
+
+`bin/magento config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0`
+
+**Enable for Full Page Cache:**
+
+`bin/magento config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1`
+
+**Enable for Session:**
+
+`bin/magento config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2`
+
+You may also monitor Redis by running: `bin/redis redis-cli monitor`
+
+For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.4/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
+
+### Xdebug & VS Code
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
 
@@ -179,7 +251,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 ![PHPStorm Docker Mappings](docs/docker_mappings.png)
 
-4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
+4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001,9003`.
 
 5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
 
@@ -210,9 +282,9 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 ![PHPStorm Remote Debug Mappings](docs/remote_debug_mappings.png)
 
-7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
 
-8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
 ---
 

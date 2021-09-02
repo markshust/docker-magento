@@ -1,0 +1,7 @@
+#!/bin/bash
+if ! bin/clinotty ls /var/www/.composer-global/vendor/bin/cache-clean.js 1> /dev/null 2>&1; then
+  echo "Installing devtools metapackage, just a moment..."
+  bin/cliq mkdir -p /var/www/.composer-global
+  bin/composer require --working-dir=/var/www/.composer-global --quiet markshust/magento2-metapackage-devtools-cli:^1.0
+  echo "Devtools installed."
+fi
