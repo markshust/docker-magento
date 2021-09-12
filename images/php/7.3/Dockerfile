@@ -1,7 +1,7 @@
 FROM php:7.3-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
-ARG COMPOSE_USER=1000
+ARG APP_ID=1000
 
 RUN apt-get update && apt-get install -y \
   cron \
@@ -73,8 +73,8 @@ RUN curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
 #RUN pecl install ssh2-1.2 \
 #  && docker-php-ext-enable ssh2
 
-RUN groupadd -g "$COMPOSE_USER" app \
-  && useradd -g "$COMPOSE_USER" -u "$COMPOSE_USER" -d /var/www -s /bin/bash app
+RUN groupadd -g "$APP_ID" app \
+  && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
 
 RUN apt-get install -y gnupg \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
