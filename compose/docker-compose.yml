@@ -27,7 +27,7 @@ services:
     volumes: *appvolumes
 
   db:
-    image: percona:5.7
+    image: mariadb:10.4
     command: --max_allowed_packet=64M
     ports:
       - "3306:3306"
