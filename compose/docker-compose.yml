@@ -52,7 +52,7 @@ services:
       - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
-    image: rabbitmq:3.7-management-alpine
+    image: rabbitmq:3.8.22-management-alpine
     ports:
       - "15672:15672"
       - "5672:5672"
