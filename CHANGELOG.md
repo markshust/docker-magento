@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [39.0.2] - 2021-09-21
+
+### Fixed
+- Fixed placement of enabling developer mode within bin/setup.
+
 ## [39.0.1] - 2021-09-21
 
 ### Fixed
