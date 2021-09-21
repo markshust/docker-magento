@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 38.0.0
+# Version 39.0.0
 
 version: "3"
 
@@ -21,7 +21,7 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-6
+    image: markoshust/magento-php:7.4-fpm-7
     links:
       - db
     volumes: *appvolumes
