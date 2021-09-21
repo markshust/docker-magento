@@ -46,6 +46,10 @@ services:
     environment:
       - "discovery.type=single-node"
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      # Avoid test failures due to small disks
+      # More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
     image: rabbitmq:3.8.22-management-alpine
