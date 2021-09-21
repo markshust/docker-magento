@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [39.0.1] - 2021-09-21
+
+### Fixed
+- Connection to Redis fails without php-redis extension [#474](https://github.com/markshust/docker-magento/issues/474).
+
 ## [39.0.0] - 2021-09-21
 
 ### Added

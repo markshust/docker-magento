@@ -57,19 +57,14 @@ RUN cd /tmp \
   && docker-php-ext-enable ioncube
 
 RUN pecl channel-update pecl.php.net \
-  && pecl install xdebug
+  && pecl install xdebug \
+  && docker-php-ext-enable xdebug
 
-RUN docker-php-ext-enable xdebug
-
-## Replace next lines with below commented out version once issue is resolved
-# https://github.com/php/pecl-networking-ssh2/pull/36
-# https://bugs.php.net/bug.php?id=78560
-RUN curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
-  && pear install /tmp/ssh2-1.2.tgz \
-  && rm /tmp/ssh2-1.2.tgz \
+RUN pecl install ssh2-1.2 \
   && docker-php-ext-enable ssh2
-#RUN pecl install ssh2-1.2 \
-#  && docker-php-ext-enable ssh2
+
+RUN pecl install redis \
+  && docker-php-ext-enable redis
 
 RUN groupadd -g 1000 app \
  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
