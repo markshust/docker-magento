@@ -39,13 +39,17 @@ services:
     image: redis:5.0-alpine
 
   elasticsearch:
-    image: markoshust/magento-elasticsearch:7.7.1-0
+    image: markoshust/magento-elasticsearch:7.9.3-0
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
       - "discovery.type=single-node"
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      # Avoid test failures due to small disks
+      # More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
     image: rabbitmq:3.7-management-alpine
