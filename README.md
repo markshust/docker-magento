@@ -586,6 +586,7 @@ Next, open up the `bin/start` helper script and uncomment the line:
 
 Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
 
+<<<<<<< HEAD
 ### Cloudflare Tunnel
 
 These docker images have built-in support for Cloudflare Tunnel. It can be useful for testing implementations that require some third-party integrations involving allow-listing domains. Since your local app cannot be allow-listed by other services, you can use Cloudflare Tunnel to get a public hostname that can be allow-listed on the other service.
@@ -691,6 +692,19 @@ body {
 ```
 
 Upon saving this file, we will see the Grunt watcher detect the changes, and your browser should automatically load the new style without you needing to refresh the page, and without a full browser refresh.
+
+### PHP-SPX
+
+The images also have additional profiler-tracers built-in to the <a href="https://github.com/NoiseByNorthwest/php-spx/tree/master#web-ui" target="_blank">Web UI.</a>
+
+To access the control panel, just open the following URL: `https://magento.test/?SPX_KEY=dev&SPX_UI_URI=/`
+
+Profiling is also possible via command line and curl:
+
+```
+SPX_ENABLED=1 SPX_REPORT=full bin/magento {command_name}
+curl --cookie "SPX_ENABLED=1; SPX_KEY=dev" https://magento.test/
+```
 
 ## Credits
 
