@@ -31,6 +31,10 @@ services:
     #extra_hosts:
     #  - "host.docker.internal:IP"
 
+  varnish:
+    extra_hosts:
+      - "host.docker.gateway:172.28.0.1" #host machine ip
+
   mailhog:
     image: mailhog/mailhog
     ports:

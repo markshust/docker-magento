@@ -7,9 +7,9 @@ version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.18-4
+    build: images/nginx
     ports:
-      - "80:8000"
+      - "8080:8000"
       - "443:8443"
     links:
       - db
@@ -19,6 +19,26 @@ services:
       - appdata:/var/www/html
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
+
+  varnish:
+    build: images/varnish
+    ports:
+      - "80:6081"
+      - "6085:6085"
+    depends_on:
+      - app
+    environment:
+      BACKENDS: "app"
+      BACKENDS_PORT: "8080"
+      DNS_ENABLED: "true"
+      BACKENDS_PROBE_INTERVAL: "3s"
+      BACKENDS_PROBE_TIMEOUT: "1s"
+      BACKENDS_PROBE_WINDOW: "3"
+      BACKENDS_PROBE_THRESHOLD: "2"
+      DASHBOARD_USER: "admin"
+      DASHBOARD_PASSWORD: "admin"
+      DASHBOARD_SERVERS: "varnish"
+      DASHBOARD_DNS_ENABLED: "true"
 
   phpfpm:
     image: markoshust/magento-php:7.4-fpm-8
