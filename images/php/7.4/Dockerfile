@@ -76,9 +76,8 @@ RUN apt-get install -y gnupg \
   && chown app:app /var/www/.config /var/www/.npm \
   && npm install -g grunt-cli
 
-RUN curl -sSLO https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
-  && chmod +x mhsendmail_linux_amd64 \
-  && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
+RUN apt-get install -y msmtp mailutils
+COPY conf/msmtprc /etc/msmtprc
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
