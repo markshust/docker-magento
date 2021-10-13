@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [39.1.0] - 2021-09-21
+
+### Updated
+- Replace MailHog with Mailcatcher for multi-arch compatibility [#511](https://github.com/markshust/docker-magento/issues/511).
+
 ## [39.0.2] - 2021-09-21
 
 ### Fixed
