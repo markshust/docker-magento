@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 39.0.2
+# Version 39.1.0
 
 version: "3"
 
@@ -21,7 +21,7 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-8
+    image: markoshust/magento-php:7.4-fpm-9
     links:
       - db
     volumes: *appvolumes
@@ -62,7 +62,7 @@ services:
 
   ## Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
-  #  image: markoshust/magento-php:7.4-fpm-8
+  #  image: markoshust/magento-php:7.4-fpm-9
   #  user: root
   #  command: /usr/local/bin/cronstart
   #  tty: true
