@@ -8,8 +8,63 @@ echo "System password requested to install certificate authority on host..."
 
 if [ "$(uname)" == "Darwin" ]; then
   sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain rootCA.pem
-  rm rootCA.pem
+
+  ### Check if Firefox is installed
+  FFoxBin="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+  if [ -f "$FFoxBin" ]; then
+    sudo echo "{\"policies\": {\"Certificates\": {\"ImportEnterpriseRoots\": true}}}" > policies.json
+
+    ### Check if distribution directory exists
+    DistDirectory="/Applications/Firefox.app/Contents/Resources/distribution"
+    if [ ! -d "$DistDirectory" ]; then
+      sudo mkdir "$DistDirectory"
+    fi
+    ### Move the newly created policies.json to the Certificates directory
+    sudo mv policies.json "$DistDirectory"/policies.json
+
+    ### Check if Certificates directory exists
+    CertDirectory="/Library/Application Support/Mozilla/Certificates"
+    if [ ! -d "$CertDirectory" ]; then
+      sudo mkdir "$CertDirectory"
+    fi
+
+    ### Move the newly created .pem to the Certificates directory
+    sudo mv rootCA.pem "$CertDirectory"/rootCA.pem
+  else
+    sudo rm rootCA.pem
+  fi
+
 else
-  sudo mv rootCA.pem /usr/local/share/ca-certificates/rootCA.pem
+
+  ### Requirement: apt install libnss3-tools
+  REQUIRED_PKG="libnss3-tools"
+  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
+  echo Checking for $REQUIRED_PKG: $PKG_OK
+  if [ "" = "$PKG_OK" ]; then
+    echo "No $REQUIRED_PKG found. Setting up $REQUIRED_PKG."
+    sudo apt-get --yes install $REQUIRED_PKG
+  fi
+
+  ### CA file to install (CUSTOMIZE!)
+  certfile="rootCA.pem"
+  certname="Root CA"
+
+  ### For cert8 (legacy - DBM)
+  for certDB in $(find ~/ -name "cert8.db")
+  do
+      certdir=$(dirname ${certDB});
+      certutil -D -n "${certname}" -i ${certfile} -d dbm:${certdir}
+      certutil -A -n "${certname}" -t "TCu,Cu,Tu" -i ${certfile} -d dbm:${certdir}
+  done
+
+  ### For cert9 (SQL)
+  for certDB in $(find ~/ -name "cert9.db")
+  do
+      certdir=$(dirname ${certDB});
+      certutil -D -n "${certname}" -i ${certfile} -d sql:${certdir}
+      certutil -A -n "${certname}" -t "TCu,Cu,Tu" -i ${certfile} -d sql:${certdir}
+  done
+
+  sudo mv rootCA.pem /usr/local/share/ca-certificates/rootCA.crt
   sudo update-ca-certificates
 fi
