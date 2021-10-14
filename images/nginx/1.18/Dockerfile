@@ -14,9 +14,11 @@ RUN apk add --no-cache \
 RUN mkdir /etc/nginx/certs \
   && echo -e "\n\n\n\n\n\n\n" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/certs/nginx.key -out /etc/nginx/certs/nginx.crt
 
+ARG TARGETARCH
+
 RUN ( \
   cd /usr/local/bin/ \
-  && curl -L https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 -o mkcert \
+  && curl -L https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-$TARGETARCH -o mkcert \
   && chmod +x mkcert \
   )
 
