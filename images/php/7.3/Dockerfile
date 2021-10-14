@@ -1,6 +1,8 @@
 FROM php:7.3-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
+ARG APP_ID=1000
+
 RUN apt-get update && apt-get install -y \
   cron \
   git \
@@ -69,8 +71,8 @@ RUN pecl install ssh2-1.2 \
 RUN pecl install redis \
   && docker-php-ext-enable redis
 
-RUN groupadd -g 1000 app \
- && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
+RUN groupadd -g "$APP_ID" app \
+  && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
 
 RUN apt-get install -y gnupg \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
