@@ -8,6 +8,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [39.1.0] - 2021-09-21
+
+### Updated
+- Replace MailHog with Mailcatcher for multi-arch compatibility [#511](https://github.com/markshust/docker-magento/issues/511).
+
+## [39.0.2] - 2021-09-21
+
+### Fixed
+- Fixed placement of enabling developer mode within bin/setup.
+
+## [39.0.1] - 2021-09-21
+
+### Fixed
+- Connection to Redis fails without php-redis extension [#474](https://github.com/markshust/docker-magento/issues/474).
+
+## [39.0.0] - 2021-09-21
+
+### Added
+- New Elasticsearch Docker images `7.9`, `7.9.3-0` [#488](https://github.com/markshust/docker-magento/issues/488).
+
+### Updated
+- Replace Percona DB with MariaDB 10.4 [#514](https://github.com/markshust/docker-magento/issues/514).
+- Updated RabbitMQ image to 3.8.
+
+### Fixed
+- Resolve cron install script not in bin/setup [#420](https://github.com/markshust/docker-magento/issues/420).
+- Update Elasticsearch settings to fix catalog search index error [#488](https://github.com/markshust/docker-magento/issues/488).
+
+## [38.0.0] - 2021-07-27
+
+### Added
+- Composer 2 support [#409](https://github.com/markshust/docker-magento/issues/409).
+
+### Fixed
+- Composer `auth.json` not properly set after installation [#42](https://github.com/markshust/docker-magento/issues/42).
+- `bin/remove` not removing containers in newer versions of Docker Compose.
+- Invalid template error with Docker 3.5.1 [#486](https://github.com/markshust/docker-magento/issues/486).
+
 ## [37.0.2] - 2021-02-17
 
 ### Added
