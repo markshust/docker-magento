@@ -72,9 +72,6 @@ services:
   #    - db
   #  volumes: *appvolumes
 
-  #selenium:
-  #  image: selenium/standalone-chrome-debug:3.8.1
-
 volumes:
   appdata:
   dbdata:
