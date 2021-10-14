@@ -1,3 +1,4 @@
 #!/bin/bash
 [ -z "$1" ] && echo "Please specify a CLI command (ex. ls)" && exit
-bin/clinotty "$@" >/dev/null
+# Without stdout and stderr
+bin/clinotty "$@" >/dev/null 2>&1
