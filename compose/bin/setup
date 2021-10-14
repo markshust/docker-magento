@@ -19,10 +19,10 @@ bin/clinotty chmod u+x bin/magento
 mv .vscode src
 
 echo "Waiting for connection to Elasticsearch..."
-bin/clinotty timeout 30 bash -c "
+bin/clinotty timeout 100 bash -c "
     until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
         printf '.'
-        sleep 5
+        sleep 2
     done"
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
@@ -65,9 +65,6 @@ bin/clinotty bin/magento setup:install \
 echo "Copying files from container to host after install..."
 bin/copyfromcontainer --all
 
-echo "Turning on developer mode.."
-bin/clinotty bin/magento deploy:mode:set developer
-
 echo "Forcing deploy of static content to speed up initial requests..."
 bin/clinotty bin/magento setup:static-content:deploy -f
 
@@ -79,6 +76,15 @@ bin/setup-domain "${DOMAIN}"
 
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
+
+echo "Ensuring Composer auth.json is setup..."
+bin/setup-composer-auth
+
+echo "Installing cron (see docker-compose.yml to enable)..."
+bin/magento cron:install
+
+echo "Turning on developer mode.."
+bin/clinotty bin/magento deploy:mode:set developer
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${DOMAIN}/"

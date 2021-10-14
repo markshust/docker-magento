@@ -36,6 +36,7 @@ function parseYaml {
 VOLUME_LIST=$(parseYaml docker-compose.dev.yml services_app_volumes)
 IGNORE_LIST="./src/app/code ./src/m2-hotfixes ./src/patches ./src/var/log ./src/var/report ./src"
 IS_VALID=true
+
 # Loop through all files missing from the docker-compose.dev.yml file
 for file in $VOLUME_LIST; do
   if [ ! -e "$file" ] && [[ ! " $IGNORE_LIST " =~ $file ]]; then
@@ -43,17 +44,17 @@ for file in $VOLUME_LIST; do
     IS_VALID=false
   fi
 done
+
 # Wait to exit until all missing files have been outputted to the user
 [ $IS_VALID = false ] && echo "Failed to start docker for missing volume files" && exit
 
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans "$@"
 
 ## Blackfire support
-# ------------------
+## ------------------
 ## First register the blackfire agent with:
 #bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
 ## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
 #bin/root /etc/init.d/blackfire-agent start
 
-bin/devtools-cli-check
-bin/cliq /var/www/.composer-global/vendor/bin/cache-clean.js --quiet --watch &
+bin/cache-clean --watch
