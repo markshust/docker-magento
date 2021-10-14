@@ -3,6 +3,7 @@
 <div align="center">
   <p>Mark Shust's Docker Configuration for Magento</p>
   <img src="https://img.shields.io/badge/magento-2.X-brightgreen.svg?logo=magento&longCache=true&style=flat-square" alt="Supported Magento Versions" />
+  <img src="https://img.shields.io/badge/apple%20silicon%20support-coming%20soon-yellow" alt="Apple Silicon Support" />
   <a href="https://hub.docker.com/r/markoshust/magento-nginx/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-nginx.svg?label=nginx%20docker%20pulls" alt="Docker Hub Pulls - Nginx" /></a>
   <a href="https://hub.docker.com/r/markoshust/magento-php/" target="_blank"><img src="https://img.shields.io/docker/pulls/markoshust/magento-php.svg?label=php%20docker%20pulls" alt="Docker Hub Pulls - PHP" /></a>
   <a href="https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity" target="_blank"><img src="https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square" alt="Maintained - Yes" /></a>
@@ -11,8 +12,8 @@
 
 ## Table of contents
 
-- [Free Course](#free-course)
 - [Docker Hub](#docker-hub)
+- [Free Course](#free-course)
 - [Usage](#usage)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
@@ -22,17 +23,64 @@
 - [Credits](#credits)
 - [License](#license)
 
+## Docker Hub
+
+View Dockerfiles:
+
+- [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
+  - 1.18
+      - [`1.18`, `1.18-4`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
+      - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
+      - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
+      - [`1.18-0`](https://github.com/markshust/docker-magento/tree/31.0.0/images/nginx/1.18)
+- [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
+  - 8.0 (available for alpha testing)
+      - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
+  - 7.4
+      - [`7.4-fpm`, `7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-8`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.4)
+      - [`7.4-fpm-7`](https://github.com/markshust/docker-magento/tree/39.0.0/images/php/7.4)
+      - [`7.4-fpm-6`](https://github.com/markshust/docker-magento/tree/38.0.0/images/php/7.4)
+      - [`7.4-fpm-5`](https://github.com/markshust/docker-magento/tree/37.0.2/images/php/7.4)
+      - [`7.4-fpm-4`](https://github.com/markshust/docker-magento/tree/36.0.2/images/php/7.4)
+      - [`7.4-fpm-3`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.4)
+      - [`7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.4)
+      - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
+      - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
+  - 7.3
+      - [`7.3-fpm`, `7.3-fpm-16`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-15`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.3)
+      - [`7.3-fpm-14`](https://github.com/markshust/docker-magento/tree/39.0.0/images/php/7.3)
+      - [`7.3-fpm-13`](https://github.com/markshust/docker-magento/tree/38.0.0/images/php/7.3)
+      - [`7.3-fpm-12`](https://github.com/markshust/docker-magento/tree/37.0.2/images/php/7.3)
+      - [`7.3-fpm-11`](https://github.com/markshust/docker-magento/tree/36.0.2/images/php/7.3)
+      - [`7.3-fpm-10`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.3)
+      - [`7.3-fpm-9`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.3)
+      - [`7.3-fpm-8`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.3)
+      - [`7.3-fpm-7`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.3)
+      - [`7.3-fpm-6`](https://github.com/markshust/docker-magento/tree/32.0.1/images/php/7.3)
+      - [`7.3-fpm-5`](https://github.com/markshust/docker-magento/tree/30.0.0/images/php/7.3)
+      - [`7.3-fpm-4`](https://github.com/markshust/docker-magento/tree/29.0.0/images/php/7.3)
+      - [`7.3-fpm-3`](https://github.com/markshust/docker-magento/tree/28.0.0/images/php/7.3)
+      - [`7.3-fpm-2`](https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.3)
+      - [`7.3-fpm-1`](https://github.com/markshust/docker-magento/tree/26.0.0/images/php/7.3)
+      - [`7.3-fpm-0`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.3)
+- [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
+  - 7
+      - [`7.9`, `7.9.3-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.9)
+      - [`7.7`, `7.7.1-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.7)
+      - [`7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/35.0.0/images/elasticsearch/7.6)
+      - [`7.6.2-1`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/7.6)
+      - [`7.6.2-0`](https://github.com/markshust/docker-magento/tree/31.0.2/images/elasticsearch/7.6)
+
 ## Free Course
 
 This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, the simplest way to learn Magento.
 
 <a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
 
-A free screencast course is available, which details the basic usage of this project:
-
-<a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/set-up-magento-2-development-environment-docker-og.png" alt="Course image"><br />
-<br />
+A free screencast course is available, which details the basic usage of this project: <a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
 Set Up a Magento 2 Development Environment with Docker
 </a>
 
@@ -77,50 +125,6 @@ Set Up a Magento 2 Development Environment with Docker
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual setup for new Magento installs</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual setup for an existing Magento instance</a>
 
-## Docker Hub
-
-View Dockerfiles:
-
-- [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
-  - 1.18
-      - [`1.18`, `1.18-4`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
-      - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
-      - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
-      - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
-      - [`1.18-0`](https://github.com/markshust/docker-magento/tree/31.0.0/images/nginx/1.18)
-- [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - 8.0 (available for alpha testing)
-      - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
-  - 7.4
-      - [`7.4-fpm`, `7.4-fpm-6`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
-      - [`7.4-fpm-5`](https://github.com/markshust/docker-magento/tree/37.0.2/images/php/7.4)
-      - [`7.4-fpm-4`](https://github.com/markshust/docker-magento/tree/36.0.2/images/php/7.4)
-      - [`7.4-fpm-3`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.4)
-      - [`7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.4)
-      - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
-      - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
-  - 7.3
-      - [`7.3-fpm`, `7.3-fpm-13`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
-      - [`7.3-fpm-12`](https://github.com/markshust/docker-magento/tree/37.0.2/images/php/7.3)
-      - [`7.3-fpm-11`](https://github.com/markshust/docker-magento/tree/36.0.2/images/php/7.3)
-      - [`7.3-fpm-10`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.3)
-      - [`7.3-fpm-9`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.3)
-      - [`7.3-fpm-8`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.3)
-      - [`7.3-fpm-7`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.3)
-      - [`7.3-fpm-6`](https://github.com/markshust/docker-magento/tree/32.0.1/images/php/7.3)
-      - [`7.3-fpm-5`](https://github.com/markshust/docker-magento/tree/30.0.0/images/php/7.3)
-      - [`7.3-fpm-4`](https://github.com/markshust/docker-magento/tree/29.0.0/images/php/7.3)
-      - [`7.3-fpm-3`](https://github.com/markshust/docker-magento/tree/28.0.0/images/php/7.3)
-      - [`7.3-fpm-2`](https://github.com/markshust/docker-magento/tree/27.2.0/images/php/7.3)
-      - [`7.3-fpm-1`](https://github.com/markshust/docker-magento/tree/26.0.0/images/php/7.3)
-      - [`7.3-fpm-0`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.3)
-- [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
-  - 7
-      - [`7.7`, `7.7.1-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.7)
-      - [`7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/35.0.0/images/elasticsearch/7.6)
-      - [`7.6.2-1`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/7.6)
-      - [`7.6.2-0`](https://github.com/markshust/docker-magento/tree/31.0.2/images/elasticsearch/7.6)
-
 ## Usage
 
 This configuration is intended to be used as a Docker-based development environment for Magento 2.
@@ -145,10 +149,10 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 Run this automated one-liner from the directory you want to install your project.
 
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.2
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.3
 ```
 
-The `magento.test` above defines the hostname to use, and the `2.4.2` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, and the `2.4.3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -172,7 +176,7 @@ Same result as the one-liner above. Just replace `magento.test` references with 
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.2
+bin/download 2.4.3
 
 # or for Magento core development:
 # docker-compose -f docker-compose.yml up -d
@@ -252,7 +256,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/devtools-cli-check`: Check & install the CLI devtools if missing from system.
-- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.2 community`
+- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3 community`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -312,15 +316,24 @@ You also can use `bin/mysqldump` to export the database. The file will appear in
 bin/mysqldump > backups/magento.sql
 ```
 
+> Getting an "Access denied, you need (at least one of) the SUPER privilege(s) for this operation." message when running one of the above lines? Try running it as root with:
+> ```
+> bin/clinotty mysql -hdb -uroot -pmagento magento < src/backup.sql
+> ```
+> You can also remove the DEFINER lines from the MySQL backup file with:
+> ```
+> sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i src/backup.sql
+> ```
+
 ### Composer Authentication
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
 Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
 
-### Email / Mailhog
+### Email / Mailcatcher
 
-View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
+View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [https://github.com/mageplaza/magento-2-smtp](Mageplaza's SMTP module). Set the mailserver host to `mailcatcher` and port to `1080`.
 
 ### Redis
 

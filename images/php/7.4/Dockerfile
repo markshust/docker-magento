@@ -60,19 +60,14 @@ RUN cd /tmp \
   && docker-php-ext-enable ioncube
 
 RUN pecl channel-update pecl.php.net \
-  && pecl install xdebug
+  && pecl install xdebug \
+  && docker-php-ext-enable xdebug
 
-RUN docker-php-ext-enable xdebug
-
-## Replace next lines with below commented out version once issue is resolved
-# https://github.com/php/pecl-networking-ssh2/pull/36
-# https://bugs.php.net/bug.php?id=78560
-RUN curl -o /tmp/ssh2-1.2.tgz https://pecl.php.net/get/ssh2 \
-  && pear install /tmp/ssh2-1.2.tgz \
-  && rm /tmp/ssh2-1.2.tgz \
+RUN pecl install ssh2-1.2 \
   && docker-php-ext-enable ssh2
-#RUN pecl install ssh2-1.2 \
-#  && docker-php-ext-enable ssh2
+
+RUN pecl install redis \
+  && docker-php-ext-enable redis
 
 RUN groupadd -g 1000 app \
  && useradd -g 1000 -u 1000 -d /var/www -s /bin/bash app
@@ -84,6 +79,9 @@ RUN apt-get install -y gnupg \
   && chown app:app /var/www/.config /var/www/.npm \
   && npm install -g grunt-cli
 
+RUN apt-get install -y msmtp mailutils
+COPY conf/msmtprc /etc/msmtprc
+
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -91,10 +89,6 @@ RUN curl -s https://packages.blackfire.io/gpg.key | apt-key add - \
   && echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list \
   && apt-get update \
   && apt-get install blackfire-agent blackfire-php
-
-RUN printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/update/cron.php\n' >> /etc/crontab \
-  && printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento cron:run\n' >> /etc/crontab \
-  && printf '* *\t* * *\tapp\t%s/usr/local/bin/php /var/www/html/bin/magento setup:cron:run\n#\n' >> /etc/crontab
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
 COPY conf/php.ini /usr/local/etc/php/

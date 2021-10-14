@@ -1,7 +1,7 @@
 # Mark Shust's Docker Configuration for Magento
 # (https://github.com/markshust/docker-magento)
 #
-# Version 38.0.0
+# Version 39.1.0
 
 version: "3"
 
@@ -31,11 +31,10 @@ services:
     #extra_hosts:
     #  - "host.docker.internal:IP"
 
-  mailhog:
-    image: mailhog/mailhog
+  mailcatcher:
+    image: sj26/mailcatcher
     ports:
-      - "1025"
-      - "8025:8025"
+      - "1080:1080"
 
   ## Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
