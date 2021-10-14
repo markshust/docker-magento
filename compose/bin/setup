@@ -1,107 +1,90 @@
 #!/bin/bash
-BASE_URL=${1:-magento2.test}
+set -o errexit
+
+# shellcheck source=../env/db.env
+source env/db.env
+# shellcheck source=../env/magento.env
+source env/magento.env
+
+DOMAIN=${1:-magento.test}
+ES_HOST=elasticsearch
+ES_PORT=9200
 
 bin/stop
 
-# fix for invalid google-shopping-api checksum contained in archive installs (temporary fix until nexcess archive is patched)
-sed -e 's/5f5929ef9f2ec4ca048a2add261d22c92807630f/ce31e720d60451784b9fdb3769e43e149f50d436/' src/composer.lock > composer.lock && mv composer.lock src/composer.lock
-
 docker-compose -f docker-compose.yml up -d
-sleep 1 #Ensure containers are started...
-
-echo "Copying all files from host to container..."
-rm -rf src/vendor #Clear for step below
-bin/copytocontainer --all
+[ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/clinotty chmod u+x bin/magento
+mv .vscode src
 
-if hash composer 2>/dev/null; then
-    PUBLIC_KEY="$(composer config -gl | grep '\[http-basic.repo.magento.com.username\]' | cut -c40-)"
-    PRIVATE_KEY="$(composer config -gl | grep '\[http-basic.repo.magento.com.password\]' | cut -c40-)"
-fi
-
-if [ -z "$PUBLIC_KEY" ] || [ -z "$PRIVATE_KEY" ]; then
-    exec < /dev/tty
-    echo
-    echo
-    echo "    Authentication required (repo.magento.com, public_key and private_key):"
-    read -p "        Username: " PUBLIC_KEY
-    read -p "        Password: " PRIVATE_KEY
-    echo
-    if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ] && hash composer 2>/dev/null; then
-        read -p "    Add authentication information to host composer config? y/n: " ADD_AUTH
-        echo
-        if [[ $ADD_AUTH =~ ^[Yy]$ ]]; then
-            composer global config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
-        fi
-        ADD_AUTH=''
-    fi
-    exec <&-
-fi
-
-if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
-    bin/clinotty composer config http-basic.repo.magento.com $PUBLIC_KEY $PRIVATE_KEY
-    PUBLIC_KEY=''
-    PRIVATE_KEY=''
-fi
-
-echo "Forcing reinstall of composer deps to ensure perms & reqs..."
-bin/clinotty composer global require hirak/prestissimo
-bin/clinotty composer install
+echo "Waiting for connection to Elasticsearch..."
+bin/clinotty timeout 100 bash -c "
+    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
+        printf '.'
+        sleep 2
+    done"
+[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
 bin/clinotty bin/magento setup:install \
-  --db-host=db \
-  --db-name=magento \
-  --db-user=magento \
-  --db-password=magento \
-  --base-url=https://$BASE_URL/ \
-  --admin-firstname=John \
-  --admin-lastname=Smith \
-  --admin-email=john.smith@gmail.com \
-  --admin-user=john.smith \
-  --admin-password=password123 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/New_York \
+  --db-host="$MYSQL_HOST" \
+  --db-name="$MYSQL_DATABASE" \
+  --db-user="$MYSQL_USER" \
+  --db-password="$MYSQL_PASSWORD" \
+  --base-url=https://"$DOMAIN"/ \
+  --base-url-secure=https://"$DOMAIN"/ \
+  --backend-frontname="$MAGENTO_ADMIN_FRONTNAME" \
+  --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
+  --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
+  --admin-email="$MAGENTO_ADMIN_EMAIL" \
+  --admin-user="$MAGENTO_ADMIN_USER" \
+  --admin-password="$MAGENTO_ADMIN_PASSWORD" \
+  --language="$MAGENTO_LOCALE" \
+  --currency="$MAGENTO_CURRENCY" \
+  --timezone="$MAGENTO_TIMEZONE" \
   --amqp-host=rabbitmq \
   --amqp-port=5672 \
   --amqp-user=guest \
   --amqp-password=guest \
   --amqp-virtualhost=/ \
+  --cache-backend=redis \
+  --cache-backend-redis-server=redis \
+  --cache-backend-redis-db=0 \
+  --page-cache=redis \
+  --page-cache-redis-server=redis \
+  --page-cache-redis-db=1 \
+  --session-save=redis \
+  --session-save-redis-host=redis \
+  --session-save-redis-log-level=4 \
+  --session-save-redis-db=2 \
+  --search-engine=elasticsearch7 \
+  --elasticsearch-host=$ES_HOST \
+  --elasticsearch-port=$ES_PORT \
   --use-rewrites=1
 
-echo "Turning on developer mode.."
-bin/clinotty bin/magento deploy:mode:set developer
-
-bin/clinotty bin/magento indexer:reindex
+echo "Copying files from container to host after install..."
+bin/copyfromcontainer --all
 
 echo "Forcing deploy of static content to speed up initial requests..."
 bin/clinotty bin/magento setup:static-content:deploy -f
 
-echo "Enabling Redis for cache..."
-bin/clinotty bin/magento setup:config:set --no-interaction --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0
-
-echo "Enabling Redis for Full Page Cache..."
-bin/clinotty bin/magento setup:config:set --no-interaction  --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
-
-echo "Enabling Redis for session..."
-bin/clinotty bin/magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
-
-echo "Enabling Elasticsearch..."
-bin/clinotty bin/magento config:set catalog/search/elasticsearch7_server_hostname elasticsearch
-
 echo "Re-indexing with Elasticsearch..."
 bin/clinotty bin/magento indexer:reindex
+
+echo "Setting basic URL and generating SSL certificate..."
+bin/setup-domain "${DOMAIN}"
 
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
-echo "Copying files from container to host after install..."
-bin/copyfromcontainer app
-bin/copyfromcontainer vendor
+echo "Ensuring Composer auth.json is setup..."
+bin/setup-composer-auth
 
-echo "Generating SSL certificate..."
-bin/setup-ssl $BASE_URL
+echo "Installing cron (see docker-compose.yml to enable)..."
+bin/magento cron:install
+
+echo "Turning on developer mode.."
+bin/clinotty bin/magento deploy:mode:set developer
 
 echo "Docker development environment setup complete."
-echo "You may now access your Magento instance at https://${BASE_URL}/"
+echo "You may now access your Magento instance at https://${DOMAIN}/"
