@@ -36,10 +36,6 @@ services:
     ports:
       - "1080:1080"
 
-  ## Disabling cron by default as it uses higher CPU, enable if needed
-  #cron:
-  #  volumes: *appvolumes
-
   # Disabling selenium by default as it is not required for all use cases
   #selenium:
   #  image: selenium/standalone-chrome-debug:3.8.1

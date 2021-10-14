@@ -62,16 +62,6 @@ services:
     environment:
       - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
 
-  ## Disabling cron by default as it uses higher CPU, enable if needed
-  #cron:
-  #  image: markoshust/magento-php:7.4-fpm-9
-  #  user: root
-  #  command: /usr/local/bin/cronstart
-  #  tty: true
-  #  links:
-  #    - db
-  #  volumes: *appvolumes
-
 volumes:
   appdata:
   dbdata:
