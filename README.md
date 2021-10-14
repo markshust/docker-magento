@@ -432,14 +432,13 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ### MFTF
 
-To work with MFTF you will need to first enable the `selenium` image in the `docker-compose.dev.yml` file.selenium
-Then you will need to run the following.
+To work with MFTF you will need to first enable the `selenium` image in the `docker-compose.dev.yml` file. Then, you will need to run the following.
 
-1. Run mftf build process `bin/mftf build:project`. This should build the basic setup for mftf in your project,
-1. Update the extra host values to match your Magneto URL and IP in `docker-compose.dev.yml`,
-1. Update the values in `src/dev/tests/acceptance/.env`. Including adding the new line `SELENIUM_HOST=selenium` to define for Codeception which host to connect to,
-1. Run a sample test `bin/mftf run:test AdminLoginTest`
-1. Update your nginx.conf to allow access to the dev section with the following before the final deny all section.
+1. Run mftf build process `bin/mftf build:project`. This should build the basic setup for mftf in your project.
+2. Update the `extra_host` values to match your Magento URL and IP in `docker-compose.dev.yml`.
+3. Update the values in `src/dev/tests/acceptance/.env`, including adding the new line `SELENIUM_HOST=selenium` to define the host Codeception should connect to.
+4. Run a sample test `bin/mftf run:test AdminLoginTest`.
+5. Update your `nginx.conf` file to allow access to the dev section with the following, before the final `deny all` section:
 
 ```
 location ~* ^/dev/tests/acceptance/utils($|/) {
@@ -453,9 +452,10 @@ location ~* ^/dev/tests/acceptance/utils($|/) {
 }
 ```
 
-For debugging you can connect to the selenium image using a VCN client.
-Connect with the VCN option and `127.0.0.1:5900`
-You can also run `bin/mftf doctor` to validate all sections are setup correctly.
+For debugging, you can connect to the selenium image using a VCN client.
+
+- Connect with the VCN option and `127.0.0.1:5900`
+- Run `bin/mftf doctor` to validate all sections are setup correctly.
 
 ## Credits
 
