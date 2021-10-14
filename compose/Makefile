@@ -28,6 +28,7 @@ help:
 	@echo "$(call format,make,composer,'Run the composer binary.')"
 	@echo "$(call format,make,copyfromcontainer,'Copy folders or files from container to host.')"
 	@echo "$(call format,make,copytocontainer,'Copy folders or files from host to container.')"
+	@echo "$(call format,make,cron,'Start or stop the cron service.')"
 	@echo "$(call format,make,dev-urn-catalog-generate,'Generate URNs for PHPStorm and remap paths to local host.')"
 	@echo "$(call format,make,devconsole,'Alias for n98-magerun2 dev:console.')"
 	@echo "$(call format,make,devtools-cli-check,'Check & install the CLI devtools if missing from system.')"

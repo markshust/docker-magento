@@ -246,6 +246,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/composer`: Run the composer binary. Ex. `bin/composer install`
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
+- `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3-p1 community`
