@@ -59,6 +59,8 @@ services:
       - "5672:5672"
     volumes:
       - rabbitmqdata:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
 
   ## Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
