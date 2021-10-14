@@ -26,4 +26,4 @@ jobs:
           context: images/elasticsearch/7.9
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: user/app:latest
+          tags: markoshust/magento-elasticsearch:7.9
