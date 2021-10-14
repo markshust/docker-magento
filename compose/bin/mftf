@@ -1,0 +1,2 @@
+#!/bin/bash
+bin/clinotty vendor/bin/mftf "$@"

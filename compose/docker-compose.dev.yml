@@ -39,3 +39,15 @@ services:
   ## Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
   #  volumes: *appvolumes
+
+  # Disabling selenium by default as it is not required for all use cases
+  #selenium:
+  #  image: selenium/standalone-chrome-debug:3.8.1
+  #  ports:
+  #    - "5900:5900"
+  # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+  # Replace the "magento2-composer.loc" with the url of your site
+  #  extra_hosts:
+  #    - "magento2.test:172.17.0.1"
+  #  links:
+  #    - app
