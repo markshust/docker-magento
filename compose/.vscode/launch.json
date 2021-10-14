@@ -1,5 +1,4 @@
 {
-  "version": "0.2.0",
   "configurations": [
     {
       "name": "Listen for XDebug",
@@ -8,10 +7,7 @@
       "pathMappings": {
         "/var/www/html": "${workspaceFolder}"
       },
-      "port": 9001,
-      "xdebugSettings": {
-        "idekey": "VSCODE"
-      }
+      "port": 9003,
     }
   ]
 }

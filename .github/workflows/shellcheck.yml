@@ -1,0 +1,30 @@
+name: 'ShellCheck'
+
+on: 
+  push:
+    paths:
+    - 'compose/bin/**'
+    branches:
+    - "master"
+
+  pull_request:
+    paths:
+    - 'compose/bin/**'
+
+jobs:
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Run ShellCheck
+      uses: ludeeus/action-shellcheck@master
+      id: check
+      env:
+        SHELLCHECK_OPTS: -x -e SC2181 -P compose/bin -P compose/env
+      with:
+        check_together: true
+        scandir: './compose/bin'

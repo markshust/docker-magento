@@ -1,11 +1,12 @@
 #!/bin/bash
-DOMAIN=${1:-magento2.test}
-VERSION=${2:-2.3.5-p1}
+set -o errexit
+
+DOMAIN=${1:-magento.test}
+VERSION=${2:-2.4.3}
+EDITION=${3:-community}
 
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
-bin/download $VERSION
 
-echo "Your system password has been requested to add an entry to /etc/hosts..."
-echo "127.0.0.1 ::1 $DOMAIN" | sudo tee -a /etc/hosts
+bin/download "${VERSION}" "${EDITION}"
 
-bin/setup $DOMAIN
+bin/setup ${DOMAIN}
