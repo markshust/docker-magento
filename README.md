@@ -149,10 +149,10 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 Run this automated one-liner from the directory you want to install your project.
 
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.3
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.3-p1
 ```
 
-The `magento.test` above defines the hostname to use, and the `2.4.3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, and the `2.4.3-p1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -176,7 +176,7 @@ Same result as the one-liner above. Just replace `magento.test` references with 
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.3
+bin/download 2.4.3-p1
 
 # or for Magento core development:
 # docker-compose -f docker-compose.yml up -d
@@ -248,7 +248,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3 community`
+- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3-p1 community`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
