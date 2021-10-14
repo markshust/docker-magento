@@ -31,4 +31,4 @@ jobs:
           push: true
           tags: |
             markoshust/magento-elasticsearch:7.9
-            markoshust/magento-elasticsearch:7.9.3-0
+            markoshust/magento-elasticsearch:7.9.3-1
