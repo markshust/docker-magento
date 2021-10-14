@@ -184,9 +184,6 @@ bin/download 2.4.3
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
 
-# Create a DNS host entry for the site:
-echo "127.0.0.1 ::1 magento.test" | sudo tee -a /etc/hosts
-
 # Run the setup installer for Magento:
 bin/setup magento.test
 
@@ -203,9 +200,6 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/te
 cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
-# Create a DNS host entry for the site:
-echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
-
 # Start some containers, copy files to them and then restart the containers:
 docker-compose -f docker-compose.yml up -d
 bin/copytocontainer --all ## Initial copy will take a few minutes...
@@ -220,9 +214,8 @@ bin/mysql < backups/magento.sql
 # Import app-specific environment settings:
 bin/magento app:config:import
 
-# Set base URLs to local environment URL (if not defined in env.php file):
-bin/magento config:set web/secure/base_url https://yoursite.test/
-bin/magento config:set web/unsecure/base_url https://yoursite.test/
+# Create a DNS host entry and setup Magento base url
+bin/setup-domain yoursite.test
 
 bin/restart
 
@@ -275,6 +268,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/rootnotty`: Run any CLI command as root with no TTY. Ex `bin/rootnotty chown -R app:app /var/www/html`
 - `bin/setup`: Run the Magento setup process to install Magento from the source code, with optional domain name. Defaults to `magento.test`. Ex. `bin/setup magento.test`
 - `bin/setup-composer-auth`: Setup authentication credentials for Composer.
+- `bin/setup-domain`: Setup Magento domain name. Ex: `bin/setup-domain magento.test`
 - `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
 - `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento.test`
 - `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento.test foo.test`
