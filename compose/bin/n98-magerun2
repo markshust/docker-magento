@@ -11,4 +11,10 @@ if ! bin/cliq ls bin/n98-magerun2.phar; then
   bin/cliq mv n98-magerun2.phar bin
 fi
 
-bin/cli bin/n98-magerun2.phar "$@"
+S=$(bin/cli cat /usr/local/etc/php/php.ini | grep -iGc 'xdebug.mode = off');
+
+if [[ $S == 1 ]]; then
+  bin/cli bin/n98-magerun2.phar "$@"
+else
+  bin/cli php -dxdebug.mode=debug -dxdebug.start_with_request=yes bin/n98-magerun2.phar "$@"
+fi
