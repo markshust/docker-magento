@@ -1,7 +1,7 @@
-# Mark Shust's Docker Configuration for Magento
-# (https://github.com/markshust/docker-magento)
-#
-# Version 39.1.0
+## Mark Shust's Docker Configuration for Magento
+## (https://github.com/markshust/docker-magento)
+##
+## Version 40.0.0
 
 version: "3"
 
@@ -20,30 +20,8 @@ services:
       #- ./src/patches:/var/www/html/patches:cached
       #- ./src/var/log:/var/www/html/var/log:cached
       #- ./src/var/report:/var/www/html/var/report:cached
-      ## To sync your SSH to the container, uncomment the following line:
+      ## To sync your SSH key to the container, uncomment:
       #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
-      ## Linux only: remove the above lines (except nginx.conf line) and mount the entire src directory with:
-      #- ./src:/var/www/html:cached
 
   phpfpm:
     volumes: *appvolumes
-    ## Linux users, see https://github.com/markshust/docker-magento#linux for updates needed below
-    #extra_hosts:
-    #  - "host.docker.internal:IP"
-
-  mailcatcher:
-    image: sj26/mailcatcher
-    ports:
-      - "1080:1080"
-
-  # Disabling selenium by default as it is not required for all use cases
-  #selenium:
-  #  image: selenium/standalone-chrome-debug:3.8.1
-  #  ports:
-  #    - "5900:5900"
-  # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
-  # Replace the "magento2-composer.loc" with the url of your site
-  #  extra_hosts:
-  #    - "magento2.test:172.17.0.1"
-  #  links:
-  #    - app

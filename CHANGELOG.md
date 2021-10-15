@@ -13,6 +13,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Updated
 - Replace MailHog with Mailcatcher for multi-arch compatibility [#511](https://github.com/markshust/docker-magento/issues/511).
 
+## [40.0.0] - 2021-10-15
+
+This is one of the biggest releases of docker-magento 💥! This major update includes support for Apple Silicon (M1/M1X) chips, as well as SSH support for fullly native filesystem speed.
+
+All the images are now multi-arch builds, meaning they can install on both AMD & ARM chipsets. Additionally, by setting up your IDE to connect to Docker over SSH/SFTP, you can gain support for full bi-directional sync to avoid selective filesystem syncing.
+
+The docker-compose configuration files have also beeen streamlined & simplified, with dedicated files for both SSH and Linux setups. Read more about these updates at https://github.com/markshust/docker-magento#ssh and https://github.com/markshust/docker-magento#linux respectively.
+
+Many issues have been resolved, and long-standing pull requests have been merged. A special thanks to [@drpayyne](https://github.com/drpayyne) for multi-arch support, [@rangerz](https://github.com/rangerz) for their massive contributions, as well as many others for their continued work & pull requests submitted to this project.
+
+### Updated
+- Updated `onelinesetup` script to use version `2.4.3-p1` by default.
+- Updated `bin/cache-clean` with improved logic [PR #400](https://github.com/markshust/docker-magento/pull/400).
+- Simplified `docker-compose.dev.yml` file to only contain volume mounting information.
+
+### Added
+- Added new `mailcatcher` image to replace `mailhog` for multi-arch support [#511](https://github.com/markshust/docker-magento/issues/511).
+- Added `docker-compose.dev-ssh.xml` to streamline SSH setup.
+- Added `docker-compose.dev-linux.xml` to streamline Linux setup.
+- Added GitHub workflows for multi-arch build support [#396](https://github.com/markshust/docker-magento/issues/396).
+- Added multi-arch support for Nginx [PR #515](https://github.com/markshust/docker-magento/pull/515).
+- Added multi-arch support for PHP [PR #516](https://github.com/markshust/docker-magento/pull/516).
+- Added new `bin/setup-domain` script [PR #429](https://github.com/markshust/docker-magento/pull/429).
+- Added Basic MFTP Setup information [PR #269](https://github.com/markshust/docker-magento/pull/269).
+- Make uid & gid of app user configurable [#520](https://github.com/markshust/docker-magento/pull/520).
+- Added Makefile with list of available commands [#399](https://github.com/markshust/docker-magento/pull/399).
+- Xdebug 3 support for `bin/n98-magerun2` [#545](https://github.com/markshust/docker-magento/pull/545).
+
+### Fixed
+- Fixed SSL setup failing on Linux [#222](https://github.com/markshust/docker-magento/issues/222).
+- Fixed locale code for `bin/setup-grunt` [#484](https://github.com/markshust/docker-magento/pull/484).
+
 ## [39.0.2] - 2021-09-21
 
 ### Fixed

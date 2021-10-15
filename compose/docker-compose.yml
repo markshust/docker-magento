@@ -1,13 +1,16 @@
-# Mark Shust's Docker Configuration for Magento
-# (https://github.com/markshust/docker-magento)
-#
-# Version 39.1.0
+## Mark Shust's Docker Configuration for Magento
+## (https://github.com/markshust/docker-magento)
+##
+## Version 40.0.0
+
+## To use SSH, see https://github.com/markshust/docker-magento#ssh
+## Linux users, see https://github.com/markshust/docker-magento#linux
 
 version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.18-4
+    image: markoshust/magento-nginx:1.18-5
     ports:
       - "80:8000"
       - "443:8443"
@@ -21,7 +24,7 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-9
+    image: markoshust/magento-php:7.4-fpm-10
     links:
       - db
     volumes: *appvolumes
@@ -39,16 +42,16 @@ services:
     image: redis:5.0-alpine
 
   elasticsearch:
-    image: markoshust/magento-elasticsearch:7.9.3-0
+    image: markoshust/magento-elasticsearch:7.9.3-1
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
       - "discovery.type=single-node"
-      # Set custom heap size to avoid memory errors
+      ## Set custom heap size to avoid memory errors
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      # Avoid test failures due to small disks
-      # More info at https://github.com/markshust/docker-magento/issues/488
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
 
@@ -61,6 +64,24 @@ services:
       - rabbitmqdata:/var/lib/rabbitmq
     environment:
       - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    ports:
+      - "1080:1080"
+
+  ## Disabling selenium by default as it is not required for all use cases.
+  ## For extra_hosts, replace "magento.test" with the URL of your site,
+  ## and also replace 172.17.0.1 with the result of:
+  ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+  #selenium:
+  #  image: selenium/standalone-chrome-debug:3.8.1
+  #  ports:
+  #    - "5900:5900"
+  #  links:
+  #    - app
+  #  extra_hosts:
+  #    - "magento.test:172.17.0.1"
 
 volumes:
   appdata:
