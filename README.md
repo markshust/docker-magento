@@ -29,7 +29,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.18
-      - [`1.18`, `1.18-4`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18`, `1.18-5`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18-4`](https://github.com/markshust/docker-magento/tree/39.1.0/images/nginx/1.18)
       - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
       - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
       - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
@@ -38,7 +39,8 @@ View Dockerfiles:
   - 8.0 (available for alpha testing)
       - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
   - 7.4
-      - [`7.4-fpm`, `7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm`, `7.4-fpm-10`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.4)
       - [`7.4-fpm-8`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.4)
       - [`7.4-fpm-7`](https://github.com/markshust/docker-magento/tree/39.0.0/images/php/7.4)
       - [`7.4-fpm-6`](https://github.com/markshust/docker-magento/tree/38.0.0/images/php/7.4)
@@ -49,7 +51,8 @@ View Dockerfiles:
       - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
       - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
   - 7.3
-      - [`7.3-fpm`, `7.3-fpm-16`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm`, `7.3-fpm-17`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-16`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.3)
       - [`7.3-fpm-15`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.3)
       - [`7.3-fpm-14`](https://github.com/markshust/docker-magento/tree/39.0.0/images/php/7.3)
       - [`7.3-fpm-13`](https://github.com/markshust/docker-magento/tree/38.0.0/images/php/7.3)
@@ -68,7 +71,8 @@ View Dockerfiles:
       - [`7.3-fpm-0`](https://github.com/markshust/docker-magento/tree/24.2.0/images/php/7.3)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
   - 7
-      - [`7.9`, `7.9.3-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.9)
+      - [`7.9`, `7.9.3-1`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.9)
+      - [`7.9.3-0`](https://github.com/markshust/docker-magento/tree/39.1.0/images/elasticsearch/7.9)
       - [`7.7`, `7.7.1-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.7)
       - [`7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/35.0.0/images/elasticsearch/7.6)
       - [`7.6.2-1`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/7.6)
@@ -391,11 +395,25 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
+### SSH
+
+Since version `40.0.0`, this project supports connecting to Docker with SSH/SFTP. This means that if you solely use either PhpStorm or VSCode, you no longer need to selectively mount host volumes in order to gain bi-directional sync capabilities from host to container. This will enable full speed in the native filesystem, as all files will be stored directly in the `appdata` container volume, rather than being synced from the host. This is especially useful if you'd like to sync larger directories such as `generated`, `pub` & `vendor`.
+
+Copy `docker-compose.dev-ssh.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup. Then, create an SFTP connection at  Preferences -> Build, Execution, Deployment -> Deployment. Connect to `localhost` and use `app` for the username & password. You can set additional options for working with Magento in PhpStorm at Preferences -> Build, Execution, Deployment -> Deployment -> Options.
+
+Note that you must use your IDE's SSH/SFTP functionality, otherwise changes will not be synced. To re-sync your host environment at any time, run:
+
+```
+bin/copyfromcontainer --all
+```
+
 ### Linux
 
-Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
+Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/) before continuing. These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
-The `host.docker.internal` hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8), but this hostname does not exist on Linux. To make this hostname resolve, uncomment the `extra_hosts` param in the `docker-compose.dev.yml` file, and replace `IP` with result of:
+Copy `docker-compose.dev-linux.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup.
+
+The `host.docker.internal` hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8), but this hostname does not exist on Linux. To make this hostname resolve, within the `extra_hosts` param of `docker-compose.dev.yml` replace `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'
@@ -403,7 +421,7 @@ docker run --rm alpine ip route | awk 'NR==1 {print $3}'
 
 You may also have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 
-Add following line to `/etc/sysctl.conf`:
+Add the following line to the `/etc/sysctl.conf` file on your host:
 
 ```
 vm.max_map_count=262144
