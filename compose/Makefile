@@ -37,6 +37,7 @@ help:
 	@echo "$(call format,make,fixperms,'This will fix filesystem permissions within the container.')"
 	@echo "$(call format,make,grunt,'Run the grunt binary.')"
 	@echo "$(call format,make,magento,'Run the Magento CLI.')"
+	@echo "$(call format,make,mftf,'Run the Magento MFTF.')"
 	@echo "$(call format,make,mysql,'Run the MySQL CLI with database config from env/db.env.')"
 	@echo "$(call format,make,mysqldump,'Backup the Magento database.')"
 	@echo "$(call format,make,n98-magerun2,'Access the n98-magerun2 CLI.')"
@@ -51,6 +52,8 @@ help:
 	@echo "$(call format,make,root,'Run any CLI command as root without going into the bash prompt.')"
 	@echo "$(call format,make,rootnotty,'Run any CLI command as root with no TTY.')"
 	@echo "$(call format,make,setup,'Run the Magento setup process to install Magento from the source code$(comma) with optional domain name.')"
+	@echo "$(call format,make,setup-composer-auth,'Setup authentication credentials for Composer.')"
+	@echo "$(call format,make,setup-domain,'Setup Magento domain name.')"
 	@echo "$(call format,make,setup-grunt,'Install and configure Grunt JavaScript task runner.')"
 	@echo "$(call format,make,setup-pwa-studio,'(BETA) Install PWA Studio.')"
 	@echo "$(call format,make,setup-ssl,'Generate an SSL certificate for one or more domains.')"
@@ -85,6 +88,9 @@ copyfromcontainer:
 copytocontainer:
 	@./bin/copytocontainer $(call args)
 
+cron:
+	@./bin/cron $(call args)
+
 dev-urn-catalog-generate:
 	@./bin/dev-urn-catalog-generate
 
@@ -108,6 +114,9 @@ grunt:
 
 magento:
 	@./bin/magento $(call args)
+
+mftf:
+	@./bin/mftf $(call args)
 
 mysql:
 	@./bin/mysql $(call args)
@@ -150,6 +159,12 @@ rootnotty:
 
 setup:
 	@./bin/setup $(call args)
+
+setup-composer-auth:
+	@./bin/setup-composer-auth
+
+setup-domain:
+	@./bin/setup-domain $(call args)
 
 setup-grunt:
 	@./bin/setup-grunt
