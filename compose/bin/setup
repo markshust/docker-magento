@@ -16,6 +16,7 @@ docker-compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/clinotty chmod u+x bin/magento
+mkdir -p src
 mv .vscode src
 
 echo "Waiting for connection to Elasticsearch..."
