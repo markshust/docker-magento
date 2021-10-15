@@ -37,6 +37,7 @@ help:
 	@echo "$(call format,make,fixperms,'This will fix filesystem permissions within the container.')"
 	@echo "$(call format,make,grunt,'Run the grunt binary.')"
 	@echo "$(call format,make,magento,'Run the Magento CLI.')"
+	@echo "$(call format,make,mftf,'Run the Magento MFTF.')"
 	@echo "$(call format,make,mysql,'Run the MySQL CLI with database config from env/db.env.')"
 	@echo "$(call format,make,mysqldump,'Backup the Magento database.')"
 	@echo "$(call format,make,n98-magerun2,'Access the n98-magerun2 CLI.')"
@@ -111,6 +112,9 @@ grunt:
 
 magento:
 	@./bin/magento $(call args)
+
+mftf:
+	@./bin/mftf $(call args)
 
 mysql:
 	@./bin/mysql $(call args)
