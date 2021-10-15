@@ -85,6 +85,9 @@ copyfromcontainer:
 copytocontainer:
 	@./bin/copytocontainer $(call args)
 
+cron:
+	@./bin/cron $(call args)
+
 dev-urn-catalog-generate:
 	@./bin/dev-urn-catalog-generate
 
