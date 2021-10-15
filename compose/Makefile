@@ -52,6 +52,8 @@ help:
 	@echo "$(call format,make,root,'Run any CLI command as root without going into the bash prompt.')"
 	@echo "$(call format,make,rootnotty,'Run any CLI command as root with no TTY.')"
 	@echo "$(call format,make,setup,'Run the Magento setup process to install Magento from the source code$(comma) with optional domain name.')"
+	@echo "$(call format,make,setup-composer-auth,'Setup authentication credentials for Composer.')"
+	@echo "$(call format,make,setup-domain,'Setup Magento domain name.')"
 	@echo "$(call format,make,setup-grunt,'Install and configure Grunt JavaScript task runner.')"
 	@echo "$(call format,make,setup-pwa-studio,'(BETA) Install PWA Studio.')"
 	@echo "$(call format,make,setup-ssl,'Generate an SSL certificate for one or more domains.')"
@@ -157,6 +159,12 @@ rootnotty:
 
 setup:
 	@./bin/setup $(call args)
+
+setup-composer-auth:
+	@./bin/setup-composer-auth
+
+setup-domain:
+	@./bin/setup-domain $(call args)
 
 setup-grunt:
 	@./bin/setup-grunt
