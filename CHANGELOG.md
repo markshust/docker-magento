@@ -39,6 +39,7 @@ Many issues have been resolved, and long-standing pull requests have been merged
 ### Fixed
 - Fixed SSL setup failing on Linux [#222](https://github.com/markshust/docker-magento/issues/222).
 - Fixed locale code for `bin/setup-grunt` [#484](https://github.com/markshust/docker-magento/pull/484).
+- Fixed cron not working [#540](https://github.com/markshust/docker-magento/issues/540).
 
 ## [39.1.0] - 2021-09-21
 
