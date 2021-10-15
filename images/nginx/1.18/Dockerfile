@@ -16,11 +16,9 @@ RUN mkdir /etc/nginx/certs \
 
 ARG TARGETARCH
 
-RUN ( \
-  cd /usr/local/bin/ \
+RUN cd /usr/local/bin/ \
   && curl -L https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-$TARGETARCH -o mkcert \
-  && chmod +x mkcert \
-  )
+  && chmod +x mkcert
 
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/default.conf /etc/nginx/conf.d/
