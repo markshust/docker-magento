@@ -8,11 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
-## [39.1.0] - 2021-09-21
-
-### Updated
-- Replace MailHog with Mailcatcher for multi-arch compatibility [#511](https://github.com/markshust/docker-magento/issues/511).
-
 ## [40.0.0] - 2021-10-15
 
 This is one of the biggest releases of docker-magento 💥! This major update includes support for Apple Silicon (M1/M1X) chips, as well as SSH support for fullly native filesystem speed.
@@ -44,6 +39,11 @@ Many issues have been resolved, and long-standing pull requests have been merged
 ### Fixed
 - Fixed SSL setup failing on Linux [#222](https://github.com/markshust/docker-magento/issues/222).
 - Fixed locale code for `bin/setup-grunt` [#484](https://github.com/markshust/docker-magento/pull/484).
+
+## [39.1.0] - 2021-09-21
+
+### Updated
+- Replace MailHog with Mailcatcher for multi-arch compatibility [#511](https://github.com/markshust/docker-magento/issues/511).
 
 ## [39.0.2] - 2021-09-21
 
