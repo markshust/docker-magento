@@ -23,11 +23,17 @@ services:
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
 
+  ## extra_hosts is required for selenium
+  ## For extra_hosts, replace "magento.test" with the URL of your site,
+  ## and also replace 172.17.0.1 with the result of:
+  ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
   phpfpm:
     image: markoshust/magento-php:7.4-fpm-10
     links:
       - db
     volumes: *appvolumes
+  #  extra_hosts:
+  #    - "magento.test:172.17.0.1"
 
   db:
     image: mariadb:10.4
