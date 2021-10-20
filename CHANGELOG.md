@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [40.0.2] - 2021-10-20
+
+### Fixed
+- Fixed Selenium configuration for MFTF [PR #554](https://github.com/markshust/docker-magento/pull/554).
+
 ## [40.0.1] - 2021-10-20
 
 ### Fixed
