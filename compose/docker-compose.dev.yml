@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 40.0.0
+## Version 40.0.1
 
 version: "3"
 
@@ -20,8 +20,6 @@ services:
       #- ./src/patches:/var/www/html/patches:cached
       #- ./src/var/log:/var/www/html/var/log:cached
       #- ./src/var/report:/var/www/html/var/report:cached
-      ## To sync your SSH key to the container, uncomment:
-      #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
 
   phpfpm:
     volumes: *appvolumes
