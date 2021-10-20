@@ -187,6 +187,7 @@ bin/download 2.4.3-p1
 # bin/setup-composer-auth
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
+# bin/composer install
 
 # Run the setup installer for Magento:
 bin/setup magento.test

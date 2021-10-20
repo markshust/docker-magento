@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
   libonig-dev \
   libpng-dev \
   libsodium-dev \
+  libssh2-1-dev \
   libxslt1-dev \
   libzip-dev \
   lsof \
@@ -50,6 +51,9 @@ RUN docker-php-ext-install \
 RUN pecl channel-update pecl.php.net \
   && pecl install xdebug \
   && docker-php-ext-enable xdebug
+
+RUN pecl install ssh2-1.3.1 \
+  && docker-php-ext-enable ssh2
 
 RUN pecl install redis \
   && docker-php-ext-enable redis

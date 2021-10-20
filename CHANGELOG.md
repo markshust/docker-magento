@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [40.0.1] - 2021-10-20
+
+### Fixed
+- Fixed PHP image `8.0-fpm-develop` for Magento 2.4.4 support (note: still has `-develop` tag).
+
+### Updated
+- Moved `~/.ssh` volume mount references to `docker-compose.yml` to ease maintenance.
+
 ## [40.0.0] - 2021-10-15
 
 This is one of the biggest releases of docker-magento 💥! This major update includes support for Apple Silicon (M1/M1X) chips, as well as SSH support for fullly native filesystem speed.
