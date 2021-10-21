@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 
 # shellcheck source=../env/db.env
 source env/db.env
