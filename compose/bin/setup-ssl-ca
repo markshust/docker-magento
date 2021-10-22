@@ -12,7 +12,7 @@ if [ "$(uname)" == "Darwin" ]; then
   ### Check if Firefox is installed
   FFoxBin="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
   if [ -f "$FFoxBin" ]; then
-    sudo echo "{\"policies\": {\"Certificates\": {\"ImportEnterpriseRoots\": true}}}" > policies.json
+    echo "{\"policies\": {\"Certificates\": {\"ImportEnterpriseRoots\": true}}}" | sudo tee policies.json
 
     ### Check if distribution directory exists
     DistDirectory="/Applications/Firefox.app/Contents/Resources/distribution"
@@ -39,7 +39,7 @@ else
   ### Requirement: apt install libnss3-tools
   REQUIRED_PKG="libnss3-tools"
   PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
-  echo Checking for $REQUIRED_PKG: $PKG_OK
+  echo Checking for $REQUIRED_PKG: "$PKG_OK"
   if [ "" = "$PKG_OK" ]; then
     echo "No $REQUIRED_PKG found. Setting up $REQUIRED_PKG."
     sudo apt-get --yes install $REQUIRED_PKG
@@ -50,19 +50,19 @@ else
   certname="Root CA"
 
   ### For cert8 (legacy - DBM)
-  for certDB in $(find ~/ -name "cert8.db")
+  find ~/ -name "cert8.db" -print0 | while read -r certDB
   do
-      certdir=$(dirname ${certDB});
-      certutil -D -n "${certname}" -i ${certfile} -d dbm:${certdir}
-      certutil -A -n "${certname}" -t "TCu,Cu,Tu" -i ${certfile} -d dbm:${certdir}
+      certdir=$(dirname "${certDB}");
+      certutil -D -n "${certname}" -i ${certfile} -d dbm:"${certdir}"
+      certutil -A -n "${certname}" -t "TCu,Cu,Tu" -i ${certfile} -d dbm:"${certdir}"
   done
 
   ### For cert9 (SQL)
-  for certDB in $(find ~/ -name "cert9.db")
+  find ~/ -name "cert9.db" -print0 | while read -r certDB
   do
-      certdir=$(dirname ${certDB});
-      certutil -D -n "${certname}" -i ${certfile} -d sql:${certdir}
-      certutil -A -n "${certname}" -t "TCu,Cu,Tu" -i ${certfile} -d sql:${certdir}
+      certdir=$(dirname "${certDB}");
+      certutil -D -n "${certname}" -i ${certfile} -d sql:"${certdir}"
+      certutil -A -n "${certname}" -t "TCu,Cu,Tu" -i ${certfile} -d sql:"${certdir}"
   done
 
   sudo mv rootCA.pem /usr/local/share/ca-certificates/rootCA.crt
