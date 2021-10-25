@@ -18,6 +18,7 @@ docker-compose -f docker-compose.yml up -d
 bin/clinotty chmod u+x bin/magento
 
 rm -rf src
+mkdir src
 cp -R .vscode src
 
 echo "Waiting for connection to Elasticsearch..."
