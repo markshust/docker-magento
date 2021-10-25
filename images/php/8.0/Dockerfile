@@ -58,6 +58,10 @@ RUN pecl install ssh2-1.3.1 \
 RUN pecl install redis \
   && docker-php-ext-enable redis
 
+RUN apt-get install libmagickwand-dev \
+  && pecl install imagick  \
+  && docker-php-ext-enable imagick
+
 RUN groupadd -g "$APP_ID" app \
   && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
 
