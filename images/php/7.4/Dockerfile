@@ -71,7 +71,7 @@ RUN pecl install ssh2-1.2 \
 RUN pecl install redis \
   && docker-php-ext-enable redis
 
-RUN apt-get install libmagickwand-dev \
+RUN apt-get install -y libmagickwand-dev \
   && pecl install imagick  \
   && docker-php-ext-enable imagick
 
