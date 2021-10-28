@@ -2,7 +2,7 @@
 [ -z "$1" ] && echo "Please specify a domain (ex. mydomain.test)" && exit
 
 # Generate certificate authority if not already setup
-if ! docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
+if ! docker-compose exec -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
   bin/setup-ssl-ca
 fi
 
