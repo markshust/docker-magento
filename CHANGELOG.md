@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed Shellcheck failures for bin/setup-ssl-ca [#558](https://github.com/markshust/docker-magento/issues/558).
 - Fixed php.ini possible wrong smtp-addr [#556](https://github.com/markshust/docker-magento/issues/556).
 - Ensure files are created so Docker doesn't create them as root [#562](https://github.com/markshust/docker-magento/issues/562).
+- Added additional time for Elasticsearch container to get initialized during setup.
 
 ## [40.0.2] - 2021-10-20
 

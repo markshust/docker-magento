@@ -29,7 +29,8 @@ bin/clinotty timeout 100 bash -c "
     done"
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
-sleep 2
+echo "Waiting for Elasticsearch container to get initialized..."
+sleep 5
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
