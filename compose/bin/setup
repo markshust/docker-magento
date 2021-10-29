@@ -29,6 +29,7 @@ bin/clinotty timeout 100 bash -c "
     done"
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
+echo ""
 echo "Waiting for Elasticsearch container to get initialized..."
 sleep 5
 
