@@ -35,9 +35,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [40.0.0] - 2021-10-15
 
-This is one of the biggest releases of docker-magento 💥! This major update includes support for Apple Silicon (M1/M1X) chips, as well as SSH support for fullly native filesystem speed.
+This is one of the biggest releases of docker-magento 💥! This major update includes support for Apple Silicon (M1/M1X) chips, as well as SSH support for fully native filesystem speed.
 
-All the images are now multi-arch builds, meaning they can install on both AMD & ARM chipsets. Additionally, by setting up your IDE to connect to Docker over SSH/SFTP, you can gain support for full bi-directional sync to avoid selective filesystem syncing.
+All the images are now multi-arch builds, meaning they can install on both AMD & ARM chipsets. Additionally, by setting up your IDE to connect to Docker over SSH/SFTP to avoid selective filesystem syncing.
 
 The docker-compose configuration files have also beeen streamlined & simplified, with dedicated files for both SSH and Linux setups. Read more about these updates at https://github.com/markshust/docker-magento#ssh and https://github.com/markshust/docker-magento#linux respectively.
 
