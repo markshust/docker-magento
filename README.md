@@ -154,7 +154,7 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ```bash
 # Create your project directory then go into it:
-mkdir ~/Sites/mysite
+mkdir ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
@@ -182,7 +182,7 @@ Same result as the one-liner above. Just replace `magento.test` references with 
 
 ```bash
 # Create your project directory then go into it:
-mkdir ~/Sites/mysite
+mkdir ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:
@@ -211,7 +211,7 @@ open https://magento.test
 bin/mysqldump > ~/Sites/existing/magento.sql
 
 # Create your project directory then go into it:
-mkdir ~/Sites/mysite
+mkdir ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:
