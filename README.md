@@ -200,6 +200,9 @@ open https://magento.test
 #### Existing Projects
 
 ```bash
+# Take a backup of your existing database
+bin/mysqldump > magento.sql
+
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
@@ -212,7 +215,7 @@ docker-compose -f docker-compose.yml up -d
 bin/copytocontainer --all ## Initial copy will take a few minutes...
 
 # Import existing database:
-bin/mysql < backups/magento.sql
+bin/mysql < ../existing/magento.sql
 
 # Update database connection details to use the above Docker MySQL credentials:
 # Also note: creds for the MySQL server are defined at startup from env/db.env
@@ -260,8 +263,8 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/mftf`: Run the Magento MFTF. Ex: `bin/mftf build:project`
-- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < backups/magento.sql`
-- `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > backups/magento.sql`
+- `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < magento.sql`
+- `bin/mysqldump`: Backup the Magento database. Ex. `bin/mysqldump > magento.sql`
 - `bin/n98-magerun2`: Access the [n98-magerun2](https://github.com/netz98/n98-magerun2) CLI. Ex: `bin/n98-magerun2 dev:console`
 - `bin/node`: Run the node binary. Ex. `bin/node --version`
 - `bin/npm`: Run the npm binary. Ex. `bin/npm install`
@@ -304,16 +307,16 @@ To connect to the MySQL CLI tool of the Docker instance, run:
 bin/mysql
 ```
 
-You can use the `bin/mysql` script to import a database, for example a file stored in your local host directory at `backups/magento.sql`:
+You can use the `bin/mysql` script to import a database, for example a file stored in your local host directory at `magento.sql`:
 
 ```
-bin/mysql < backups/magento.sql
+bin/mysql < magento.sql
 ```
 
-You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `backups/magento.sql`:
+You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `magento.sql`:
 
 ```
-bin/mysqldump > backups/magento.sql
+bin/mysqldump > magento.sql
 ```
 
 > Getting an "Access denied, you need (at least one of) the SUPER privilege(s) for this operation." message when running one of the above lines? Try running it as root with:
