@@ -152,9 +152,12 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ### Automated Setup (New Project)
 
-Run this automated one-liner from the directory you want to install your project.
-
 ```bash
+# Create your project directory then go into it:
+mkdir ~/Sites/mysite
+cd $_
+
+# Run this automated one-liner from the directory you want to install your project.
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.3-p1
 ```
 
@@ -178,6 +181,10 @@ Same result as the one-liner above. Just replace `magento.test` references with 
 #### New Projects
 
 ```bash
+# Create your project directory then go into it:
+mkdir ~/Sites/mysite
+cd $_
+
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
@@ -200,8 +207,12 @@ open https://magento.test
 #### Existing Projects
 
 ```bash
-# Take a backup of your existing database
-bin/mysqldump > magento.sql
+# Take a backup of your existing database:
+bin/mysqldump > ~/Sites/existing/magento.sql
+
+# Create your project directory then go into it:
+mkdir ~/Sites/mysite
+cd $_
 
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
