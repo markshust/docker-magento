@@ -229,8 +229,6 @@ bin/restart
 open https://magento.test
 ```
 
-> For more details on how everything works, see the extended [setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).
-
 ## Updates
 
 To update your project to the latest version of `docker-magento`, run:
