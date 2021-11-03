@@ -19,7 +19,6 @@ help:
 	@echo ""
 	@echo "$(call yellow,Use the following CLI commands:)"
 	@echo "$(call red,===============================)"
-	@echo "$(call format,help,'Print list of commands with comment.')"
 	@echo "$(call format,bash,'Drop into the bash prompt of your Docker container.')"
 	@echo "$(call format,cache-clean,'Access the cache-clean CLI.')"
 	@echo "$(call format,cli,'Run any CLI command without going into the bash prompt.')"
