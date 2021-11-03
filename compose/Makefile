@@ -51,7 +51,7 @@ help:
 	@echo "$(call format,make,restart,'Stop and then start all containers.')"
 	@echo "$(call format,make,root,'Run any CLI command as root without going into the bash prompt.')"
 	@echo "$(call format,make,rootnotty,'Run any CLI command as root with no TTY.')"
-	@echo "$(call format,make,setup,'Run the Magento setup process to install from source code$(comma) with optional domain name.')"
+	@echo "$(call format,make,setup,'Run the Magento setup process$(comma) with optional domain name.')"
 	@echo "$(call format,make,setup-composer-auth,'Setup authentication credentials for Composer.')"
 	@echo "$(call format,make,setup-domain,'Setup Magento domain name.')"
 	@echo "$(call format,make,setup-grunt,'Install and configure Grunt JavaScript task runner.')"
