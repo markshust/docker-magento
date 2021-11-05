@@ -19,7 +19,7 @@ services:
       - phpfpm
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:cached
-      - ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
+      - ~/.ssh/id_ed25519:/var/www/.ssh/id_ed25519:cached
       - ~/.ssh/known_hosts:/var/www/.ssh/known_hosts:cached
       - appdata:/var/www/html
       - sockdata:/sock
