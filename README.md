@@ -117,7 +117,7 @@ Set Up a Magento 2 Development Environment with Docker
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064477" target="_blank">Run additional services as containers</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances</a>
 
-#### PHPStorm & Xdebug
+#### PhpStorm & Xdebug
 
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9748834" target="_blank">Setup PHPStorm for a Magento Docker project</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9763893" target="_blank">Generate XML URNs for a Magento Docker project</a>
@@ -266,7 +266,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
-- `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
+- `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3-p1 community`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
@@ -377,38 +377,48 @@ Install and enable the PHP Debug extension from the [Visual Studio Marketplace](
 
 Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
-### Xdebug & PHPStorm
+### Xdebug & PhpStorm
 
-1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PHPStorm from the list and click Save.
+1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PhpStorm from the list to set the IDE Key to "PHPSTORM", then click Save.
 
-2.  Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
+2.  Next, enable Xdebug debugging in the PHP container by running: `bin/xdebug enable`.
 
-3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
+3.  Then, open `PhpStorm > Preferences > PHP` and configure:
 
     * `CLI Interpreter`
-        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
-        * Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
+        * Create a new interpreter from the `From Docker, Vagrant, VM...` list.
+        * Select the Docker Compose option.
+        * For Server, select `Docker`. If you don't have Docker set up as a server, create one and name it `Docker`.
+        * For Configuration files, add both the `docker-compose.yml` and `docker-compose.dev.yml` files from your project directory.
+        * For Service, select `phpfpm`, then click OK.
+        * Name this CLI Interpreter `phpfpm`, then click OK again.
 
     * `Path mappings`
-        * Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
+        * There is no need to define a path mapping in this area.
 
-    * `Docker container`
-        * Remove any pre-existing volume bindings.
-        * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
+4. Open `PhpStorm > Preferences > PHP > Debug` and ensure Debug Port is set to `9000,9003`.
 
-4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001,9003`.
+5. Open `PhpStorm > Preferences > PHP > DBGp Proxy` and ensure Port is set to `9001`.
 
-5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
+6. Open `PhpStorm > Preferences > PHP > Servers` and create a new server:
 
-6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
+    * For the Name, set this to the value of your domain name (ex. `magento.test`).
+    * For the Host, set this to the value of your domain name (ex. `magento.test`).
+    * Keep port set to `80`.
+    * Check the "Use path mappings" box and map `src` to the absolute path of `/var/www/html`.
 
-    * Set Name and Host to your domain name (ex. `magento.test`)
-    * Keep port set to `80`
-    * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration.
 
-7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+    * Set the Name to the name of your domain (ex. `magento.test`).
+    * Check the `Filter debug connection by IDE key` checkbox, select the Server you just setup.
+    * For IDE key, enter `PHPSTORM`. This value should match the IDE Key value set by the Chrome Xdebug Helper.
+    * Click OK to finish setting up the remote debugger in PHPStorm.
 
-8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+8. Open up `pub/index.php` and set a breakpoint near the end of the file.
+
+    * Start the debugger with `Run > Debug 'magento.test'`, then open up a web browser.
+    * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
+    * Navigate to your Magento store URL, and Xdebug should now trigger the debugger within PhpStorm at the toggled breakpoint.
 
 ### SSH
 
