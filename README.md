@@ -398,23 +398,21 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 4. Open `PhpStorm > Preferences > PHP > Debug` and ensure Debug Port is set to `9000,9003`.
 
-5. Open `PhpStorm > Preferences > PHP > DBGp Proxy` and ensure Port is set to `9001`.
-
-6. Open `PhpStorm > Preferences > PHP > Servers` and create a new server:
+5. Open `PhpStorm > Preferences > PHP > Servers` and create a new server:
 
     * For the Name, set this to the value of your domain name (ex. `magento.test`).
     * For the Host, set this to the value of your domain name (ex. `magento.test`).
     * Keep port set to `80`.
     * Check the "Use path mappings" box and map `src` to the absolute path of `/var/www/html`.
 
-7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration.
+6. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration.
 
     * Set the Name to the name of your domain (ex. `magento.test`).
     * Check the `Filter debug connection by IDE key` checkbox, select the Server you just setup.
     * For IDE key, enter `PHPSTORM`. This value should match the IDE Key value set by the Chrome Xdebug Helper.
     * Click OK to finish setting up the remote debugger in PHPStorm.
 
-8. Open up `pub/index.php` and set a breakpoint near the end of the file.
+7. Open up `pub/index.php` and set a breakpoint near the end of the file.
 
     * Start the debugger with `Run > Debug 'magento.test'`, then open up a web browser.
     * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
@@ -452,10 +450,10 @@ Add the following line to the `/etc/sysctl.conf` file on your host:
 vm.max_map_count=262144
 ```
 
-To enable Xdebug on Linux, you'll also need to open port 9001 on the firewall by running:
+To enable Xdebug on Linux, you'll also need to open port 9003 on the firewall by running:
 
 ```
-sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
 ```
 
 ### Blackfire.io
