@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.0-fpm-develop` now available for testing purposes.
 
+## [41.0.1] - 2021-11-09
+
+### Fixed
+- Fixed additional issue of waiting for Elasticsearch/RabbitMQ connection on Mac [#442](https://github.com/markshust/docker-magento/issues/442).
+
 ## [41.0.0] - 2021-11-08
 
 There has been an ongoing issue with Docker for Mac + M1 chips (Apple Silicon) which causes a 5-second delay in network requests (see [#5626](https://github.com/docker/for-mac/issues/5626)). A fix has been implemented in this release that works around this issue, adding `extra_hosts` directives in the `docker-compose.yml` file. This update should be backwards-compatible, but will break existing setups that use custom Docker networks (this is an uncommon scenario). See notes at the top of `docker-compose.yml` for how to configure this project for custom Docker networks.
