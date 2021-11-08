@@ -3,12 +3,12 @@ set -o errexit
 
 # shellcheck source=../env/db.env
 source env/db.env
+# shellcheck source=../env/elasticsearch.env
+source env/elasticsearch.env
 # shellcheck source=../env/magento.env
 source env/magento.env
 
 DOMAIN=${1:-magento.test}
-ES_HOST=elasticsearch
-ES_PORT=9200
 
 bin/stop
 
@@ -16,10 +16,7 @@ docker-compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/clinotty chmod u+x bin/magento
-
-rm -rf src
-mkdir src
-cp -R .vscode src
+rm -rf src && mkdir src
 
 echo "Waiting for connection to Elasticsearch..."
 bin/clinotty timeout 100 bash -c "
@@ -28,10 +25,6 @@ bin/clinotty timeout 100 bash -c "
         sleep 2
     done"
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
-
-echo ""
-echo "Waiting for Elasticsearch container to get initialized..."
-sleep 5
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
@@ -92,6 +85,8 @@ bin/magento cron:install
 
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
+
+mv .vscode src/
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${DOMAIN}/"
