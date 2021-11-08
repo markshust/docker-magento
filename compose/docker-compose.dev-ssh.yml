@@ -5,6 +5,9 @@ services:
     volumes: &appvolumes
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
 
+  phpfpm:
+    volumes: *appvolumes
+
   ssh:
     image: markoshust/ssh
     ports:
