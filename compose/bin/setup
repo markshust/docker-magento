@@ -26,6 +26,15 @@ bin/clinotty timeout 100 bash -c "
     done"
 [ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
+echo ""
+echo "Waiting for connection to RabbitMQ..."
+rabbitmqi=4
+until [ $rabbitmqi -le 0 ]; do
+    printf '.'
+    let rabbitmqi--
+    sleep 2
+done
+
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
   --db-name="$MYSQL_DATABASE" \

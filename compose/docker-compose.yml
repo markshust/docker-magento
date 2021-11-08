@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 41.0.0
+## Version 41.0.1
 
 ## To use SSH, see https://github.com/markshust/docker-magento#ssh
 ## Linux users, see https://github.com/markshust/docker-magento#linux
@@ -18,9 +18,6 @@ services:
     ports:
       - "80:8000"
       - "443:8443"
-    links:
-      - db
-      - phpfpm
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:cached
       - ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
@@ -35,13 +32,12 @@ services:
       - "db:172.17.0.1"
       - "redis:172.17.0.1"
       - "elasticsearch:172.17.0.1"
+      - "rabbitmq:172.17.0.1"
       ## Selenium support, replace "magento.test" with URL of your site
       - "magento.test:172.17.0.1"
 
   phpfpm:
     image: markoshust/magento-php:7.4-fpm-11
-    links:
-      - db
     volumes: *appvolumes
     extra_hosts: *appextrahosts
 
@@ -98,8 +94,6 @@ services:
   #  image: selenium/standalone-chrome-debug:3.8.1
   #  ports:
   #    - "5900:5900"
-  #  links:
-  #    - app
   #  extra_hosts: *appextrahosts
 
 volumes:
