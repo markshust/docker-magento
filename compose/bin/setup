@@ -31,7 +31,7 @@ echo "Waiting for connection to RabbitMQ..."
 rabbitmqi=4
 until [ $rabbitmqi -le 0 ]; do
     printf '.'
-    let rabbitmqi--
+    (( rabbitmqi-- ))
     sleep 2
 done
 
