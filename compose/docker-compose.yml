@@ -40,6 +40,7 @@ services:
     image: markoshust/magento-php:7.4-fpm-11
     volumes: *appvolumes
     extra_hosts: *appextrahosts
+    env_file: env/phpfpm.env
 
   db:
     image: mariadb:10.4
