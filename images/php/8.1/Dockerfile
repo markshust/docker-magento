@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-buster
+FROM php:8.1.0RC5-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
@@ -77,11 +77,6 @@ COPY conf/msmtprc /etc/msmtprc
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN curl -s https://packages.blackfire.io/gpg.key | apt-key add - \
-  && echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list \
-  && apt-get update \
-  && apt-get install blackfire-agent blackfire-php
 
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
 COPY conf/php.ini /usr/local/etc/php/
