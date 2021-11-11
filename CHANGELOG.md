@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- PHP image `8.0-fpm-develop` now available for testing purposes.
+- PHP image `8.1-fpm-develop` now available for testing purposes.
 
 ## [41.0.1] - 2021-11-09
 
