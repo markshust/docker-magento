@@ -89,7 +89,7 @@ bin/clinotty bin/magento cache:flush
 echo "Ensuring Composer auth.json is setup..."
 bin/setup-composer-auth
 
-echo "Installing cron (see docker-compose.yml to enable)..."
+echo "Installing cron, run 'bin/cron start' to enable..."
 bin/magento cron:install
 
 echo "Turning on developer mode.."
