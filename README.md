@@ -89,7 +89,7 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 A free screencast course is available (which was fully refreshed in December 2021), which details the basic usage of this project:
 
 <a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/set-up-magento-2-development-environment-docker-og.png" alt="Set Up a Magento 2 Development Environment with Docker"><br/>
+<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/set-up-magento-2-development-environment-docker-og.png" alt="Set Up a Magento 2 Development Environment with Docker" width="400"><br/>
 Set Up a Magento 2 Development Environment with Docker
 </a>
 
