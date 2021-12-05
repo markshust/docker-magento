@@ -90,7 +90,7 @@ echo "Ensuring Composer auth.json is setup..."
 bin/setup-composer-auth
 
 echo "Installing cron, run 'bin/cron start' to enable..."
-bin/magento cron:install
+bin/clinotty bin/magento cron:install
 
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
