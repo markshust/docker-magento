@@ -1,4 +1,4 @@
-FROM php:8.1.0RC5-fpm-buster
+FROM php:8.1.0-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
@@ -91,4 +91,4 @@ VOLUME /var/www
 
 WORKDIR /var/www/html
 
-EXPOSE 9001
+EXPOSE 9003
