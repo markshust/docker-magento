@@ -26,6 +26,7 @@ services:
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
     extra_hosts: &appextrahosts
+      - "host.docker.internal:172.17.0.1"
       ## M1 Mac support to fix Docker delay, see #566
       - "app:172.17.0.1"
       - "phpfpm:172.17.0.1"
