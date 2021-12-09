@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - PHP image `8.1-fpm-develop` now available for testing purposes.
 
+## [41.0.2] - 2021-12-09
+
+### Fixed
+- Disable "Composer is slower because of Xdebug" message [1990d84](https://github.com/markshust/docker-magento/commit/1990d84).
+- Updated verbiage in setup on how to start cron [c3ba47d](https://github.com/markshust/docker-magento/commit/1990d84).
+- Fixed "The input device is not a TTY" error during setup [8aada97](https://github.com/markshust/docker-magento/commit/8aada97).
+- Expose port 9003 on PHP Docker image for Xdebug [263e40d](https://github.com/markshust/docker-magento/commit/263e40d).
+- Disable Xdebug by default for PHP 7.3 [263e40d](https://github.com/markshust/docker-magento/commit/263e40d).
+
+### Updated
+- Updated PHP 8.1 image to use official GA version [263e40d](https://github.com/markshust/docker-magento/commit/263e40d).
+
 ## [41.0.1] - 2021-11-09
 
 ### Fixed
