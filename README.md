@@ -39,7 +39,8 @@ View Dockerfiles:
   - 8.1 (available for alpha testing)
       - [`8.1-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
   - 7.4
-      - [`7.4-fpm`, `7.4-fpm-11`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm`, `7.4-fpm-12`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-11`](https://github.com/markshust/docker-magento/tree/41.0.1/images/php/7.4)
       - [`7.4-fpm-10`](https://github.com/markshust/docker-magento/tree/40.0.2/images/php/7.4)
       - [`7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.4)
       - [`7.4-fpm-8`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.4)
@@ -52,7 +53,8 @@ View Dockerfiles:
       - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
       - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
   - 7.3
-      - [`7.3-fpm`, `7.3-fpm-18`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm`, `7.3-fpm-19`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-18`](https://github.com/markshust/docker-magento/tree/41.0.1/images/php/7.3)
       - [`7.3-fpm-17`](https://github.com/markshust/docker-magento/tree/40.0.2/images/php/7.3)
       - [`7.3-fpm-16`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.3)
       - [`7.3-fpm-15`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.3)
@@ -446,24 +448,36 @@ Running Docker on Linux should be pretty straight-forward. Note that you need to
 
 Copy `docker-compose.dev-linux.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup.
 
-The `host.docker.internal` hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8), but this hostname does not exist on Linux. To make this hostname resolve, within the `extra_hosts` param of `docker-compose.dev.yml` replace `172.17.0.1` with the result of:
+#### The host.docker.internal hostname
+
+The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
+
+This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8). To make this hostname resolve, within the `extra_hosts` param of `docker-compose.dev.yml` replace `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'
 ```
 
-You may also have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
+You must also create a new entry in your `/etc/hosts` file using the same IP:
+
+```
+172.17.0.1 host.docker.internal
+```
+
+#### Extra settings
+
+To enable Xdebug on Linux, you may also need to open port 9003 on the firewall by running:
+
+```
+sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
+```
+
+You may also have to increase a virtual memory map count on the host system which is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 
 Add the following line to the `/etc/sysctl.conf` file on your host:
 
 ```
 vm.max_map_count=262144
-```
-
-To enable Xdebug on Linux, you'll also need to open port 9003 on the firewall by running:
-
-```
-sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
 ```
 
 ### Blackfire.io
