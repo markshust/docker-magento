@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:7.3-fpm
-            markoshust/magento-php:7.3-fpm-18
+            markoshust/magento-php:7.3-fpm-19
   php-7-4:
     runs-on: ubuntu-latest
     steps:
@@ -60,8 +60,8 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:7.4-fpm
-            markoshust/magento-php:7.4-fpm-11
-  php-8-0:
+            markoshust/magento-php:7.4-fpm-12
+  php-8-1:
     runs-on: ubuntu-latest
     steps:
       -
@@ -84,8 +84,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: images/php/8.0
+          context: images/php/8.1
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            markoshust/magento-php:8.0-fpm-develop
+            markoshust/magento-php:8.1-fpm-develop

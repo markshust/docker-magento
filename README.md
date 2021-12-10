@@ -36,10 +36,11 @@ View Dockerfiles:
       - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
       - [`1.18-0`](https://github.com/markshust/docker-magento/tree/31.0.0/images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - 8.0 (available for alpha testing)
-      - [`8.0-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.0)
+  - 8.1 (available for alpha testing)
+      - [`8.1-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
   - 7.4
-      - [`7.4-fpm`, `7.4-fpm-11`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm`, `7.4-fpm-12`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-11`](https://github.com/markshust/docker-magento/tree/41.0.1/images/php/7.4)
       - [`7.4-fpm-10`](https://github.com/markshust/docker-magento/tree/40.0.2/images/php/7.4)
       - [`7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.4)
       - [`7.4-fpm-8`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.4)
@@ -52,7 +53,8 @@ View Dockerfiles:
       - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
       - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
   - 7.3
-      - [`7.3-fpm`, `7.3-fpm-18`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm`, `7.3-fpm-19`](https://github.com/markshust/docker-magento/tree/master/images/php/7.3)
+      - [`7.3-fpm-18`](https://github.com/markshust/docker-magento/tree/41.0.1/images/php/7.3)
       - [`7.3-fpm-17`](https://github.com/markshust/docker-magento/tree/40.0.2/images/php/7.3)
       - [`7.3-fpm-16`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.3)
       - [`7.3-fpm-15`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.3)
@@ -86,50 +88,60 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 
 <a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
 
-A free screencast course is available, which details the basic usage of this project: <a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
+A free screencast course is available (which was fully refreshed in December 2021), which details the basic usage of this project:
+
+<a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
+<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/set-up-magento-2-development-environment-docker-og.png" alt="Set Up a Magento 2 Development Environment with Docker" width="400"><br/>
 Set Up a Magento 2 Development Environment with Docker
 </a>
 
 ### Course Curriculm
 
-#### Project Setup
+#### Intro
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9205849" target="_blank">Setup Docker for Mac & configure preferences</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9273365" target="_blank">Setup global Composer auth credentials</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/8974570" target="_blank">Automated setup for new installs</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36738848" target="_blank">Quick hi & welcome from Mark!</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36738860" target="_blank">About the course format</a>
 
-#### Helper Scripts
+#### Initial Project Setup
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064258" target="_blank">Run CLI commands within containers</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9331008" target="_blank">Stop, start & restart containers</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064269" target="_blank">Run binaries within containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9205849" target="_blank">Install Docker Desktop & configure preferences</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/8974570" target="_blank">Set up Magento with the automated onelinesetup script</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064259" target="_blank">Set up Magento manually from a custom Git branch</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9283467" target="_blank">Set up Docker for an existing Magento project</a>
 
-#### Docker Filesystem & Volumes
+#### The Basics of docker-magento
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064334" target="_blank">Understand volumes & host bind mounts</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064338" target="_blank">Manage files & folders on containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064258" target="_blank">Execute docker-magento helper scripts</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9331008" target="_blank">Start, stop, restart and check container status</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064269" target="_blank">Execute bin/magento and composer within Docker containers</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36150902" target="_blank">Install Magento sample data</a>
 
-#### Customize Server Configuration
+#### Docker Filesystem & Data Volumes
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064349" target="_blank">Customize the Nginx configuration</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064356" target="_blank">Quickly switch PHP versions</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064350" target="_blank">Install extensions & packages</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064477" target="_blank">Run additional services as containers</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064334" target="_blank">Understand Docker volumes & host bind mounts</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064338" target="_blank">Manage files & folders within Docker containers</a>
 
-#### PHPStorm & Xdebug
+#### PhpStorm
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9748834" target="_blank">Setup PHPStorm for a Magento Docker project</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9763893" target="_blank">Generate XML URNs for a Magento Docker project</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install Xdebug browser plugin</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064482" target="_blank">Enable, disable, & check Xdebug</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PHPStorm for Xdebug</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger Xdebug breakpoints with PHPStorm</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9748834" target="_blank">Set up a docker-magento project in PhpStorm</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9763893" target="_blank">Set up the Magento PhpStorm plugin</a>
 
-#### Manual Setup (Optional)
+#### Xdebug
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064259" target="_blank">Manual setup for new Magento installs</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9283467" target="_blank">Manual setup for an existing Magento instance</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install the Xdebug helper browser plugin for Chrome & PhpStorm</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064482" target="_blank">Enable disable check the status of Xdebug</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PhpStorm for Xdebug connections</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger an Xdebug breakpoint in PhpStorm</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36677538" target="_blank">Trigger an Xdebug breakpoint for CLI commands in PhpStorm</a>
+
+#### Customize Server Configurations
+
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36702830" target="_blank">Understand the docker-compose application structure</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36702861" target="_blank">Increase the PHP memory limit in php.ini</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064349" target="_blank">Increase the Nginx request timeout in nginx.conf</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36703258" target="_blank">Increase the MySQL buffer pool size with command or in my.cnf</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064350" target="_blank">Install a new PHP extension by building a custom Docker image</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances in Docker with Nginx</a>
 
 ## Usage
 
@@ -266,7 +278,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/copyfromcontainer`: Copy folders or files from container to host. Ex. `bin/copyfromcontainer vendor`
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
-- `bin/dev-urn-catalog-generate`: Generate URN's for PHPStorm and remap paths to local host. Restart PHPStorm after running this command.
+- `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3-p1 community`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
@@ -377,38 +389,46 @@ Install and enable the PHP Debug extension from the [Visual Studio Marketplace](
 
 Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
-### Xdebug & PHPStorm
+### Xdebug & PhpStorm
 
-1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PHPStorm from the list and click Save.
+1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PhpStorm from the list to set the IDE Key to "PHPSTORM", then click Save.
 
-2.  Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
+2.  Next, enable Xdebug debugging in the PHP container by running: `bin/xdebug enable`.
 
-3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
+3.  Then, open `PhpStorm > Preferences > PHP` and configure:
 
     * `CLI Interpreter`
-        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
-        * Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
+        * Create a new interpreter from the `From Docker, Vagrant, VM...` list.
+        * Select the Docker Compose option.
+        * For Server, select `Docker`. If you don't have Docker set up as a server, create one and name it `Docker`.
+        * For Configuration files, add both the `docker-compose.yml` and `docker-compose.dev.yml` files from your project directory.
+        * For Service, select `phpfpm`, then click OK.
+        * Name this CLI Interpreter `phpfpm`, then click OK again.
 
     * `Path mappings`
-        * Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
+        * There is no need to define a path mapping in this area.
 
-    * `Docker container`
-        * Remove any pre-existing volume bindings.
-        * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
+4. Open `PhpStorm > Preferences > PHP > Debug` and ensure Debug Port is set to `9000,9003`.
 
-4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001,9003`.
+5. Open `PhpStorm > Preferences > PHP > Servers` and create a new server:
 
-5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
+    * For the Name, set this to the value of your domain name (ex. `magento.test`).
+    * For the Host, set this to the value of your domain name (ex. `magento.test`).
+    * Keep port set to `80`.
+    * Check the "Use path mappings" box and map `src` to the absolute path of `/var/www/html`.
 
-6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
+6. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration.
 
-    * Set Name and Host to your domain name (ex. `magento.test`)
-    * Keep port set to `80`
-    * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+    * Set the Name to the name of your domain (ex. `magento.test`).
+    * Check the `Filter debug connection by IDE key` checkbox, select the Server you just setup.
+    * For IDE key, enter `PHPSTORM`. This value should match the IDE Key value set by the Chrome Xdebug Helper.
+    * Click OK to finish setting up the remote debugger in PHPStorm.
 
-7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+7. Open up `pub/index.php` and set a breakpoint near the end of the file.
 
-8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+    * Start the debugger with `Run > Debug 'magento.test'`, then open up a web browser.
+    * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
+    * Navigate to your Magento store URL, and Xdebug should now trigger the debugger within PhpStorm at the toggled breakpoint.
 
 ### SSH
 
@@ -428,24 +448,36 @@ Running Docker on Linux should be pretty straight-forward. Note that you need to
 
 Copy `docker-compose.dev-linux.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup.
 
-The `host.docker.internal` hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8), but this hostname does not exist on Linux. To make this hostname resolve, within the `extra_hosts` param of `docker-compose.dev.yml` replace `172.17.0.1` with the result of:
+#### The host.docker.internal hostname
+
+The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
+
+This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8). To make this hostname resolve, within the `extra_hosts` param of `docker-compose.dev.yml` replace `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'
 ```
 
-You may also have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
+You must also create a new entry in your `/etc/hosts` file using the same IP:
+
+```
+172.17.0.1 host.docker.internal
+```
+
+#### Extra settings
+
+To enable Xdebug on Linux, you may also need to open port 9003 on the firewall by running:
+
+```
+sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
+```
+
+You may also have to increase a virtual memory map count on the host system which is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 
 Add the following line to the `/etc/sysctl.conf` file on your host:
 
 ```
 vm.max_map_count=262144
-```
-
-To enable Xdebug on Linux, you'll also need to open port 9001 on the firewall by running:
-
-```
-sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
 ```
 
 ### Blackfire.io

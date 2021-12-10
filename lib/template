@@ -11,4 +11,3 @@ git init
 
 # Ensure these are created so Docker doesn't create them as root
 mkdir -p ~/.composer ~/.ssh
-touch ~/.ssh/id_rsa ~/.ssh/known_hosts

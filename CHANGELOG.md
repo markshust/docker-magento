@@ -6,12 +6,47 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- PHP image `8.0-fpm-develop` now available for testing purposes.
+- PHP image `8.1-fpm-develop` now available for testing purposes.
 
-## [40.1.0] - 2021-10-29
+## [41.0.2] - 2021-12-09
+
+### Fixed
+- Disable "Composer is slower because of Xdebug" message [1990d84](https://github.com/markshust/docker-magento/commit/1990d84).
+- Updated verbiage in setup on how to start cron [c3ba47d](https://github.com/markshust/docker-magento/commit/1990d84).
+- Fixed "The input device is not a TTY" error during setup [8aada97](https://github.com/markshust/docker-magento/commit/8aada97).
+- Expose port 9003 on PHP Docker image for Xdebug [263e40d](https://github.com/markshust/docker-magento/commit/263e40d).
+- Disable Xdebug by default for PHP 7.3 [263e40d](https://github.com/markshust/docker-magento/commit/263e40d).
+
+### Updated
+- Updated PHP 8.1 image to use official GA version [263e40d](https://github.com/markshust/docker-magento/commit/263e40d).
+
+## [41.0.1] - 2021-11-09
+
+### Fixed
+- Fixed additional issue of waiting for Elasticsearch/RabbitMQ connection on Mac [#442](https://github.com/markshust/docker-magento/issues/442).
+
+## [41.0.0] - 2021-11-08
+
+There has been an ongoing issue with Docker for Mac + M1 chips (Apple Silicon) which causes a 5-second delay in network requests (see [#5626](https://github.com/docker/for-mac/issues/5626)). A fix has been implemented in this release that works around this issue, adding `extra_hosts` directives in the `docker-compose.yml` file. This update should be backwards-compatible, but will break existing setups that use custom Docker networks (this is an uncommon scenario). See notes at the top of `docker-compose.yml` for how to configure this project for custom Docker networks.
 
 ### Added
 - Added Imagick PHP extension [#530](https://github.com/markshust/docker-magento/issues/530).
+
+### Fixed
+- Fixed issue with onelinesetup script failing on download [92b803c](https://github.com/markshust/docker-magento/commit/92b803c) [67c76b4](https://github.com/markshust/docker-magento/commit/67c76b4).
+- Fix Shellcheck failures for bin/setup-ssl-ca [#558](https://github.com/markshust/docker-magento/issues/558).
+- Fix wrong `sendmail_path` in php.ini [#556](https://github.com/markshust/docker-magento/issues/556).
+- Ensure .composer directory isn't created by root [#562](https://github.com/markshust/docker-magento/issues/562).
+- Fixed `bin/devconsole` command not working [646f617](https://github.com/markshust/docker-magento/commit/646f617).
+- Fixed `bin/setup-composer-auth` does not persist auth creds [#567](https://github.com/markshust/docker-magento/issues/567).
+- Fixed documentation around Xdebug port on Linux [90af7fa](https://github.com/markshust/docker-magento/commit/90af7fa).
+- Fixed waiting for Elasticsearch/RabbitMQ connection on Mac [#442](https://github.com/markshust/docker-magento/issues/442).
+
+### Updated
+- Updated info about MySQL backups and existing projects in README [86faa70](https://github.com/markshust/docker-magento/commit/86faa70).
+- Updated README for Xdebug + PhpStorm [b1fe812](https://github.com/markshust/docker-magento/commit/b1fe812).
+
+## [40.1.0] - 2021-10-29
 
 ### Fixed
 - Fixed issues with onelinesetup script [#564](https://github.com/markshust/docker-magento/issues/564).
