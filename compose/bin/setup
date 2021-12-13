@@ -28,7 +28,7 @@ bin/clinotty timeout 100 bash -c "
 
 echo ""
 echo "Waiting for connection to RabbitMQ..."
-rabbitmqi=4
+rabbitmqi=10
 until [ $rabbitmqi -le 0 ]; do
     printf '.'
     (( rabbitmqi-- ))
