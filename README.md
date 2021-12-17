@@ -452,7 +452,7 @@ Copy `docker-compose.dev-linux.yml` to `docker-compose.dev.yml` before installin
 
 The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
 
-This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8). To make this hostname resolve, within the `extra_hosts` param of `docker-compose.dev.yml` replace `172.17.0.1` with the result of:
+This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `docker-compose.yml`, replacing `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'
