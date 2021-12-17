@@ -90,5 +90,3 @@ USER app:app
 VOLUME /var/www
 
 WORKDIR /var/www/html
-
-EXPOSE 9003
