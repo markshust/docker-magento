@@ -63,14 +63,7 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-    environment:
-      - "discovery.type=single-node"
-      ## Set custom heap size to avoid memory errors
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      ## Avoid test failures due to small disks
-      ## More info at https://github.com/markshust/docker-magento/issues/488
-      - "cluster.routing.allocation.disk.threshold_enabled=false"
-      - "index.blocks.read_only_allow_delete"
+    env_file: env/elasticsearch.env
     extra_hosts: *appextrahosts
 
   rabbitmq:
@@ -80,8 +73,7 @@ services:
       - "5672:5672"
     volumes:
       - rabbitmqdata:/var/lib/rabbitmq
-    environment:
-      - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
+    env_file: env/rabbitmq.env
     extra_hosts: *appextrahosts
 
   mailcatcher:
