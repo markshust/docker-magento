@@ -287,7 +287,8 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/status`: Check the container status.
-- `bin/stop`: Stop all containers.
+- `bin/stop`: Stop all project containers.
+- `bin/stopall`: Stop all docker running containers
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
 - `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
 
