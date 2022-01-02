@@ -89,9 +89,6 @@ bin/setup-domain "${DOMAIN}"
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
-echo "Ensuring Composer auth.json is setup..."
-bin/setup-composer-auth
-
 echo "Installing cron, run 'bin/cron start' to enable..."
 bin/clinotty bin/magento cron:install
 
