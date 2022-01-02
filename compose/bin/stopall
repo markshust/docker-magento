@@ -1,8 +1,9 @@
 #!/bin/bash
-if [ -z "$(docker ps -q)" ]
-then
+if [ -z "$(docker ps -q)" ]; then
     echo "You have no running container"
 else
-    echo "Stopping all running containers"
-    docker stop $(docker ps -q)
+    echo "Stopping all running containers..."
+    docker ps -q | while IFS='' read -r container; do
+        docker stop "$container"
+    done
 fi
