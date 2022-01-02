@@ -6,7 +6,7 @@ hash composer 2>/dev/null && IS_COMPOSER_ON_HOST=true
 PUBLIC_KEY="$(bin/clinotty composer config --global $MAGENTO_USERNAME_PROP 2>/dev/null)"
 PRIVATE_KEY="$(bin/clinotty composer config --global $MAGENTO_PASSWORD_PROP 2>/dev/null)"
 
-if [ ! -z "$PUBLIC_KEY" ] && [ ! -z "$PRIVATE_KEY" ]; then
+if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
     echo "Composer auth has already been setup."
     exit 0
 fi
