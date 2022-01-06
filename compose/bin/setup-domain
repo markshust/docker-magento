@@ -9,8 +9,8 @@ echo "Your system password has been requested to add an entry to /etc/hosts..."
 echo "127.0.0.1 ::1 $DOMAIN" | sudo tee -a /etc/hosts
 
 echo "Set https://${DOMAIN}/ to web/secure/base_url and web/secure/base_url"
-bin/clinotty bin/magento config:set web/secure/base_url https://"$DOMAIN"/
-bin/clinotty bin/magento config:set web/unsecure/base_url https://"$DOMAIN"/
+bin/clinotty bin/magento config:set --lock-env web/secure/base_url https://"$DOMAIN"/
+bin/clinotty bin/magento config:set --lock-env web/unsecure/base_url https://"$DOMAIN"/
 
 echo "Generating SSL certificate..."
 bin/setup-ssl "$DOMAIN"
