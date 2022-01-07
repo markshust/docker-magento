@@ -7,7 +7,7 @@ PUBLIC_KEY="$(bin/clinotty composer config --global $MAGENTO_USERNAME_PROP 2>/de
 PRIVATE_KEY="$(bin/clinotty composer config --global $MAGENTO_PASSWORD_PROP 2>/dev/null)"
 
 if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
-    echo "Composer auth has already been setup."
+    echo "Composer auth has already been set up."
     exit 0
 fi
 
@@ -36,4 +36,4 @@ echo "composer config --global http-basic.repo.magento.com ${PUBLIC_KEY} ${PRIVA
 # Also make sure alternate auth.json is setup (Magento uses this internally)
 bin/clinotty [ -d "./var/composer_home" ] && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
 
-echo "Composer auth has been setup."
+echo "Composer auth has been set up."
