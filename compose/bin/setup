@@ -92,7 +92,7 @@ bin/clinotty bin/magento cache:flush
 echo "Installing cron, run 'bin/cron start' to enable..."
 bin/clinotty bin/magento cron:install
 
-echo "Turning on developer mode.."
+echo "Turning on developer mode..."
 bin/clinotty bin/magento deploy:mode:set developer
 
 mv .vscode src/

@@ -23,7 +23,7 @@ help:
 	@echo "$(call format,cache-clean,'Access the cache-clean CLI.')"
 	@echo "$(call format,cli,'Run any CLI command without going into the bash prompt.')"
 	@echo "$(call format,clinotty,'Run any CLI command with no TTY.')"
-	@echo "$(call format,cliq,'Run any CLI command but pipes all output to /dev/null.')"
+	@echo "$(call format,cliq,'Run any CLI command but pipe all output to /dev/null.')"
 	@echo "$(call format,composer,'Run the composer binary.')"
 	@echo "$(call format,copyfromcontainer,'Copy folders or files from container to host.')"
 	@echo "$(call format,copytocontainer,'Copy folders or files from host to container.')"
@@ -45,7 +45,7 @@ help:
 	@echo "$(call format,pwa-studio,'(BETA) Start the PWA Studio server.')"
 	@echo "$(call format,redis,'Run a command from the redis container.')"
 	@echo "$(call format,remove,'Remove all containers.')"
-	@echo "$(call format,removeall,'Remove all containers$(comma) networks$(comma) volumes$(comma) and images.')"
+	@echo "$(call format,removeall,'Remove all containers$(comma) networks$(comma) volumes and images.')"
 	@echo "$(call format,removevolumes,'Remove all volumes.')"
 	@echo "$(call format,restart,'Stop and then start all containers.')"
 	@echo "$(call format,root,'Run any CLI command as root without going into the bash prompt.')"
@@ -60,7 +60,7 @@ help:
 	@echo "$(call format,start,'Start all containers.')"
 	@echo "$(call format,status,'Check the container status.')"
 	@echo "$(call format,stop,'Stop all containers.')"
-	@echo "$(call format,update,'Stop all containers.')"
+	@echo "$(call format,update,'Update your project to the latest version of docker-magento.')"
 	@echo "$(call format,xdebug,'Disable or enable Xdebug.')"
 
 bash:
