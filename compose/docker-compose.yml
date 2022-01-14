@@ -13,56 +13,46 @@
 version: "3"
 
 services:
-  app:
-    image: markoshust/magento-nginx:1.18-5
+  magento:
+    container_name: 'magento'
+    image: markoshust/magento-nginx:1.18
     ports:
       - "80:8000"
       - "443:8443"
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:cached
-      - ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
-      - ~/.ssh/known_hosts:/var/www/.ssh/known_hosts:cached
       - appdata:/var/www/html
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
-    extra_hosts: &appextrahosts
-      ## M1 Mac support to fix Docker delay, see #566
-      - "app:172.17.0.1"
-      - "phpfpm:172.17.0.1"
-      - "db:172.17.0.1"
-      - "redis:172.17.0.1"
-      - "elasticsearch:172.17.0.1"
-      - "rabbitmq:172.17.0.1"
-      ## Selenium support, replace "magento.test" with URL of your site
-      - "magento.test:172.17.0.1"
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-12
+    container_name: 'phpfpm'
+    image: markoshust/magento-php:7.3-fpm
     volumes: *appvolumes
-    extra_hosts: *appextrahosts
     env_file: env/phpfpm.env
 
   db:
+    container_name: 'sqlserver'
     image: mariadb:10.4
     command: --max_allowed_packet=64M
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     env_file: env/db.env
     volumes:
       - dbdata:/var/lib/mysql
-    extra_hosts: *appextrahosts
 
   redis:
-    image: redis:6.0-alpine
+    container_name: 'rediscache'
+    image: redis:5.0-alpine
     ports:
-      - "6379:6379"
-    extra_hosts: *appextrahosts
+      - "127.0.0.1:6379:6379"
 
   elasticsearch:
+    container_name: 'elasticsearch'
     image: markoshust/magento-elasticsearch:7.9.3-1
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
     environment:
       - "discovery.type=single-node"
       ## Set custom heap size to avoid memory errors
@@ -71,34 +61,9 @@ services:
       ## More info at https://github.com/markshust/docker-magento/issues/488
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
-    extra_hosts: *appextrahosts
-
-  rabbitmq:
-    image: rabbitmq:3.8.22-management-alpine
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    volumes:
-      - rabbitmqdata:/var/lib/rabbitmq
-    env_file: env/rabbitmq.env
-    extra_hosts: *appextrahosts
-
-  mailcatcher:
-    image: sj26/mailcatcher
-    ports:
-      - "1080:1080"
-    extra_hosts: *appextrahosts
-
-  ## Selenium support, uncomment to enable
-  #selenium:
-  #  image: selenium/standalone-chrome-debug:3.8.1
-  #  ports:
-  #    - "5900:5900"
-  #  extra_hosts: *appextrahosts
 
 volumes:
   appdata:
   dbdata:
-  rabbitmqdata:
   sockdata:
   ssldata:

@@ -48,13 +48,10 @@ done
 # Wait to exit until all missing files have been outputted to the user
 [ $IS_VALID = false ] && echo "Failed to start docker for missing volume files" && exit
 
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans "$@"
+docker-compose up -d --remove-orphans "$@"
 
-## Blackfire support
-## ------------------
-## First register the blackfire agent with:
-#bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
-## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
-#bin/root /etc/init.d/blackfire-agent start
+bin/cron start
 
-bin/cache-clean --watch
+#bin/cache-clean --watch
+bin/magento cache:clean
+
