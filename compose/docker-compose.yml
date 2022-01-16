@@ -21,7 +21,7 @@ services:
       - "443:8443"
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:cached
-      - appdata:/var/www/html
+      - /mnt/appdata:/var/www/html
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
 
@@ -63,7 +63,6 @@ services:
       - "index.blocks.read_only_allow_delete"
 
 volumes:
-  appdata:
   dbdata:
   sockdata:
   ssldata:
