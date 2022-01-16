@@ -16,24 +16,27 @@ services:
   magento:
     container_name: 'magento'
     image: markoshust/magento-nginx:1.18
+    restart: "unless-stopped"
     ports:
       - "80:8000"
       - "443:8443"
     volumes: &appvolumes
       - ~/.composer:/var/www/.composer:cached
       - /mnt/appdata:/var/www/html
+      - /mnt/ssldata:/etc/nginx/certs
       - sockdata:/sock
-      - ssldata:/etc/nginx/certs
 
   phpfpm:
     container_name: 'phpfpm'
     image: markoshust/magento-php:7.3-fpm
+    restart: "unless-stopped"
     volumes: *appvolumes
     env_file: env/phpfpm.env
 
   db:
     container_name: 'sqlserver'
     image: mariadb:10.4
+    restart: "unless-stopped"
     command: --max_allowed_packet=64M
     ports:
       - "127.0.0.1:3306:3306"
@@ -44,12 +47,14 @@ services:
   redis:
     container_name: 'rediscache'
     image: redis:5.0-alpine
+    restart: "unless-stopped"
     ports:
       - "127.0.0.1:6379:6379"
 
   elasticsearch:
     container_name: 'elasticsearch'
     image: markoshust/magento-elasticsearch:7.9.3-1
+    restart: "no"
     ports:
       - "127.0.0.1:9200:9200"
       - "127.0.0.1:9300:9300"
@@ -65,4 +70,3 @@ services:
 volumes:
   dbdata:
   sockdata:
-  ssldata:
