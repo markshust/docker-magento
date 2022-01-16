@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose stop "$@"
+docker-compose ${DOCKER_COMPOSE_FILES} stop "$@"

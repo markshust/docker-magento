@@ -4,7 +4,7 @@ VERSION=${1:-2.4.3-p1}
 EDITION=${2:-community}
 
 bin/stop
-docker-compose -f docker-compose.yml up -d
+docker-compose ${DOCKER_COMPOSE_FILES} up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/setup-composer-auth

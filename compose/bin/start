@@ -1,7 +1,7 @@
 #!/bin/bash
 set -o errexit
 
-docker-compose up -d --remove-orphans "$@"
+docker-compose ${DOCKER_COMPOSE_FILES} up -d --remove-orphans "$@"
 
 bin/cron start
 

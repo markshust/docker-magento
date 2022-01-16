@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml rm
+docker-compose ${DOCKER_COMPOSE_FILES} rm
