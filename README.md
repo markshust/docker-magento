@@ -371,7 +371,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 ### Xdebug & PhpStorm
 
-1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PhpStorm from the list to set the IDE Key to "PHPSTORM", then click Save.
+1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) or [Firefox Xdebug helper](https://addons.mozilla.org/en-GB/firefox/addon/xdebug-helper-for-firefox/). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PhpStorm from the list to set the IDE Key to "PHPSTORM", then click Save.
 
 2.  Next, enable Xdebug debugging in the PHP container by running: `bin/xdebug enable`.
 
@@ -401,13 +401,13 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
     * Set the Name to the name of your domain (ex. `magento.test`).
     * Check the `Filter debug connection by IDE key` checkbox, select the Server you just setup.
-    * For IDE key, enter `PHPSTORM`. This value should match the IDE Key value set by the Chrome Xdebug Helper.
-    * Click OK to finish setting up the remote debugger in PHPStorm.
+    * For IDE key, enter a unique name, such as `magento-markshust`.
+    * Click OK to finish setting up the remote debugger in PhpStorm.
 
 7. Open up `pub/index.php` and set a breakpoint near the end of the file.
 
     * Start the debugger with `Run > Debug 'magento.test'`, then open up a web browser.
-    * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
+    * Ensure the Chrome/Firefox Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
     * Navigate to your Magento store URL, and Xdebug should now trigger the debugger within PhpStorm at the toggled breakpoint.
 
 ### SSH
