@@ -29,7 +29,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.18
-      - [`1.18`, `1.18-5`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18`, `1.18-6`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18-5`](https://github.com/markshust/docker-magento/tree/41.0.2/images/nginx/1.18)
       - [`1.18-4`](https://github.com/markshust/docker-magento/tree/39.1.0/images/nginx/1.18)
       - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
       - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
