@@ -1,4 +1,4 @@
-FROM php:8.1.0-fpm-buster
+FROM php:8.1.3-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
