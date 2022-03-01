@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   libfreetype6-dev \
   libicu-dev \
   libjpeg62-turbo-dev \
+  libwebp-dev \
   libmcrypt-dev \
   libonig-dev \
   libpng-dev \
@@ -24,7 +25,7 @@ RUN apt-get update && apt-get install -y \
   zip \
   procps
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 
 RUN docker-php-ext-install \
   bcmath \
