@@ -21,7 +21,6 @@ services:
       - "80:8000"
       - "443:8443"
     volumes: &appvolumes
-      - ~/.composer:/var/www/.composer:cached
       - /mnt/appdata:/var/www/html
       - /mnt/ssldata:/etc/nginx/certs
       - sockdata:/sock
