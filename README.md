@@ -29,8 +29,9 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.18
-      - [`1.18`, `1.18-6`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
-      - [`1.18-5`](https://github.com/markshust/docker-magento/tree/41.0.2/images/nginx/1.18)
+      - [`1.18`, `1.18-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18-6`](https://github.com/markshust/docker-magento/tree/41.0.2/images/nginx/1.18)
+      - [`1.18-5`](https://github.com/markshust/docker-magento/tree/41.0.1/images/nginx/1.18)
       - [`1.18-4`](https://github.com/markshust/docker-magento/tree/39.1.0/images/nginx/1.18)
       - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
       - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
@@ -40,7 +41,8 @@ View Dockerfiles:
   - 8.1 (available for alpha testing)
       - [`8.1-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
   - 7.4
-      - [`7.4-fpm`, `7.4-fpm-12`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm`, `7.4-fpm-13`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
+      - [`7.4-fpm-12`](https://github.com/markshust/docker-magento/tree/41.0.2/images/php/7.4)
       - [`7.4-fpm-11`](https://github.com/markshust/docker-magento/tree/41.0.1/images/php/7.4)
       - [`7.4-fpm-10`](https://github.com/markshust/docker-magento/tree/40.0.2/images/php/7.4)
       - [`7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.4)
