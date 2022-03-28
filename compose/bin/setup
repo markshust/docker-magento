@@ -72,7 +72,8 @@ bin/clinotty bin/magento setup:install \
   --search-engine=elasticsearch7 \
   --elasticsearch-host=$ES_HOST \
   --elasticsearch-port=$ES_PORT \
-  --use-rewrites=1
+  --use-rewrites=1 \
+  --no-interaction
 
 echo "Copying files from container to host after install..."
 bin/copyfromcontainer --all

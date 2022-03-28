@@ -17,7 +17,8 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.18
-      - [`1.18`, `1.18-5`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18`, `1.18-6`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+      - [`1.18-5`](https://github.com/markshust/docker-magento/tree/41.0.2/images/nginx/1.18)
       - [`1.18-4`](https://github.com/markshust/docker-magento/tree/39.1.0/images/nginx/1.18)
       - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
       - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
@@ -72,7 +73,7 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ```bash
 # Create your project directory then go into it:
-mkdir ~/Sites/magento
+mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
@@ -100,7 +101,7 @@ Same result as the one-liner above. Just replace `magento.test` references with 
 
 ```bash
 # Create your project directory then go into it:
-mkdir ~/Sites/magento
+mkdir -p ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:
@@ -129,7 +130,7 @@ open https://magento.test
 bin/mysqldump > ~/Sites/existing/magento.sql
 
 # Create your project directory then go into it:
-mkdir ~/Sites/magento
+mkdir -p ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:

@@ -1,4 +1,4 @@
-FROM php:8.1.0-fpm-buster
+FROM php:8.1.3-fpm-buster
 MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   libbz2-dev \
   libfreetype6-dev \
   libicu-dev \
+  libwebp-dev \
   libjpeg62-turbo-dev \
   libmcrypt-dev \
   libonig-dev \
@@ -24,7 +25,7 @@ RUN apt-get update && apt-get install -y \
   vim \
   zip
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 
 RUN docker-php-ext-install \
   bcmath \
