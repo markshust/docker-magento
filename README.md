@@ -262,7 +262,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/download`: Download specific Magento version from Composer to `/var/www/html` directory within the container. Ex. `bin/download 2.4.3-p1 community`
+- `bin/download`: Download specific Magento version from Composer to the container, with an optional type of either "community" (default) or "enterprise". Ex. `bin/download 2.4.3-p1 enterprise`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
