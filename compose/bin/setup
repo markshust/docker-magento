@@ -22,7 +22,7 @@ bin/clinotty chmod u+x bin/magento
 rm -rf src && mkdir src
 
 echo "Waiting for connection to Elasticsearch..."
-bin/clinotty timeout 100 bash -c "
+bin/clinotty timeout $ES_HEALTHCHECK_TIMEOUT bash -c "
     until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
         printf '.'
         sleep 2
@@ -31,12 +31,12 @@ bin/clinotty timeout 100 bash -c "
 
 echo ""
 echo "Waiting for connection to RabbitMQ..."
-rabbitmqi=10
-until [ $rabbitmqi -le 0 ]; do
-    printf '.'
-    (( rabbitmqi-- ))
-    sleep 2
-done
+bin/clinotty timeout $RABBITMQ_HEALTHCHECK_TIMEOUT bash -c "
+    until curl --silent --output /dev/null http://$RABBITMQ_DEFAULT_USER:$RABBITMQ_DEFAULT_PASS@$RABBITMQ_HOST:$RABBITMQ_MANAGEMENT_PORT/api/aliveness-test/%2F; do
+        printf '.'
+        sleep 2
+    done"
+[ $? != 0 ] && echo "Failed to connect to RabbitMQ" && exit
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
