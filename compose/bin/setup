@@ -1,6 +1,10 @@
 #!/bin/bash
 set -o errexit
 
+MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
+# Docker reports RAM 0.2 less than what it is actually set to
+(( $(echo "$MEM < 5.8" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
+
 # shellcheck source=../env/db.env
 source env/db.env
 # shellcheck source=../env/elasticsearch.env
@@ -9,7 +13,6 @@ source env/elasticsearch.env
 source env/magento.env
 # shellcheck source=../env/rabbitmq.env
 source env/rabbitmq.env
-
 
 DOMAIN=${1:-magento.test}
 
