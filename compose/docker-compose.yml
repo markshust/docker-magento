@@ -37,7 +37,7 @@ services:
       - "magento.test:172.17.0.1"
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-13
+    image: markoshust/magento-php:8.1-fpm-0
     volumes: *appvolumes
     extra_hosts: *appextrahosts
     env_file: env/phpfpm.env
@@ -88,6 +88,12 @@ services:
     ports:
       - "1080:1080"
     extra_hosts: *appextrahosts
+
+  blackfire:
+    image: blackfire/blackfire:2
+    ports:
+      - "8307"
+    env_file: env/blackfire.env
 
   ## Selenium support, uncomment to enable
   #selenium:
