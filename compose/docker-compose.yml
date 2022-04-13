@@ -37,7 +37,7 @@ services:
       - "magento.test:172.17.0.1"
 
   phpfpm:
-    image: markoshust/magento-php:8.1-fpm-0
+    image: markoshust/magento-php:8.1-fpm-develop
     volumes: *appvolumes
     extra_hosts: *appextrahosts
     env_file: env/phpfpm.env
