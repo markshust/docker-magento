@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev \
     libfreetype6-dev \
     libicu-dev \
-    libwebp-dev \
     libjpeg62-turbo-dev \
     libmagickwand-dev \
     libmcrypt-dev \
@@ -25,6 +24,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libsodium-dev \
     libssh2-1-dev \
+    libwebp-dev \
     libxslt1-dev \
     libzip-dev \
     lsof \
