@@ -31,7 +31,7 @@ services:
       - "phpfpm:172.17.0.1"
       - "db:172.17.0.1"
       - "redis:172.17.0.1"
-      - "elasticsearch:172.17.0.1"
+      - "opensearch:172.17.0.1"
       - "rabbitmq:172.17.0.1"
       ## Selenium support, replace "magento.test" with URL of your site
       - "magento.test:172.17.0.1"
@@ -58,8 +58,8 @@ services:
       - "6379:6379"
     extra_hosts: *appextrahosts
 
-  elasticsearch:
-    image: markoshust/magento-elasticsearch:7.9.3-1
+  opensearch:
+    image: markoshust/magento-opensearch:1.2.4-0
     ports:
       - "9200:9200"
       - "9300:9300"
