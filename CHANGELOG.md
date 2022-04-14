@@ -4,9 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [42.0.0] - 2022-04-14
 
-- PHP image `8.1-fpm-develop` now available for testing purposes.
+This release brings streamlined PHP Docker images (saving 300MB on previous images), a brand new PHP 8.1 image with full support for Magento 2.4.4, a proper Elasticsearch health check during setup, and ability to detect memory assigned to Docker on startup (which will prevent failed installations). Elasticsearch, Redis & RabbitMQ Docker images have also all been updated to their recently supported Magento versions.
+
+### Added
+- New Docker image for PHP 8.1 [903f9867](https://github.com/markshust/docker-magento/commit/903f9867aa130100267290feaa03b1b48b157337).
+- New Docker image for Elasticsearch 7.16 [f70a1565](https://github.com/markshust/docker-magento/commit/f70a1565bddd56a3abe8df52d4122dbcdc85d98a).
+- New Docker image for RabbitMQ 3.9 [7711365c](https://github.com/markshust/docker-magento/commit/7711365cb73aab685859e3e34fc23774937a4e2a).
+- Elasticsearch health check timeout when installing Magento [#675](https://github.com/markshust/docker-magento/pull/675).
+- Ability to detect if memory usage is too low [#527](https://github.com/markshust/docker-magento/issues/527).
+
+### Updated
+- PHP 7.4 Docker image for parity with PHP 8.1 image [481097b3](https://github.com/markshust/docker-magento/commit/481097b3f9184d19deb102b901b43af906ebb256).
 
 ## [41.1.0] - 2022-03-28
 
