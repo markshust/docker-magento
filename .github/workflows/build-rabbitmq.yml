@@ -1,4 +1,4 @@
-name: build-nginx
+name: build-rabbitmq
 
 on: workflow_dispatch
 
