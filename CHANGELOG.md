@@ -18,6 +18,9 @@ This release brings streamlined PHP Docker images (saving 300MB on previous imag
 ### Updated
 - PHP 7.4 Docker image for parity with PHP 8.1 image [481097b3](https://github.com/markshust/docker-magento/commit/481097b3f9184d19deb102b901b43af906ebb256).
 
+### Removed
+- ionCube support from PHP 7 image in order to retain Docker image parity between versions, to slim down image size, and because I no longer want to support encrypted or obfuscated code in my open source projects. Feel free to pull, fork or modify if you still need ionCube in your projects.
+
 ## [41.1.0] - 2022-03-28
 
 ### Fixed
