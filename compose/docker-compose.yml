@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 41.1.0
+## Version 42.0.0
 
 ## To use SSH, see https://github.com/markshust/docker-magento#ssh
 ## Linux users, see https://github.com/markshust/docker-magento#linux
@@ -37,7 +37,7 @@ services:
       - "magento.test:172.17.0.1"
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-13
+    image: markoshust/magento-php:8.1-fpm-0
     volumes: *appvolumes
     extra_hosts: *appextrahosts
     env_file: env/phpfpm.env
@@ -53,13 +53,13 @@ services:
     extra_hosts: *appextrahosts
 
   redis:
-    image: redis:6.0-alpine
+    image: redis:6.2-alpine
     ports:
       - "6379:6379"
     extra_hosts: *appextrahosts
 
   elasticsearch:
-    image: markoshust/magento-elasticsearch:7.9.3-1
+    image: markoshust/magento-elasticsearch:7.16-0
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -74,7 +74,7 @@ services:
     extra_hosts: *appextrahosts
 
   rabbitmq:
-    image: rabbitmq:3.8.22-management-alpine
+    image: markoshust/magento-rabbitmq:3.9-0
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -89,11 +89,12 @@ services:
       - "1080:1080"
     extra_hosts: *appextrahosts
 
-  blackfire:
-    image: blackfire/blackfire:2
-    ports:
-      - "8307"
-    env_file: env/blackfire.env
+  ## Blackfire support, uncomment to enable
+  #blackfire:
+  #  image: blackfire/blackfire:2
+  #  ports:
+  #    - "8307"
+  #  env_file: env/blackfire.env
 
   ## Selenium support, uncomment to enable
   #selenium:

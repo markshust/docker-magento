@@ -25,44 +25,19 @@
 
 ## Docker Hub
 
-View Dockerfiles:
+View Dockerfiles for the latest tags:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
-  - 1.18
-      - [`1.18`, `1.18-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
-      - [`1.18-6`](https://github.com/markshust/docker-magento/tree/41.0.2/images/nginx/1.18)
-      - [`1.18-5`](https://github.com/markshust/docker-magento/tree/41.0.1/images/nginx/1.18)
-      - [`1.18-4`](https://github.com/markshust/docker-magento/tree/39.1.0/images/nginx/1.18)
-      - [`1.18-3`](https://github.com/markshust/docker-magento/tree/34.0.0/images/nginx/1.18)
-      - [`1.18-2`](https://github.com/markshust/docker-magento/tree/33.0.0/images/nginx/1.18)
-      - [`1.18-1`](https://github.com/markshust/docker-magento/tree/31.0.1/images/nginx/1.18)
-      - [`1.18-0`](https://github.com/markshust/docker-magento/tree/31.0.0/images/nginx/1.18)
+  - [`1.18`, `1.18-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - 8.1 (available for alpha testing)
-      - [`8.1-fpm-develop`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
-  - 7.4
-      - [`7.4-fpm`, `7.4-fpm-13`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
-      - [`7.4-fpm-12`](https://github.com/markshust/docker-magento/tree/41.0.2/images/php/7.4)
-      - [`7.4-fpm-11`](https://github.com/markshust/docker-magento/tree/41.0.1/images/php/7.4)
-      - [`7.4-fpm-10`](https://github.com/markshust/docker-magento/tree/40.0.2/images/php/7.4)
-      - [`7.4-fpm-9`](https://github.com/markshust/docker-magento/tree/39.1.0/images/php/7.4)
-      - [`7.4-fpm-8`](https://github.com/markshust/docker-magento/tree/39.0.2/images/php/7.4)
-      - [`7.4-fpm-7`](https://github.com/markshust/docker-magento/tree/39.0.0/images/php/7.4)
-      - [`7.4-fpm-6`](https://github.com/markshust/docker-magento/tree/38.0.0/images/php/7.4)
-      - [`7.4-fpm-5`](https://github.com/markshust/docker-magento/tree/37.0.2/images/php/7.4)
-      - [`7.4-fpm-4`](https://github.com/markshust/docker-magento/tree/36.0.2/images/php/7.4)
-      - [`7.4-fpm-3`](https://github.com/markshust/docker-magento/tree/36.0.1/images/php/7.4)
-      - [`7.4-fpm-2`](https://github.com/markshust/docker-magento/tree/34.2.0/images/php/7.4)
-      - [`7.4-fpm-1`](https://github.com/markshust/docker-magento/tree/34.1.0/images/php/7.4)
-      - [`7.4-fpm-0`](https://github.com/markshust/docker-magento/tree/33.0.0/images/php/7.4)
+  - [`8.1-fpm`, `8.1-fpm-0`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
+  - [`7.4-fpm`, `7.4-fpm-14`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
-  - 7
-      - [`7.9`, `7.9.3-1`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.9)
-      - [`7.9.3-0`](https://github.com/markshust/docker-magento/tree/39.1.0/images/elasticsearch/7.9)
-      - [`7.7`, `7.7.1-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.7)
-      - [`7.6`, `7.6.2-2`](https://github.com/markshust/docker-magento/tree/35.0.0/images/elasticsearch/7.6)
-      - [`7.6.2-1`](https://github.com/markshust/docker-magento/tree/32.0.0/images/elasticsearch/7.6)
-      - [`7.6.2-0`](https://github.com/markshust/docker-magento/tree/31.0.2/images/elasticsearch/7.6)
+  - [`7.16`, `7.16-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.16)
+- [markoshust/magento-rabbitmq (Docker Hub)](https://hub.docker.com/r/markoshust/magento-rabbitmq/)
+  - [`3.9`, `3.9-0`](https://github.com/markshust/docker-magento/tree/master/images/rabbitmq/3.9)
+- [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
+  - [`latest`](https://github.com/markshust/docker-magento/tree/master/images/ssh)
 
 ## Free Course
 
@@ -152,10 +127,10 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.3-p1
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.4
 ```
 
-The `magento.test` above defines the hostname to use, and the `2.4.3-p1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, and the `2.4.4` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -183,7 +158,7 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.3-p1
+bin/download 2.4.4
 
 # or for Magento core development:
 # docker-compose -f docker-compose.yml up -d
@@ -262,7 +237,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/download`: Download specific Magento version from Composer to the container, with an optional type of either "community" (default) or "enterprise". Ex. `bin/download 2.4.3-p1 enterprise`
+- `bin/download`: Download specific Magento version from Composer to the container, with an optional type of either "community" (default) or "enterprise". Ex. `bin/download 2.4.4 enterprise`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
