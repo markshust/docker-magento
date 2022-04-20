@@ -4,6 +4,16 @@ VERSION=${1:-2.4.4}
 EDITION=${2:-community}
 
 bin/stop
+
+# Translate versiont to root in integer format. Ex. 2.4.3-p1 -> 243
+VERSION_ROOT=$(echo "$VERSION" | cut -b 1-5 | sed -e 's/\.//g')
+
+if (( $(echo "$VERSION_ROOT < 244" | bc -l) )); then
+  sed -i -e 's/8.1\-fpm\-0/7.4\-fpm\-14/g' docker-compose.yml
+else
+  sed -i -e 's/7.4\-fpm\-14/8.1\-fpm\-0/g' docker-compose.yml
+fi
+
 docker-compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
