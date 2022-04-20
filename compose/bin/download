@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=${1:-2.4.3-p1}
+VERSION=${1:-2.4.4}
 EDITION=${2:-community}
 
 bin/stop
