@@ -5,7 +5,7 @@ EDITION=${2:-community}
 
 bin/stop
 
-# Translate versiont to root in integer format. Ex. 2.4.3-p1 -> 243
+# Translate version to root in integer format. Ex. 2.4.3-p1 -> 243
 VERSION_ROOT=$(echo "$VERSION" | cut -b 1-5 | sed -e 's/\.//g')
 
 if (( $(echo "$VERSION_ROOT < 244" | bc -l) )); then
