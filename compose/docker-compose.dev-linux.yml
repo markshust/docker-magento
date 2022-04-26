@@ -3,8 +3,10 @@ version: "3"
 services:
   app:
     volumes: &appvolumes
-      - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
-      - ./src:/var/www/html:cached
+      # Run the `bin/setup-domain-multistore` script, uncomment the two lines below and restart app service
+      # - ./config/nginx/nginx.conf:/var/www/html/nginx.conf:delegated
+      # - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:delegated
+      - ./src:/var/www/html
 
   phpfpm:
     volumes: *appvolumes

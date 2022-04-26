@@ -1,1 +1,3 @@
 src/
+config/nginx/nginx.conf
+config/nginx/default.conf

@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+STORES=$(bin/mysql <sql/get_stores.sql | tail -n-1 | sed -e 's/\\\\//g' | sed -e 's\"{\{\g' | sed -e 's\}"\}\g' | jq)
+# NUMBER_OF_STORES=$(echo "$STORES" | jq 'length')
+
+printf 'map $http_host $MAGE_RUN_CODE {\n'
+printf '  %s\n' "default $(echo "$STORES" | jq -r '.[1].code')"';'
+
+COUNTER=0
+for STORE_CODE in $(echo "$STORES" | jq -r '.[].code'); do
+    IS_ACTIVE=$(echo "$STORES" | jq -r '.['$COUNTER'].is_active')
+    if [ "$IS_ACTIVE" -eq 1 ] && [ "$COUNTER" -gt 0 ]; then
+        STORE_WITH_DASHES=$(echo "$STORE_CODE" | sed -e 's/_/-/g')
+        printf '  %s\n' 'magento-'"$STORE_WITH_DASHES"'.test '"$STORE_CODE"';'
+    fi
+    COUNTER=$(($COUNTER + 1))
+done
+
+printf '%s\n' "}"
