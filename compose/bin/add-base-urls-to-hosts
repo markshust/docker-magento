@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STORES=$(bin/mysql <sql/get_stores.sql | tail -n-1 | sed -e 's/\\\\//g' | sed -e 's\"{\{\g' | sed -e 's\}"\}\g' | jq)
+STORES=$(bin/get-stores | jq)
 
 COUNTER=0
 for STORE_ID in $(echo "$STORES" | jq -r '.[].store_id'); do

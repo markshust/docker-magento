@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-STORES=$(bin/mysql <sql/get_stores.sql | tail -n-1 | sed -e 's/\\\\//g' | sed -e 's\"{\{\g' | sed -e 's\}"\}\g' | jq)
+STORES=$(bin/get-stores | jq)
 
 # echo "use magento;"
 echo "DELETE FROM core_config_data WHERE path LIKE 'web/%/base%url';"

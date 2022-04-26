@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-STORES=$(bin/mysql <sql/get_stores.sql | tail -n-1 | sed -e 's/\\\\//g' | sed -e 's\"{\{\g' | sed -e 's\}"\}\g' | jq)
+STORES=$(bin/get-stores | jq)
 # NUMBER_OF_STORES=$(echo "$STORES" | jq 'length')
 
 printf 'map $http_host $MAGE_RUN_CODE {\n'
