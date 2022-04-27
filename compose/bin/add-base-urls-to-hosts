@@ -1,21 +1,21 @@
 #!/bin/bash
 
-STORES=$(bin/get-stores | jq)
+STORES=$(bin/n98-magerun2 sys:store:list --format=json | grep -iv warning | jq)
 
-COUNTER=0
-for STORE_ID in $(echo "$STORES" | jq -r '.[].store_id'); do
+echo | tee -a /etc/hosts
+for STORE_ID in $(echo "$STORES" | jq -r '.[].id'); do
     SEPARATOR=""
     STORE_CODE=""
     if [[ ${STORE_ID} -gt 1 ]]; then
         SEPARATOR="-"
-        STORE_CODE=$(echo "$STORES" | jq -r ".[${COUNTER}].code")
+        STORE_CODE=$(echo "$STORES" | jq -r ".[\"$STORE_ID\"].code")
         STORE_CODE=$(echo "$STORE_CODE" | sed -e 's/_/-/g')
     fi
     HOSTS_URL=magento"${SEPARATOR}""${STORE_CODE}".test
     URL_IN_HOSTS_FILE=$(grep -c "$HOSTS_URL" /etc/hosts)
     if [[ $URL_IN_HOSTS_FILE -eq 0 ]]; then
-        echo "$(printf "\n\n")"127.0.0.1"$(printf "\t")""$HOSTS_URL" | tee -a /etc/hosts
+
+        echo 127.0.0.1"$(printf "\t")""$HOSTS_URL" | tee -a /etc/hosts
     fi
 
-    COUNTER=$(($COUNTER + 1))
 done

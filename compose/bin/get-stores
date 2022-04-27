@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo $(bin/mysql <sql/get_stores.sql | tail -n-1 | sed -e 's/\\\\//g' | sed -e 's\"{\{\g' | sed -e 's\}"\}\g')
