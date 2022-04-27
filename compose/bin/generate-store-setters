@@ -1,18 +1,19 @@
 #!/bin/bash
 set -e
 
-STORES=$(bin/n98-magerun2 sys:store:list --format=json | grep -iv warning | jq)
+STORES=$(bin/n98-magerun2 sys:store:list --format=csv | tail -n+2)
 
 # echo "use magento;"
 echo "DELETE FROM core_config_data WHERE path LIKE 'web/%/base%url';"
 
-for STORE_ID in $(echo "$STORES" | jq -r '.[].id'); do
+for STORE in $STORES; do
     STORE_CODE=""
     SEPARATOR=""
     SCOPE="default"
+    STORE_ID=$(echo "$STORE" | cut -d ',' -f1)
     if [[ ${STORE_ID} -gt 1 ]]; then
         SEPARATOR="-"
-        STORE_CODE=$(echo "$STORES" | jq -r ".[\"${STORE_ID}\"].code")
+        STORE_CODE=$(echo "$STORE" | cut -d ',' -f2)
         STORE_CODE=$(echo "$STORE_CODE" | sed -e 's/_/-/g')
         SCOPE="stores"
     fi

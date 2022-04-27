@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-STORES=$(bin/n98-magerun2 sys:store:list --format=json | grep -iv warning | jq)
-# NUMBER_OF_STORES=$(echo "$STORES" | jq 'length')
+STORES=$(bin/n98-magerun2 sys:store:list --format=csv | tail -n+2)
 
 printf 'map $http_host $MAGE_RUN_CODE {\n'
-printf '  %s\n' "default $(echo "$STORES" | jq -r '.[].code' | head -n1)"';'
+printf '  %s\n' "default $(echo "$STORES" | head -n1 | cut -d ',' -f2)"';'
 
-for STORE_CODE in $(echo "$STORES" | jq -r '.[].code'); do
+for STORE in $STORES; do
+    STORE_CODE=$(echo "$STORE" | cut -d ',' -f2)
     STORE_WITH_DASHES=$(echo "$STORE_CODE" | sed -e 's/_/-/g')
     printf '  %s\n' 'magento-'"$STORE_WITH_DASHES"'.test '"$STORE_CODE"';'
 done
