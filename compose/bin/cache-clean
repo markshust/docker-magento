@@ -11,13 +11,13 @@ fi
 
 if [ "$1" == "--watch" ]; then
   # Kill duplicate watch process
-  WATCH_PID=$(bin/clinotty ps -eaf | grep "$CACHE_CLEAN --quiet --watch" | grep -v grep | awk '{print $2}')
+  WATCH_PID=$(bin/clinotty ps -eaf | grep "$CACHE_CLEAN -w -d /var/www/html" | grep -v grep | awk '{print $2}')
   if [[ "" !=  "$WATCH_PID" ]]; then
     bin/cliq kill -9 "$WATCH_PID"
   fi
 
   # Run watch mode in the background
-  bin/cliq $CACHE_CLEAN --quiet --watch &
+  bin/cliq $CACHE_CLEAN -w -d /var/www/html
 else
-  bin/cli $CACHE_CLEAN "$@"
+  bin/cli $CACHE_CLEAN -d /var/www/html "$@"
 fi
