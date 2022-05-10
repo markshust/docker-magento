@@ -8,6 +8,9 @@ services:
   phpfpm:
     volumes: *appvolumes
 
+  node:
+    volumes: *appvolumes
+
   ssh:
     image: markoshust/ssh
     ports:

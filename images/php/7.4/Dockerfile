@@ -30,8 +30,6 @@ RUN apt-get update && apt-get install -y \
     lsof \
     mailutils \
     msmtp \
-    nodejs \
-    npm \
     procps \
     vim \
     zip \

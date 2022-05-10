@@ -89,6 +89,11 @@ services:
       - "1080:1080"
     extra_hosts: *appextrahosts
 
+  node:
+    image: node:18-slim
+    volumes: *appvolumes
+    working_dir: /var/www/html
+
   ## Blackfire support, uncomment to enable
   #blackfire:
   #  image: blackfire/blackfire:2

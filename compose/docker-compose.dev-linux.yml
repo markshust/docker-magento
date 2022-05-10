@@ -8,3 +8,6 @@ services:
 
   phpfpm:
     volumes: *appvolumes
+
+  node:
+    volumes: *appvolumes
