@@ -10,7 +10,7 @@ services:
       - ./src/composer.json:/var/www/html/composer.json:cached
       - ./src/composer.lock:/var/www/html/composer.lock:cached
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
-      # If you want to run a multistore Magento installation uncomment the two lines below and the one above and restart the app service
+      # If you want to run a multistore Magento installation uncomment the two lines below, comment the one above and restart the app service
       # - ./config/nginx/nginx.conf:/var/www/html/nginx.conf:delegated
       # - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:delegated
       #- ./src/auth.json:/var/www/html/auth.json:cached
