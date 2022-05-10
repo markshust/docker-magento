@@ -227,10 +227,15 @@ bin/setup-multistore
 # Adds the same URLs into the /etc/hosts file
 sudo bin/add-base-urls-to-hosts
 
-# If using Linux uncomment two mount bindings in `docker-compose.dev.linux.yml` file and copy the file to `docker-compose.dev.yml`
+# If using Linux uncomment mount bindings in `docker-compose.dev.linux.yml` file and copy the file to `docker-compose.dev.yml`
 sed -i 's/# - .\/config\/nginx\/nginx.conf/- .\/config\/nginx\/nginx.conf/' docker-compose.dev-linux.yml
 sed -i 's/# - .\/config\/nginx\/default.conf/- .\/config\/nginx\/default.conf/' docker-compose.dev-linux.yml
 cp docker-compose.dev-linux.yml docker-compose.dev.yml
+
+# If using macOS (un)comment mount bindings in `docker-compose.dev.yml` file
+sed -i 's/- .\/src\/nginx.conf.sample/#- .\/src\/nginx.conf.sample/' docker-compose.dev.yml
+sed -i 's/# - .\/config\/nginx\/nginx.conf/- .\/config\/nginx\/nginx.conf/' docker-compose.dev.yml
+sed -i 's/# - .\/config\/nginx\/default.conf/- .\/config\/nginx\/default.conf/' docker-compose.dev.yml
 
 # Restart containers
 bin/restart
