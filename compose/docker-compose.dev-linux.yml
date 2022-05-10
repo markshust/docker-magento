@@ -3,7 +3,7 @@ version: "3"
 services:
   app:
     volumes: &appvolumes
-      # Run the `bin/setup-domain-multistore` script, uncomment the two lines below and restart app service
+      # If you want to run a multistore Magento installation uncomment the two lines below and restart the app service
       # - ./config/nginx/nginx.conf:/var/www/html/nginx.conf:delegated
       # - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:delegated
       - ./src:/var/www/html
