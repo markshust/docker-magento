@@ -15,6 +15,6 @@ for STORE in $STORES; do
     HOSTS_URL=magento"${SEPARATOR}""${STORE_CODE}".test
     URL_IN_HOSTS_FILE=$(grep -c "$HOSTS_URL" /etc/hosts)
     if [[ $URL_IN_HOSTS_FILE -eq 0 ]]; then
-        echo 127.0.0.1"$(printf "\t")""$HOSTS_URL" | tee -a /etc/hosts
+        echo 127.0.0.1"$(printf "\t")""$HOSTS_URL" | sudo tee -a /etc/hosts
     fi
 done

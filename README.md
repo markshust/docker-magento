@@ -222,10 +222,9 @@ bin/n98-magerun2
 # Admin panel base URL: https://magento.test
 # Base URLs of each store: https://magento-store-code.test where store-code is the value found in `store.code` database column.
 # e.g. two stores with the following codes: `en_US` and `fr_FR` will have base URLs: `https://magento-en-us.test` and `https://magento-fr-fr.test`
+# Note that since we need to write  `/etc/hosts` for DNS resolution, you will be prompted for your system password.
 bin/setup-multistore
 
-# Adds the same URLs into the /etc/hosts file
-sudo bin/add-base-urls-to-hosts
 
 # If using Linux uncomment mount bindings in `docker-compose.dev.linux.yml` file and copy the file to `docker-compose.dev.yml`
 sed -i 's/# - .\/config\/nginx\/nginx.conf/- .\/config\/nginx\/nginx.conf/' docker-compose.dev-linux.yml
