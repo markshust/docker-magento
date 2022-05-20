@@ -226,6 +226,7 @@ It is recommended to keep your root docker config files in one repository, and y
 
 ## Custom CLI Commands
 
+- `bin/analyse`: Run `phpstan analyse` within the container to statically analyze code, passing in directory to analyse. Ex. `bin/analyze app/code`
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
 - `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
