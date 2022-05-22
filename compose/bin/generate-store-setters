@@ -14,7 +14,7 @@ for STORE in $STORES; do
     if [[ ${STORE_ID} -gt 1 ]]; then
         SEPARATOR="-"
         STORE_CODE=$(echo "$STORE" | cut -d ',' -f2)
-        STORE_CODE=$(echo "$STORE_CODE" | sed -e 's/_/-/g')
+        STORE_CODE="echo \"${STORE_CODE//_/-}\""
         SCOPE="stores"
     fi
     SECURE_BASE_URL="https://magento${SEPARATOR}${STORE_CODE}.test/"

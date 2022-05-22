@@ -3,12 +3,12 @@ set -e
 
 STORES=$(bin/n98-magerun2 sys:store:list --format=csv | grep -v Warning | sed '/^$/d' | tail -n+2)
 
-printf 'map $http_host $MAGE_RUN_CODE {\n'
+printf "map \$http_host \$MAGE_RUN_CODE {\n"
 printf '  %s\n' "default $(echo "$STORES" | head -n1 | cut -d ',' -f2)"';'
 
 for STORE in $STORES; do
     STORE_CODE=$(echo "$STORE" | cut -d ',' -f2)
-    STORE_WITH_DASHES=$(echo "$STORE_CODE" | sed -e 's/_/-/g')
+    STORE_WITH_DASHES="echo \"${STORE_CODE//_/-}\""
     printf '  %s\n' 'magento-'"$STORE_WITH_DASHES"'.test '"$STORE_CODE"';'
 done
 
