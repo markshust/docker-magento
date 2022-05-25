@@ -31,4 +31,4 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:7.4-fpm
-            markoshust/magento-php:7.4-fpm-14
+            markoshust/magento-php:7.4-fpm-15

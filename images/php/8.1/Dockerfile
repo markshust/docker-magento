@@ -8,6 +8,8 @@ RUN groupadd -g "$APP_ID" app \
 RUN mkdir -p /etc/nginx/html /var/www/html /sock \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
 
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+
 RUN apt-get update && apt-get install -y \
     cron \
     default-mysql-client \
@@ -30,6 +32,7 @@ RUN apt-get update && apt-get install -y \
     lsof \
     mailutils \
     msmtp \
+    nodejs \
     procps \
     vim \
     zip \
