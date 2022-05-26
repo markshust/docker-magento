@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [43.0.0] - 2022-05-26
+
+### Added
+- Fall back to PHP 7.4 for Magento versions older than 2.4.4 [PR #685](https://github.com/markshust/docker-magento/pull/685) [PR #710](https://github.com/markshust/docker-magento/pull/710).
+- Checksum flag to rsync in `bin/update` [PR #707](https://github.com/markshust/docker-magento/pull/707).
+- New `bin/analyse` command to statically analyse code with PHPStan [8601c2f7](https://github.com/markshust/docker-magento/commit/8601c2f73cc6f1d2534f017c8f31eec49b0e00fc).
+- `node` & `npm` to PHP images [#694](https://github.com/markshust/docker-magento/issues/694).
+
+### Updated
+- Magento download to default to 2.4.4 [151dc09a](https://github.com/markshust/docker-magento/commit/151dc09ae95a5cff75598c366f3d77efa58098d5)
+- Prevent domain duplication in `/etc/hosts` [PR #693](https://github.com/markshust/docker-magento/pull/693).
+- Replace buster images with bullseye to properly fix Apple M1 5-sec delay [#636](https://github.com/markshust/docker-magento/issues/636).
+
 ## [42.0.0] - 2022-04-14
 
 This release brings streamlined PHP Docker images (saving 300MB on previous images), a brand new PHP 8.1 image with full support for Magento 2.4.4, a proper Elasticsearch health check during setup, and ability to detect memory assigned to Docker on startup (which will prevent failed installations). Elasticsearch, Redis & RabbitMQ Docker images have also all been updated to their recently supported Magento versions.
