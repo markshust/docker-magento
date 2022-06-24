@@ -33,9 +33,26 @@ else
     bin/node -e "$GEN_THEME_JS"
 fi
 
-bin/clinotty cp package.json.sample package.json
-bin/clinotty cp Gruntfile.js.sample Gruntfile.js
-bin/clinotty cp grunt-config.json.sample grunt-config.json
+# Create files from sample files if they do not yet exist
+test -f src/package.json || cp src/package.json.sample src/package.json
+test -f src/Gruntfile.js || cp src/Gruntfile.js.sample src/Gruntfile.js
+test -f src/grunt-config.json || cp src/grunt-config.json.sample src/grunt-config.json
+
+# Disable grunt-contrib-jasmine on ARM processors (incompatible)
+if [ "$(uname -m)" == "arm64" ]; then
+    sed -e 's/"grunt-contrib-jasmine": "[~.0-9]*",//' src/package.json > package.json \
+      && mv package.json src/package.json
+fi
+
+# Enable these custom files on docker-compose.dev.yml so custom updates are persisted
+sed -e 's/grunt-config.json.sample/grunt-config.json/' docker-compose.dev.yml > docker-compose.dev.yml.updated \
+ && mv docker-compose.dev.yml.updated docker-compose.dev.yml
+sed -e 's/Gruntfile.js.sample/Gruntfile.js/' docker-compose.dev.yml > docker-compose.dev.yml.updated \
+ && mv docker-compose.dev.yml.updated docker-compose.dev.yml
+sed -e 's/package.json.sample/package.json/' docker-compose.dev.yml > docker-compose.dev.yml.updated \
+ && mv docker-compose.dev.yml.updated docker-compose.dev.yml
+bin/restart app phpfpm
+
 bin/npm install ajv@^5.0.0 --save
 bin/npm install
 bin/magento cache:clean
