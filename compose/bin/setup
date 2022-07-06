@@ -18,7 +18,7 @@ DOMAIN=${1:-magento.test}
 
 bin/stop
 
-docker-compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/clinotty chmod u+x bin/magento
