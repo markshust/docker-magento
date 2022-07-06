@@ -19,4 +19,8 @@ docker compose -f docker-compose.yml up -d
 
 bin/setup-composer-auth
 
+bin/fixowns
+
 bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
+
+bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
