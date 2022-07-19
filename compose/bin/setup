@@ -18,7 +18,7 @@ DOMAIN=${1:-magento.test}
 
 bin/stop
 
-docker-compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/clinotty chmod u+x bin/magento
@@ -90,6 +90,10 @@ bin/clinotty bin/magento indexer:reindex
 echo "Setting basic URL and generating SSL certificate..."
 bin/setup-domain "${DOMAIN}"
 
+echo "Fixing owner and permissions..."
+bin/fixowns
+bin/fixperms
+
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
@@ -99,7 +103,7 @@ bin/clinotty bin/magento cron:install
 echo "Turning on developer mode..."
 bin/clinotty bin/magento deploy:mode:set developer
 
-mv .vscode src/
+cp -r .vscode src/
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${DOMAIN}/"
