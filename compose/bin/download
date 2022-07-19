@@ -14,9 +14,13 @@ else
   sed -i -e 's/7.4\-fpm\-15/8.1\-fpm\-1/g' docker-compose.yml
 fi
 
-docker-compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up -d
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/setup-composer-auth
 
+bin/fixowns
+
 bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
+
+bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
