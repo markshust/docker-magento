@@ -24,6 +24,11 @@ docker compose -f docker-compose.yml up -d
 bin/clinotty chmod u+x bin/magento
 rm -rf src && mkdir src
 
+echo "Adding Magento modules to Composer allow-plugins directive..."
+bin/clinotty composer config --no-plugins allow-plugins.magento/magento-composer-installer true
+bin/clinotty composer config --no-plugins allow-plugins.magento/inventory-composer-installer true
+bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
+
 echo "Waiting for connection to Elasticsearch..."
 bin/clinotty timeout $ES_HEALTHCHECK_TIMEOUT bash -c "
     until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
