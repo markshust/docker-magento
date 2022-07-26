@@ -21,11 +21,14 @@ bin/setup-composer-auth
 
 bin/fixowns
 
+
+bin/clinotty composer --no-install create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
+
 echo "Adding Magento modules to Composer allow-plugins directive..."
 bin/clinotty composer config --no-plugins allow-plugins.magento/magento-composer-installer true
 bin/clinotty composer config --no-plugins allow-plugins.magento/inventory-composer-installer true
 bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
 
-bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
+composer install
 
 bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
