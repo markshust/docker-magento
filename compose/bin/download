@@ -25,9 +25,9 @@ bin/fixowns
 bin/clinotty composer --no-install create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
 
 echo "Adding Magento modules to Composer allow-plugins directive..."
-bin/clinotty composer config --no-plugins allow-plugins.magento/magento-composer-installer true
-bin/clinotty composer config --no-plugins allow-plugins.magento/inventory-composer-installer true
+composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
+bin/clinotty composer config --no-plugins allow-plugins.magento/* true
 
 bin/clinotty composer install
 
