@@ -24,7 +24,7 @@ bin/fixowns
 bin/clinotty composer --no-install create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
 
 # If Magento in version >= 2.3.7 and < 2.4.4
-if (( $(echo "$VERSION_ROOT < 244" | bc -l) )) && (( $(echo "$VERSION_ROOT >= 237" | bc -l) ));; then
+if (( $(echo "$VERSION_ROOT < 244" | bc -l) )) && (( $(echo "$VERSION_ROOT >= 237" | bc -l) )); then
   echo "Adding Magento modules to Composer allow-plugins directive..."
   composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
   bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
