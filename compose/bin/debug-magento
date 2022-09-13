@@ -1,0 +1,2 @@
+#!/bin/bash
+bin/cli php -dxdebug.mode=debug -dxdebug.start_with_request=yes bin/magento "$@"
