@@ -350,7 +350,8 @@ For more information about Redis usage with Magento, <a href="https://devdocs.ma
 
 Add below service to the `docker-composer.yml` below service db.
 
-```  phpmyadmin:
+```  
+phpmyadmin:
     restart: always
     image: phpmyadmin/phpmyadmin
     environment:
