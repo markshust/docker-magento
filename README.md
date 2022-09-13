@@ -28,7 +28,7 @@
 View Dockerfiles for the latest tags:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
-  - [`1.18`, `1.18-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+  - [`1.18`, `1.18-8`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - [`8.1-fpm`, `8.1-fpm-1`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
   - [`7.4-fpm`, `7.4-fpm-15`](https://github.com/markshust/docker-magento/tree/master/images/php/7.4)
@@ -487,6 +487,69 @@ For debugging, you can connect to the selenium image using a VCN client.
 - Run `bin/mftf doctor` to validate all sections are setup correctly.
 
 Find more info [here](https://devdocs.magento.com/mftf/docs/getting-started.html) about mftf configuration.
+
+### Grunt + LiveReload for Frontend Development
+
+#### Create a new theme and make it active
+
+Create your new theme at `app/design/frontend/VendorName/theme-name`, with the related `composer.json`, `registration.php` and `theme.xml` files.
+
+Make your new theme active at Admin > Content > Design > Configuration. Click the Edit button next to Global Scope, and set the Applied Theme to your new theme name, and click Save Configuration.
+
+#### Load the LiveReload client file
+
+To create a connection to LiveReload, you'll need to insert the LiveReload script into your theme. You can do this by creating a file in your theme at `Magento_Theme/layout/default_head_blocks.xml` with the contents:
+
+```xml
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script defer="true" src="/livereload.js?port=443" src_type="url"/>
+    </head>
+</page>
+```
+
+The "?port=443" parameter is important, otherwise the `livereload.js` script won't work.
+
+While we're at it, let's also create an initial LESS file so we have something to test. Create a new file in your theme at `web/css/source/_extend.less` with the contents:
+
+```css
+body {
+    background: white;
+}
+```
+
+You'll need to clear the Magento cache to enable your module, and make sure this layout XML update is properly loaded.
+
+Your new theme should now be active at `https://yourdomain.test`. Since this is a new theme, it should appear the same as the parent theme defined in your theme.xml file, which is usually Blank.
+
+#### Set up Grunt
+
+Run `bin/setup-grunt`. This will set up the Grunt configuration files for your new theme. It's important to run this step after setting up your new theme, not before.
+
+#### Start the Grunt watcher
+
+Grunt can watch for filesystem changes by running `bin/grunt watch`. You can optionally pass in the `--verbose` or `-v` flag to toggle verbose mode on. This will let you know what's going on under the hood, so you can be sure it is compiling & watching the correct files, and updating them as changes are made.
+
+#### LiveReload Browser extension
+
+Running the `grunt watch` process also spawns the LiveReload server. Your browser needs to connect to this server, and this is done by installing the [LiveReload browser extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en).
+
+In your browser, be sure to also open the Google Chrome Dev Tools, go to the Network tab, and click "Disable cache". This will ensure the browser does not long-cache static file assets, such as JavaScript & CSS files, which is important during development.
+
+Ensure the LiveReload browser icon has been toggled on, and refresh the page. We can confirm the LiveReload script is loaded by going to the Network tab and ensuring the `livereload.js` file is loaded, and that it also spawns off a new websocket request to `/livereload`.
+
+#### Test LiveReload
+
+Since this is all set, let's update the CSS file to a different background color:
+
+```css
+body {
+    background: blue;
+}
+```
+
+Upon saving this file, we will see the Grunt watcher detect the changes, and your browser should automatically load the new style without you needing to refresh the page, and without a full browser refresh.
 
 ## Credits
 
