@@ -1,0 +1,11 @@
+#!/bin/bash
+if ! bin/cliq ls bin/phpdoc.phar; then
+  echo "Downloading phpdoc.phar, just a moment..."
+  bin/clinotty curl -sSL https://phpdoc.org/phpDocumentor.phar --output phpdoc.phar
+
+  bin/cliq chmod +x phpdoc.phar
+  bin/cliq mkdir -p bin
+  bin/cliq mv phpdoc.phar bin
+fi
+
+bin/cli bin/phpdoc.phar "$@"
