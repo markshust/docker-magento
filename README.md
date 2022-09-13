@@ -346,6 +346,10 @@ You may also monitor Redis by running: `bin/redis redis-cli monitor`
 
 For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.4/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
 
+### PhpMyAdmin
+
+PhpMyAdmin is built into the `docker-compose.dev.yml` file. Simply open `http://localhost:8080` in a web browser.
+
 ### Xdebug & VS Code
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
