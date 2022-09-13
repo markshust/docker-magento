@@ -62,7 +62,3 @@ bin/magento cache:clean
 bin/grunt clean
 bin/grunt exec:$THEME
 bin/grunt less:$THEME
-
-#echo "Enabling client-side LESS compilation mode for development..."
-#bin/clinotty bin/magento config:set dev/front_end_development_workflow/type client_side_compilation
-#bin/clinotty bin/magento cache:clean
