@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [43.2.0] - 2022-09-13
+
+### Added
+- Added phpmyadmin to docker-compose.dev.yml file [PR #772](https://github.com/markshust/docker-magento/pull/772).
+
 ## [43.1.0] - 2022-09-13
 
 ### Added
