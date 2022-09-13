@@ -1,17 +1,13 @@
 #!/bin/bash
 
-S=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep -iGc 'xdebug.mode = off');
+MODE=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep -iPo 'xdebug.mode = .+' | grep -iPo '(?! )\w*$')
 
 xdebug_status() {
-    if [[ $S == 1 ]]; then
-        echo "Xdebug debug mode is disabled."
-    else
-        echo "Xdebug debug mode is enabled."
-    fi
+    echo "Xdebug mode is ${MODE}."
 }
 
 xdebug_toggle() {
-    if [[ $S == 1 ]]; then
+    if [[ $MODE != 'debug' ]]; then
         xdebug_enable
     else
         xdebug_disable
@@ -19,8 +15,8 @@ xdebug_toggle() {
 }
 
 xdebug_enable() {
-    if [[ $S == 1 ]]; then
-        bin/root sed -i -e 's/^xdebug.mode = off/xdebug.mode = debug/g' /usr/local/etc/php/php.ini
+    if [[ $MODE == 'off' ]]; then
+        bin/root sed -r -i -e 's/^xdebug.mode = .+/xdebug.mode = debug/g' /usr/local/etc/php/php.ini
         sleep 1
         bin/restart phpfpm
         echo "Xdebug debug mode has been enabled."
@@ -29,9 +25,20 @@ xdebug_enable() {
     fi
 }
 
+xdebug_enable_profiling() {
+    if [[ $MODE != 'profile' ]]; then
+        bin/root sed -r -i -e 's/^xdebug.mode = .+/xdebug.mode = profile/g' /usr/local/etc/php/php.ini
+        sleep 1
+        bin/restart phpfpm
+        echo "Xdebug profile mode has been enabled."
+    else
+        echo "Xdebug profile mode is already enabled."
+    fi
+}
+
 xdebug_disable() {
-    if [[ $S == 0 ]]; then
-        bin/root sed -i -e 's/^xdebug.mode = debug/xdebug.mode = off/g' /usr/local/etc/php/php.ini
+    if [[ $MODE != 'off' ]]; then
+        bin/root sed -r -i -e 's/^xdebug.mode = .+/xdebug.mode = off/g' /usr/local/etc/php/php.ini
         sleep 1
         bin/restart phpfpm
         echo "Xdebug debug mode has been disabled."
@@ -46,10 +53,12 @@ if [[ $firstArgLetter == "d" ]]; then
     xdebug_disable
 elif [[ $firstArgLetter == "e" ]]; then
     xdebug_enable
+elif [[ $firstArgLetter == "p" ]]; then
+    xdebug_enable_profiling
 elif [[ $firstArgLetter == "t" ]]; then
     xdebug_toggle
 elif [[ $firstArgLetter == "s" ]]; then
     xdebug_status
 else
-    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument.\nEx: bin/xdebug status\n"
+    printf "Please specify either 'disable', 'enable', 'profile', 'status' or 'toggle' as an argument.\nEx: bin/xdebug status\n"
 fi
