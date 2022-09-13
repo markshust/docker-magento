@@ -346,28 +346,9 @@ You may also monitor Redis by running: `bin/redis redis-cli monitor`
 
 For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.4/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
 
-**Run phpmyadmin**
+### PhpMyAdmin
 
-Add below service to the `docker-composer.yml` below service db.
-
-```  
-phpmyadmin:
-    restart: always
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - MYSQL_ROOT_PASSWORD=magento
-      - PMA_USER=root
-      - PMA_PASSWORD=magento
-    ports:
-      - "8080:80"
-    links:
-      - db:db
-    depends_on:
-      - db
-```
-      
- After adding restart docker using `bin/restart` and open `localhost:8080` to run phpmyadmin in the browser.
- 
+PhpMyAdmin is built into the `docker-compose.dev.yml` file. Simply open `http://localhost:8080` in a web browser.
 
 ### Xdebug & VS Code
 
