@@ -82,7 +82,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mkdir -p /tmp/blackfire \
     && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
-    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz \
+    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
 RUN cd /usr/lib && git clone https://github.com/NoiseByNorthwest/php-spx.git
 RUN cd /usr/lib/php-spx && phpize && ./configure && make && make install
