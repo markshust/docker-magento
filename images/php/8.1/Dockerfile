@@ -35,6 +35,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     procps \
     vim \
+    zlib1g-dev \
     zip \
   && rm -rf /var/lib/apt/lists/*
 
@@ -83,10 +84,14 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
+RUN cd /usr/lib && git clone https://github.com/NoiseByNorthwest/php-spx.git
+RUN cd /usr/lib/php-spx && phpize && ./configure && make && make install
+
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
+COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
 COPY conf/msmtprc /etc/msmtprc
 COPY conf/php.ini $PHP_INI_DIR
 COPY conf/php-fpm.conf /usr/local/etc/
