@@ -3,13 +3,13 @@
 
 REAL_SRC=$(cd -P "src" && pwd)
 if [ "$1" == "--all" ]; then
-  docker cp "$(docker compose ps -q phpfpm|awk '{print $1}')":/var/www/html/./ "$REAL_SRC/"
+  docker cp "$(bin/docker-compose ps -q phpfpm|awk '{print $1}')":/var/www/html/./ "$REAL_SRC/"
   echo "Completed copying all files from container to host"
 else
   if [ -f "$1" ] ; then
-    docker cp "$(docker compose ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1" "$REAL_SRC/$1"
+    docker cp "$(bin/docker-compose ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1" "$REAL_SRC/$1"
   else
-    docker cp "$(docker compose ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1" "$REAL_SRC/$(dirname "$1")"
+    docker cp "$(bin/docker-compose ps -q phpfpm|awk '{print $1}')":/var/www/html/"$1" "$REAL_SRC/$(dirname "$1")"
   fi
   echo "Completed copying $1 from container to host"
 fi

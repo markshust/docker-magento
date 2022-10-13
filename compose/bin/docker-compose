@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if hash docker-compose 2>/dev/null; then
+  DOCKER_COMPOSE="docker-compose"
+else
+  DOCKER_COMPOSE="docker compose"
+fi
+
+if [ "$1" == "--no-dev" ]; then
+  ${DOCKER_COMPOSE} -f docker-compose.yml "${@:2}"
+else
+  ${DOCKER_COMPOSE} -f docker-compose.yml -f docker-compose.dev.yml "$@"
+fi
