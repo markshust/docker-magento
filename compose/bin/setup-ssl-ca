@@ -1,9 +1,9 @@
 #!/bin/bash
 set -o errexit
 # Generate a new local CA "/root/.local/share/mkcert"
-docker compose exec -T -u root app mkcert -install
+bin/docker-compose exec -T -u root app mkcert -install
 
-docker cp "$(docker compose ps -q app|awk '{print $1}')":/root/.local/share/mkcert/rootCA.pem .
+docker cp "$(bin/docker-compose ps -q app|awk '{print $1}')":/root/.local/share/mkcert/rootCA.pem .
 echo "System password requested to install certificate authority on host..."
 
 if [ "$(uname)" == "Darwin" ]; then
