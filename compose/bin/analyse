@@ -1,2 +1,2 @@
 #!/bin/bash
-bin/cli vendor/bin/phpstan analyse "$1"
+bin/cli vendor/bin/phpstan analyse "$@"
