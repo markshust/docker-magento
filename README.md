@@ -161,7 +161,7 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/te
 bin/download 2.4.5
 
 # or for Magento core development:
-# docker-compose -f docker-compose.yml up -d
+# bin/docker-compose --no-dev up -d
 # bin/setup-composer-auth
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
@@ -191,7 +191,7 @@ cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
 # Start some containers, copy files to them and then restart the containers:
-docker-compose -f docker-compose.yml up -d
+bin/docker-compose --no-dev up -d
 bin/copytocontainer --all ## Initial copy will take a few minutes...
 
 # Import existing database:
@@ -238,6 +238,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
+- `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `docker-compose.yml` and `docker-compose.dev.yml`
 - `bin/download`: Download specific Magento version from Composer to the container, with an optional type of either "community" (default) or "enterprise". Ex. `bin/download 2.4.5 enterprise`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
