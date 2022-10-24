@@ -2,7 +2,7 @@
 set -o errexit
 
 DOMAIN=${1:-magento.test}
-VERSION=${2:-2.4.5}
+VERSION=${2:-2.4.5-p1}
 EDITION=${3:-community}
 
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
