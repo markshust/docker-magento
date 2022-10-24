@@ -29,23 +29,6 @@ bin/clinotty composer config --no-plugins allow-plugins.magento/magento-composer
 bin/clinotty composer config --no-plugins allow-plugins.magento/inventory-composer-installer true
 bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
 
-echo "Waiting for connection to Elasticsearch..."
-bin/clinotty timeout $ES_HEALTHCHECK_TIMEOUT bash -c "
-    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
-        printf '.'
-        sleep 2
-    done"
-[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
-
-echo ""
-echo "Waiting for connection to RabbitMQ..."
-bin/clinotty timeout $RABBITMQ_HEALTHCHECK_TIMEOUT bash -c "
-    until curl --silent --output /dev/null http://$RABBITMQ_DEFAULT_USER:$RABBITMQ_DEFAULT_PASS@$RABBITMQ_HOST:$RABBITMQ_MANAGEMENT_PORT/api/aliveness-test/%2F; do
-        printf '.'
-        sleep 2
-    done"
-[ $? != 0 ] && echo "Failed to connect to RabbitMQ" && exit
-
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
   --db-name="$MYSQL_DATABASE" \
