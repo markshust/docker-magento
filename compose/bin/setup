@@ -7,8 +7,8 @@ MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
 
 # shellcheck source=../env/db.env
 source env/db.env
-# shellcheck source=../env/elasticsearch.env
-source env/elasticsearch.env
+# shellcheck source=../env/opensearch.env
+source env/opensearch.env
 # shellcheck source=../env/magento.env
 source env/magento.env
 # shellcheck source=../env/rabbitmq.env
@@ -61,8 +61,8 @@ bin/clinotty bin/magento setup:install \
   --session-save-redis-log-level=4 \
   --session-save-redis-db=2 \
   --search-engine=elasticsearch7 \
-  --elasticsearch-host=$ES_HOST \
-  --elasticsearch-port=$ES_PORT \
+  --elasticsearch-host=$OS_HOST \
+  --elasticsearch-port=$OS_PORT \
   --use-rewrites=1 \
   --no-interaction
 
