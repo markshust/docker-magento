@@ -16,19 +16,6 @@ RUN apt-get update && apt-get install -y \
     git \
     gnupg \
     gzip \
-    libbz2-dev \
-    libfreetype6-dev \
-    libicu-dev \
-    libjpeg62-turbo-dev \
-    libmagickwand-dev \
-    libmcrypt-dev \
-    libonig-dev \
-    libpng-dev \
-    libsodium-dev \
-    libssh2-1-dev \
-    libwebp-dev \
-    libxslt1-dev \
-    libzip-dev \
     lsof \
     mailutils \
     msmtp \
@@ -38,55 +25,38 @@ RUN apt-get update && apt-get install -y \
     zip \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pecl channel-update pecl.php.net && pecl install \
-    imagick \
-    redis \
-    ssh2-1.2 \
-    xdebug \
-  && pecl clear-cache \
-  && rm -rf /tmp/pear
-
-RUN docker-php-ext-configure \
-    gd --with-freetype --with-jpeg --with-webp \
-  && docker-php-ext-install \
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions \
+    blackfire \
     bcmath \
     bz2 \
     calendar \
     exif \
     gd \
     gettext \
+    imagick \
     intl \
     mbstring \
     mysqli \
     opcache \
     pcntl \
     pdo_mysql \
+    ssh2 \
     soap \
     sockets \
     sodium \
     sysvmsg \
     sysvsem \
     sysvshm \
-    xsl \
-    zip \
-  && docker-php-ext-enable \
-    imagick \
     redis \
-    ssh2 \
-    xdebug
-
-RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
-    && architecture=$(uname -m) \
-    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/$architecture/$version \
-    && mkdir -p /tmp/blackfire \
-    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
-    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
-    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+    xdebug \
+    xsl \
+    zip
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/msmtprc /etc/msmtprc
 COPY conf/php.ini $PHP_INI_DIR
 COPY conf/php-fpm.conf /usr/local/etc/
