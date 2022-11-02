@@ -7,7 +7,7 @@ else
 fi
 
 if [ "$1" == "--no-dev" ]; then
-  ${DOCKER_COMPOSE} -f docker-compose.yml -f docker-compose.healthcheck.yml "${@:2}"
+  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml "${@:2}"
 else
-  ${DOCKER_COMPOSE} -f docker-compose.yml -f docker-compose.healthcheck.yml -f docker-compose.dev.yml "$@"
+  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml -f compose.dev.yaml "$@"
 fi
