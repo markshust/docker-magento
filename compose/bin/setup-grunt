@@ -47,13 +47,13 @@ if [ "$(uname -m)" == "arm64" ]; then
       && mv package.json src/package.json
 fi
 
-# Enable these custom files on docker-compose.dev.yml so custom updates are persisted
-sed -e 's/grunt-config.json.sample/grunt-config.json/' docker-compose.dev.yml > docker-compose.dev.yml.updated \
- && mv docker-compose.dev.yml.updated docker-compose.dev.yml
-sed -e 's/Gruntfile.js.sample/Gruntfile.js/' docker-compose.dev.yml > docker-compose.dev.yml.updated \
- && mv docker-compose.dev.yml.updated docker-compose.dev.yml
-sed -e 's/package.json.sample/package.json/' docker-compose.dev.yml > docker-compose.dev.yml.updated \
- && mv docker-compose.dev.yml.updated docker-compose.dev.yml
+# Enable these custom files on compose.dev.yaml so custom updates are persisted
+sed -e 's/grunt-config.json.sample/grunt-config.json/' compose.dev.yaml > compose.dev.yaml.updated \
+ && mv compose.dev.yaml.updated compose.dev.yaml
+sed -e 's/Gruntfile.js.sample/Gruntfile.js/' compose.dev.yaml > compose.dev.yaml.updated \
+ && mv compose.dev.yaml.updated compose.dev.yaml
+sed -e 's/package.json.sample/package.json/' compose.dev.yaml > compose.dev.yaml.updated \
+ && mv compose.dev.yaml.updated compose.dev.yaml
 bin/restart app phpfpm
 
 bin/npm install ajv@^5.0.0 --save

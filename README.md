@@ -240,7 +240,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `docker-compose.yml` and `docker-compose.dev.yml`
+- `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
 - `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.5-p1 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.5-p1 enterprise`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
@@ -288,7 +288,7 @@ To disable this functionality, uncomment the last line in the `bin/start` file t
 
 ### Database
 
-The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
+The hostname of each service is the name of the service within the `compose.yaml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
 
 To connect to the MySQL CLI tool of the Docker instance, run:
 
@@ -351,7 +351,7 @@ For more information about Redis usage with Magento, <a href="https://devdocs.ma
 
 ### PhpMyAdmin
 
-PhpMyAdmin is built into the `docker-compose.dev.yml` file. Simply open `http://localhost:8080` in a web browser.
+PhpMyAdmin is built into the `compose.dev.yaml` file. Simply open `http://localhost:8080` in a web browser.
 
 ### Xdebug & VS Code
 
@@ -371,7 +371,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
         * Create a new interpreter from the `From Docker, Vagrant, VM...` list.
         * Select the Docker Compose option.
         * For Server, select `Docker`. If you don't have Docker set up as a server, create one and name it `Docker`.
-        * For Configuration files, add both the `docker-compose.yml` and `docker-compose.dev.yml` files from your project directory.
+        * For Configuration files, add both the `compose.yaml` and `compose.dev.yaml` files from your project directory.
         * For Service, select `phpfpm`, then click OK.
         * Name this CLI Interpreter `phpfpm`, then click OK again.
 
@@ -404,7 +404,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 Since version `40.0.0`, this project supports connecting to Docker with SSH/SFTP. This means that if you solely use either PhpStorm or VSCode, you no longer need to selectively mount host volumes in order to gain bi-directional sync capabilities from host to container. This will enable full speed in the native filesystem, as all files will be stored directly in the `appdata` container volume, rather than being synced from the host. This is especially useful if you'd like to sync larger directories such as `generated`, `pub` & `vendor`.
 
-Copy `docker-compose.dev-ssh.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup. Then, create an SFTP connection at  Preferences -> Build, Execution, Deployment -> Deployment. Connect to `localhost` and use `app` for the username & password. You can set additional options for working with Magento in PhpStorm at Preferences -> Build, Execution, Deployment -> Deployment -> Options.
+Copy `compose.dev-ssh.yaml` to `compose.dev.yaml` before installing Magento to take advantage of this setup. Then, create an SFTP connection at  Preferences -> Build, Execution, Deployment -> Deployment. Connect to `localhost` and use `app` for the username & password. You can set additional options for working with Magento in PhpStorm at Preferences -> Build, Execution, Deployment -> Deployment -> Options.
 
 Note that you must use your IDE's SSH/SFTP functionality, otherwise changes will not be synced. To re-sync your host environment at any time, run:
 
@@ -416,13 +416,13 @@ bin/copyfromcontainer --all
 
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/) before continuing. These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
-Copy `docker-compose.dev-linux.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup.
+Copy `compose.dev-linux.yaml` to `compose.dev.yaml` before installing Magento to take advantage of this setup.
 
 #### The host.docker.internal hostname
 
 The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
 
-This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `docker-compose.yml`, replacing `172.17.0.1` with the result of:
+This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/7.4/conf/php.ini#L8). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `compose.yaml`, replacing `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'
@@ -468,10 +468,10 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ### MFTF
 
-To work with MFTF you will need to first enable the `selenium` image in the `docker-compose.dev.yml` file. Then, you will need to run the following.
+To work with MFTF you will need to first enable the `selenium` image in the `compose.dev.yaml` file. Then, you will need to run the following.
 
 1. Run mftf build process `bin/mftf build:project`. This should build the basic setup for mftf in your project.
-2. Update the `extra_host` values to match your Magento URL and IP in `docker-compose.dev.yml`.
+2. Update the `extra_host` values to match your Magento URL and IP in `compose.dev.yaml`.
 3. Update the values in `src/dev/tests/acceptance/.env`, including adding the new line `SELENIUM_HOST=selenium` to define the host Codeception should connect to.
 4. Run a sample test `bin/mftf run:test AdminLoginSuccessfulTest`.
 5. Update your `nginx.conf` file to allow access to the dev section with the following, before the final `deny all` section:
