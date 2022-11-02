@@ -5,6 +5,11 @@ MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
 # Docker reports RAM 0.2 less than what it is actually set to
 (( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
 
+if [ "$1" == "--no-dev" ]; then
+  bin/docker-compose --no-dev up -d --remove-orphans "$@"
+  exit $?
+fi
+
 # Ref: https://stackoverflow.com/a/51789677/9821321
 function parseYaml {
   local s
