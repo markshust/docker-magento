@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=${1:-2.4.4}
+VERSION=${1:-2.4.5-p1}
 EDITION=${2:-community}
 
 bin/stop
@@ -21,6 +21,11 @@ bin/setup-composer-auth
 
 bin/fixowns
 
-bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
+if [ $EDITION == "mageos" ]; then
+  bin/clinotty composer create-project --stability alpha --repository-url=https://upstream-nightly.mage-os.org magento/project-community-edition .
+else
+  bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
+fi
 
 bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
+
