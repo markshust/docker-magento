@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    sudo \
     vim \
     zip \
   && rm -rf /var/lib/apt/lists/*
@@ -61,7 +62,13 @@ COPY conf/msmtprc /etc/msmtprc
 COPY conf/php.ini $PHP_INI_DIR
 COPY conf/php-fpm.conf /usr/local/etc/
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
+RUN echo 'app ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN ["chmod", "+x", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 USER app:app
 VOLUME /var/www
 WORKDIR /var/www/html
+CMD ["php-fpm", "-R"]

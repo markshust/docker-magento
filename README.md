@@ -245,7 +245,6 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
-- `bin/install-php-extensions`: Install PHP extension in the container. Ex. `bin/install-php-extensions sourceguardian`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
 - `bin/mftf`: Run the Magento MFTF. Ex: `bin/mftf build:project`
 - `bin/mysql`: Run the MySQL CLI with database config from `env/db.env`. Ex. `bin/mysql -e "EXPLAIN core_config_data"` or`bin/mysql < magento.sql`
@@ -326,6 +325,15 @@ Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and pa
 ### Email / Mailcatcher
 
 View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [Mageplaza's SMTP module](https://github.com/mageplaza/magento-2-smtp). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port is different from the mailcatcher interface to read the emails.
+
+### PHP Extensions
+
+Edit `PHP_EXTENSIONS` in `env/phpfpm.env` and `bin/restart` to install extra PHP extensions. Supported PHP extensions is in [mlocati/docker-php-extension-installer](https://github.com/mlocati/docker-php-extension-installer#supported-php-extensions).
+
+```
+# Example: env/phpfpm.env
+PHP_EXTENSIONS=sourceguardian mailparse
+```
 
 ### Redis
 
