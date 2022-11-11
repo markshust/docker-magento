@@ -359,6 +359,61 @@ Install and enable the PHP Debug extension from the [Visual Studio Marketplace](
 
 Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
+### Xdebug & VS Code in a WSL2 environment
+
+Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
+
+Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
+
+1. In VS Code, make sure that its running in a WSL window, rather than in the default window.
+2. Install the [`PHP Debug`](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) extension on VS Code. 
+3. Create a new configuration file inside the project. Go to the `Run and Debug` section in VS Code, then click on `create a launch.json file`.
+4. Attention to the following configs inside the file: 
+    * The port must be the same as the port on the xdebug.ini file.
+    ```bash
+      bin/cli cat /usr/local/etc/php/php.ini
+    ```
+    ```bash
+      memory_limit = 4G
+      max_execution_time = 1800
+      zlib.output_compression = On
+      cgi.fix_pathinfo = 0
+      date.timezone = UTC
+
+      xdebug.mode = debug
+      xdebug.client_host = host.docker.internal
+      xdebug.idekey = PHPSTORM
+      xdebug.client_port=9003
+      #You can uncomment the following line to force the debug with each request
+      #xdebug.start_with_request=yes
+
+      upload_max_filesize = 100M
+      post_max_size = 100M
+      max_input_vars = 10000
+    ```
+    * The pathMappings should have the same folder path as the project inside the Docker container.
+    ```json
+      {
+          "version": "0.2.0",
+          "configurations": [
+              {
+                  "name": "Listen for XDebug",
+                  "type": "php",
+                  "request": "launch",
+                  "port": 9003,
+                  "pathMappings": {
+                      "/var/www/html": "${workspaceFolder}"
+                  },
+                  "hostname": "localhost"
+              }
+          ]
+      }
+    ```
+5. Run the following command in the Windows Powershell. It allows WSL through the firewall, otherwise breakpoints might not be hitten.
+    ```powershell
+    New-NetFirewallRule -DisplayName "WSL" -Direction Inbound  -InterfaceAlias "vEthernet (WSL)"  -Action Allow
+    ```
+
 ### Xdebug & PhpStorm
 
 1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PhpStorm from the list to set the IDE Key to "PHPSTORM", then click Save.
