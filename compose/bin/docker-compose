@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if hash docker-compose 2>/dev/null; then
-  DOCKER_COMPOSE="docker-compose"
-else
+if docker compose version > /dev/null 2>&1; then
   DOCKER_COMPOSE="docker compose"
+else
+  DOCKER_COMPOSE="docker-compose"
 fi
 
 if [ "$1" == "--no-dev" ]; then
