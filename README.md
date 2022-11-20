@@ -163,7 +163,7 @@ bin/download 2.4.5-p1 community
 # If no arguments are passed, "2.4.5-p1" and "community" are the default values used.
 
 # or for Magento core development:
-# bin/docker-compose --no-dev up -d
+# bin/start --no-dev
 # bin/setup-composer-auth
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
@@ -193,7 +193,7 @@ cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
 # Start some containers, copy files to them and then restart the containers:
-bin/docker-compose --no-dev up -d
+bin/start --no-dev
 bin/copytocontainer --all ## Initial copy will take a few minutes...
 
 # Import existing database:
