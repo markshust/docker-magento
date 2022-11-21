@@ -6,7 +6,7 @@ MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
 (( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
 
 if [ "$1" == "--no-dev" ]; then
-  bin/docker-compose --no-dev up -d --remove-orphans "$@"
+  bin/docker-compose --no-dev up -d --remove-orphans "${@:2}"
   exit $?
 fi
 
