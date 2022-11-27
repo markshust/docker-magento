@@ -280,6 +280,28 @@ It is recommended to keep your root docker config files in one repository, and y
 
 ## Misc Info
 
+### Install fails because project directory is not empty
+
+The most common issue with a failed docker-magento install is getting this error:
+
+```
+Project directory "/var/www/html/." is not empty error
+```
+
+This message occurs when _something_ fails to execute correctly during an install, and a subsequent install is re-attempted. Unfortunately, when attempting a second (or third) install, it's possible the `src` directory is no longer empty. This prevents Composer from creating the new project because it needs to create new projects within an empty directory.
+
+The workaround to this is that once you have fixed the issue that was initially preventing your install from completing, you will need to completely remove the assets from the previously attempted install before attempting a subsequent install.
+
+You can do this by running:
+
+```
+bin/removeall
+cd ..
+rm -rf yourproject
+```
+
+Then, create your new project directory again so you can attempt the install process again. The `bin/removeall` command removes all previous Docker containers & volumes related to the specific project directory you are within. You can then attempt the install process again.
+
 ### Caching
 
 For an improved developer experience, caches are automatically refreshed when related files are updated, courtesy of [cache-clean](https://github.com/mage2tv/magento-cache-clean). This means you can keep all of the standard Magento caches enabled, and this script will only clear the specific caches needed, and only when necessary.
