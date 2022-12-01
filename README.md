@@ -52,7 +52,7 @@ A free screencast course is available (which was fully refreshed in December 202
 Set Up a Magento 2 Development Environment with Docker
 </a>
 
-### Course Curriculm
+### Course Curriculum
 
 #### Intro
 
@@ -387,10 +387,10 @@ Install and enable the PHP Debug extension from the [Visual Studio Marketplace](
 
 Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
-1. In VS Code, make sure that its running in a WSL window, rather than in the default window.
-2. Install the [`PHP Debug`](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) extension on VS Code. 
+1. In VS Code, make sure that it's running in a WSL window, rather than in the default window.
+2. Install the [`PHP Debug`](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) extension on VS Code.
 3. Create a new configuration file inside the project. Go to the `Run and Debug` section in VS Code, then click on `create a launch.json file`.
-4. Attention to the following configs inside the file: 
+4. Attention to the following configs inside the file:
     * The port must be the same as the port on the xdebug.ini file.
     ```bash
       bin/cli cat /usr/local/etc/php/php.ini
