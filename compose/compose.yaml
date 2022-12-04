@@ -65,6 +65,21 @@ services:
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
 
+  ## If you wish to use Elasticsearch, comment out opensearch image above and
+  ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
+  #elasticsearch:
+  #  image: markoshust/magento-elasticsearch:7.17-0
+  #  ports:
+  #    - "9200:9200"
+  #    - "9300:9300"
+  #  env_file: env/elasticsearch.env
+  #  environment:
+  #    - "discovery.type=single-node"
+  #    ## Avoid test failures due to small disks
+  #    ## More info at https://github.com/markshust/docker-magento/issues/488
+  #    - "cluster.routing.allocation.disk.threshold_enabled=false"
+  #    - "index.blocks.read_only_allow_delete"
+
   rabbitmq:
     image: markoshust/magento-rabbitmq:3.9-0
     ports:
