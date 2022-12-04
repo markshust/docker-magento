@@ -53,7 +53,7 @@ services:
       - "6379:6379"
 
   opensearch:
-    image: markoshust/magento-opensearch:1.2.4-0
+    image: markoshust/magento-opensearch:1.2-0
     ports:
       - "9200:9200"
       - "9300:9300"
