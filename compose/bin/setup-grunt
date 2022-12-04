@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "Confirming n98-magerun2 is installed..."
+bin/n98-magerun2 > /dev/null 2>&1
+
 DEFAULT_THEME_ID="select value from core_config_data where path = 'design/theme/theme_id'"
 THEME_PATH="select theme_path from theme where theme_id in ($DEFAULT_THEME_ID);"
 VENDOR_THEME=$(bin/n98-magerun2 db:query "$THEME_PATH" | sed -n 2p | cut -d$'\r' -f1)
@@ -33,9 +36,26 @@ else
     bin/node -e "$GEN_THEME_JS"
 fi
 
-bin/clinotty cp package.json.sample package.json
-bin/clinotty cp Gruntfile.js.sample Gruntfile.js
-bin/clinotty cp grunt-config.json.sample grunt-config.json
+# Create files from sample files if they do not yet exist
+test -f src/package.json || cp src/package.json.sample src/package.json
+test -f src/Gruntfile.js || cp src/Gruntfile.js.sample src/Gruntfile.js
+test -f src/grunt-config.json || cp src/grunt-config.json.sample src/grunt-config.json
+
+# Disable grunt-contrib-jasmine on ARM processors (incompatible)
+if [ "$(uname -m)" == "arm64" ]; then
+    sed -e 's/"grunt-contrib-jasmine": "[~.0-9]*",//' src/package.json > package.json \
+      && mv package.json src/package.json
+fi
+
+# Enable these custom files on compose.dev.yaml so custom updates are persisted
+sed -e 's/grunt-config.json.sample/grunt-config.json/' compose.dev.yaml > compose.dev.yaml.updated \
+ && mv compose.dev.yaml.updated compose.dev.yaml
+sed -e 's/Gruntfile.js.sample/Gruntfile.js/' compose.dev.yaml > compose.dev.yaml.updated \
+ && mv compose.dev.yaml.updated compose.dev.yaml
+sed -e 's/package.json.sample/package.json/' compose.dev.yaml > compose.dev.yaml.updated \
+ && mv compose.dev.yaml.updated compose.dev.yaml
+bin/restart app phpfpm
+
 bin/npm install ajv@^5.0.0 --save
 bin/npm install
 bin/magento cache:clean

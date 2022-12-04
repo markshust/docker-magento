@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:7.4-fpm
-            markoshust/magento-php:7.4-fpm-12
+            markoshust/magento-php:7.4-fpm-15
   php-8-1:
     runs-on: ubuntu-latest
     steps:
@@ -59,4 +59,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            markoshust/magento-php:8.1-fpm-0
+            markoshust/magento-php:8.1-fpm
+            markoshust/magento-php:8.1-fpm-1
