@@ -1,5 +1,5 @@
 #!/bin/bash
-[ -z "$1" ] && echo "Please specify a CLI command (ex. ls)" && exit
+[ -z "$1" ] && echo "Please specify a service operation (start|stop|status|restart|reload|force-reload)" && exit
 bin/root service cron "$@"
 bin/root touch /var/www/html/var/.setup_cronjob_status /var/www/html/var/.update_cronjob_status
 bin/root chown app:app /var/www/html/var/.setup_cronjob_status /var/www/html/var/.update_cronjob_status
