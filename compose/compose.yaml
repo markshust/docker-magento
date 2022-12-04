@@ -57,6 +57,7 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    env_file: env/opensearch.env
     environment:
       - "discovery.type=single-node"
       ## Avoid test failures due to small disks
