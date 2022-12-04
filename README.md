@@ -35,6 +35,7 @@ View Dockerfiles for the latest tags:
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
     - [`1.2`, `1.2-0`](https://github.com/markshust/docker-magento/tree/master/images/opensearch/1.2)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
+  - [`7.16`, `7.16-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.16)
   - [`7.17`, `7.17-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.17)
 - [markoshust/magento-rabbitmq (Docker Hub)](https://hub.docker.com/r/markoshust/magento-rabbitmq/)
   - [`3.9`, `3.9-0`](https://github.com/markshust/docker-magento/tree/master/images/rabbitmq/3.9)
