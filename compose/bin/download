@@ -8,12 +8,6 @@ bin/stop
 # Translate version to root in integer format. Ex. 2.4.3-p1 -> 243
 VERSION_ROOT=$(echo "$VERSION" | cut -b 1-5 | sed -e 's/\.//g')
 
-if (( $(echo "$VERSION_ROOT < 244" | bc -l) )); then
-  sed -i -e 's/8.1\-fpm\-1/7.4\-fpm\-15/g' compose.yaml
-else
-  sed -i -e 's/7.4\-fpm\-15/8.1\-fpm\-1/g' compose.yaml
-fi
-
 bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
