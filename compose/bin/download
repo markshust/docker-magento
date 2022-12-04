@@ -5,9 +5,6 @@ EDITION=${2:-community}
 
 bin/stop
 
-# Translate version to root in integer format. Ex. 2.4.3-p1 -> 243
-VERSION_ROOT=$(echo "$VERSION" | cut -b 1-5 | sed -e 's/\.//g')
-
 bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
