@@ -33,12 +33,19 @@ services:
       timeout: 5s
       retries: 30
 
-  elasticsearch:
+  opensearch:
     healthcheck:
-      test: 'curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1'
+      test: 'curl --fail opensearch:9200/_cat/health >/dev/null || exit 1'
       interval: 5s
       timeout: 5s
       retries: 30
+
+  #elasticsearch:
+  #  healthcheck:
+  #    test: 'curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1'
+  #    interval: 5s
+  #    timeout: 5s
+  #    retries: 30
 
   rabbitmq:
     healthcheck:
