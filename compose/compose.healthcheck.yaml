@@ -14,8 +14,10 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      elasticsearch:
+      opensearch:
         condition: service_healthy
+      #elasticsearch:
+      #  condition: service_healthy
       rabbitmq:
         condition: service_healthy
 
