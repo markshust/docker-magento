@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [44.0.0] - 2022-12-05
+
+### Added
+- Allow more variables for the PhpStan analyse script [PR #789](https://github.com/markshust/docker-magento/pull/789).
+- New bin/docker-compose script to abstract away calls to docker-compose [PR #787](https://github.com/markshust/docker-magento/pull/787).
+- Support for Docker Compose V2 ("docker compose" and backwards-compatibility for "docker-compose") [PR #787](https://github.com/markshust/docker-magento/pull/787).
+- New Docker Compose healthcheck [PR #384](https://github.com/markshust/docker-magento/pull/384).
+- MageOS support [4591b68c](https://github.com/markshust/docker-magento/commit/4591b68c46667d4015e728392b813ec42939ae67).
+- Documentation to recover from failed install [#816](https://github.com/markshust/docker-magento/issues/816).
+- OpenSearch support [PR #680](https://github.com/markshust/docker-magento/pull/680).
+- New build for Elasticsearch 7.17 [c45f05c3](https://github.com/markshust/docker-magento/commit/c45f05c370fe1347afa35117511794f736710f71).
+
+### Updated
+- Rename docker-compose.yml to compose.yaml (preferred) [PR #799](https://github.com/markshust/docker-magento/pull/799).
+- Readme file with new info on configuring Xdebug in WSL2 environments [PR #810](https://github.com/markshust/docker-magento/pull/810).
+
+### Fixed
+- Lowered RAM check on setup [#720](https://github.com/markshust/docker-magento/issues/720).
+
+### Removed
+- Deprecated PHP 7.4 due to all versions < Magento 2.4.4 reaching EOL [3a64324e](https://github.com/markshust/docker-magento/commit/3a64324e08f3d15e3c3ce86b5c0f5e7ebb635a75).
+
 ## [43.2.0] - 2022-09-13
 
 ### Added
