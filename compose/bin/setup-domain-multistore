@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# shellcheck source=../env/db.env
+source env/db.env
+bin/generate-store-setters | bin/mysql
+bin/update-nginx-config
+bin/add-base-urls-to-hosts

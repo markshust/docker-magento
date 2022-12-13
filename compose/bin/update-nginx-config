@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+bin/generate-nginx-mapping >config/nginx/default.conf
+cd config/nginx && cat default.conf.multistore.sample >>default.conf && cp nginx.conf.multistore.sample nginx.conf

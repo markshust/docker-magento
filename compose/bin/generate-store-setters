@@ -1,0 +1,62 @@
+#!/bin/bash
+set -e
+
+STORES=$(bin/n98-magerun2 sys:store:list --format=csv | grep -v Warning | sed '/^$/d' | tail -n+2)
+
+# echo "use magento;"
+echo "DELETE FROM core_config_data WHERE path LIKE 'web/%/base%url';"
+
+for STORE in $STORES; do
+    STORE_CODE=""
+    SEPARATOR=""
+    SCOPE="default"
+    STORE_ID=$(echo "$STORE" | cut -d ',' -f1)
+    if [[ ${STORE_ID} -gt 1 ]]; then
+        SEPARATOR="-"
+        STORE_CODE=$(echo "$STORE" | cut -d ',' -f2)
+        STORE_CODE=${STORE_CODE//_/-}
+        SCOPE="stores"
+    fi
+    SECURE_BASE_URL="https://magento${SEPARATOR}${STORE_CODE}.test/"
+    UNSECURE_BASE_URL="https://magento${SEPARATOR}${STORE_CODE}.test/"
+
+    SECURE_BASE_LINK_URL="https://magento${SEPARATOR}${STORE_CODE}.test/"
+    UNSECURE_BASE_LINK_URL="https://magento${SEPARATOR}${STORE_CODE}.test/"
+
+    SECURE_BASE_MEDIA_URL=$SECURE_BASE_URL"media/"
+    UNSECURE_BASE_MEDIA_URL=$UNSECURE_BASE_URL"media/"
+
+    SECURE_BASE_STATIC_URL=$SECURE_BASE_URL"static/"
+    UNSECURE_BASE_STATIC_URL=$UNSECURE_BASE_URL"static/"
+
+    SQL_SECURE_BASE_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${SECURE_BASE_URL}', 'web/secure/base_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_SECURE_BASE_URL"
+
+    SQL_UNSECURE_BASE_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${UNSECURE_BASE_URL}', 'web/unsecure/base_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_UNSECURE_BASE_URL"
+
+    SQL_SECURE_BASE_LINK_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${SECURE_BASE_LINK_URL}', 'web/secure/base_link_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_SECURE_BASE_LINK_URL"
+
+    SQL_UNSECURE_BASE_LINK_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${UNSECURE_BASE_LINK_URL}', 'web/unsecure/base_link_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_UNSECURE_BASE_LINK_URL"
+
+    SQL_SECURE_BASE_MEDIA_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${SECURE_BASE_MEDIA_URL}', 'web/secure/base_media_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_SECURE_BASE_MEDIA_URL"
+
+    SQL_UNSECURE_BASE_MEDIA_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${UNSECURE_BASE_MEDIA_URL}', 'web/unsecure/base_media_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_UNSECURE_BASE_MEDIA_URL"
+
+    SQL_SECURE_BASE_STATIC_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${SECURE_BASE_STATIC_URL}', 'web/secure/base_static_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_SECURE_BASE_STATIC_URL"
+
+    SQL_UNSECURE_BASE_STATIC_URL="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${UNSECURE_BASE_STATIC_URL}', 'web/unsecure/base_static_url', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_UNSECURE_BASE_STATIC_URL"
+
+    SQL_WEB_COOKIE_DOMAIN="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('${UNSECURE_BASE_URL}', 'web/cookie/cookie_domain', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_WEB_COOKIE_DOMAIN"
+
+    SQL_WEB_COOKIE_PATH="REPLACE INTO core_config_data (value, path, scope_id, scope) VALUES ('/', 'web/cookie/cookie_path', '${STORE_ID}', '${SCOPE}');"
+    echo "$SQL_WEB_COOKIE_PATH"
+
+done

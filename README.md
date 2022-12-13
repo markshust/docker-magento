@@ -216,6 +216,34 @@ bin/restart
 open https://magento.test
 ```
 
+#### Existing multistore projects
+```bash
+
+# Run bin/n98-magerun2 at least once in order to download the file
+bin/n98-magerun2
+
+# Creates a nginx mapping file and updates the base URLs in the database table `core_config_data` for each store.
+# Admin panel base URL: https://magento.test
+# Base URLs of each store: https://magento-store-code.test where store-code is the value found in `store.code` database column.
+# e.g. two stores with the following codes: `en_US` and `fr_FR` will have base URLs: `https://magento-en-us.test` and `https://magento-fr-fr.test`
+# Note that since we need to write  `/etc/hosts` for DNS resolution, you will be prompted for your system password.
+bin/setup-multistore
+
+
+# If using Linux uncomment mount bindings in `docker-compose.dev.linux.yml` file and copy the file to `docker-compose.dev.yml`
+sed -i 's/# - .\/config\/nginx\/nginx.conf/- .\/config\/nginx\/nginx.conf/' docker-compose.dev-linux.yml
+sed -i 's/# - .\/config\/nginx\/default.conf/- .\/config\/nginx\/default.conf/' docker-compose.dev-linux.yml
+cp docker-compose.dev-linux.yml docker-compose.dev.yml
+
+# If using macOS (un)comment mount bindings in `docker-compose.dev.yml` file
+sed -i 's/- .\/src\/nginx.conf.sample/#- .\/src\/nginx.conf.sample/' docker-compose.dev.yml
+sed -i 's/# - .\/config\/nginx\/nginx.conf/- .\/config\/nginx\/nginx.conf/' docker-compose.dev.yml
+sed -i 's/# - .\/config\/nginx\/default.conf/- .\/config\/nginx\/default.conf/' docker-compose.dev.yml
+
+# Restart containers
+bin/restart
+```
+
 ## Updates
 
 To update your project to the latest version of `docker-magento`, run:
