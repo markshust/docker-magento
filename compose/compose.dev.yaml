@@ -9,7 +9,11 @@ services:
       - ./src/app/etc:/var/www/html/app/etc:cached
       - ./src/composer.json:/var/www/html/composer.json:cached
       - ./src/composer.lock:/var/www/html/composer.lock:cached
+      - ./src/grunt-config.json.sample:/var/www/html/grunt-config.json:cached
+      - ./src/Gruntfile.js.sample:/var/www/html/Gruntfile.js:cached
+      - ./src/dev/tools/grunt/configs:/var/www/html/dev/tools/grunt/configs:cached
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
+      - ./src/package.json.sample:/var/www/html/package.json:cached
       # If you want to run a multistore Magento installation uncomment the two lines below, comment the one above and restart the app service
       # - ./config/nginx/nginx.conf:/var/www/html/nginx.conf:delegated
       # - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:delegated
@@ -21,3 +25,11 @@ services:
 
   phpfpm:
     volumes: *appvolumes
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    env_file: env/db.env
+    ports:
+      - "8080:80"
+    depends_on:
+      - db

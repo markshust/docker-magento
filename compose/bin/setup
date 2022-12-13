@@ -3,12 +3,14 @@ set -o errexit
 
 MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
 # Docker reports RAM 0.2 less than what it is actually set to
-(( $(echo "$MEM < 5.8" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
+(( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
 
 # shellcheck source=../env/db.env
 source env/db.env
 # shellcheck source=../env/elasticsearch.env
 source env/elasticsearch.env
+# shellcheck source=../env/opensearch.env
+source env/opensearch.env
 # shellcheck source=../env/magento.env
 source env/magento.env
 # shellcheck source=../env/rabbitmq.env
@@ -18,28 +20,16 @@ DOMAIN=${1:-magento.test}
 
 bin/stop
 
-docker-compose -f docker-compose.yml up -d
+bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
 bin/clinotty chmod u+x bin/magento
 rm -rf src && mkdir src
 
-echo "Waiting for connection to Elasticsearch..."
-bin/clinotty timeout $ES_HEALTHCHECK_TIMEOUT bash -c "
-    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
-        printf '.'
-        sleep 2
-    done"
-[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
-
-echo ""
-echo "Waiting for connection to RabbitMQ..."
-bin/clinotty timeout $RABBITMQ_HEALTHCHECK_TIMEOUT bash -c "
-    until curl --silent --output /dev/null http://$RABBITMQ_DEFAULT_USER:$RABBITMQ_DEFAULT_PASS@$RABBITMQ_HOST:$RABBITMQ_MANAGEMENT_PORT/api/aliveness-test/%2F; do
-        printf '.'
-        sleep 2
-    done"
-[ $? != 0 ] && echo "Failed to connect to RabbitMQ" && exit
+echo "Adding Magento modules to Composer allow-plugins directive..."
+bin/clinotty composer config --no-plugins allow-plugins.magento/magento-composer-installer true
+bin/clinotty composer config --no-plugins allow-plugins.magento/inventory-composer-installer true
+bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
@@ -72,9 +62,8 @@ bin/clinotty bin/magento setup:install \
   --session-save-redis-host=redis \
   --session-save-redis-log-level=4 \
   --session-save-redis-db=2 \
-  --search-engine=elasticsearch7 \
-  --elasticsearch-host=$ES_HOST \
-  --elasticsearch-port=$ES_PORT \
+  --elasticsearch-host=$OPENSEARCH_HOST \
+  --elasticsearch-port=$OPENSEARCH_PORT \
   --use-rewrites=1 \
   --no-interaction
 
@@ -90,6 +79,10 @@ bin/clinotty bin/magento indexer:reindex
 echo "Setting basic URL and generating SSL certificate..."
 bin/setup-domain "${DOMAIN}"
 
+echo "Fixing owner and permissions..."
+bin/fixowns
+bin/fixperms
+
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
@@ -99,7 +92,7 @@ bin/clinotty bin/magento cron:install
 echo "Turning on developer mode..."
 bin/clinotty bin/magento deploy:mode:set developer
 
-mv .vscode src/
+cp -r .vscode src/
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${DOMAIN}/"

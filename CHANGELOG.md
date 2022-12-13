@@ -4,6 +4,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [44.0.0] - 2022-12-05
+
+### Added
+- Allow more variables for the PhpStan analyse script [PR #789](https://github.com/markshust/docker-magento/pull/789).
+- New bin/docker-compose script to abstract away calls to docker-compose [PR #787](https://github.com/markshust/docker-magento/pull/787).
+- Support for Docker Compose V2 ("docker compose" and backwards-compatibility for "docker-compose") [PR #787](https://github.com/markshust/docker-magento/pull/787).
+- New Docker Compose healthcheck [PR #384](https://github.com/markshust/docker-magento/pull/384).
+- MageOS support [4591b68c](https://github.com/markshust/docker-magento/commit/4591b68c46667d4015e728392b813ec42939ae67).
+- Documentation to recover from failed install [#816](https://github.com/markshust/docker-magento/issues/816).
+- OpenSearch support [PR #680](https://github.com/markshust/docker-magento/pull/680).
+- New build for Elasticsearch 7.17 [c45f05c3](https://github.com/markshust/docker-magento/commit/c45f05c370fe1347afa35117511794f736710f71).
+
+### Updated
+- Rename docker-compose.yml to compose.yaml (preferred) [PR #799](https://github.com/markshust/docker-magento/pull/799).
+- Readme file with new info on configuring Xdebug in WSL2 environments [PR #810](https://github.com/markshust/docker-magento/pull/810).
+
+### Fixed
+- Lowered RAM check on setup [#720](https://github.com/markshust/docker-magento/issues/720).
+
+### Removed
+- Deprecated PHP 7.4 due to all versions < Magento 2.4.4 reaching EOL [3a64324e](https://github.com/markshust/docker-magento/commit/3a64324e08f3d15e3c3ce86b5c0f5e7ebb635a75).
+
+## [43.2.0] - 2022-09-13
+
+### Added
+- Added phpmyadmin to docker-compose.dev.yml file [PR #772](https://github.com/markshust/docker-magento/pull/772).
+
+## [43.1.0] - 2022-09-13
+
+### Added
+- Support for Grunt + LiveReload [#430](https://github.com/markshust/docker-magento/issues/430).
+
+## [43.0.0] - 2022-05-26
+
+### Added
+- Fall back to PHP 7.4 for Magento versions older than 2.4.4 [PR #685](https://github.com/markshust/docker-magento/pull/685) [PR #710](https://github.com/markshust/docker-magento/pull/710).
+- Checksum flag to rsync in `bin/update` [PR #707](https://github.com/markshust/docker-magento/pull/707).
+- New `bin/analyse` command to statically analyse code with PHPStan [8601c2f7](https://github.com/markshust/docker-magento/commit/8601c2f73cc6f1d2534f017c8f31eec49b0e00fc).
+- `node` & `npm` to PHP images [#694](https://github.com/markshust/docker-magento/issues/694).
+
+### Updated
+- Magento download to default to 2.4.4 [151dc09a](https://github.com/markshust/docker-magento/commit/151dc09ae95a5cff75598c366f3d77efa58098d5)
+- Prevent domain duplication in `/etc/hosts` [PR #693](https://github.com/markshust/docker-magento/pull/693).
+- Replace buster images with bullseye to properly fix Apple M1 5-sec delay [#636](https://github.com/markshust/docker-magento/issues/636).
+
 ## [42.0.0] - 2022-04-14
 
 This release brings streamlined PHP Docker images (saving 300MB on previous images), a brand new PHP 8.1 image with full support for Magento 2.4.4, a proper Elasticsearch health check during setup, and ability to detect memory assigned to Docker on startup (which will prevent failed installations). Elasticsearch, Redis & RabbitMQ Docker images have also all been updated to their recently supported Magento versions.
@@ -114,7 +159,7 @@ This is one of the biggest releases of docker-magento 💥! This major update in
 
 All the images are now multi-arch builds, meaning they can install on both AMD & ARM chipsets. Additionally, by setting up your IDE to connect to Docker over SSH/SFTP to avoid selective filesystem syncing.
 
-The docker-compose configuration files have also beeen streamlined & simplified, with dedicated files for both SSH and Linux setups. Read more about these updates at https://github.com/markshust/docker-magento#ssh and https://github.com/markshust/docker-magento#linux respectively.
+The docker-compose configuration files have also been streamlined & simplified, with dedicated files for both SSH and Linux setups. Read more about these updates at https://github.com/markshust/docker-magento#ssh and https://github.com/markshust/docker-magento#linux respectively.
 
 Many issues have been resolved, and long-standing pull requests have been merged. A special thanks to [@drpayyne](https://github.com/drpayyne) for multi-arch support, [@rangerz](https://github.com/rangerz) for their massive contributions, as well as many others for their continued work & pull requests submitted to this project.
 
@@ -434,7 +479,7 @@ Happy new year! 🎉
 - Fixed logic of `bin/copyfromcontainer` and `bin/copytocontainer` so subdirectories are now properly copied from and to the container
 
 ### Added
-- The `bin/fixowns` script now includes the ability to fix ownerships at the subdirectory level 
+- The `bin/fixowns` script now includes the ability to fix ownerships at the subdirectory level
 - The `bin/copyfromcontainer` and `bin/copytocontainer` scripts now fixes permissions and ownerships of just the subdirectories that are copied
 
 ## [24.1.2] - 2019-10-15
@@ -570,7 +615,7 @@ Happy new year! 🎉
   - If you need access to specific files that are created within the container and are not host bind mounted, you can use `bin/cli` or `bin/bash` commands to go into the container to access the files. You can also use the new `bin/copyfromcontainer` and `bin/copytocontainer` bin helper scripts to copy files & folders from or to containers.
   - If you need to host bind mount files or folders, feel free to do so within the `docker-compose.dev.yml` file! Just be aware there is a performance penalty for doing so.
 - Updated `nginx` Docker image to look for `nginx.conf` file instead of `nginx.conf.sample` file. This will now require copying the `nginx.conf.sample` file to `nginx.conf`, or using a host bind mount. This location allows overrides that aren't overridden when you upgrade Magento, and allow customizations for projects. Tagged new image as `markoshust/magento-nginx:1.13-7`.
-- The `bin/setup` helper script uses ohly the `docker-compose.yml` file, with only native docker volume mounts.
+- The `bin/setup` helper script uses only the `docker-compose.yml` file, with only native docker volume mounts.
 - The `bin/start` helper script uses both `docker-compose.yml` and `docker-compose.dev.yml` files. Development-only specifications should now be placed within `docker-compose.dev.yml`, such as host bind volume mounts.
 - The `docker-compose.yml` file now uses a `sockdata` volume mount to mount the `/sock` directory. You may need to delete the `appdata` volume mount (`docker volume rm NAME`) and rebuild it with `bin/copytocontainer --all`.
 - Removed call to `bin/fixperms` within `bin/setup` to speed up initial installation.
@@ -647,7 +692,7 @@ Happy new year! 🎉
 ## [17.0.1] - 2018-10-06
 
 ### Removed
-- Removed bind mount of vendor folder introduced in 16.2.0 due to inconsistency issues. Update cominmg soon that will implement new method of bind mounting.
+- Removed bind mount of vendor folder introduced in 16.2.0 due to inconsistency issues. Update coming soon that will implement new method of bind mounting.
 
 ## [17.0.0] - 2018-09-06
 

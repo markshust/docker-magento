@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if docker compose version > /dev/null 2>&1; then
+  DOCKER_COMPOSE="docker compose"
+else
+  DOCKER_COMPOSE="docker-compose"
+fi
+
+if [ "$1" == "--no-dev" ]; then
+  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml "${@:2}"
+else
+  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml -f compose.dev.yaml "$@"
+fi
