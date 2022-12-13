@@ -2,7 +2,7 @@
 
 STORES=$(bin/n98-magerun2 sys:store:list --format=csv | grep -v Warning | sed '/^$/d' | tail -n+2)
 
-echo | tee -a /etc/hosts
+NEWLINE_PRINTED=false
 for STORE in $STORES; do
     SEPARATOR=""
     STORE_CODE=""
@@ -10,11 +10,15 @@ for STORE in $STORES; do
     if [[ ${STORE_ID} -gt 1 ]]; then
         SEPARATOR="-"
         STORE_CODE=$(echo "$STORE" | cut -d ',' -f2)
-        STORE_CODE="echo \"${STORE_CODE//_/-}\""
+        STORE_CODE="${STORE_CODE//_/-}"
     fi
     HOSTS_URL=magento"${SEPARATOR}""${STORE_CODE}".test
     URL_IN_HOSTS_FILE=$(grep -c "$HOSTS_URL" /etc/hosts)
     if [[ $URL_IN_HOSTS_FILE -eq 0 ]]; then
+        if [[ $NEWLINE_PRINTED == false ]]; then
+            echo | sudo tee -a /etc/hosts
+            NEWLINE_PRINTED=true
+        fi
         echo 127.0.0.1"$(printf "\t")""$HOSTS_URL" | sudo tee -a /etc/hosts
     fi
 done
