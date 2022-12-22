@@ -159,20 +159,17 @@ cd $_
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
-# Download the version of Magento you want to use with:
-bin/download 2.4.5-p1 community
-# You can specify the version and type (community, enterprise, or mageos).
-# If no arguments are passed, "2.4.5-p1" and "community" are the default values used.
-
+# Run the setup installer for Magento:
+bin/setup-manual magento.test 2.4.5-p1 community
+# You can specify the project URL, version, and type (community, enterprise, or mageos).
+# If no arguments are passed, "magento.test", "2.4.5-p1", and "community" are the default values used.
+# 
 # or for Magento core development:
 # bin/start --no-dev
 # bin/setup-composer-auth
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
 # bin/composer install
-
-# Run the setup installer for Magento:
-bin/setup magento.test
 
 open https://magento.test
 ```
