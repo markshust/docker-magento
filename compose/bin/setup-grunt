@@ -60,5 +60,5 @@ bin/npm install ajv@^5.0.0 --save
 bin/npm install
 bin/magento cache:clean
 bin/grunt clean
-bin/grunt exec:$THEME
-bin/grunt less:$THEME
+bin/grunt exec:"$THEME"
+bin/grunt less:"$THEME"
