@@ -67,6 +67,9 @@ services:
 
   ## If you wish to use Elasticsearch, comment out opensearch image above and
   ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
+  # Additionally, if you are performing the manual setup, you will need to
+  # update the bin/setup command to use the $ES_HOST variable as the value for
+  # the --elasticsearch-host argument passed to bin/magento setup:install.
   #elasticsearch:
   #  image: markoshust/magento-elasticsearch:7.17-0
   #  ports:
