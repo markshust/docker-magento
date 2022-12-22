@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DOMAIN=${1:-magento.test}
+VERSION=${2:-2.4.5-p1}
+EDITION=${3:-community}
+
+bin/download "${VERSION}" "${EDITION}"
+bin/setup "${DOMAIN}"
