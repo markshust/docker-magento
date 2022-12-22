@@ -12,8 +12,14 @@ bin/setup-composer-auth
 
 bin/fixowns
 
-if [ "$EDITION" == "mageos" ]; then
+if [ "$EDITION" == "mageos-nightly" ]; then
   bin/clinotty composer create-project --stability alpha --repository-url=https://upstream-nightly.mage-os.org magento/project-community-edition .
+elif [ "$EDITION" == "mageos-mirror" ]; then
+  bin/clinotty composer create-project --repository-url=https://mirror.mage-os.org magento/project-community-edition="${VERSION}" .
+elif [ "$EDITION" == "mageos-hypernode-mirror" ]; then
+  bin/clinotty composer create-project --repository-url=https://mage-os.hypernode.com/mirror magento/project-community-edition="${VERSION}" .
+elif [ "$EDITION" == "mageos-maxcluster-mirror" ]; then
+  bin/clinotty composer create-project --repository-url=https://mage-os.maxcluster.net/mirror magento/project-community-edition="${VERSION}" .
 else
   bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
 fi
