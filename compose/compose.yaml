@@ -28,6 +28,8 @@ services:
     #extra_hosts: &appextrahosts
       ## Selenium support, replace "magento.test" with URL of your site
       #- "magento.test:172.17.0.1"
+      ## Linux, uncomment for Xdebug capabilities:
+      #- "host.docker.internal:host-gateway"
 
   phpfpm:
     image: markoshust/magento-php:8.1-fpm-1
