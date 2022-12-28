@@ -16,10 +16,10 @@ services:
         condition: service_healthy
       opensearch:
         condition: service_healthy
-      #elasticsearch:
-      #  condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      #elasticsearch:
+      #  condition: service_healthy
 
   db:
     healthcheck:

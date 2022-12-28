@@ -28,18 +28,18 @@
 View Dockerfiles for the latest tags:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
-  - [`1.18`, `1.18-8`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.18)
+  - [`1.18`, `1.18-8`](images/nginx/1.18)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - [`8.1-fpm`, `8.1-fpm-1`](https://github.com/markshust/docker-magento/tree/master/images/php/8.1)
+  - [`8.1-fpm`, `8.1-fpm-1`](images/php/8.1)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
-    - [`1.2`, `1.2-0`](https://github.com/markshust/docker-magento/tree/master/images/opensearch/1.2)
+    - [`1.2`, `1.2-0`](images/opensearch/1.2)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
-  - [`7.16`, `7.16-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.16)
-  - [`7.17`, `7.17-0`](https://github.com/markshust/docker-magento/tree/master/images/elasticsearch/7.17)
+  - [`7.16`, `7.16-0`](images/elasticsearch/7.16)
+  - [`7.17`, `7.17-0`](images/elasticsearch/7.17)
 - [markoshust/magento-rabbitmq (Docker Hub)](https://hub.docker.com/r/markoshust/magento-rabbitmq/)
-  - [`3.9`, `3.9-0`](https://github.com/markshust/docker-magento/tree/master/images/rabbitmq/3.9)
+  - [`3.9`, `3.9-0`](images/rabbitmq/3.9)
 - [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
-  - [`latest`](https://github.com/markshust/docker-magento/tree/master/images/ssh)
+  - [`latest`](images/ssh)
 
 ## Free Course
 
@@ -217,6 +217,12 @@ bin/restart
 open https://magento.test
 ```
 
+### Elasticsearch vs OpenSearch
+OpenSearch is set as the default search engine when setting up this project. Follow the instructions below if you want to use Elasticsearch instead:
+1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L55-L66) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L38-L43) files
+2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L70-L81) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L45-L50) files
+3. Update the `bin/setup` command to use the [`$ES_HOST` variable as the value for the `--elasticsearch-host` argument passed to `setup:install`](https://github.com/markshust/docker-magento/blob/master/compose/bin/setup#L65)
+
 ## Updates
 
 To update your project to the latest version of `docker-magento`, run:
@@ -262,7 +268,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/pwa-studio`: (BETA) Start the PWA Studio server. Note that Chrome will throw SSL cert errors and not allow you to view the site, but Firefox will.
 - `bin/redis`: Run a command from the redis container. Ex. `bin/redis redis-cli monitor`
 - `bin/remove`: Remove all containers.
-- `bin/removeall`: Remove all containers, networks, volumes, and images.
+- `bin/removeall`: Remove all containers, networks, volumes, and images, calling `bin/stopall` before doing so.
 - `bin/removevolumes`: Remove all volumes.
 - `bin/restart`: Stop and then start all containers.
 - `bin/root`: Run any CLI command as root without going into the bash prompt. Ex `bin/root apt-get install nano`
@@ -502,7 +508,7 @@ Copy `compose.dev-linux.yaml` to `compose.dev.yaml` before installing Magento to
 
 The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
 
-This hostname is [hard-coded in the php.ini file](https://github.com/markshust/docker-magento/blob/master/images/php/8.1/conf/php.ini#L8). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `compose.yaml`, replacing `172.17.0.1` with the result of:
+This hostname is [hard-coded in the php.ini file](images/php/8.1/conf/php.ini#L8). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `compose.yaml`, replacing `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'
