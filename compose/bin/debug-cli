@@ -1,0 +1,61 @@
+#!/bin/bash
+S=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep -iGc 'xdebug.mode = off');
+
+if [[ $S == 1 ]]; then
+  echo "Enable xdebug first"
+  exit 1
+fi
+
+R=$(cat ./env/phpfpm.env | grep -c 'XDEBUG_CONFIG=idekey')
+
+if [[ -z "$2" ]]
+  then
+    platform="PHPSTORM"
+  else
+    platform=$2
+fi
+
+local_debug_status(){
+  if [[ $R == 1 ]]; then
+    echo "Cli debug enabled"
+  else
+    echo "Cli debug disabled"
+  fi
+}
+
+local_debug_toggle() {
+    if [[ $R == 1 ]]; then
+      local_debug_disable
+    else
+      local_debug_enable
+    fi
+}
+
+local_debug_enable() {
+  if [[ $R == 1 ]]; then
+    echo "Already enabled"
+    exit 0
+  fi
+  echo "XDEBUG_CONFIG=idekey=$platform" >> ./env/phpfpm.env
+  echo "Cli debug enabled"
+}
+
+local_debug_disable() {
+  sed -i '' '/XDEBUG_CONFIG=idekey/d' ./env/phpfpm.env
+  echo "Cli debug disabled"
+}
+
+firstArgLetter="$(echo "$1" | head -c 1)"
+
+
+if [[ $firstArgLetter == "d" ]]; then
+  local_debug_disable
+elif [[ $firstArgLetter == "e" ]]; then
+  local_debug_enable
+elif [[ $firstArgLetter == "t" ]]; then
+  local_debug_toggle
+elif [[ $firstArgLetter == "s" ]]; then
+  local_debug_status
+else
+    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as mandatory argument.\nSpecify as an optional second argument the platform. Default is PHPSTORM\nEx: bin/debug-cli enable [PHPSTORM]\n"
+fi
