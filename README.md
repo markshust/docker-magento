@@ -45,12 +45,12 @@ View Dockerfiles for the latest tags:
 
 This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, the simplest way to learn Magento.
 
-<a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
+<a href="https://m.academy" target="_blank"><img src="docs/macademy-logo.png" alt="M.academy"></a>
 
 A free screencast course is available (which was fully refreshed in December 2021), which details the basic usage of this project:
 
 <a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/set-up-magento-2-development-environment-docker-og.png" alt="Set Up a Magento 2 Development Environment with Docker" width="400"><br/>
+<img src="docs/set-up-magento-2-development-environment-docker-og.png" alt="Set Up a Magento 2 Development Environment with Docker" width="400"><br/>
 Set Up a Magento 2 Development Environment with Docker
 </a>
 
@@ -650,7 +650,7 @@ Upon saving this file, we will see the Grunt watcher detect the changes, and you
 
 This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, the simplest way to learn Magento.
 
-<a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
+<a href="https://m.academy" target="_blank"><img src="docs/macademy-logo.png" alt="M.academy"></a>
 
 ### Mark Shust
 
