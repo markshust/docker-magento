@@ -1,9 +1,12 @@
 #!/bin/bash
 set -o errexit
 
-MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
-# Docker reports RAM 0.2 less than what it is actually set to
-(( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
+MEM_BYTES=$(docker info -f '{{.MemTotal}}')
+MEM_MB=$(( MEM_BYTES / 1000000 ))
+(( MEM_MB >= 6000 )) || {
+  echo 'There must be at least 6GB of RAM allocated to Docker to continue.' >&2
+  exit 1
+}
 
 # shellcheck source=../env/db.env
 source env/db.env
