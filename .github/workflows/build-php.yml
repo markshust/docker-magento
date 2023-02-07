@@ -1,4 +1,4 @@
-name: build-php-8.1
+name: build-php
 
 on: workflow_dispatch
 
