@@ -3,10 +3,8 @@ set -o errexit
 
 MEM_BYTES=$(docker info -f '{{.MemTotal}}')
 MEM_MB=$(( MEM_BYTES / 1000000 ))
-(( MEM_MB >= 6000 )) || {
-  echo 'There must be at least 6GB of RAM allocated to Docker to continue.' >&2
-  exit 1
-}
+# When Docker Desktop is set to 6GB in the GUI, it is reported as 6227 MB
+(( MEM_MB < 6227 )) && echo "There must be at least 6GB of RAM allocated to Docker in order to continue." && exit
 
 # shellcheck source=../env/db.env
 source env/db.env
