@@ -34,6 +34,7 @@ View Dockerfiles for the latest tags:
   - [`8.2-fpm-develop`](images/php/8.2)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
     - [`1.2`, `1.2-0`](images/opensearch/1.2)
+    - [`2.4-develop`](images/opensearch/2.4)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
   - [`7.16`, `7.16-0`](images/elasticsearch/7.16)
   - [`7.17`, `7.17-0`](images/elasticsearch/7.17)
