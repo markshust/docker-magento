@@ -1,0 +1,121 @@
+## Mark Shust's Docker Configuration for Magento
+## (https://github.com/markshust/docker-magento)
+##
+## Version 44.0.0
+
+## To use SSH, see https://github.com/markshust/docker-magento#ssh
+## Linux users, see https://github.com/markshust/docker-magento#linux
+
+## If you changed the default Docker network, you may need to replace
+## 172.17.0.1 in this file with the result of:
+## docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}'
+
+version: "3"
+
+services:
+  app:
+    image: markoshust/magento-nginx:1.18-8
+    ports:
+      - "80:8000"
+      - "443:8443"
+    volumes: &appvolumes
+      - ~/.composer:/var/www/.composer:cached
+      - ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
+      - ~/.ssh/known_hosts:/var/www/.ssh/known_hosts:cached
+      - appdata:/var/www/html
+      - sockdata:/sock
+      - ssldata:/etc/nginx/certs
+    #extra_hosts: &appextrahosts
+      ## Selenium support, replace "magento.test" with URL of your site
+      #- "magento.test:172.17.0.1"
+      ## Linux, uncomment for Xdebug capabilities:
+      #- "host.docker.internal:host-gateway"
+
+  phpfpm:
+    image: markoshust/magento-php:8.2-fpm-develop
+    volumes: *appvolumes
+    env_file: env/phpfpm.env
+    #extra_hosts: *appextrahosts
+
+  db:
+    image: mariadb:10.6
+    command:
+      --max_allowed_packet=64M
+      --optimizer_use_condition_selectivity=1
+      --optimizer_switch="rowid_filter=off"
+    ports:
+      - "3306:3306"
+    env_file: env/db.env
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+
+  opensearch:
+    image: markoshust/magento-opensearch:2.4-develop
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    env_file: env/opensearch.env
+    environment:
+      - "discovery.type=single-node"
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
+
+  ## If you wish to use Elasticsearch, comment out opensearch image above and
+  ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
+  # Additionally, if you are performing the manual setup, you will need to
+  # update the bin/setup command to use the $ES_HOST variable as the value for
+  # the --elasticsearch-host argument passed to bin/magento setup:install.
+  #elasticsearch:
+  #  image: markoshust/magento-elasticsearch:8.4-develop
+  #  ports:
+  #    - "9200:9200"
+  #    - "9300:9300"
+  #  env_file: env/elasticsearch.env
+  #  environment:
+  #    - "discovery.type=single-node"
+  #    ## Avoid test failures due to small disks
+  #    ## More info at https://github.com/markshust/docker-magento/issues/488
+  #    - "cluster.routing.allocation.disk.threshold_enabled=false"
+  #    - "index.blocks.read_only_allow_delete"
+
+  rabbitmq:
+    image: markoshust/magento-rabbitmq:3.9-0
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    env_file: env/rabbitmq.env
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    ports:
+      - "1080:1080"
+
+  ## Blackfire support, uncomment to enable
+  #blackfire:
+  #  image: blackfire/blackfire:2
+  #  ports:
+  #    - "8307"
+  #  env_file: env/blackfire.env
+
+  ## Selenium support, uncomment to enable
+  #selenium:
+  #  image: selenium/standalone-chrome-debug:3.8.1
+  #  ports:
+  #    - "5900:5900"
+  #  extra_hosts: *appextrahosts
+
+volumes:
+  appdata:
+  dbdata:
+  rabbitmqdata:
+  sockdata:
+  ssldata:
