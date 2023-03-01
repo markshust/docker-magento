@@ -6,8 +6,24 @@ else
   DOCKER_COMPOSE="docker-compose"
 fi
 
-if [ "$1" == "--no-dev" ]; then
-  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml "${@:2}"
-else
-  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml -f compose.dev.yaml "$@"
+DOCKER_COMPOSE_YAMLS=(
+  compose.yaml
+  compose.healthcheck.yaml
+)
+
+if [[ -f src/php.ini && -f src/magento-vars.php ]]; then
+  DOCKER_COMPOSE_YAMLS+=(compose.multi-storefront.yaml)
 fi
+if [[ $1 = '--no-dev' ]]; then
+  shift 1
+else
+  DOCKER_COMPOSE_YAMLS+=(compose.dev.yaml)
+fi
+
+DOCKER_COMPOSE_ARGS=()
+for YAML in "${DOCKER_COMPOSE_YAMLS[@]}"; do
+  DOCKER_COMPOSE_ARGS+=(-f "$YAML")
+done
+${DOCKER_COMPOSE} \
+  "${DOCKER_COMPOSE_ARGS[@]}" \
+  "$@"
