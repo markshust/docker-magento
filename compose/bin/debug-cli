@@ -1,11 +1,5 @@
 #!/bin/bash
 S=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep -iGc 'xdebug.mode = off');
-
-if [[ $S == 1 ]]; then
-  echo "Enable xdebug first"
-  exit 1
-fi
-
 R=$(cat ./env/phpfpm.env | grep -c 'XDEBUG_CONFIG=idekey')
 
 if [[ -z "$2" ]]
@@ -32,22 +26,29 @@ local_debug_toggle() {
 }
 
 local_debug_enable() {
+  if [[ $S == 1 ]]; then
+    bin/xdebug enable
+  fi
+
   if [[ $R == 1 ]]; then
     echo "Already enabled"
     exit 0
   fi
+
   echo "XDEBUG_CONFIG=idekey=$platform" >> ./env/phpfpm.env
+  sleep 1
+  bin/restart phpfpm
   echo "Cli debug enabled"
 }
 
 local_debug_disable() {
   sed -i '' '/XDEBUG_CONFIG=idekey/d' ./env/phpfpm.env
+  sleep 1
+  bin/restart phpfpm
   echo "Cli debug disabled"
 }
 
 firstArgLetter="$(echo "$1" | head -c 1)"
-
-
 if [[ $firstArgLetter == "d" ]]; then
   local_debug_disable
 elif [[ $firstArgLetter == "e" ]]; then
