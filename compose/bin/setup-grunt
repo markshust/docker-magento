@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "Confirming n98-magerun2 is installed..."
 bin/n98-magerun2 > /dev/null 2>&1
 

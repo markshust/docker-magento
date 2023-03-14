@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -o errexit
 
 [ -z "$1" ] && echo "Please specify a domain name (ex. magento.test)" && exit

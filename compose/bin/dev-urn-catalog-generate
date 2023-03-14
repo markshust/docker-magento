@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 bin/magento dev:urn-catalog:generate misc.xml
 bin/copyfromcontainer misc.xml
 mkdir -p src/.idea
