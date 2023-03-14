@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if ! bin/cliq ls /usr/local/bin/install-php-extensions; then
   echo "Downloading install-php-extensions, just a moment..."
   bin/rootnotty curl -sSLf \

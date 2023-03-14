@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 VERSION=${1:-2.4.5-p1}
 EDITION=${2:-community}

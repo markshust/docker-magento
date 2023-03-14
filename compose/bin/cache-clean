@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 COMPOSER_GLOBAL=/var/www/.composer-global
 CACHE_CLEAN=${COMPOSER_GLOBAL}/vendor/bin/cache-clean.js
 

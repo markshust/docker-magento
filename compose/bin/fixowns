@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "Fixing filesystem ownerships..."
 
 if [ -z "$1" ]; then

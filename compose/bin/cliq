@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 [ -z "$1" ] && echo "Please specify a CLI command (ex. ls)" && exit
 # Without stdout and stderr
 bin/clinotty "$@" >/dev/null 2>&1

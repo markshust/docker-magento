@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -o errexit
 echo "Install NodeJS and Yarn on host machine, otherwise setup will fail"
 
