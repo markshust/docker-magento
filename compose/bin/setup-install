@@ -11,6 +11,8 @@ source env/opensearch.env
 source env/magento.env
 # shellcheck source=../env/rabbitmq.env
 source env/rabbitmq.env
+# shellcheck source=../env/redis.env
+source env/redis.env
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
@@ -34,18 +36,18 @@ bin/clinotty bin/magento setup:install \
   --amqp-password="$RABBITMQ_DEFAULT_PASS" \
   --amqp-virtualhost="$RABBITMQ_DEFAULT_VHOST" \
   --cache-backend=redis \
-  --cache-backend-redis-server=redis \
-  --cache-backend-redis-db=0 \
+  --cache-backend-redis-server="$REDIS_CACHE_BACKEND_SERVER" \
+  --cache-backend-redis-db="$REDIS_CACHE_BACKEND_DB" \
   --page-cache=redis \
-  --page-cache-redis-server=redis \
-  --page-cache-redis-db=1 \
+  --page-cache-redis-server="$REDIS_PAGE_CACHE_SERVER" \
+  --page-cache-redis-db="$REDIS_PAGE_CACHE_DB" \
   --session-save=redis \
-  --session-save-redis-host=redis \
+  --session-save-redis-host="$REDIS_SESSION_SAVE_HOST" \
   --session-save-redis-log-level=4 \
   --session-save-redis-db=2 \
-  --elasticsearch-host=$OPENSEARCH_HOST \
-  --elasticsearch-port=$OPENSEARCH_PORT \
-  --opensearch-host=$OPENSEARCH_HOST \
-  --opensearch-port=$OPENSEARCH_PORT \
+  --elasticsearch-host="$ES_HOST" \
+  --elasticsearch-port="$ES_PORT" \
+  --opensearch-host="$OPENSEARCH_HOST" \
+  --opensearch-port="$OPENSEARCH_PORT" \
   --use-rewrites=1 \
   --no-interaction
