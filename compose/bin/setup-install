@@ -45,5 +45,7 @@ bin/clinotty bin/magento setup:install \
   --session-save-redis-db=2 \
   --elasticsearch-host=$OPENSEARCH_HOST \
   --elasticsearch-port=$OPENSEARCH_PORT \
+  --opensearch-host=$OPENSEARCH_HOST \
+  --opensearch-port=$OPENSEARCH_PORT \
   --use-rewrites=1 \
   --no-interaction
