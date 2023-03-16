@@ -131,10 +131,10 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.5-p1 community
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.6 community
 ```
 
-The `magento.test` above defines the hostname to use, and the `2.4.5-p1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, and the `2.4.6` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -162,10 +162,10 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.5-p1 community
+bin/download 2.4.6 community
 # You can specify the version and type (community, enterprise, mageos, mageos-nightly, mageos-mirror, mageos-hypernode-mirror, or mageos-maxcluster-mirror).
 # The mageos type is an alias for mageos-mirror.
-# If no arguments are passed, "2.4.5-p1" and "community" are the default values used.
+# If no arguments are passed, "2.4.6" and "community" are the default values used.
 
 # or for Magento core development:
 # bin/start --no-dev
@@ -252,7 +252,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
-- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.5-p1 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.5-p1 enterprise`
+- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.6 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.6 enterprise`
 - `bin/debug-cli`: Enable Xdebug for bin/magento, with an optional argument of the IDE key. Defaults to PHPSTORM Ex. `bin/debug-cli enable PHPSTORM`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
