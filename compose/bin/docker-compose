@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if docker compose version > /dev/null 2>&1; then
   DOCKER_COMPOSE="docker compose"

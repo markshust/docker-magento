@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 args = `arg="$(filter-out $(firstword $(MAKECMDGOALS)),$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 
@@ -64,7 +64,7 @@ help:
 	@echo "$(call format,xdebug,'Disable or enable Xdebug.')"
 
 bash:
-	@./bin/bash
+	@./usr/bin/env bash
 
 cache-clean:
 	@./bin/cache-clean $(call args)
