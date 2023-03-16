@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/usr/bin/env bash
 bin/clinotty vendor/bin/mftf "$@"
