@@ -14,12 +14,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      opensearch:
-        condition: service_healthy
+      # opensearch:
+      #   condition: service_healthy
       rabbitmq:
         condition: service_healthy
-      #elasticsearch:
-      #  condition: service_healthy
+      elasticsearch:
+       condition: service_healthy
 
   db:
     healthcheck:
@@ -35,19 +35,12 @@ services:
       timeout: 5s
       retries: 30
 
-  opensearch:
-    healthcheck:
-      test: 'curl --fail opensearch:9200/_cat/health >/dev/null || exit 1'
-      interval: 5s
-      timeout: 5s
-      retries: 30
-
-  #elasticsearch:
-  #  healthcheck:
-  #    test: 'curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1'
-  #    interval: 5s
-  #    timeout: 5s
-  #    retries: 30
+  elasticsearch:
+   healthcheck:
+     test: 'curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1'
+     interval: 5s
+     timeout: 5s
+     retries: 30
 
   rabbitmq:
     healthcheck:
