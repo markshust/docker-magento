@@ -1,1 +1,1 @@
-<h1 align="center">gschwabblueally/localdev-magento</h1>
+<h3 align="center">gschwabblueally/localdev-magento</h3>
