@@ -662,7 +662,11 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 
 My name is Mark Shust and I'm the creator of this repo. I'm a <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a> and <a href="https://www.youracclaim.com/users/mark-shust" target="_blank">Adobe Certified Magento Developer</a>, and have been involved since the early days of Magento (0.8!). I'm no longer available for consulting, but am creating course content full-time at <a href="https://m.academy" target="_blank">M.academy</a>.
 
-You can follow me on Twitter <a href="https://twitter.com/MarkShust" target="_blank">@MarkShust</a>, connect with me on LinkedIn <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">@MarkShust</a>, read my blog at <a href="https://markshust.com" target="_blank">markshust.com</a>, or contact me directly at <a href="mailto:mark@shust.com">mark@shust.com</a>.
+- <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">🔗 Connect with me on LinkedIn</a>
+- <a href="https://youtube.com/markshust" target="_blank">🎥 Watch my YouTube videos</a>
+- <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on Twitter</a>
+- <a href="https://markshust.com" target="_blank">📖 Read my blog</a>
+- <a href="mailto:mark@shust.com">💌 Contact me</a>
 
 ## License
 
