@@ -197,12 +197,12 @@ curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/te
 cp -R ~/Sites/existing src
 # or: git clone git@github.com:myrepo.git src
 
-# If your vendor directory was empty, populate it with:
-bin/composer install
-
 # Start some containers, copy files to them and then restart the containers:
 bin/start --no-dev
 bin/copytocontainer --all ## Initial copy will take a few minutes...
+
+# If your vendor directory was empty, populate it with:
+bin/composer install
 
 # Import existing database:
 bin/mysql < ../existing/magento.sql
