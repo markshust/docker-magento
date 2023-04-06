@@ -13,7 +13,7 @@ bin/clinotty mysql -h"${MYSQL_INTEGRATION_HOST}" -uroot -p"${MYSQL_ROOT_PASSWORD
     -e "GRANT ALL PRIVILEGES ON ${MYSQL_INTEGRATION_DATABASE}.* TO '${MYSQL_INTEGRATION_USER}'@'%';FLUSH PRIVILEGES;"
 
 if [[ ! -f "src/${MYSQL_INTEGRATION_CONFIG}" ]]; then
-  MAGENTO_VERSION=$(bin/magento --version --no-ansi | cut -d" " -f 3)
+  MAGENTO_VERSION=$(bin/magento --version --no-ansi | grep "Magento" | cut -d" " -f 3)
   IFS=. read -r -a MAGENTO_VERSION_SEGMENTS <<< "${MAGENTO_VERSION}"
   MAGENTO_MAJOR="${MAGENTO_VERSION_SEGMENTS[0]}.${MAGENTO_VERSION_SEGMENTS[1]}"
   cp template/"${MYSQL_INTEGRATION_CONFIG}"."${MAGENTO_MAJOR}".dist src/${MYSQL_INTEGRATION_CONFIG}
