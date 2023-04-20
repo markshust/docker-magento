@@ -573,10 +573,10 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ### MFTF
 
-To work with MFTF you will need to first enable the `selenium` image in the `compose.dev.yaml` file. Then, you will need to run the following.
+To work with MFTF you will need to first enable the `selenium` image in the `compose.yaml` file. Then, you will need to run the following.
 
 1. Run mftf build process `bin/mftf build:project`. This should build the basic setup for mftf in your project.
-2. Update the `extra_host` values to match your Magento URL and IP in `compose.dev.yaml`.
+2. Update the `extra_host` values to match your Magento URL and IP in `compose.yaml`.
 3. Update the values in `src/dev/tests/acceptance/.env`, including adding the new line `SELENIUM_HOST=selenium` to define the host Codeception should connect to.
 4. Run a sample test `bin/mftf run:test AdminLoginSuccessfulTest`.
 5. Update your `nginx.conf` file to allow access to the dev section with the following, before the final `deny all` section:
