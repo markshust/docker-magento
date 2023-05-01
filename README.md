@@ -224,22 +224,9 @@ open https://magento.test
 
 ### Elasticsearch vs OpenSearch
 OpenSearch is set as the default search engine when setting up this project. Follow the instructions below if you want to use Elasticsearch instead:
-1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L55-L66) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L38-L43) files
-2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L70-L81) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L45-L50) files
-3. Update the `bin/setup-install` command to use the Elasticsearch ratther than OpenSearch. Change:
-
-```
---opensearch-host="$OPENSEARCH_HOST" \
---opensearch-port="$OPENSEARCH_PORT" \
-```
-
-to:
-
-```
---elasticsearch-host="$ES_HOST" \
---elasticsearch-port="$ES_PORT" \
-
-```
+1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L57-L68), [`compose.healthcheck.yaml (Service)`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L38-L43)m and [`compose.healthcheck.yaml (Dependency)`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L17-L18) files
+2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L75-L86), [`compose.healthcheck.yaml (Service)`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L45-L50), and [`compose.healthcheck.yaml (Dependency)`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L21-L22) files
+3. Delete the `opensearch` in [`bin/setup-install`](https://github.com/markshust/docker-magento/blob/master/compose/bin/setup-install#L52C4-L53) command to use the Elasticsearch rather than OpenSearch.
 
 ## Updates
 
