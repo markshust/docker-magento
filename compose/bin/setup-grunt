@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 echo "Confirming n98-magerun2 is installed..."
 bin/n98-magerun2 > /dev/null 2>&1
 
@@ -36,10 +37,15 @@ else
     bin/node -e "$GEN_THEME_JS"
 fi
 
-# Create files from sample files if they do not yet exist
-test -f src/package.json || cp src/package.json.sample src/package.json
-test -f src/Gruntfile.js || cp src/Gruntfile.js.sample src/Gruntfile.js
-test -f src/grunt-config.json || cp src/grunt-config.json.sample src/grunt-config.json
+# Create sample files from magento base folder if they do not yet exist
+if [ ! -f "src/package.json" ] || [ ! -f "src/Gruntfile.js" ] || [ ! -f "src/grunt-config.json" ]; then
+    M2_BASE="vendor/magento/magento2-base"
+    mkdir -p src/$M2_BASE
+    bin/copyfromcontainer $M2_BASE
+    cp src/$M2_BASE/package.json.sample src/package.json
+    cp src/$M2_BASE/Gruntfile.js.sample src/Gruntfile.js
+    cp src/$M2_BASE/grunt-config.json.sample src/grunt-config.json
+fi
 
 # Disable grunt-contrib-jasmine on ARM processors (incompatible)
 if [ "$(uname -m)" == "arm64" ]; then
@@ -47,14 +53,10 @@ if [ "$(uname -m)" == "arm64" ]; then
       && mv package.json src/package.json
 fi
 
-# Enable these custom files on compose.dev.yaml so custom updates are persisted
-sed -e 's/grunt-config.json.sample/grunt-config.json/' compose.dev.yaml > compose.dev.yaml.updated \
- && mv compose.dev.yaml.updated compose.dev.yaml
-sed -e 's/Gruntfile.js.sample/Gruntfile.js/' compose.dev.yaml > compose.dev.yaml.updated \
- && mv compose.dev.yaml.updated compose.dev.yaml
-sed -e 's/package.json.sample/package.json/' compose.dev.yaml > compose.dev.yaml.updated \
- && mv compose.dev.yaml.updated compose.dev.yaml
-bin/restart app phpfpm
+echo "Moving package.json, Gruntfile.js, and grunt-config.json into the container"
+bin/copytocontainer package.json > /dev/null
+bin/copytocontainer Gruntfile.js > /dev/null
+bin/copytocontainer grunt-config.json > /dev/null
 
 bin/npm install ajv@^5.0.0 --save
 bin/npm install

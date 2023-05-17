@@ -9,11 +9,8 @@ services:
       - ./src/app/etc:/var/www/html/app/etc:cached
       - ./src/composer.json:/var/www/html/composer.json:cached
       - ./src/composer.lock:/var/www/html/composer.lock:cached
-      - ./src/grunt-config.json.sample:/var/www/html/grunt-config.json:cached
-      - ./src/Gruntfile.js.sample:/var/www/html/Gruntfile.js:cached
       - ./src/dev/tools/grunt/configs:/var/www/html/dev/tools/grunt/configs:cached
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
-      - ./src/package.json.sample:/var/www/html/package.json:cached
       #- ./src/auth.json:/var/www/html/auth.json:cached
       #- ./src/m2-hotfixes:/var/www/html/m2-hotfixes:cached
       #- ./src/patches:/var/www/html/patches:cached
