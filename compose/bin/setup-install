@@ -52,4 +52,5 @@ bin/clinotty bin/magento setup:install \
   --opensearch-host="$OPENSEARCH_HOST" \
   --opensearch-port="$OPENSEARCH_PORT" \
   --use-rewrites=1 \
-  --no-interaction
+  --no-interaction \
+  --disable-modules="Magento_AdminAdobeImsTwoFactorAuth,Magento_TwoFactorAuth"
