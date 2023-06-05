@@ -24,7 +24,7 @@ services:
     volumes: *appvolumes
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: linuxserver/phpmyadmin
     env_file: env/db.env
     ports:
       - "8080:80"
