@@ -174,14 +174,16 @@ bin/download 2.4.6 community
 # bin/cli git checkout 2.4-develop
 # bin/composer install
 
-# Want to install Magento <2.4.5? In bin/setup-install, replace the lines:
+# Want to install Magento <2.4.6? In bin/setup-install, replace the lines:
 #  --elasticsearch-host="$ES_HOST" \
 #  --elasticsearch-port="$ES_PORT" \
 #  --opensearch-host="$OPENSEARCH_HOST" \
 #  --opensearch-port="$OPENSEARCH_PORT" \
+#  --search-engine=opensearch \
 # with:
 #  --elasticsearch-host="$OPENSEARCH_HOST" \
 #  --elasticsearch-port="$OPENSEARCH_PORT" \
+#  --search-engine=elasticsearch7 \
 
 # Run the setup installer for Magento:
 bin/setup magento.test
