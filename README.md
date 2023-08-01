@@ -194,15 +194,15 @@ open https://magento.test
 #### Existing Projects
 
 ```bash
-# Take a backup of your existing database:
-bin/mysqldump > ~/Sites/existing/magento.sql
-
 # Create your project directory then go into it:
 mkdir -p ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
+
+# Take a backup of your existing database:
+bin/mysqldump > ~/Sites/existing/magento.sql
 
 # Replace with existing source code of your existing Magento instance:
 cp -R ~/Sites/existing src
