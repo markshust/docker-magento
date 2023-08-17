@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+current_folder=${PWD##*/}
+volume_prefix=$(echo "$current_folder" | awk '{print tolower($0)}' | sed 's/\.//g')
+docker network rm "$volume_prefix"_default
