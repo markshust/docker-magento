@@ -2,3 +2,4 @@
 bin/stopall
 bin/remove
 bin/removevolumes
+bin/removenetwork
