@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 git init -qqq
-git remote add origin https://github.com/markshust/docker-magento
+git remote add origin https://github.com/ntt2125/docker-magento
 git fetch origin -qqq
 git checkout origin/master -- compose
 mv compose/* ./

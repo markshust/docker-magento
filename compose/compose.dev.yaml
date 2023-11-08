@@ -14,6 +14,7 @@ services:
       - ./src/dev/tools/grunt/configs:/var/www/html/dev/tools/grunt/configs:cached
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
       - ./src/package.json.sample:/var/www/html/package.json:cached
+      - ./src:/var/www/html:cached
       #- ./src/auth.json:/var/www/html/auth.json:cached
       #- ./src/m2-hotfixes:/var/www/html/m2-hotfixes:cached
       #- ./src/patches:/var/www/html/patches:cached
