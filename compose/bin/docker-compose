@@ -6,16 +6,19 @@ else
   DOCKER_COMPOSE="docker-compose"
 fi
 
-COMPOSE_FILES_LIST=("compose.yaml" "compose.healthcheck.yaml")
+COMPOSE_FILES=("compose.yaml" "compose.healthcheck.yaml")
 
 if [ "$1" == "--no-dev" ]; then
   # ensure --no-dev parameter isn't passed to docker compose
   shift 1
 else
-  COMPOSE_FILES_LIST+=("compose.dev.yaml")
+  COMPOSE_FILES+=("compose.dev.yaml")
 fi
 
-# Combine files, prefix each with -f
-COMPOSE_FILES="${COMPOSE_FILES_LIST[@]/#/'-f '}"
+COMPOSE_FILES_PREFIXED=()
 
-${DOCKER_COMPOSE} ${COMPOSE_FILES} "$@"
+for file in "${COMPOSE_FILES[@]}"; do
+  COMPOSE_FILES_PREFIXED+=("-f" "$file")
+done
+
+${DOCKER_COMPOSE} "${COMPOSE_FILES_PREFIXED[@]}" "$@"
