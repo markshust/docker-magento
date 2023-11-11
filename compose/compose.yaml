@@ -38,7 +38,7 @@ services:
     #extra_hosts: *appextrahosts
 
   db:
-    image: mariadb:10.4
+    image: mariadb:10.6
     command:
       --max_allowed_packet=64M
       --optimizer_use_condition_selectivity=1
@@ -50,12 +50,12 @@ services:
       - dbdata:/var/lib/mysql
 
   redis:
-    image: redis:6.2-alpine
+    image: redis:7.0-alpine
     ports:
       - "6379:6379"
 
   opensearch:
-    image: markoshust/magento-opensearch:1.2-0
+    image: markoshust/magento-opensearch:2.5-develop
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -86,7 +86,7 @@ services:
   #    - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
-    image: markoshust/magento-rabbitmq:3.9-0
+    image: markoshust/magento-rabbitmq:3.11-develop
     ports:
       - "15672:15672"
       - "5672:5672"
