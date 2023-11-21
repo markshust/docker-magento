@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+bin/composer install
+bin/magento maintenance:enable
+bin/cli rm -rf generated/code var/view_preprocessed
+bin/magento cache:flush
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento setup:static-content:deploy en_US "$@" -f
+bin/magento maintenance:disable
+bin/magento cache:flush
