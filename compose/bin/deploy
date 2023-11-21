@@ -1,19 +1,10 @@
 #!/usr/bin/env bash
-bin/composer install;
-bin/magento maintenance:enable;
-bin/cli rm -rf generated/code var/view_preprocessed;
-
-echo "$ bin/magento cache:flush";
-bin/magento cache:flush;
-
-echo "$ bin/magento setup:upgrade";
-bin/magento setup:upgrade;
-
-echo "$ bin/ magento setup:di:compile";
-bin/magento setup:di:compile;
-
-echo "$ bin/magento setup:static-content:deploy nl_NL en_US -f";
-bin/magento setup:static-content:deploy nl_NL en_US -f;
-
-bin/magento maintenance:disable;
-bin/magento cache:flush;
+bin/composer install
+bin/magento maintenance:enable
+bin/cli rm -rf generated/code var/view_preprocessed
+bin/magento cache:flush
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento setup:static-content:deploy en_US "$@" -f
+bin/magento maintenance:disable
+bin/magento cache:flush
