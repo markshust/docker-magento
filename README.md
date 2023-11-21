@@ -584,16 +584,17 @@ Finally, restart the containers with `bin/restart`. After doing so, everything i
 
 ### Cloudflare Tunnel
 
-These docker images have built-in support for Cloudflare Tunnel. It can be useful for testing implementations that require some third-party integrations involving allow-listing domains. Since your local app cannot be allow-listed by other services - you can use Cloudflare Tunnel to get public hostname that can be allow-listed on the other service.
+These docker images have built-in support for Cloudflare Tunnel. It can be useful for testing implementations that require some third-party integrations involving allow-listing domains. Since your local app cannot be allow-listed by other services, you can use Cloudflare Tunnel to get a public hostname that can be allow-listed on the other service.
 
-To use it, first create a tunnel in Cloudflare Zero Trust and add the token to `env/cloudflare.env`.
+To use it:
 
-Next, uncomment Cloudlfare Tunnel section in main `compose.yaml`.
+- First, create a tunnel in Cloudflare Zero Trust and add the token to `env/cloudflare.env`.
+- Next, uncomment Cloudflare Tunnel section in main `compose.yaml`.
+- Finally, restart the containers with `bin/restart`.
 
-Finally, restart the containers with `bin/restart`.
-In Cloudflare Tunnel configuration - configure service URL to use type `HTTPS` and URL `{name of app container}:{HTTPS port of app container}`, for example - `demo-app-1:8443`. Enable `No TLS Verify` option since our local certificates are self-signed. You should now be able to access your app via public hostname, defined in Cloudflare Tunnel.
+In Cloudflare Tunnel configuration, configure the service URL to use type `HTTPS` and a URL of `{name of app container}:{HTTPS port of app container}`. For examplem, `demo-app-1:8443`. Enable the `No TLS Verify` option, since our local certificates are self-signed. You should now be able to access your app via the public hostname defined in Cloudflare Tunnel.
 
-NOTE: do not leave instances with Cloudflare Tunnel enabled running long-term, as your instance is publicly available to the world. You should ideally turn off tunnel container once testing is finished. 
+NOTE: Do not leave instances with Cloudflare Tunnel enabled running long-term, as your instance is publicly available to the world. You should ideally turn off tunnel container once testing is finished. 
 
 ### MFTF
 
