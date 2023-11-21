@@ -19,6 +19,6 @@ return [
     'admin-lastname' => \Magento\TestFramework\Bootstrap::ADMIN_LASTNAME,
     'amqp-host' => 'rabbitmq',
     'amqp-port' => '5672',
-    'amqp-user' => 'guest',
-    'amqp-password' => 'guest',
+    'amqp-user' => 'magento',
+    'amqp-password' => 'magento',
 ];
