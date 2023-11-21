@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  app:
+    volumes: &appvolumes
+      # Magento Cloud-like path support
+      - ./src:/app:cached
+      # Multi-storefront support depends on "auto_prepend_file = /app/magento-vars.php" being in src/php.ini
+      - ./src/php.ini:/usr/local/etc/php/conf.d/local-php.ini:cached
+
+  phpfpm:
+    volumes: *appvolumes
