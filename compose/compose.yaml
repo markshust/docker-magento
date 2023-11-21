@@ -32,7 +32,7 @@ services:
       #- "host.docker.internal:host-gateway"
 
   phpfpm:
-    image: markoshust/magento-php:8.1-fpm-1
+    image: markoshust/magento-php:8.2-fpm-0
     volumes: *appvolumes
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
@@ -55,7 +55,7 @@ services:
       - "6379:6379"
 
   opensearch:
-    image: markoshust/magento-opensearch:2.5-develop
+    image: markoshust/magento-opensearch:2.5-0
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -86,7 +86,7 @@ services:
   #    - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
-    image: markoshust/magento-rabbitmq:3.11-develop
+    image: markoshust/magento-rabbitmq:3.11-0
     ports:
       - "15672:15672"
       - "5672:5672"

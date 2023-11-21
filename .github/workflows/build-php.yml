@@ -59,4 +59,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            markoshust/magento-php:8.2-fpm-develop
+            markoshust/magento-php:8.2-fpm
+            markoshust/magento-php:8.2-fpm-0
