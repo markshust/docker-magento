@@ -15,8 +15,9 @@ else
   COMPOSE_FILES+=("compose.dev.yaml")
 fi
 
+# We create an array including files prefixed with -f here
+# to ensure paths with spaces aren't split when passed as parameters
 COMPOSE_FILES_PREFIXED=()
-
 for file in "${COMPOSE_FILES[@]}"; do
   COMPOSE_FILES_PREFIXED+=("-f" "$file")
 done
