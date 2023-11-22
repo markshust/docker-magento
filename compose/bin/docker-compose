@@ -6,8 +6,23 @@ else
   DOCKER_COMPOSE="docker-compose"
 fi
 
+COMPOSE_FILES=("compose.yaml" "compose.healthcheck.yaml")
+
+# If --no-dev is passed to this script, we won't load the compose.dev.yaml file,
+# but this argument should be removed so it isn't passed to docker compose.
 if [ "$1" == "--no-dev" ]; then
-  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml "${@:2}"
+  # Remove the "--no-dev" argument so it isn't passed to docker compose
+  shift 1
 else
-  ${DOCKER_COMPOSE} -f compose.yaml -f compose.healthcheck.yaml -f compose.dev.yaml "$@"
+  # The "--no-dev" argument wasn't passed in, so let's load the dev config.
+  COMPOSE_FILES+=("compose.dev.yaml")
 fi
+
+# Loop over the list of compose files, and prefix them with -f.
+# This ensures paths with spaces aren't split when passed as parameters.
+COMPOSE_FILES_PREFIXED=()
+for file in "${COMPOSE_FILES[@]}"; do
+  COMPOSE_FILES_PREFIXED+=("-f" "$file")
+done
+
+${DOCKER_COMPOSE} "${COMPOSE_FILES_PREFIXED[@]}" "$@"
