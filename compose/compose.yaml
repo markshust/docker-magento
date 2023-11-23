@@ -25,8 +25,9 @@ services:
       - appdata:/var/www/html
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
-    extra_hosts: &appextrahosts
+    extra_hosts:
       # Selenium support, replace "magento.test" with URL of your site
+      &appextrahosts
       - "magento.test:172.17.0.1"
       # Linux, uncomment for Xdebug capabilities:
       - "host.docker.internal:host-gateway"
@@ -39,10 +40,7 @@ services:
 
   db:
     image: mariadb:10.4
-    command:
-      --max_allowed_packet=64M
-      --optimizer_use_condition_selectivity=1
-      --optimizer_switch="rowid_filter=off"
+    command: --max_allowed_packet=64M --optimizer_use_condition_selectivity=1 --optimizer_switch="rowid_filter=off"
     ports:
       - "3306:3306"
     env_file: env/db.env
@@ -54,36 +52,36 @@ services:
     ports:
       - "6379:6379"
 
-  opensearch:
-    image: markoshust/magento-opensearch:1.2-0
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    env_file: env/opensearch.env
-    environment:
-      - "discovery.type=single-node"
-      ## Avoid test failures due to small disks
-      ## More info at https://github.com/markshust/docker-magento/issues/488
-      - "cluster.routing.allocation.disk.threshold_enabled=false"
-      - "index.blocks.read_only_allow_delete"
+  # opensearch:
+  #   image: markoshust/magento-opensearch:1.2-0
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   env_file: env/opensearch.env
+  #   environment:
+  #     - "discovery.type=single-node"
+  #     ## Avoid test failures due to small disks
+  #     ## More info at https://github.com/markshust/docker-magento/issues/488
+  #     - "cluster.routing.allocation.disk.threshold_enabled=false"
+  #     - "index.blocks.read_only_allow_delete"
 
   ## If you wish to use Elasticsearch, comment out opensearch image above and
   ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
   # Additionally, if you are performing the manual setup, you will need to
   # update the bin/setup command to use the $ES_HOST variable as the value for
   # the --elasticsearch-host argument passed to bin/magento setup:install.
-  #elasticsearch:
-  #  image: markoshust/magento-elasticsearch:7.17-0
-  #  ports:
-  #    - "9200:9200"
-  #    - "9300:9300"
-  #  env_file: env/elasticsearch.env
-  #  environment:
-  #    - "discovery.type=single-node"
-  #    ## Avoid test failures due to small disks
-  #    ## More info at https://github.com/markshust/docker-magento/issues/488
-  #    - "cluster.routing.allocation.disk.threshold_enabled=false"
-  #    - "index.blocks.read_only_allow_delete"
+  elasticsearch:
+    image: markoshust/magento-elasticsearch:7.17-0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    env_file: env/elasticsearch.env
+    environment:
+      - "discovery.type=single-node"
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
     image: markoshust/magento-rabbitmq:3.9-0
@@ -98,7 +96,6 @@ services:
     image: sj26/mailcatcher
     ports:
       - "1080:1080"
-
   ## Blackfire support, uncomment to enable
   #blackfire:
   #  image: blackfire/blackfire:2
