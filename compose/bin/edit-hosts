@@ -1,17 +1,22 @@
 #!/bin/bash
 
-# Check for sudo and invoke it if necessary
-if ! [ -x "$(command -v sudo)" ]; then
+# Set the default editor to nano
+EDITOR=nano
+
+# Check if nano is installed; if not, use vim
+if ! command -v $EDITOR &> /dev/null; then
+  EDITOR=vim
+fi
+
+# Check for the presence of sudo
+if ! command -v sudo &> /dev/null; then
   echo 'Error: sudo is not installed. Please install sudo or run the script with administrator rights.' >&2
   exit 1
 fi
 
-# Check for administrator privileges and invoke sudo if necessary
-if [ "$EUID" -ne 0 ]; then
-  sudo_command="sudo"
-else
-  sudo_command=""
-fi
+# Use sudo if necessary
+sudo_command=""
+[ "$EUID" -ne 0 ] && sudo_command="sudo"
 
-# Start nano to edit /etc/hosts
-${sudo_command} nano /etc/hosts
+# Start the text editor to edit /etc/hosts
+${sudo_command} ${EDITOR} /etc/hosts
