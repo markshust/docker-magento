@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Get the IP address from the Docker container
+docker_ip=$(docker run --rm alpine ip route | awk 'NR==1 {print $3}')
+
+# Add a new entry to /etc/hosts
+echo "$docker_ip host.docker.internal" | sudo tee -a /etc/hosts
+echo "A new entry in the /etc/hosts file has been created"
+
+# Ask the user whether to execute the iptables command
+read -p "Do you want to open port 9003 for xdebug? (y/n): " choice
+if [ "$choice" == "y" ]; then
+    sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
+    echo "Port 9003 has been opened for xdebug."
+fi
+
+# Ask the user whether to increase the virtual memory map count for Elasticsearch
+read -p "Do you need to increase the virtual memory map count for Elasticsearch? (y/n): " vm_choice
+if [ "$vm_choice" == "y" ]; then
+    # Check if the setting already exists in /etc/sysctl.conf
+    if ! grep -q "vm.max_map_count=262144" /etc/sysctl.conf; then
+        echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+        sudo sysctl -p
+        echo "The virtual memory map count has been increased for Elasticsearch."
+    else
+        echo "The setting vm.max_map_count=262144 already exists in /etc/sysctl.conf."
+    fi
+fi
+
+echo "Tasks completed successfully"
