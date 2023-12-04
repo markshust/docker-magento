@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Check for sudo and invoke it if necessary
+if ! [ -x "$(command -v sudo)" ]; then
+  echo 'Error: sudo is not installed. Please install sudo or run the script with administrator rights.' >&2
+  exit 1
+fi
+
+# Check for administrator privileges and invoke sudo if necessary
+if [ "$EUID" -ne 0 ]; then
+  sudo_command="sudo"
+else
+  sudo_command=""
+fi
+
+# Start nano to edit /etc/hosts
+${sudo_command} nano /etc/hosts
