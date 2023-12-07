@@ -1,42 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-stty -echo
+container_ids=$(bin/docker-compose ps -q)
 
-INTERVAL=3
+if [ -z "$container_ids" ]; then
+    echo "No active containers found"
+    exit 1
+fi
 
-trap 'stty echo; exit' INT EXIT
-
-print_header() {
-    echo "+----------------------------------------------------+------------+-----------------+-----------------+"
-    printf "| %-50s | %-10s | %-15s | %-15s |\n" "Name" "CPU %" "Memory Usage" "Memory Limit"
-    echo "+----------------------------------------------------+------------+-----------------+-----------------+"
-}
-
-print_container_info() {
-    local container_info=($1)
-    local container_name=${container_info[0]}
-    local container_stats=(${container_info[@]:1})
-
-    printf "| %-50s | %-10s | %-15s | %-15s |\n" "$container_name" "${container_stats[0]}" "${container_stats[1]}" "${container_stats[2]}"
-}
-
-while true; do
-    DOCKER_STATS=$(docker stats --no-stream --format "{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}")
-
-    clear
-
-    if [[ ! -z "$DOCKER_STATS" ]]; then
-        print_header
-
-        while IFS= read -r line; do
-            print_container_info "$(echo "$line" | awk '{gsub(/\//, " "); print}')"
-        done <<< "$DOCKER_STATS"
-
-        echo "+----------------------------------------------------+------------+-----------------+-----------------+"
-    else
-        echo "No active containers found"
-        break
-    fi
-
-    sleep $INTERVAL
-done
+docker stats $container_ids
