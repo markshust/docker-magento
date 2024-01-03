@@ -1,9 +1,9 @@
-name: build-ssh
+name: build-opensearch-2-5
 
 on: workflow_dispatch
 
 jobs:
-  ssh:
+  opensearch-2-5:
     runs-on: ubuntu-latest
     steps:
       -
@@ -26,7 +26,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: images/php/8.2
+          context: images/opensearch/2.5
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: markoshust/ssh
+          tags: |
+            markoshust/magento-opensearch:2.5
+            markoshust/magento-opensearch:2.5-1
