@@ -55,7 +55,7 @@ services:
       - "6379:6379"
 
   opensearch:
-    image: markoshust/magento-opensearch:2.5-0
+    image: markoshust/magento-opensearch:2.5-1
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -73,7 +73,7 @@ services:
   # update the bin/setup command to use the $ES_HOST variable as the value for
   # the --elasticsearch-host argument passed to bin/magento setup:install.
   #elasticsearch:
-  #  image: markoshust/magento-elasticsearch:7.17-0
+  #  image: markoshust/magento-elasticsearch:7.17-1
   #  ports:
   #    - "9200:9200"
   #    - "9300:9300"
@@ -86,7 +86,7 @@ services:
   #    - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
-    image: markoshust/magento-rabbitmq:3.11-0
+    image: markoshust/magento-rabbitmq:3.11-1
     ports:
       - "15672:15672"
       - "5672:5672"
