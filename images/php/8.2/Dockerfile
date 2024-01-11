@@ -3,7 +3,7 @@ MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
 RUN groupadd -g "$APP_ID" app \
-  && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
+  && useradd -g "$APP_ID" -G tty -u "$APP_ID" -d /var/www -s /bin/bash app
 
 RUN mkdir -p /etc/nginx/html /var/www/html /sock \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
@@ -34,8 +34,10 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    tini \
     vim \
     zip \
+    supervisor \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pecl channel-update pecl.php.net && pecl install \
@@ -91,7 +93,11 @@ COPY conf/msmtprc /etc/msmtprc
 COPY conf/php.ini $PHP_INI_DIR
 COPY conf/php-fpm.conf /usr/local/etc/
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
+COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# using tini as PID 1 instead of supervisor eliminates the scary but harmless "reaped unknown pid XX" message each time cron runs
+ENTRYPOINT ["/usr/bin/tini", "--"]  
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
-USER app:app
+
 VOLUME /var/www
 WORKDIR /var/www/html

@@ -34,6 +34,7 @@ services:
   phpfpm:
     image: markoshust/magento-php:8.2-fpm-0
     volumes: *appvolumes
+    tty: true
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
 
