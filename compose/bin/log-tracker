@@ -1,0 +1,76 @@
+#!/bin/bash
+
+LOGS_PATH="/var/www/html/var/log"
+CONTAINER_NAME="$(basename "$(pwd)")-phpfpm-1"
+
+function view_log() {
+    local log_file="$1"
+    docker exec -it "$CONTAINER_NAME" cat "$LOGS_PATH/$log_file"
+}
+
+function show_logs() {
+    echo -e "\n\033[96mAvailable log files:\033[0m"
+    docker exec -it "$CONTAINER_NAME" find "$LOGS_PATH" -maxdepth 1 -type f -name "*.log" -exec basename {} \; 2>/dev/null | awk '{print "\033[96m" NR ".\033[0m \033[32m" $0 "\033[0m"}'
+}
+
+function search_errors() {
+    local container_name="$(basename "$(pwd)")-phpfpm-1"
+    echo -e "\n\033[1mSearching for errors in all log files:\033[0m"
+
+    docker cp "$CONTAINER_NAME:$LOGS_PATH" ./ > /dev/null 2>&1
+
+    local found_errors=false
+
+    # Search for errors in each log file
+ for log_file in ./log/*.log; do
+	local errors=$(grep -E -r --color=always "\(ERROR\|FATAL\|CRITICAL\)" "$log_file" | sed -E 's/\(ERROR\|FATAL\|CRITICAL\)/\o033[31m&\o033[0m/g' || true)
+	local warnings=$(grep -E -r --color=always "\bWARNING\b" "$log_file" | sed -E 's/WARNING/\o033[33m&\o033[0m/g' || true)
+	local info=$(grep -E -r --color=always "INFO" "$log_file" | sed -E 's/INFO/\o033[32m&\o033[0m/g' || true)
+	local debug=$(grep -E -r --color=always "DEBUG" "$log_file" | sed -E 's/DEBUG/\o033[33m&\o033[0m/g' || true)
+        if [ -n "$errors" ] || [ -n "$warnings" ] || [ -n "$info" ] || [ -n "$debug" ]; then
+
+            found_errors=true
+            echo -e "\n\033[1;33m----------------------------------------\033[0m"
+            echo -e "\033[1;33mLog File: \033[32m$(basename "$log_file")\033[0m"
+            echo -e "$warnings"
+            echo -e "$errors"
+            echo -e "$info"
+            echo -e "$debug" | cat
+        fi
+    done
+
+    rm -rf ./log
+
+    if [ "$found_errors" = false ]; then
+        echo -e "\n\033[1mNo errors found in any log file.\033[0m"
+    fi
+}
+
+while true; do
+    echo -e "\n\033[96mChoose an option:\033[0m"
+    echo -e "\033[96m1.\033[0m View existing log files"
+    echo -e "\033[96m2.\033[0m Display the content of a specific log file"
+    echo -e "\033[96m3.\033[0m Search for errors in log files"
+
+    read -p "Enter the option number (1, 2, or 3): " option
+
+    if [ "$option" == "1" ]; then
+        show_logs
+    elif [ "$option" == "2" ]; then
+    show_logs
+    read -p "Enter the log file name (with extension, e.g., system.log): " log_file
+    echo -e "\033[1;33mContent of $log_file:\033[0m"
+    docker exec -it "$CONTAINER_NAME" cat "$LOGS_PATH/$log_file" | sed -E 's/(DEBUG)/\o033[33m\1\o033[0m/g' | sed -E 's/(INFO)/\o033[32m\1\o033[0m/g' | sed -E 's/(WARNING)/\o033[33m\1\o033[0m/g'
+    elif [ "$option" == "3" ]; then
+        search_errors
+    else
+        echo -e "\n\033[91mInvalid choice.\033[0m"
+        break
+    fi
+
+    read -p "Continue (Y/n)? " continue_option
+    if [[ "$continue_option" =~ [Nn] ]]; then
+        break
+    fi
+done
+
