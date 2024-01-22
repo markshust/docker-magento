@@ -31,3 +31,4 @@ else
 fi
 
 echo -e "${GREEN}Script completed successfully.${NC}"
+echo "You may now access your Magento PWA Studio instance at https://${BASE_URL}/"
