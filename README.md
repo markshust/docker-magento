@@ -124,6 +124,13 @@ This setup assumes you are running Docker on a computer with at least 6GB of RAM
 
 This configuration has been tested on Mac & Linux. Windows is supported through the use of Docker on WSL.
 
+### Ubuntu, Debian
+
+1. Install dependencies
+
+        # Ubuntu or Debian
+        sudo apt install curl libnss3-tools unzip rsync
+
 ## Setup
 
 ### Automated Setup (New Project)
