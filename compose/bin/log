@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+[ -z "$1" ] && echo "Please specify a CLI command (ex. ls)" && exit
+bin/docker-compose exec phpfpm "$@"
+
+#!/bin/bash
+
+source bin/vars/color-vars
+
+CONTAINER_LOG_PATH="/var/www/html/var/log/";
+
+display_help() {
+  echo -e "Description:
+  Tail logs from the Magento var/log folder all and specific logs
+
+Usage:
+  bin/log <specific_log_files>
+
+Arguments:
+  specific_log_files  If specific_log_files NOT provided, show all logs. Ex: bin/log system.log cache.log
+
+Options:
+  -h, --help          Display help message"
+}
+
+generate_logs_file_path() {
+  CONTAINER_LOG_PATH="$1"
+  LOG_FILES="$2"
+
+  log_file_paths=""
+
+  for file in $LOG_FILES; do
+    log_file_paths+="$CONTAINER_LOG_PATH$file "
+  done
+
+  echo "$log_file_paths"
+}
+
+get_all_logs_file_path() {
+  LOGS_LOCATION="$1"
+
+  echo $(bin/docker-compose exec phpfpm ls -p "$LOGS_LOCATION" | grep -v '/$' | sed "s|^|$LOGS_LOCATION|");
+}
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  display_help
+elif [[ -z $1 ]]; then
+  All_LOGS_FILE_PATH=$(get_all_logs_file_path "$CONTAINER_LOG_PATH")
+  bin/docker-compose exec phpfpm tail -f $All_LOGS_FILE_PATH
+else
+  LOGS_FILE_PATH=$(generate_logs_file_path "$CONTAINER_LOG_PATH" "$1")
+  bin/docker-compose exec phpfpm tail -f $LOGS_FILE_PATH
+fi
