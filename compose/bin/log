@@ -16,7 +16,7 @@ Usage:
   bin/log <specific_log_files>
 
 Arguments:
-  specific_log_files  If specific_log_files NOT provided, show all logs. Ex: bin/log system.log cache.log
+  specific_log_files  If specific_log_files are NOT provided, show all logs. Ex: bin/log system.log cache.log
 
 Options:
   -h, --help          Display help message"
