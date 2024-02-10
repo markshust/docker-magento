@@ -69,7 +69,7 @@ function search_errors() {
 
 # Function to format log output with colors
 function format_log_output() {
-    sed -E 's/(ERROR|FATAL|CRITICAL)/\o033[31m\1\o033[0m/g' | sed -E 's/\bWARNING\b/\o033[33m&\o033[0m/g' | sed -E 's/INFO/\o033[32m&\o033[0m/g' | sed -E 's/DEBUG/\o033[36m&\o033[0m/g'
+    sed -E 's/(ERROR|FATAL|CRITICAL)/\o033[31m\1\o033[0m/g' | sed -E 's/\bWARNING\b/\o033[33m&\o033[0m/g' | sed -E 's/\bINFO\b/\o033[32m&\o033[0m/g' | sed -E 's/\bDEBUG\b/\o033[36m&\o033[0m/g'
 }
 
 # Function to tail all log files in real-time
