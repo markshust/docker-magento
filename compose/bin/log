@@ -8,6 +8,17 @@ CONTAINER_NAME="$(basename "$(pwd)")-phpfpm-1"
 
 echo -e "\033[94mDeveloped by \033[34mYevhen \033[93mZvieriev\033[0m"
 
+display_help() {
+  echo "Description:
+  Tail logs from the Magento var/log folder all and specific logs
+Usage:
+  bin/log -t <specific_log_files> or bin/log --tail <specific_log_files> 
+Arguments:
+  specific_log_files Ex: bin/log -t system.log cache.log
+Options:
+  -h, --help          Display help message"
+}
+
 # Function to view the content of a specific log file
 function view_log() {
     local log_file="$1"
@@ -88,6 +99,11 @@ if [[ "$1" == "-t" || "$1" == "--tail" ]]; then
     for log_file in "$@"; do
         tail_all_logs "$log_file"
     done
+fi
+
+# Check if the option is to help
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  display_help
 fi
 
 # Main loop to display menu and handle user input
