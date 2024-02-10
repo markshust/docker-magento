@@ -66,11 +66,12 @@ function tail_all_logs() {
     local logs=("$@")
     echo
     echo -e "\033[96mTailing logs from ${logs[*]}...\033[0m"
-    # Tail log files and format output with colors
+    # Tail log files without formatting output with colors
     docker exec -it "$CONTAINER_NAME" tail -f "${logs[@]/#/$LOGS_PATH/}" | while IFS= read -r line; do
-        echo "$line" | format_log_output | tee /dev/tty
+        echo "$line"
     done
 }
+
 
 # Function to tail only error logs in real-time
 function tail_error_logs() {
