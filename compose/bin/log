@@ -58,7 +58,6 @@ function tail_all_logs() {
     docker exec -it "$CONTAINER_NAME" tail -f "${logs[@]/#/$LOGS_PATH/}" | while IFS= read -r line; do
         echo "$line" | format_log_output | tee /dev/tty
     done
-    exit 0
 }
 
 function tail_error_logs() {
