@@ -47,23 +47,34 @@ function search_errors() {
     fi
 }
 
+function format_log_output() {
+    sed -E 's/(ERROR|FATAL|CRITICAL)/\o033[31m\1\o033[0m/g' | sed -E 's/\bWARNING\b/\o033[33m&\o033[0m/g' | sed -E 's/INFO/\o033[32m&\o033[0m/g' | sed -E 's/DEBUG/\o033[36m&\o033[0m/g'
+}
+
 function tail_all_logs() {
-    local log_file="$1"
-    docker exec -it "$CONTAINER_NAME" tail -f "$LOGS_PATH/$log_file" | while IFS= read -r line; do
+    local logs=("$@")
+    echo
+    echo -e "\033[96mTailing logs from ${logs[*]}...\033[0m"
+    docker exec -it "$CONTAINER_NAME" tail -f "${logs[@]/#/$LOGS_PATH/}" | while IFS= read -r line; do
         echo "$line" | format_log_output | tee /dev/tty
     done
+    exit 0
 }
 
 function tail_error_logs() {
+    echo
     local log_file="$1"
     docker exec -it "$CONTAINER_NAME" tail -f "$LOGS_PATH/$log_file" | grep -E --line-buffered "(ERROR|FATAL|CRITICAL)" | while IFS= read -r line; do
         echo -e "$line" | format_log_output | tee /dev/tty
     done
 }
 
-function format_log_output() {
-    sed -E 's/(ERROR|FATAL|CRITICAL)/\o033[31m\1\o033[0m/g' | sed -E 's/\bWARNING\b/\o033[33m&\o033[0m/g' | sed -E 's/INFO/\o033[32m&\o033[0m/g' | sed -E 's/DEBUG/\o033[36m&\o033[0m/g'
-}
+if [[ "$1" == "-t" || "$1" == "--tail" ]]; then
+    shift
+    for log_file in "$@"; do
+        tail_all_logs "$log_file"
+    done
+fi
 
 while true; do
     echo -e "\n\033[96mChoose an option:\033[0m"
