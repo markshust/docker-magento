@@ -10,11 +10,6 @@ function view_log() {
     docker exec -it "$CONTAINER_NAME" cat "$LOGS_PATH/$log_file"
 }
 
-function view_log() {
-    local log_file="$1"
-    docker exec -it "$CONTAINER_NAME" cat "$LOGS_PATH/$log_file"
-}
-
 function show_logs() {
     echo -e "\n\033[96mAvailable log files:\033[0m"
     docker exec -it "$CONTAINER_NAME" find "$LOGS_PATH" -maxdepth 1 -type f -name "*.log" -exec basename {} \; 2>/dev/null | awk '{print "\033[96m" NR ".\033[0m \033[32m" $0 "\033[0m"}'
