@@ -34,7 +34,7 @@ function search_errors() {
         local warnings=$(grep -E -r --color=always "\bWARNING\b" "$log_file" | format_log_output || true)
         local info=$(grep -E -r --color=always "INFO" "$log_file" | format_log_output || true)
         local debug=$(grep -E -r --color=always "DEBUG" "$log_file" | format_log_output || true)
-        
+
         # If any errors or warnings are found, print them
         if [ -n "$errors" ] || [ -n "$warnings" ] || [ -n "$info" ] || [ -n "$debug" ]; then
             found_errors=true
@@ -66,12 +66,11 @@ function tail_all_logs() {
     local logs=("$@")
     echo
     echo -e "\033[96mTailing logs from ${logs[*]}...\033[0m"
-    # Tail log files without formatting output with colors
+    # Tail log files with formatting output with colors
     docker exec -it "$CONTAINER_NAME" tail -f "${logs[@]/#/$LOGS_PATH/}" | while IFS= read -r line; do
-        echo "$line"
+        format_log_output <<< "$line"
     done
 }
-
 
 # Function to tail only error logs in real-time
 function tail_error_logs() {
