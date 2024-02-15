@@ -89,7 +89,7 @@ function tail_error_logs() {
     local log_file="$1"
     # Tail error logs and format output with colors
     docker exec -it "$CONTAINER_NAME" tail -f "$LOGS_PATH/$log_file" | grep -E --line-buffered "(ERROR|FATAL|CRITICAL)" | while IFS= read -r line; do
-        echo -e "$line" | format_log_output | tee /dev/tty
+      format_log_output <<< "$line"
     done
 }
 
