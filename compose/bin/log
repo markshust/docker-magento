@@ -12,11 +12,36 @@ display_help() {
   echo "Description:
   Tail logs from the Magento var/log folder all and specific logs
 Usage:
-  bin/log -t <specific_log_files> or bin/log --tail <specific_log_files> 
+  bin/log -t <specific_log_files> or bin/log --tail <specific_log_files>
 Arguments:
   specific_log_files Ex: bin/log -t system.log cache.log
 Options:
   -h, --help          Display help message"
+}
+
+# Function to view and set configure options
+configure_options() {
+    echo -e "\n\033[96mCurrent log path: $LOGS_PATH\033[0m\n"
+    echo -e "\033[96mCurrent container name: $CONTAINER_NAME\033[0m\n"
+    read -p "$(echo -e "Do you want to change these values? (\033[92mY\033[0m/\033[91mn\033[0m): ")" change_option
+    if [[ "$change_option" =~ [Yy] ]]; then
+        read -p "Enter the new log path (press Enter to keep current path): " new_logs_path
+        read -p "Enter the new container name (press Enter to keep current name): " new_container_name
+        if [[ -n "$new_logs_path" ]]; then
+            LOGS_PATH="$new_logs_path"
+            echo -e "\n\033[92mLog path updated successfully.\033[0m"
+        else
+            echo -e "\n\033[96mLog path remains unchanged.\033[0m"
+        fi
+        if [[ -n "$new_container_name" ]]; then
+            CONTAINER_NAME="$new_container_name"
+            echo -e "\n\033[92mContainer name updated successfully.\033[0m"
+        else
+            echo -e "\n\033[96mContainer name remains unchanged.\033[0m"
+        fi
+    else
+        echo -e "\n\033[96mLog path and container name remain unchanged.\033[0m"
+    fi
 }
 
 # Function to view the content of a specific log file
@@ -113,9 +138,10 @@ while true; do
     echo -e "\033[96m2.\033[0m Display the content of a specific log file"
     echo -e "\033[96m3.\033[0m Search for errors in log files"
     echo -e "\033[96m4.\033[0m Tail logs in real-time"
+    echo -e "\033[96m5.\033[0m Configure options"
 
     # Read user input for option selection
-    read -p "Enter the option number (1, 2, 3, or 4): " option
+    read -p "Enter the option number (1, 2, 3, 4 or 5): " option
 
     if [ "$option" == "1" ]; then
         show_logs
@@ -149,7 +175,9 @@ while true; do
         echo -e "\033[96mPress [Enter] to return to the menu\033[0m"
         read -r -n 1 -s discard
         docker exec -it "$CONTAINER_NAME" pkill -f "tail -f $LOGS_PATH/$log_file"
-    else
+    elif [ "$option" == "5" ]; then
+	configure_options
+        else
         echo -e "\n\033[91mInvalid choice.\033[0m"
         break
     fi
