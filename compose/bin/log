@@ -24,12 +24,12 @@ Options:
 configure_options() {
     echo -e "\n\033[96mCurrent log path: $LOGS_PATH\033[0m\n"
     echo -e "\033[96mCurrent container name: $CONTAINER_NAME\033[0m\n"
-    read -p "$(echo -e "Do you want to change these values? (\033[92mY\033[0m/\033[91mn\033[0m): ")" change_option
+    read -r -p "$(echo -e "Do you want to change these values? (\033[92mY\033[0m/\033[91mn\033[0m): ")" change_option
 
     if [[ "$change_option" =~ [Yy] ]];
     then
-        read -p "Enter the new log path (press Enter to keep current path): " new_logs_path
-        read -p "Enter the new container name (press Enter to keep current name): " new_container_name
+        read -r -p "Enter the new log path (press Enter to keep current path): " new_logs_path
+        read -r -p "Enter the new container name (press Enter to keep current name): " new_container_name
 
         if [[ -n "$new_logs_path" ]];
         then
@@ -74,10 +74,14 @@ search_errors () {
     # Loop through each log file
     for log_file in ./log/*.log; do
         # Search for different types of log messages and format the output
-        local errors=$(grep -E -r --color=always "\(ERROR\|FATAL\|CRITICAL\)" "$log_file" | format_log_output || true)
-        local warnings=$(grep -E -r --color=always "\bWARNING\b" "$log_file" | format_log_output || true)
-        local info=$(grep -E -r --color=always "INFO" "$log_file" | format_log_output || true)
-        local debug=$(grep -E -r --color=always "DEBUG" "$log_file" | format_log_output || true)
+       local errors
+       errors=$(grep -E -r --color=always "\(ERROR\|FATAL\|CRITICAL\)" "$log_file" | format_log_output || true)
+       local warnings
+       warnings=$(grep -E -r --color=always "\bWARNING\b" "$log_file" | format_log_output || true)
+       local info
+       info=$(grep -E -r --color=always "INFO" "$log_file" | format_log_output || true)
+       local debug
+       debug=$(grep -E -r --color=always "DEBUG" "$log_file" | format_log_output || true)
         # If any errors or warnings are found, print them
         if [ -n "$errors" ] || [ -n "$warnings" ] || [ -n "$info" ] || [ -n "$debug" ]; then
             found_errors=true
@@ -156,7 +160,7 @@ while true;
     echo -e "\033[96m5.\033[0m Configure options"
 
     # Read user input for option selection
-    read -p "Enter the option number (1, 2, 3, 4 or 5): " option
+    read -r -p "Enter the option number (1, 2, 3, 4 or 5): " option
 
     if [ "$option" == "1" ];
     then
@@ -164,7 +168,7 @@ while true;
     elif [ "$option" == "2" ];
     then
         show_logs
-        read -p "Enter the log file name (with extension, e.g., system.log): " log_file
+        read -r -p "Enter the log file name (with extension, e.g., system.log): " log_file
         view_log "$log_file" | format_log_output
     elif [ "$option" == "3" ];
     then
@@ -175,10 +179,10 @@ while true;
         echo -e "\033[96m1.\033[0m View all logs in real-time"
         echo -e "\033[96m2.\033[0m View only error logs in real-time"
 
-        read -p "Enter the option number (1 or 2): " tail_option
+        read -r -p "Enter the option number (1 or 2): " tail_option
         echo -e "\n\033[96mChoose a log file to tail:\033[0m"
         show_logs
-        read -p "Enter the log file name (with extension, e.g., system.log): " log_file
+        read -r -p "Enter the log file name (with extension, e.g., system.log): " log_file
         echo -e "\033[96mPress [Ctrl+C] to stop tailing logs\033[0m"
 
         if [ "$tail_option" == "1" ];
@@ -192,7 +196,7 @@ while true;
         fi
 
         echo -e "\033[96mPress [Enter] to return to the menu\033[0m"
-        read -r -n 1 -s discard
+        read -r -n 1 -s
         docker exec -it "$CONTAINER_NAME" pkill -f "tail -f $LOGS_PATH/$log_file"
     elif [ "$option" == "5" ];
     then
@@ -203,7 +207,7 @@ while true;
     fi
 
     # Ask the user if they want to continue
-    read -p "$(echo -e "\033[92mContinue (Y/\033[91mn)\033[0m")? " continue_option
+    read  -r -p "$(echo -e "\033[92mContinue (Y/\033[91mn)\033[0m")? " continue_option
     if [[ "$continue_option" =~ [Nn] ]];
      then
          break
