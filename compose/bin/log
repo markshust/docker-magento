@@ -8,15 +8,16 @@ CONTAINER_NAME="$(basename "$(pwd)")-phpfpm-1"
 
 echo -e "\033[94mDeveloped by \033[34mYevhen \033[93mZvieriev\033[0m"
 
-display_help() {
-  echo "Description:
-  Tail logs from the Magento var/log folder all and specific logs
+# Function to view help message
+display_help () {
+  echo -e "\nDescription:
+    Tail logs from the Magento var/log or specific folder all and specific logs
 Usage:
-  bin/log -t <specific_log_files> or bin/log --tail <specific_log_files>
+    bin/log -t <specific_log_files> or bin/log --tail <specific_log_files>
 Arguments:
-  specific_log_files Ex: bin/log -t system.log cache.log
+    specific_log_files Ex: bin/log -t system.log cache.log
 Options:
-  -h, --help          Display help message"
+    -h, --help          Display help message"
 }
 
 # Function to view and set configure options
@@ -24,16 +25,22 @@ configure_options() {
     echo -e "\n\033[96mCurrent log path: $LOGS_PATH\033[0m\n"
     echo -e "\033[96mCurrent container name: $CONTAINER_NAME\033[0m\n"
     read -p "$(echo -e "Do you want to change these values? (\033[92mY\033[0m/\033[91mn\033[0m): ")" change_option
-    if [[ "$change_option" =~ [Yy] ]]; then
+
+    if [[ "$change_option" =~ [Yy] ]];
+    then
         read -p "Enter the new log path (press Enter to keep current path): " new_logs_path
         read -p "Enter the new container name (press Enter to keep current name): " new_container_name
-        if [[ -n "$new_logs_path" ]]; then
+
+        if [[ -n "$new_logs_path" ]];
+        then
             LOGS_PATH="$new_logs_path"
             echo -e "\n\033[92mLog path updated successfully.\033[0m"
         else
             echo -e "\n\033[96mLog path remains unchanged.\033[0m"
         fi
-        if [[ -n "$new_container_name" ]]; then
+
+        if [[ -n "$new_container_name" ]];
+        then
             CONTAINER_NAME="$new_container_name"
             echo -e "\n\033[92mContainer name updated successfully.\033[0m"
         else
@@ -45,24 +52,25 @@ configure_options() {
 }
 
 # Function to view the content of a specific log file
-function view_log() {
+view_log () {
     local log_file="$1"
     docker exec -it "$CONTAINER_NAME" cat "$LOGS_PATH/$log_file"
 }
 
 # Function to list available log files
-function show_logs() {
+show_logs () {
     echo -e "\n\033[96mAvailable log files:\033[0m"
-    docker exec -it "$CONTAINER_NAME" find "$LOGS_PATH" -maxdepth 1 -type f -name "*.log" -exec basename {} \; 2>/dev/null | awk '{print "\033[96m" NR ".\033[0m \033[32m" $0 "\033[0m"}'
+    docker exec -it "$CONTAINER_NAME" \
+    find "$LOGS_PATH" -maxdepth 1 -type f -name "*.log" \
+    -exec basename {} \; 2>/dev/null | \
+    awk '{print "\033[96m" NR ".\033[0m \033[32m" $0 "\033[0m"}'
 }
 
 # Function to search for errors in log files
-function search_errors() {
+search_errors () {
     # Copy log files from the container to the host
     docker cp "$CONTAINER_NAME:$LOGS_PATH" ./ > /dev/null 2>&1
-
     local found_errors=false
-
     # Loop through each log file
     for log_file in ./log/*.log; do
         # Search for different types of log messages and format the output
@@ -70,7 +78,6 @@ function search_errors() {
         local warnings=$(grep -E -r --color=always "\bWARNING\b" "$log_file" | format_log_output || true)
         local info=$(grep -E -r --color=always "INFO" "$log_file" | format_log_output || true)
         local debug=$(grep -E -r --color=always "DEBUG" "$log_file" | format_log_output || true)
-
         # If any errors or warnings are found, print them
         if [ -n "$errors" ] || [ -n "$warnings" ] || [ -n "$info" ] || [ -n "$debug" ]; then
             found_errors=true
@@ -82,44 +89,50 @@ function search_errors() {
             echo -e "$debug" | cat
         fi
     done
-
     # Remove temporary log files
     rm -rf ./log
-
     # If no errors are found, display a message
-    if [ "$found_errors" = false ]; then
+    if [ "$found_errors" = false ];
+    then
         echo -e "\n\033[1mNo errors found in any log file.\033[0m"
     fi
 }
 
 # Function to format log output with colors
-function format_log_output() {
-    sed -E 's/(ERROR|FATAL|CRITICAL)/\o033[31m\1\o033[0m/g' | sed -E 's/\bWARNING\b/\o033[33m&\o033[0m/g' | sed -E 's/\bINFO\b/\o033[32m&\o033[0m/g' | sed -E 's/\bDEBUG\b/\o033[36m&\o033[0m/g'
+format_log_output() {
+  sed -E 's/(ERROR|FATAL|CRITICAL)/\o033[31m\1\o033[0m/g' \
+      | sed -E 's/\bWARNING\b/\o033[33m&\o033[0m/g' \
+      | sed -E 's/\bINFO\b/\o033[32m&\o033[0m/g' \
+      | sed -E 's/\bDEBUG\b/\o033[36m&\o033[0m/g'
 }
 
 # Function to tail all log files in real-time
-function tail_all_logs() {
+tail_all_logs() {
     local logs=("$@")
-    echo
-    echo -e "\033[96mTailing logs from ${logs[*]}...\033[0m"
+    echo -e "\n\033[96mTailing logs from ${logs[*]}...\033[0m"
     # Tail log files with formatting output with colors
-    docker exec -it "$CONTAINER_NAME" tail -f "${logs[@]/#/$LOGS_PATH/}" | while IFS= read -r line; do
+    docker exec -it "$CONTAINER_NAME" tail -f "${logs[@]/#/$LOGS_PATH/}" | while IFS= read -r line;
+    do
         format_log_output <<< "$line"
     done
 }
 
 # Function to tail only error logs in real-time
-function tail_error_logs() {
-    echo
+tail_error_logs() {
     local log_file="$1"
+    echo -e "\n\033[96mTailing all error logs from $log_file...\033[0m"
     # Tail error logs and format output with colors
-    docker exec -it "$CONTAINER_NAME" tail -f "$LOGS_PATH/$log_file" | grep -E --line-buffered "(ERROR|FATAL|CRITICAL)" | while IFS= read -r line; do
-      format_log_output <<< "$line"
-    done
+    docker exec -it "$CONTAINER_NAME" tail -f "$LOGS_PATH/$log_file" \
+    | grep -E --line-buffered "(ERROR|FATAL|CRITICAL)" \
+    | while IFS= read -r line;
+     do
+         format_log_output <<< "$line"
+     done
 }
 
 # Check if the option is to tail logs in real-time
-if [[ "$1" == "-t" || "$1" == "--tail" ]]; then
+if [[ "$1" == "-t" || "$1" == "--tail" ]];
+then
     shift
     for log_file in "$@"; do
         tail_all_logs "$log_file"
@@ -127,12 +140,14 @@ if [[ "$1" == "-t" || "$1" == "--tail" ]]; then
 fi
 
 # Check if the option is to help
-if [[ $1 == "-h" || $1 == "--help" ]]; then
-  display_help
+if [[ $1 == "-h" || $1 == "--help" ]];
+then
+    display_help
 fi
 
 # Main loop to display menu and handle user input
-while true; do
+while true;
+ do
     echo -e "\n\033[96mChoose an option:\033[0m"
     echo -e "\033[96m1.\033[0m View existing log files"
     echo -e "\033[96m2.\033[0m Display the content of a specific log file"
@@ -143,30 +158,34 @@ while true; do
     # Read user input for option selection
     read -p "Enter the option number (1, 2, 3, 4 or 5): " option
 
-    if [ "$option" == "1" ]; then
+    if [ "$option" == "1" ];
+    then
         show_logs
-    elif [ "$option" == "2" ]; then
+    elif [ "$option" == "2" ];
+    then
         show_logs
         read -p "Enter the log file name (with extension, e.g., system.log): " log_file
         view_log "$log_file" | format_log_output
-    elif [ "$option" == "3" ]; then
+    elif [ "$option" == "3" ];
+    then
         search_errors
-    elif [ "$option" == "4" ]; then
+    elif [ "$option" == "4" ];
+    then
         echo -e "\n\033[96mChoose an option:\033[0m"
         echo -e "\033[96m1.\033[0m View all logs in real-time"
         echo -e "\033[96m2.\033[0m View only error logs in real-time"
 
         read -p "Enter the option number (1 or 2): " tail_option
-
         echo -e "\n\033[96mChoose a log file to tail:\033[0m"
         show_logs
         read -p "Enter the log file name (with extension, e.g., system.log): " log_file
-
         echo -e "\033[96mPress [Ctrl+C] to stop tailing logs\033[0m"
 
-        if [ "$tail_option" == "1" ]; then
+        if [ "$tail_option" == "1" ];
+        then
             tail_all_logs "$log_file"
-        elif [ "$tail_option" == "2" ]; then
+        elif [ "$tail_option" == "2" ];
+        then
             tail_error_logs "$log_file"
         else
             echo -e "\n\033[91mInvalid choice.\033[0m"
@@ -175,8 +194,9 @@ while true; do
         echo -e "\033[96mPress [Enter] to return to the menu\033[0m"
         read -r -n 1 -s discard
         docker exec -it "$CONTAINER_NAME" pkill -f "tail -f $LOGS_PATH/$log_file"
-    elif [ "$option" == "5" ]; then
-	configure_options
+    elif [ "$option" == "5" ];
+    then
+	      configure_options
         else
         echo -e "\n\033[91mInvalid choice.\033[0m"
         break
@@ -184,7 +204,8 @@ while true; do
 
     # Ask the user if they want to continue
     read -p "$(echo -e "\033[92mContinue (Y/\033[91mn)\033[0m")? " continue_option
-    if [[ "$continue_option" =~ [Nn] ]]; then
-        break
+    if [[ "$continue_option" =~ [Nn] ]];
+     then
+         break
     fi
 done
