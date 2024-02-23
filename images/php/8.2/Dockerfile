@@ -84,8 +84,13 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
-RUN cd /usr/lib && git clone https://github.com/NoiseByNorthwest/php-spx.git
-RUN cd /usr/lib/php-spx && phpize && ./configure && make && make install
+RUN cd /usr/lib \
+    && git clone --depth=1 https://github.com/NoiseByNorthwest/php-spx.git \
+    && /usr/lib/php-spx \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
