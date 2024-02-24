@@ -8,7 +8,7 @@ create_admin_user() {
   LASTNAME="Admin"
   PASSWORD="Admin123"
 
- bin/magento admin:user:create \
+  bin/magento admin:user:create \
      --admin-user="${USERNAME}" \
      --admin-password="${PASSWORD}" \
      --admin-email="${EMAIL}" \
@@ -35,7 +35,7 @@ create_customer_account() {
   LASTNAME="${LASTNAME:-Customer}"
   WEBSITE="${WEBSITE:-1}"
 
-bin/n98-magerun2 customer:create ${EMAIL} ${PASSWORD} ${FIRSTNAME} ${LASTNAME} "${WEBSITE}"
+  bin/n98-magerun2 customer:create "${EMAIL}" "${PASSWORD}" "${FIRSTNAME}" "${LASTNAME}" "${WEBSITE}"
 
   if [ $? -eq 0 ]; then
       echo "Customer account created successfully."
