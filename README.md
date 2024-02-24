@@ -184,8 +184,8 @@ bin/download 2.4.6-p3 community
 #  --opensearch-port="$OPENSEARCH_PORT" \
 #  --search-engine=opensearch \
 # with:
-#  --elasticsearch-host="$OPENSEARCH_HOST" \
-#  --elasticsearch-port="$OPENSEARCH_PORT" \
+#  --elasticsearch-host="$ES_HOST" \
+#  --elasticsearch-port="$ES_PORT" \
 #  --search-engine=elasticsearch7 \
 
 # Run the setup installer for Magento:
