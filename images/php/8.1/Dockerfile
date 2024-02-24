@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    strace \
     vim \
     zip \
   && rm -rf /var/lib/apt/lists/*
