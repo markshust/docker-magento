@@ -520,24 +520,6 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
     * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
     * Navigate to your Magento store URL, and Xdebug should now trigger the debugger within PhpStorm at the toggled breakpoint.
 
-### PHP-SPX
-
-The images also have additional profiler-tracer with built-in <a href="https://github.com/NoiseByNorthwest/php-spx/tree/master#web-ui" target="_blank">web UI.</a>
-
-To access the control panel just open the following URL.
-
-```
-https://magento.test/?SPX_KEY=dev&SPX_UI_URI=/
-```
-Profiling is also possible via command line and curl:
-
-```
-SPX_ENABLED=1 SPX_REPORT=full bin/magento {command_name}
-```
-```
-curl --cookie "SPX_ENABLED=1; SPX_KEY=dev" https://magento.test/
-```
-
 ### SSH
 
 Since version `40.0.0`, this project supports connecting to Docker with SSH/SFTP. This means that if you solely use either PhpStorm or VSCode, you no longer need to selectively mount host volumes in order to gain bi-directional sync capabilities from host to container. This will enable full speed in the native filesystem, as all files will be stored directly in the `appdata` container volume, rather than being synced from the host. This is especially useful if you'd like to sync larger directories such as `generated`, `pub` & `vendor`.
@@ -604,7 +586,6 @@ Next, open up the `bin/start` helper script and uncomment the line:
 
 Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
 
-<<<<<<< HEAD
 ### Cloudflare Tunnel
 
 These docker images have built-in support for Cloudflare Tunnel. It can be useful for testing implementations that require some third-party integrations involving allow-listing domains. Since your local app cannot be allow-listed by other services, you can use Cloudflare Tunnel to get a public hostname that can be allow-listed on the other service.
