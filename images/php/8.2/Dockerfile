@@ -11,7 +11,6 @@ RUN mkdir -p /etc/nginx/html /var/www/html /sock \
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 
 RUN apt-get update && apt-get install -y \
-    strace \
     cron \
     default-mysql-client \
     git \
@@ -35,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    strace \
     vim \
     zip \
   && rm -rf /var/lib/apt/lists/*
