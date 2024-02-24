@@ -184,8 +184,8 @@ bin/download 2.4.6-p3 community
 #  --opensearch-port="$OPENSEARCH_PORT" \
 #  --search-engine=opensearch \
 # with:
-#  --elasticsearch-host="$OPENSEARCH_HOST" \
-#  --elasticsearch-port="$OPENSEARCH_PORT" \
+#  --elasticsearch-host="$ES_HOST" \
+#  --elasticsearch-port="$ES_PORT" \
 #  --search-engine=elasticsearch7 \
 
 # Run the setup installer for Magento:
@@ -285,6 +285,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.6-p3 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.6-p3 enterprise`
 - `bin/debug-cli`: Enable Xdebug for bin/magento, with an optional argument of the IDE key. Defaults to PHPSTORM Ex. `bin/debug-cli enable PHPSTORM`
 - `bin/deploy`: Runs the standard Magento deployment process commands. Pass extra locales besides `en_US` via an optional argument. Ex. `bin/deploy nl_NL`
+- `bin/docker-stats`: Display status for CPU, memory usage, and memory limit of currently-running Docker containers.
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -311,7 +312,8 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/setup-composer-auth`: Setup authentication credentials for Composer.
 - `bin/setup-domain`: Setup Magento domain name. Ex: `bin/setup-domain magento.test`
 - `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
-- `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento.test`
+- `bin/setup-pwa-studio`: (BETA) Install PWA Studio (requires NodeJS and Yarn to be installed on the host machine). Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio magento.test`.
+- `bin/setup-pwa-studio-sampledata`: This script makes it easier to install Venia sample data. Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio-sampledata magento.test`.
 - `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento.test foo.test`
 - `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.

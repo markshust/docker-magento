@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+container_ids=$(bin/docker-compose ps -q)
+
+if [ -z "$container_ids" ]; then
+    echo "No active containers found"
+    exit 1
+fi
+
+docker stats "$container_ids"
