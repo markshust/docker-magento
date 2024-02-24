@@ -15,7 +15,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fi
 
     # Ask the user whether to execute the iptables command
-    read -p "Do you want to open port 9003 for xdebug? (y/n): " choice
+    read -r -p "Do you want to open port 9003 for xdebug? (y/n): " choice
     if [ "$choice" == "y" ]; then
         sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
         echo "Port 9003 has been opened for xdebug."
