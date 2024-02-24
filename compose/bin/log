@@ -17,30 +17,30 @@ Options:
 }
 
 generate_logs_file_path() {
-  CONTAINER_LOG_PATH="$1"
-  LOG_FILES="$2"
+  local container_log_path="$1"
+  shift  # This shifts the positional parameters to the left, so $2 becomes $1, $3 becomes $2, etc.
+  local log_files=("$@")
+  local log_file_paths=()
 
-  log_file_paths=""
-
-  for file in $LOG_FILES; do
-    log_file_paths+="$CONTAINER_LOG_PATH$file "
+  for file in "${log_files[@]}"; do
+    log_file_paths+=("$container_log_path$file")
   done
 
-  echo "$log_file_paths"
+  echo "${log_file_paths[@]}"
 }
 
 get_all_logs_file_path() {
-  LOGS_LOCATION="$1"
+  local logs_location="$1"
 
-  echo $(bin/docker-compose exec phpfpm ls -p "$LOGS_LOCATION" | grep -v '/$' | sed "s|^|$LOGS_LOCATION|");
+  bin/docker-compose exec phpfpm ls -p "$logs_location" | grep -v '/$' | sed "s|^|$logs_location|"
 }
 
 if [[ $1 == "-h" || $1 == "--help" ]]; then
   display_help
 elif [[ -z $1 ]]; then
-  All_LOGS_FILE_PATH=$(get_all_logs_file_path "$CONTAINER_LOG_PATH")
-  bin/docker-compose exec phpfpm tail -f $All_LOGS_FILE_PATH
+  mapfile -t all_logs_file_path < <(get_all_logs_file_path "$CONTAINER_LOG_PATH")
+  bin/docker-compose exec phpfpm tail -f "${all_logs_file_path[@]}"
 else
-  LOGS_FILE_PATH=$(generate_logs_file_path "$CONTAINER_LOG_PATH" "$1")
-  bin/docker-compose exec phpfpm tail -f $LOGS_FILE_PATH
+  mapfile -t logs_file_path < <(generate_logs_file_path "$CONTAINER_LOG_PATH" "$@")
+  bin/docker-compose exec phpfpm tail -f "${logs_file_path[@]}"
 fi
