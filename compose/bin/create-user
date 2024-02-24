@@ -34,7 +34,7 @@ create_customer_account() {
   FIRSTNAME=${FIRSTNAME:-"Customer"}
   LASTNAME=${LASTNAME:-"Customer"}
 
-  bin/n98-magerun2 customer:create "${EMAIL}" "${PASSWORD}" ${FIRSTNAME} ${LASTNAME} "${WEBSITE}"
+  bin/n98-magerun2 customer:create ${EMAIL} ${PASSWORD} ${FIRSTNAME} ${LASTNAME} ${WEBSITE}
 
   if [ $? -eq 0 ]; then
       echo "Customer account created successfully."
