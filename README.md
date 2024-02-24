@@ -285,6 +285,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.6-p3 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.6-p3 enterprise`
 - `bin/debug-cli`: Enable Xdebug for bin/magento, with an optional argument of the IDE key. Defaults to PHPSTORM Ex. `bin/debug-cli enable PHPSTORM`
 - `bin/deploy`: Runs the standard Magento deployment process commands. Pass extra locales besides `en_US` via an optional argument. Ex. `bin/deploy nl_NL`
+- `bin/docker-stats`: Display status for CPU, memory usage, and memory limit of currently-running Docker containers.
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`

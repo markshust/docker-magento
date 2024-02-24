@@ -31,6 +31,7 @@ help:
 	@echo "$(call format,dev-urn-catalog-generate,'Generate URNs for PHPStorm and remap paths to local host.')"
 	@echo "$(call format,devconsole,'Alias for n98-magerun2 dev:console.')"
 	@echo "$(call format,devtools-cli-check,'Check & install the CLI devtools if missing from system.')"
+	@echo "$(call format,docker-stats,'Display status for CPU, memory usage, and memory limit of currently-running Docker containers.')"
 	@echo "$(call format,download,'Download & extract specific Magento version to the src directory.')"
 	@echo "$(call format,fixowns,'This will fix filesystem ownerships within the container.')"
 	@echo "$(call format,fixperms,'This will fix filesystem permissions within the container.')"
