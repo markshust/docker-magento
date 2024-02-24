@@ -35,6 +35,7 @@ help:
 	@echo "$(call format,fixowns,'This will fix filesystem ownerships within the container.')"
 	@echo "$(call format,fixperms,'This will fix filesystem permissions within the container.')"
 	@echo "$(call format,grunt,'Run the grunt binary.')"
+	@echo "$(call format,log,'Monitor the Magento log files. Pass no params to tail all files.')"
 	@echo "$(call format,magento,'Run the Magento CLI.')"
 	@echo "$(call format,mftf,'Run the Magento MFTF.')"
 	@echo "$(call format,mysql,'Run the MySQL CLI with database config from env/db.env.')"
