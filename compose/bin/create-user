@@ -8,12 +8,12 @@ create_admin_user() {
   LASTNAME="Admin"
   PASSWORD="Admin123"
 
-  bin/magento admin:user:create \
-      --admin-user=${USERNAME} \
-      --admin-password=${PASSWORD} \
-      --admin-email=${EMAIL} \
-      --admin-firstname=${FIRSTNAME} \
-      --admin-lastname=${LASTNAME}
+ bin/magento admin:user:create \
+     --admin-user="${USERNAME}" \
+     --admin-password="${PASSWORD}" \
+     --admin-email="${EMAIL}" \
+     --admin-firstname="${FIRSTNAME}" \
+     --admin-lastname="${LASTNAME}"
 
   if [ $? -eq 0 ]; then
       echo "Admin account created successfully."
@@ -34,7 +34,7 @@ create_customer_account() {
   FIRSTNAME=${FIRSTNAME:-"Customer"}
   LASTNAME=${LASTNAME:-"Customer"}
 
-  bin/n98-magerun2 customer:create ${EMAIL} ${PASSWORD} ${FIRSTNAME} ${LASTNAME} ${WEBSITE}
+  bin/n98-magerun2 customer:create "${EMAIL}" "${PASSWORD}" ${FIRSTNAME} ${LASTNAME} "${WEBSITE}"
 
   if [ $? -eq 0 ]; then
       echo "Customer account created successfully."
@@ -61,20 +61,20 @@ if ! bin/cliq ls bin/n98-magerun2; then
 fi
 
 # Prompt user for type of account to create
-read -p "Do you want to create an admin (A) or a customer (C) account? [A/C]: " account_type
+read -r -p "Do you want to create an admin (A) or a customer (C) account? [A/C]: " account_type
 
 if [[ "$account_type" == "A" || "$account_type" == "a" ]]; then
     create_admin_user
 elif [[ "$account_type" == "C" || "$account_type" == "c" ]]; then
-    read -p "Do you want to use default values for customer account? (Y/N): " use_defaults
+    read -r -p "Do you want to use default values for customer account? (Y/N): " use_defaults
     if [[ "$use_defaults" == "Y" || "$use_defaults" == "y" ]]; then
         create_customer_account
     elif [[ "$use_defaults" == "N" || "$use_defaults" == "n" ]]; then
-        read -p "Enter customer email: " EMAIL
-        read -p "Enter customer password: " PASSWORD
-        read -p "Enter customer firstname: " FIRSTNAME
-        read -p "Enter customer lastname: " LASTNAME
-        read -p "Enter customer website: " WEBSITE
+        read -r -p "Enter customer email: " EMAIL
+        read -r -p "Enter customer password: " PASSWORD
+        read -r -p "Enter customer firstname: " FIRSTNAME
+        read -r -p "Enter customer lastname: " LASTNAME
+        read -r -p "Enter customer website: " WEBSITE
         create_customer_account
     else
         echo "Invalid option. Please choose either Y or N."
