@@ -7,4 +7,4 @@ if [ -z "$container_ids" ]; then
     exit 1
 fi
 
-docker stats $container_ids
+docker stats "$container_ids"
