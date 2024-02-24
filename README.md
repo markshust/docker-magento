@@ -698,14 +698,27 @@ Upon saving this file, we will see the Grunt watcher detect the changes, and you
 
 The images also have additional profiler-tracers built-in to the <a href="https://github.com/NoiseByNorthwest/php-spx/tree/master#web-ui" target="_blank">Web UI.</a>
 
-To access the control panel, just open the following URL: `https://magento.test/?SPX_KEY=dev&SPX_UI_URI=/`
+To access the control panel, just open the following URL: `https://magento.test/?SPX_UI_URI=/`
 
-Profiling is also possible via command line and curl:
+**Suggested Configuration**
+
+- Enabled: Checked
+- Automatic start: Checked
+- Profile internal functions: Unchecked
+- Sampling: 5ms
+- Max profiling depth: Unlimited
+- Additional metrics: Unselected
+
+Changing any options on this page set cookies for the domain for these settings. After then visiting a page on the frontend, you can navigate back to the GUI and scroll to the bottom of the page, and click the related request to view the trace of the request & response.
+
+Profiling is also possible via command line, or curl:
 
 ```
-SPX_ENABLED=1 SPX_REPORT=full bin/magento {command_name}
-curl --cookie "SPX_ENABLED=1; SPX_KEY=dev" https://magento.test/
+SPX_REPORT=full SPX_ENABLED=1 SPX_SAMPLING_PERIOD=5000 bin/magento {command_name}
+curl --cookie "SPX_REPORT=full; SPX_ENABLED=1; SPX_SAMPLING_PERIOD=5000" https://magento.test/
 ```
+
+Additional information of how to work with SPX is available at https://www.youtube.com/watch?v=xk-JiBLsKfA
 
 ## Credits
 
