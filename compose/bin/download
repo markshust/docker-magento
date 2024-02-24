@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION=${1:-2.4.6-p3}
+VERSION=${1:-2.4.6-p4}
 EDITION=${2:-community}
 
 # Define ANSI escape codes for colors
