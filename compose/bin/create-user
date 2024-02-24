@@ -29,12 +29,13 @@ create_admin_user() {
 
 # Function to create customer account
 create_customer_account() {
-  EMAIL=${EMAIL:-"customer@example.com"}
-  PASSWORD=${PASSWORD:-"customer123QWERTY"}
-  FIRSTNAME=${FIRSTNAME:-"Customer"}
-  LASTNAME=${LASTNAME:-"Customer"}
+  EMAIL="${EMAIL:-customer@example.com}"
+  PASSWORD="${PASSWORD:-customer123QWERTY}"
+  FIRSTNAME="${FIRSTNAME:-Customer}"
+  LASTNAME="${LASTNAME:-Customer}"
+  WEBSITE="${WEBSITE:-1}"
 
-  bin/n98-magerun2 customer:create ${EMAIL} ${PASSWORD} ${FIRSTNAME} ${LASTNAME} ${WEBSITE}
+bin/n98-magerun2 customer:create ${EMAIL} ${PASSWORD} ${FIRSTNAME} ${LASTNAME} "${WEBSITE}"
 
   if [ $? -eq 0 ]; then
       echo "Customer account created successfully."
