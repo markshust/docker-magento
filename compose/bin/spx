@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+S=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep -iGc 'zlib.output_compression = 1');
+
+spx_status() {
+    if [[ $S == 1 ]]; then
+        echo "Output compression is enabled, so you cannot currently debug with SPX."
+    else
+        echo "Output compression is disabled, so you can currently debug with SPX."
+    fi
+}
+
+spx_toggle() {
+    if [[ $S == 1 ]]; then
+        spx_enable
+    else
+        spx_disable
+    fi
+}
+
+spx_enable() {
+    if [[ $S == 1 ]]; then
+        bin/root sed -i -e 's/^zlib.output_compression = 1/zlib.output_compression = 0/g' /usr/local/etc/php/php.ini
+        sleep 1
+        bin/restart phpfpm
+        echo "Output compression is now disabled, so you can start debugging with SPX."
+    else
+        echo "Output compression is already disabled, so you can start debugging with SPX."
+    fi
+}
+
+spx_disable() {
+    if [[ $S == 0 ]]; then
+        bin/root sed -i -e 's/^zlib.output_compression = 0/zlib.output_compression = 1/g' /usr/local/etc/php/php.ini
+        sleep 1
+        bin/restart phpfpm
+        echo "Output compression is now enabled, so you can no longer debug with SPX."
+    else
+        echo "Output compression is already enabled, so you can no longer debug with SPX."
+    fi
+}
+
+firstArgLetter="$(echo "$1" | head -c 1)"
+
+if [[ $firstArgLetter == "d" ]]; then
+    spx_disable
+elif [[ $firstArgLetter == "e" ]]; then
+    spx_enable
+elif [[ $firstArgLetter == "t" ]]; then
+    spx_toggle
+elif [[ $firstArgLetter == "s" ]]; then
+    spx_status
+else
+    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument.\nEx: bin/spx status\n"
+fi
