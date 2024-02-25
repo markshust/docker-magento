@@ -1,9 +1,9 @@
-name: build-php-8-1
+name: build-php-8-3
 
 on: workflow_dispatch
 
 jobs:
-  php-8-1:
+  php-8-3:
     runs-on: ubuntu-latest
     steps:
       -
@@ -26,9 +26,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: images/php/8.1
+          context: images/php/8.3
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            markoshust/magento-php:8.1-fpm
-            markoshust/magento-php:8.1-fpm-2
+            markoshust/magento-php:8.3-fpm
+            markoshust/magento-php:8.3-fpm-develop
