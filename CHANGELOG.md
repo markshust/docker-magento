@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New `bin/setup-pwa-studio-sampledata` command to install Magento PWA Studio sample data, facilitating easier PWA development setups [#1045](https://github.com/markshust/docker-magento/pull/1045).
 - New `bin/deploy` script to deply Magento in pipeline [PR #926](https://github.com/markshust/docker-magento/pull/926).
 - New `bin/magento-version` script which outputs current Magento version [PR #931](https://github.com/markshust/docker-magento/pull/931).
+- New `bin/spx` script to enable or disable SPX [PR #1074](https://github.com/markshust/docker-magento/pull/1074).
 
 ### Updated
 - Node.js to version 20.x LTS [PR #1071](https://github.com/markshust/docker-magento/pull/1071).
