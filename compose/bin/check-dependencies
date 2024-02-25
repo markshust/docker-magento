@@ -4,10 +4,11 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-declare -a common_dependencies
-declare -a magento_versions=("2.4.7-beta2" "2.4.6-p3" "2.4.6-p2" "2.4.6-p1" "2.4.6" "2.4.5-p5" "2.4.5-p4" "2.4.5-p3" "2.4.5-p2" "2.4.5-p1" "2.4.5" "2.4.4-p6" "2.4.4-p5" "2.4.4-p4" "2.4.4-p3" "2.4.4-p2" "2.4.4-p1" "2.4.4" "2.4.3-p3" "2.4.2-p2")
+declare -A common_dependencies
+declare -a magento_versions=("2.4.7-beta2" "2.4.6-p4" "2.4.6-p3" "2.4.6-p2" "2.4.6-p1" "2.4.6" "2.4.5-p5" "2.4.5-p4" "2.4.5-p3" "2.4.5-p2" "2.4.5-p1" "2.4.5" "2.4.4-p6" "2.4.4-p5" "2.4.4-p4" "2.4.4-p3" "2.4.4-p2" "2.4.4-p1" "2.4.4" "2.4.3-p3" "2.4.2-p2")
 
 common_dependencies["2.4.7-beta2"]="Composer:2.5 Elasticsearch:8.7 OpenSearch:2.5 MariaDB:10.6 MySQL:8.0 PHP:8.2,8.1 RabbitMQ:3.11 Redis:7.0 Varnish:7.3 Apache:2.4 nginx:1.24 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.10.20 'AWS-ElastiCache':Redis7.0 'AWS-Elasticsearch':-- 'AWS-OpenSearch':2.5"
+common_dependencies["2.4.6-p4"]="Composer:2.2 Elasticsearch:8.5,7.17 OpenSearch:2.5 MariaDB:10.6 MySQL:8.0 PHP:8.2,8.1 RabbitMQ:3.11,3.9 Redis:7.0 Varnish:7.3 Apache:2.4 nginx:1.24 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.16 'AWS-ElastiCache':Redis6.2 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
 common_dependencies["2.4.6-p3"]="Composer:2.2 Elasticsearch:8.5,7.17 OpenSearch:2.5 MariaDB:10.6 MySQL:8.0 PHP:8.2,8.1 RabbitMQ:3.11,3.9 Redis:7.0 Varnish:7.3 Apache:2.4 nginx:1.24 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.16 'AWS-ElastiCache':Redis6.2 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
 common_dependencies["2.4.6-p2"]="Composer:2.2 Elasticsearch:8.5,7.17 OpenSearch:2.5 MariaDB:10.6 MySQL:8.0 PHP:8.2,8.1 RabbitMQ:3.11,3.9 Redis:7.0 Varnish:7.3 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.16 'AWS-ElastiCache':Redis6.2 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
 common_dependencies["2.4.6-p1"]="Composer:2.2 Elasticsearch:8.5,7.17 OpenSearch:2.5 MariaDB:10.6 MySQL:8.0 PHP:8.2,8.1 RabbitMQ:3.11,3.9 Redis:7.0 Varnish:7.3 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.16 'AWS-ElastiCache':Redis 6.2 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
