@@ -1,9 +1,9 @@
-name: build-ssh
+name: build-rabbitmq-3-11
 
 on: workflow_dispatch
 
 jobs:
-  ssh:
+  rabbitmq-3-11:
     runs-on: ubuntu-latest
     steps:
       -
@@ -26,7 +26,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v5
         with:
-          context: images/php/8.2
+          context: images/rabbitmq/3.11
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: markoshust/ssh
+          tags: |
+            markoshust/magento-rabbitmq:3.11
+            markoshust/magento-rabbitmq:3.11-1

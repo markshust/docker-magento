@@ -1,9 +1,9 @@
-name: build-ssh
+name: build-nginx-1-18
 
 on: workflow_dispatch
 
 jobs:
-  ssh:
+  nginx-1-18:
     runs-on: ubuntu-latest
     steps:
       -
@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       -
         name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3 
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -26,7 +26,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v5
         with:
-          context: images/php/8.2
+          context: images/nginx/1.18
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: markoshust/ssh
+          tags: |
+            markoshust/magento-nginx:1.18
+            markoshust/magento-nginx:1.18-8

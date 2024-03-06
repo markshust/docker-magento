@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-bookworm
+FROM php:8.3-fpm-bookworm
 MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
@@ -8,7 +8,7 @@ RUN groupadd -g "$APP_ID" app \
 RUN mkdir -p /etc/nginx/html /var/www/html /sock \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 
 RUN apt-get update && apt-get install -y \
     cron \
@@ -41,12 +41,23 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pecl channel-update pecl.php.net && pecl install \
-    imagick-3.7.0 \
     redis-6.0.2 \
     ssh2-1.3.1 \
     xdebug-3.3.1 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
+
+RUN curl -L https://github.com/Imagick/imagick/archive/28f27044e435a2b203e32675e942eb8de620ee58.zip -o imagick.zip \
+    && unzip imagick.zip \
+    && rm imagick.zip \
+    && cd imagick-28f27044e435a2b203e32675e942eb8de620ee58 \
+    && phpize \
+    && ./configure --with-php-config=/usr/local/bin/php-config \
+    && make \
+    && make install \
+    && echo "extension=imagick.so" >> $PHP_INI_DIR/conf.d/imagick.ini \
+    && cd .. \
+    && rm -rf imagick-28f27044e435a2b203e32675e942eb8de620ee58
 
 RUN docker-php-ext-configure \
     gd --with-freetype --with-jpeg --with-webp \
