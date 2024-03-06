@@ -7,9 +7,9 @@ INTERVAL=3
 trap 'stty echo; exit' INT EXIT
 
 print_header() {
-    echo "+----------------------------------------------------+--------------+----------+-----------+----------------+"
-    printf "| %-50s | %-12s | %-8s | %-8s | %-15s |\n" "NAME" "CONTAINER ID" "CPU %" "Memory %" "Memory Usage"
-    echo "+----------------------------------------------------+--------------+----------+-----------+----------------+"
+    echo "+----------------------------------------------------+--------------+----------+----------+----------------+"
+    printf "| %-50s | %-12s | %-8s | %-8s | %-14s |\n" "NAME" "CONTAINER ID" "CPU %" "Memory %" "Memory Usage"
+    echo "+----------------------------------------------------+--------------+----------+----------+----------------+"
 }
 
 print_container_info() {
@@ -18,7 +18,7 @@ print_container_info() {
     local container_id=${container_info[1]}
     local container_stats=(${container_info[@]:2})
 
-    printf "| %-50s | %-12s | %-8s | %-8s | %-15s |\n" "$container_name" "$container_id" "${container_stats[0]}" "${container_stats[1]}" "${container_stats[2]}"
+    printf "| %-50s | %-12s | %-8s | %-8s | %-14s |\n" "$container_name" "$container_id" "${container_stats[0]}" "${container_stats[1]}" "${container_stats[2]}"
 }
 
 while true; do
@@ -33,7 +33,7 @@ while true; do
             print_container_info "$(echo "$line" | awk '{gsub(/\//, " "); print}')"
         done <<< "$DOCKER_STATS"
 
-        echo "+----------------------------------------------------+--------------+-----------+----------+----------------+"
+        echo "+----------------------------------------------------+--------------+----------+----------+----------------+"
     else
         echo "No active containers found"
         break
