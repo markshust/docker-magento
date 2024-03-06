@@ -7,21 +7,22 @@ INTERVAL=3
 trap 'stty echo; exit' INT EXIT
 
 print_header() {
-    echo "+----------------------------------------------------+------------+-----------------+-----------------+"
-    printf "| %-50s | %-10s | %-15s | %-15s |\n" "Name" "CPU %" "Memory Usage" "Memory Limit"
-    echo "+----------------------------------------------------+------------+-----------------+-----------------+"
+    echo "+----------------------------------------------------+--------------+------------+-----------------+-----------------+"
+    printf "| %-50s | %-12s | %-10s | %-15s | %-15s |\n" "NAME" "CONTAINER ID" "CPU %" "Memory %" "Memory Usage"
+    echo "+----------------------------------------------------+--------------+------------+-----------------+-----------------+"
 }
 
 print_container_info() {
     local container_info=($1)
     local container_name=${container_info[0]}
-    local container_stats=(${container_info[@]:1})
+    local container_id=${container_info[1]}
+    local container_stats=(${container_info[@]:2})
 
-    printf "| %-50s | %-10s | %-15s | %-15s |\n" "$container_name" "${container_stats[0]}" "${container_stats[1]}" "${container_stats[2]}"
+    printf "| %-50s | %-12s | %-10s | %-15s | %-15s |\n" "$container_name" "$container_id" "${container_stats[0]}" "${container_stats[1]}" "${container_stats[2]}"
 }
 
 while true; do
-    DOCKER_STATS=$(docker stats --no-stream --format "{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}")
+    DOCKER_STATS=$(docker stats --no-stream --format "{{.Name}}\t{{.ID}}\t{{.CPUPerc}}\t{{.MemPerc}}\t{{.MemUsage}}")
 
     clear
 
@@ -32,7 +33,7 @@ while true; do
             print_container_info "$(echo "$line" | awk '{gsub(/\//, " "); print}')"
         done <<< "$DOCKER_STATS"
 
-        echo "+----------------------------------------------------+------------+-----------------+-----------------+"
+        echo "+----------------------------------------------------+--------------+------------+-----------------+-----------------+"
     else
         echo "No active containers found"
         break
@@ -40,3 +41,4 @@ while true; do
 
     sleep $INTERVAL
 done
+
