@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 stty -echo
 
 INTERVAL=3
@@ -41,4 +42,14 @@ while true; do
 
     sleep $INTERVAL
 done
+
+=======
+IFS=$'\n' read -d '' -r -a container_ids < <(bin/docker-compose ps -q)
+
+if [ ${#container_ids[@]} -eq 0 ]; then
+    echo "No active containers found"
+    exit 1
+fi
+
+docker stats "${container_ids[@]}"
 

@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [45.0.0] - 2024-02-25
+
+### Added
+- New PHP images based on bookworm, pegging pecl libraries for more predictability [PR #1071](https://github.com/markshust/docker-magento/pull/1071).
+- New PHP 8.3 image [PR #1071](https://github.com/markshust/docker-magento/pull/1071).
+- PHP SPX profiler to enhance performance monitoring capabilities [PR #533](https://github.com/markshust/docker-magento/pull/533).
+- Support for the `strace` command, providing developers with powerful tools for diagnosing and troubleshooting [PR #1033](https://github.com/markshust/docker-magento/pull/1033).
+- Ability for xdebug to listen to Magento CLI commands [PR #846](https://github.com/markshust/docker-magento/pull/846).
+- Abstraction of setup script into two scripts [PR #874](https://github.com/markshust/docker-magento/pull/874).
+- New Docker image for OpenSearch 2.4 [PR #858](https://github.com/markshust/docker-magento/pull/858).
+- Mage-OS mirror support [PR #835](https://github.com/markshust/docker-magento/pull/835).
+- New `bin/log` command to view Magento logs in real-time [PR #1060](https://github.com/markshust/docker-magento/pull/1060).
+- New `bin/docker-stats` command for container monitoring [PR #533](https://github.com/markshust/docker-magento/pull/533).
+- New `bin/setup-pwa-studio-sampledata` command to install Magento PWA Studio sample data, facilitating easier PWA development setups [#1045](https://github.com/markshust/docker-magento/pull/1045).
+- New `bin/deploy` script to deply Magento in pipeline [PR #926](https://github.com/markshust/docker-magento/pull/926).
+- New `bin/magento-version` script which outputs current Magento version [PR #931](https://github.com/markshust/docker-magento/pull/931).
+- New `bin/spx` script to enable or disable SPX [PR #1074](https://github.com/markshust/docker-magento/pull/1074).
+
+### Updated
+- Node.js to version 20.x LTS [PR #1071](https://github.com/markshust/docker-magento/pull/1071).
+- Support for Magento 2.4.6-p4, updating the default Magento version in the Docker setup to align with the latest Magento release [PR #1063](https://github.com/markshust/docker-magento/pull/1063).
+- Continuous integration and deployment processes were refined to include updates and to maintain dependencies through GitHub Actions and Dependabot, ensuring that the project's dependencies remain up to date and secure [PR #1032](https://github.com/markshust/docker-magento/pull/1032).
+- Rework docker compose script to allow future extensibility [PR #1002](https://github.com/markshust/docker-magento/pull/1002).
+- Replaced phpmyadmin Docker image with amd64-compatible image [PR #939](https://github.com/markshust/docker-magento/pull/939).
+- Set default Magento 2.4.6 search engine to OpenSearch [PR #937](https://github.com/markshust/docker-magento/pull/937).
+- Use `/usr/bin/env` to discover bash location [PR #879](https://github.com/markshust/docker-magento/pull/879).
+
+### Fixed
+- Execution rights in scripts [PR #1039](https://github.com/markshust/docker-magento/pull/1039).
+- Bug with Elasticsearch documentation [PR #1014](https://github.com/markshust/docker-magento/pull/1014).
+- Elasticsearch JAVA OPTS issue with containers not starting at startup [PR #938](https://github.com/markshust/docker-magento/pull/938).
+- Unexpected Ubuntu 18.04 startup failure [PR #310](https://github.com/markshust/docker-magento/pull/310).
+- Failing `npm install` of puppeteer due to missing Chromium [PR #848](https://github.com/markshust/docker-magento/pull/848).
+
 ## [44.0.0] - 2022-12-05
 
 ### Added
