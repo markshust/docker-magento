@@ -8,7 +8,7 @@ trap 'stty echo; exit' INT EXIT
 
 print_header() {
     echo "+----------------------------------------------------+--------------+----------+----------+----------------+"
-    printf "| %-50s | %-12s | %-8s | %-8s | %-14s |\n" "NAME" "CONTAINER ID" "CPU %" "Memory %" "Memory Usage"
+    printf "| %-50s | %-12s | %-8s | %-8s | %-14s |\n" "NAME" "CONTAINER ID" "CPU %" "MEM %" "MEM USAGE"
     echo "+----------------------------------------------------+--------------+----------+----------+----------------+"
 }
 
@@ -41,4 +41,3 @@ while true; do
 
     sleep $INTERVAL
 done
-
