@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 44.0.0
+## Version 45.0.0
 
 ## To use SSH, see https://github.com/markshust/docker-magento#ssh
 ## Linux users, see https://github.com/markshust/docker-magento#linux
@@ -32,7 +32,7 @@ services:
       #- "host.docker.internal:host-gateway"
 
   phpfpm:
-    image: markoshust/magento-php:8.2-fpm-0
+    image: markoshust/magento-php:8.2-fpm-1
     volumes: *appvolumes
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
@@ -66,6 +66,8 @@ services:
       ## More info at https://github.com/markshust/docker-magento/issues/488
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
+      ## Uncomment the following line to increase the virtual memory map count
+  #   - "max_map_count=262144"
 
   ## If you wish to use Elasticsearch, comment out opensearch image above and
   ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
@@ -84,6 +86,8 @@ services:
   #    ## More info at https://github.com/markshust/docker-magento/issues/488
   #    - "cluster.routing.allocation.disk.threshold_enabled=false"
   #    - "index.blocks.read_only_allow_delete"
+  #    ## Uncomment the following line to increase the virtual memory map count
+  #    - "max_map_count=262144"
 
   rabbitmq:
     image: markoshust/magento-rabbitmq:3.11-1
