@@ -539,11 +539,6 @@ bin/copyfromcontainer --all
 
 ### Linux
 
-#### Install necessary dependencies
-```
-sudo apt install curl libnss3-tools unzip rsync
-```
-
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/) before continuing. These steps are taken care of automatically with Docker Desktop, but not on Linux.
 
 Copy `compose.dev-linux.yaml` to `compose.dev.yaml` before installing Magento to take advantage of this setup.
@@ -563,7 +558,12 @@ You must also create a new entry in your `/etc/hosts` file using the same IP:
 ```
 172.17.0.1 host.docker.internal
 ```
+#### Install necessary dependencies
+To ensure proper functionality, the docker-magento setup requires a few system dependencies to be installed on Linux. To install these dependencies, please execute the following command from the terminal:
 
+```bash
+sudo apt install curl libnss3-tools unzip rsync
+```
 #### Extra settings
 
 To enable Xdebug on Linux, you may also need to open port 9003 on the firewall by running:
