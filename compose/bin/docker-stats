@@ -1,10 +1,71 @@
 #!/usr/bin/env bash
 
-IFS=$'\n' read -d '' -r -a container_ids < <(bin/docker-compose ps -q)
+stty -echo
 
-if [ ${#container_ids[@]} -eq 0 ]; then
-    echo "No active containers found"
-    exit 1
-fi
+INTERVAL=3
 
-docker stats "${container_ids[@]}"
+trap 'stty echo; exit' INT EXIT
+
+print_header() {
+    echo "+----------------------------------------------------+--------------+----------+----------+------------------------+"
+    printf "| %-50s | %-12s | %-8s | %-8s | %-22s |\n" "NAME" "CONTAINER ID" "CPU %" "MEM %" "MEM USAGE / MEM LIMIT"
+    echo "+----------------------------------------------------+--------------+----------+----------+------------------------+"
+}
+
+print_container_info() {
+    local container_info
+    local container_name
+    local container_id
+    local cpu_perc
+    local mem_perc
+    local mem_usage
+
+    container_info="$1"
+    container_name=$(echo "$container_info" | cut -f1)
+    container_id=$(echo "$container_info" | cut -f2)
+    cpu_perc=$(echo "$container_info" | cut -f3)
+    mem_perc=$(echo "$container_info" | cut -f4)
+    mem_usage=$(echo "$container_info" | cut -f5)
+
+
+print_container_info() {
+    local container_info
+    local container_name
+    local container_id
+    local cpu_perc
+    local mem_perc
+    local mem_usage
+
+    container_info="$1"
+    container_name=$(echo "$container_info" | cut -f1)
+    container_id=$(echo "$container_info" | cut -f2)
+    cpu_perc=$(echo "$container_info" | cut -f3)
+    mem_perc=$(echo "$container_info" | cut -f4)
+    mem_usage=$(echo "$container_info" | cut -f5)
+
+    printf "| %-50s | %-12s | %-8s | %-8s | %-22s |\n" "$container_name" "$container_id" "$cpu_perc" "$mem_perc" "$mem_usage"
+}
+
+}
+
+while true; do
+    DOCKER_STATS=$(docker stats --no-stream --format "{{.Name}}\t{{.ID}}\t{{.CPUPerc}}\t{{.MemPerc}}\t{{.MemUsage}}")
+
+    clear
+
+    if [[ -n "$DOCKER_STATS" ]]; then
+        print_header
+
+        while IFS= read -r line; do
+            print_container_info "$(echo "$line" | awk '{gsub(/\//, " "); print}')"
+        done <<< "$DOCKER_STATS"
+
+        echo "+----------------------------------------------------+--------------+----------+----------+------------------------+"
+    else
+        echo "No active containers found"
+        break
+    fi
+
+    sleep $INTERVAL
+done
+
