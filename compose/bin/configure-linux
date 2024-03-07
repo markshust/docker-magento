@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$(uname)" == "Darwin" ]; then
-    echo "This script is designed for Linux and may not work properly on macOS."
+    echo "This script is designed for Linux and will not work properly on macOS."
 else
     # Get the IP address from the Docker container
     docker_ip=$(docker run --rm alpine ip route | awk 'NR==1 {print $3}')
@@ -21,6 +21,6 @@ else
         sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
         echo "Port 9003 has been opened for xdebug."
     fi
-fi
 
-echo "Tasks completed successfully"
+    echo "Tasks completed successfully"
+fi
