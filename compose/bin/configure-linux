@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+if [ "$(uname)" == "Darwin" ]; then
+    echo "This script is designed for Linux and will not work properly on macOS."
+else
+    # Get the IP address from the Docker container
+    docker_ip=$(docker run --rm alpine ip route | awk 'NR==1 {print $3}')
+
+    # Check if the IP address already exists in /etc/hosts
+    if grep -q "$docker_ip host.docker.internal" /etc/hosts; then
+        echo "The entry already exists in /etc/hosts. No action needed."
+    else
+        # Add a new entry to /etc/hosts
+        echo "$docker_ip host.docker.internal" | sudo tee -a /etc/hosts
+        echo "A new entry in the /etc/hosts file has been created"
+    fi
+
+    # Ask the user whether to execute the iptables command
+    read -r -p "Do you want to open port 9003 for Xdebug? (y/n): " choice
+    if [ "$choice" == "y" ]; then
+        sudo iptables -A INPUT -p tcp --dport 9003 -j ACCEPT
+        echo "Port 9003 has been opened for xdebug."
+    fi
+
+    echo "Tasks completed successfully"
+fi
