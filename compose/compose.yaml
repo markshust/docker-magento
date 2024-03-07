@@ -95,7 +95,7 @@ services:
     env_file: env/rabbitmq.env
 
   mailcatcher:
-    image: sj26/mailcatcher
+    image: sj26/mailcatcher:v0.8.2
     ports:
       - "1080:1080"
   
