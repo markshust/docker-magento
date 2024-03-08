@@ -543,6 +543,14 @@ Running Docker on Linux should be pretty straight-forward. Note that you need to
 
 Copy `compose.dev-linux.yaml` to `compose.dev.yaml` before installing Magento to take advantage of this setup.
 
+#### Install necessary dependencies
+
+To ensure proper functionality, the docker-magento setup requires a few system dependencies to be installed on Linux. To install these dependencies, please execute the following command from the terminal:
+
+```
+sudo apt install curl libnss3-tools unzip rsync
+```
+
 #### The host.docker.internal hostname
 
 The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
@@ -558,12 +566,7 @@ You must also create a new entry in your `/etc/hosts` file using the same IP:
 ```
 172.17.0.1 host.docker.internal
 ```
-#### Install necessary dependencies
-To ensure proper functionality, the docker-magento setup requires a few system dependencies to be installed on Linux. To install these dependencies, please execute the following command from the terminal:
 
-```bash
-sudo apt install curl libnss3-tools unzip rsync
-```
 #### Extra settings
 
 To enable Xdebug on Linux, you may also need to open port 9003 on the firewall by running:
