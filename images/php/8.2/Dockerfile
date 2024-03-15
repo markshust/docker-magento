@@ -84,7 +84,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --install-dir=/usr/local/bin --filename=composer
+  php -- --install-dir=/usr/local/bin --filename=composer --version=2.2.0
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/msmtprc /etc/msmtprc
