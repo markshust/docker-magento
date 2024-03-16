@@ -19,7 +19,7 @@ help:
 	@echo ""
 	@echo "$(call yellow,Use the following CLI commands:)"
 	@echo "$(call red,===============================)"
-	@echo "$(call format,analyse,'Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse. Ex. `bin/analyse app/code`')"
+	@echo "$(call format,analyse,'Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse.')"
 	@echo "$(call format,bash,'Drop into the bash prompt of your Docker container.')"
 	@echo "$(call format,cache-clean,'Access the cache-clean CLI.')"
 	@echo "$(call format,cli,'Run any CLI command without going into the bash prompt.')"
