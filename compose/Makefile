@@ -35,7 +35,6 @@ help:
 	@echo "$(call format,dev-test-run,' Facilitates running PHPUnit tests for a specified test type.')"
 	@echo "$(call format,dev-urn-catalog-generate,'Generate URNs for PHPStorm and remap paths to local host.')"
 	@echo "$(call format,devconsole,'Alias for n98-magerun2 dev:console.')"
-	@echo "$(call format,devtools-cli-check,'Check & install the CLI devtools if missing from system.')"
 	@echo "$(call format,docker-compose,'Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files.')"
 	@echo "$(call format,docker-stats,'Display status for CPU$(comma) memory usage$(comma) and memory limit of currently-running Docker containers.')"
 	@echo "$(call format,download,'Download & extract specific Magento version to the src directory.')"
@@ -130,9 +129,6 @@ dev-urn-catalog-generate:
 
 devconsole:
 	@./bin/devconsole
-
-devtools-cli-check:
-	@./bin/devtools-cli-check
 
 docker-compose:
 	@./bin/docker-compose
