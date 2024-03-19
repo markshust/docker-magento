@@ -9,11 +9,11 @@ read -r -p "Last Name: " LASTNAME
 
 if [[ "$account_type" == [Aa] ]]; then
   bin/magento admin:user:create \
-    --admin-user=${USERNAME} \
-    --admin-password=${PASSWORD} \
-    --admin-email=${EMAIL} \
-    --admin-firstname=${FIRSTNAME} \
-    --admin-lastname=${LASTNAME}
+    --admin-user="${USERNAME}" \
+    --admin-password="${PASSWORD}" \
+    --admin-email="${EMAIL}" \
+    --admin-firstname="${FIRSTNAME}" \
+    --admin-lastname="${LASTNAME}"
 elif [[ "$account_type" == [Cc] ]]; then
   bin/n98-magerun2 customer:create "${EMAIL}" "${PASSWORD}" "${FIRSTNAME}" "${LASTNAME}"
 else
