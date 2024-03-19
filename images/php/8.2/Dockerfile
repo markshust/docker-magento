@@ -95,7 +95,6 @@ RUN git clone --branch v0.4.15 --depth=1 https://github.com/NoiseByNorthwest/php
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --version=2.6.6 --install-dir=/usr/local/bin --filename=composer
 
-
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
 COPY conf/msmtprc /etc/msmtprc
