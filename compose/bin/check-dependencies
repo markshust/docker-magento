@@ -20,11 +20,15 @@ common_dependencies[9]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:1
 common_dependencies[10]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.1 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
 common_dependencies[11]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':1.2"
 common_dependencies[12]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':1.2"
-common_dependencies[13]="Composer:2.1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
-common_dependencies[14]="Composer:2.1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
-common_dependencies[15]="Composer:2.1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
-common_dependencies[16]="Composer:1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:7.4 RabbitMQ:3.8 Redis:6.0 Varnish:6.5 Apache:2.4 nginx:1.18 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
-common_dependencies[17]="Composer:1 Elasticsearch:7.9 OpenSearch:-- MariaDB:10.4 MySQL:8.0 PHP:7.4 RabbitMQ:3.8 Redis:6.0 Varnish:6.4 Apache:2.4 nginx:1.18 'AWS-Aurora-(MySQL)':-- 'AWS-S3':✔️ 'AWS-MQ':-- 'AWS-ElastiCache':-- 'AWS-Elasticsearch':-- 'AWS-OpenSearch':--"
+common_dependencies[13]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.3 Apache:2.4 nginx:1.24 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
+common_dependencies[14]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.3 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
+common_dependencies[15]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.3 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
+common_dependencies[16]="Composer:2.2 Elasticsearch:7.17 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.1 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':8.0 'AWS-S3':✔️ 'AWS-MQ':3.9.13 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':-- 'AWS-OpenSearch':1.2"
+common_dependencies[17]="Composer:2.1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
+common_dependencies[18]="Composer:2.1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
+common_dependencies[19]="Composer:2.1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:8.1 RabbitMQ:3.9 Redis:6.2 Varnish:7.0 Apache:2.4 nginx:1.22 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
+common_dependencies[20]="Composer:1 Elasticsearch:7.16 OpenSearch:1.2 MariaDB:10.4 MySQL:8.0 PHP:7.4 RabbitMQ:3.8 Redis:6.0 Varnish:6.5 Apache:2.4 nginx:1.18 'AWS-Aurora-(MySQL)':5.7 'AWS-S3':✔️ 'AWS-MQ':3.8.11 'AWS-ElastiCache':Redis6 'AWS-Elasticsearch':7.9 'AWS-OpenSearch':--"
+common_dependencies[21]="Composer:1 Elasticsearch:7.9 OpenSearch:-- MariaDB:10.4 MySQL:8.0 PHP:7.4 RabbitMQ:3.8 Redis:6.0 Varnish:6.4 Apache:2.4 nginx:1.18 'AWS-Aurora-(MySQL)':-- 'AWS-S3':✔️ 'AWS-MQ':-- 'AWS-ElastiCache':-- 'AWS-Elasticsearch':-- 'AWS-OpenSearch':--"
 
 print_magento_versions() {
     echo "Available Magento 2 versions:"
@@ -53,4 +57,5 @@ print_dependencies() {
 read -r -p "Enter the Magento 2 version you'd like to check dependencies on:  " magento_version
 
 print_dependencies "$magento_version"
+
 
