@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 
-# Function to create admin user
-create_admin_user() {
-  bin/magento admin:user:create
-}
-# Function to create customer account
-create_customer_account() {
-  bin/n98-magerun2 customer:create
-}
-  bin/cliq chmod +x n98-magerun2.phar
-  bin/cliq mkdir -p bin
-  bin/cliq mv n98-magerun2.phar bin
-# Prompt user for type of account to create
-read -r -p "Do you want to create an admin (A) or a customer (C) account? [A/C]: " account_type
-if [[ "$account_type" == [Aa] ]]; then
-  create_admin_user
-elif [[ "$account_type" == [Cc] ]]; then
-  create_customer_account
-else
-    echo "Invalid option. Please choose either A or C."
-fi
+read -r -p "Create an admin (a) or a customer (c)? [a/c]: " account_type
+[[ "$account_type" == [Aa] ]] && read -r -p "Username: " USERNAME
+read -r -p "Email: " EMAIL
+read -r -p "Password (at least 8 characters): " PASSWORD
+read -r -p "First Name: " FIRSTNAME
+read -r -p "Last Name: " LASTNAME
 
+if [[ "$account_type" == [Aa] ]]; then
+  bin/magento admin:user:create \
+    --admin-user=${USERNAME} \
+    --admin-password=${PASSWORD} \
+    --admin-email=${EMAIL} \
+    --admin-firstname=${FIRSTNAME} \
+    --admin-lastname=${LASTNAME}
+elif [[ "$account_type" == [Cc] ]]; then
+  bin/n98-magerun2 customer:create "${EMAIL}" "${PASSWORD}" "${FIRSTNAME}" "${LASTNAME}"
+else
+    echo "Invalid option. Please choose either a or c."
+fi
