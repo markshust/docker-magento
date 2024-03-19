@@ -27,6 +27,7 @@ help:
 	@echo "$(call format,composer,'Run the composer binary.')"
 	@echo "$(call format,copyfromcontainer,'Copy folders or files from container to host.')"
 	@echo "$(call format,copytocontainer,'Copy folders or files from host to container.')"
+	@echo "$(call format,create-user,'Create either an admin user or customer account.')"
 	@echo "$(call format,cron,'Start or stop the cron service.')"
 	@echo "$(call format,dev-urn-catalog-generate,'Generate URNs for PHPStorm and remap paths to local host.')"
 	@echo "$(call format,devconsole,'Alias for n98-magerun2 dev:console.')"
