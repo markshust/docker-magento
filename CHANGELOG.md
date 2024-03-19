@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [45.1.0] - 2024-03-19
+
+### Added
+- New `bin/configure-linux` helper script to assist with easier Linux setup [PR #1016](https://github.com/markshust/docker-magento/pull/1016).
+- Linux ependencies to README [PR #1050](https://github.com/markshust/docker-magento/pull/1050).
+- Added `bin/create-user` script to allow for easy creation of Magento admin user & customer [PR #1040](https://github.com/markshust/docker-magento/pull/1040).
+- Descriptions for all missing helper scripts to README and Makefile [PR #1096](https://github.com/markshust/docker-magento/pull/1096).
+
+### Updated
+- `bin/docker-stats` to simplified output [PR #1083](https://github.com/markshust/docker-magento/pull/1083).
+- Pinned Composer version for increased compatibility with latest Magento versions [PR #1090](https://github.com/markshust/docker-magento/pull/1090).
+
 ## [45.0.0] - 2024-02-25
 
 ### Added
