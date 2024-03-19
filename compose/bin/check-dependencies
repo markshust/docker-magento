@@ -45,9 +45,9 @@ print_magento_versions() {
 print_dependencies() {
     local version=$1
     local index
-    echo -e "${GREEN}Recommended software dependencies:${NC}"
     for (( index=0; index<${#magento_versions[@]}; index++ )); do
         if [[ "${magento_versions[$index]}" == "$version" ]]; then
+            echo -e "${GREEN}Recommended software dependencies:${NC}"
             local dependencies=${common_dependencies[$index]}
             IFS=' ' read -ra deps <<< "$dependencies"
             for dep in "${deps[@]}"; do
@@ -63,6 +63,5 @@ print_dependencies() {
 
 # Prompt the user to enter a Magento version and print its dependencies
 read -r -p "Enter the Magento 2 version you'd like to check dependencies on:  " magento_version
-
 
 print_dependencies "$magento_version"
