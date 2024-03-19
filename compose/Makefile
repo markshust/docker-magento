@@ -21,6 +21,7 @@ help:
 	@echo "$(call red,===============================)"
 	@echo "$(call format,bash,'Drop into the bash prompt of your Docker container.')"
 	@echo "$(call format,cache-clean,'Access the cache-clean CLI.')"
+	@echo "$(call format,check-dependencies,'Provides helpful recommendations for dependencies.')"
 	@echo "$(call format,cli,'Run any CLI command without going into the bash prompt.')"
 	@echo "$(call format,clinotty,'Run any CLI command with no TTY.')"
 	@echo "$(call format,cliq,'Run any CLI command but pipe all output to /dev/null.')"
@@ -68,6 +69,9 @@ bash:
 
 cache-clean:
 	@./bin/cache-clean $(call args)
+	
+check-dependencies:
+	@./bin/check-dependencies
 
 cli:
 	@./bin/cli $(call args)
