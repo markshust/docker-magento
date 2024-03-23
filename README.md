@@ -91,6 +91,12 @@ Set Up a Magento 2 Development Environment with Docker
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9748834" target="_blank">Set up a docker-magento project in PhpStorm</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9763893" target="_blank">Set up the Magento PhpStorm plugin</a>
 
+#### Code Quality Tools
+
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52640115" target="_blank">Configure PHPCS (PHP CodeSniffer) for Magento</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52642491" target="_blank">Configure PHPCSF (PHP CodeSniffer Fixer) for Magento</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52643314" Configure PHPMD (PHP Mess Detector) for Magento</a>
+
 #### Xdebug
 
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install the Xdebug helper browser plugin for Chrome & PhpStorm</a>
