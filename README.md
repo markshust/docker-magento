@@ -95,7 +95,7 @@ Set Up a Magento 2 Development Environment with Docker
 
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52640115" target="_blank">Configure PHPCS (PHP CodeSniffer) for Magento</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52642491" target="_blank">Configure PHPCSF (PHP CodeSniffer Fixer) for Magento</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52643314" Configure PHPMD (PHP Mess Detector) for Magento</a>
+- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52643314" target="_blank">Configure PHPMD (PHP Mess Detector) for Magento</a>
 
 #### Xdebug
 
