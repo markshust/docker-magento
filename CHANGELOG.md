@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - New `bin/configure-linux` helper script to assist with easier Linux setup [PR #1016](https://github.com/markshust/docker-magento/pull/1016).
-- Linux ependencies to README [PR #1050](https://github.com/markshust/docker-magento/pull/1050).
+- Linux dependencies to README [PR #1050](https://github.com/markshust/docker-magento/pull/1050).
 - Added `bin/create-user` script to allow for easy creation of Magento admin user & customer [PR #1040](https://github.com/markshust/docker-magento/pull/1040).
 - Descriptions for all missing helper scripts to README and Makefile [PR #1096](https://github.com/markshust/docker-magento/pull/1096).
 
