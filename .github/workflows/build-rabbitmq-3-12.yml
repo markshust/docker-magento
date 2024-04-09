@@ -1,9 +1,9 @@
-name: build-php-8-2
+name: build-rabbitmq-3-12
 
 on: workflow_dispatch
 
 jobs:
-  php-8-2:
+  rabbitmq-3-11:
     runs-on: ubuntu-latest
     steps:
       -
@@ -26,9 +26,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v5
         with:
-          context: images/php/8.2
+          context: images/rabbitmq/3.12
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            markoshust/magento-php:8.2-fpm
-            markoshust/magento-php:8.2-fpm-3
+            markoshust/magento-rabbitmq:3.12
+            markoshust/magento-rabbitmq:3.12-0
