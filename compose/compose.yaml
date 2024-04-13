@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 46.0.0
+## Version 46.1.0
 
 ## To use SSH, see https://github.com/markshust/docker-magento#ssh
 ## Linux users, see https://github.com/markshust/docker-magento#linux
@@ -32,7 +32,7 @@ services:
       #- "host.docker.internal:host-gateway"
 
   phpfpm:
-    image: markoshust/magento-php:8.3-fpm-0
+    image: markoshust/magento-php:8.3-fpm-1
     volumes: *appvolumes
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
