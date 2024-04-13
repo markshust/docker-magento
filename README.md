@@ -286,6 +286,7 @@ It is recommended to keep your root docker config files in one repository, and y
 
 - `bin/analyse`: Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse. Ex. `bin/analyse app/code`
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
+- `bin/blackfire`: Disable or enable Blackfire. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/blackfire enable`
 - `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
 - `bin/check-dependencies`: Provides helpful recommendations for dependencies tailored to the chosen Magento version.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
@@ -346,7 +347,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/stop`: Stop all project containers.
 - `bin/stopall`: Stop all docker running containers
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
-- `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
+- `bin/xdebug`: Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/xdebug enable`
 
 ## Misc Info
 
