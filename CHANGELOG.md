@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [46.1.0] - 2024-04-13
+
+### Added
+- New `bin/blackfire` script to enable, disable, or check status of Blackfire extension [PR #1115](https://github.com/markshust/docker-magento/pull/1115).
+- Swool PHP extension to all PHP Docker images to support Adobe Commerce GraphQL Application Layer [PR #1114](https://github.com/markshust/docker-magento/pull/1114).
+
+### Updated
+- Supported versions in the `bin/check-dependencies` script [PR #1112](https://github.com/markshust/docker-magento/pull/1112).
+
+### Fixed
+- Random 502 Bad Gateway errors when Xdebug is enabled [PR #1085](https://github.com/markshust/docker-magento/pull/1085), [PR #1116](https://github.com/markshust/docker-magento/pull/1116).
+
 ## [46.0.0] - 2024-04-09
 
 ### Added

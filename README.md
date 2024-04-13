@@ -20,6 +20,7 @@
 - [Updates](#updates)
 - [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
+- [Known Issues](#known-issues)
 - [Credits](#credits)
 - [License](#license)
 
@@ -753,6 +754,12 @@ curl --cookie "SPX_REPORT=full; SPX_ENABLED=1; SPX_SAMPLING_PERIOD=5000" https:/
 ```
 
 Additional information of how to work with SPX is available at https://www.youtube.com/watch?v=xk-JiBLsKfA
+
+## Known Issues
+
+### Xdebug & Blackfire incompatibility
+
+There is an outstanding bug when Xdebug runs alongside Blackfire in PHP 8.3. See https://github.com/markshust/docker-magento/issues/1118 for more info.
 
 ## Credits
 
