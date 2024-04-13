@@ -65,6 +65,7 @@ print_dependencies() {
     # If the provided Magento version is not recognized, prompt the user to choose a valid version
     echo -e "${RED}Magento version not recognized. Please choose a valid version from the list below:${NC}"
     print_magento_versions
+    echo -e "${BLUE}Additional info about system requirements of Magento in the DevDocs at ${YELLOW}https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/system-requirements"
 }
 
 # Prompt the user to enter a Magento version and print its dependencies
