@@ -44,7 +44,7 @@ RUN pecl channel-update pecl.php.net && pecl install \
     redis-6.0.2 \
     ssh2-1.3.1 \
     swoole-5.1.1 \
-    xdebug-3.3.1 \
+    xdebug-3.3.2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
 

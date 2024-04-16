@@ -757,9 +757,7 @@ Additional information of how to work with SPX is available at https://www.youtu
 
 ## Known Issues
 
-### Xdebug & Blackfire incompatibility
-
-There is an outstanding bug when Xdebug runs alongside Blackfire in PHP 8.3. See https://github.com/markshust/docker-magento/issues/1118 for more info.
+There are currently no large known issues or workarounds needed to use docker-magento with your Magento project. If you find any, please [report them](https://github.com/markshust/docker-magento/issues)!
 
 ## Credits
 
@@ -771,13 +769,14 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 
 ### Mark Shust
 
-My name is Mark Shust and I'm the creator of this repo. I'm a <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a> and <a href="https://www.youracclaim.com/users/mark-shust" target="_blank">Adobe Certified Magento Developer</a>, and have been involved since the early days of Magento (0.8!). I'm no longer available for consulting, but am creating course content full-time at <a href="https://m.academy" target="_blank">M.academy</a>.
+My name is Mark Shust and I'm the creator of this repo. I'm a <a href="https://www.credly.com/users/mark-shust/badges" target="_blank">6X Adobe Commerce Certified Developer</a> and have been involved with Magento since the early days (v0.8!). I create technical education courses full-time for my company, <a href="https://m.academy" target="_blank">M.academy</a>.
 
-- <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">🔗 Connect with me on LinkedIn</a>
+- <a href="https://m.academy/courses" target="_blank">🖥️ See my Magento lessons & courses</a>
+- <a href="https://m.academy/articles" target="_blank">📖 Read my technical articles</a>
 - <a href="https://youtube.com/markshust" target="_blank">🎥 Watch my YouTube videos</a>
-- <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on Twitter</a>
-- <a href="https://markshust.com" target="_blank">📖 Read my blog</a>
-- <a href="mailto:mark@shust.com">💌 Contact me</a>
+- <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">🔗 Connect on LinkedIn</a>
+- <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on X</a>
+- <a href="mailto:mark@m.academy">💌 Contact me</a>
 
 ## License
 
