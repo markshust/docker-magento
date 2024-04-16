@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [46.1.1] - 2024-04-16
 
 ### Fixed
-- Xdebug 3.3.1 and Blackfire PHP extension incompatibility [PR #1121](https://github.com/markshust/docker-magento/pull/1120).
+- Xdebug 3.3.1 and Blackfire PHP extension incompatibility [PR #1122](https://github.com/markshust/docker-magento/pull/1122).
 
 ## [46.1.0] - 2024-04-13
 
