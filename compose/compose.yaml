@@ -49,7 +49,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
-  ## If you wish to use MySQL, comment out opensearch image above and
+  ## If you wish to use MySQL, comment out the mariadb db image above and
   ## uncomment this block.
   #db:
   #  image: mysql:8.0
