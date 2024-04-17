@@ -20,6 +20,7 @@
 - [Updates](#updates)
 - [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
+- [Known Issues](#known-issues)
 - [Credits](#credits)
 - [License](#license)
 
@@ -29,21 +30,29 @@ View Dockerfiles for the latest tags:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - [`1.18`, `1.18-8`](images/nginx/1.18)
+  - [`1.22`, `1.22-0`](images/nginx/1.22)
+  - [`1.24`, `1.24-0`](images/nginx/1.24)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - [`8.1-fpm`, `8.1-fpm-3`](images/php/8.1)
-  - [`8.2-fpm`, `8.2-fpm-2`](images/php/8.2)
-  - [`8.3-fpm`, `8.3-fpm-develop`](images/php/8.3)
+  - [`8.1-fpm`, `8.1-fpm-5`](images/php/8.1)
+  - [`8.2-fpm`, `8.2-fpm-4`](images/php/8.2)
+  - [`8.3-fpm`, `8.3-fpm-2`](images/php/8.3)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
-    - [`1.2`, `1.2-0`](images/opensearch/1.2)
-    - [`2.5`, `2.5-1`](images/opensearch/2.5)
+  - [`1.2`, `1.2-0`](images/opensearch/1.2)
+  - [`2.5`, `2.5-1`](images/opensearch/2.5)
+  - [`2.12`, `2.12-0`](images/opensearch/2.12)
 - [markoshust/magento-elasticsearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-elasticsearch/)
+  - [`7.16`, `7.16-0`](images/elasticsearch/7.16)
   - [`7.17`, `7.17-1`](images/elasticsearch/7.17)
   - [`8.4`, `8.4-0`](images/elasticsearch/8.4)
   - [`8.5`, `8.5-0`](images/elasticsearch/8.5)
   - [`8.7`, `8.7-0`](images/elasticsearch/8.7)
+  - [`8.11`, `8.11-0`](images/elasticsearch/8.11)
+  - [`8.13`, `8.13-0`](images/elasticsearch/8.13)
 - [markoshust/magento-rabbitmq (Docker Hub)](https://hub.docker.com/r/markoshust/magento-rabbitmq/)
+  - [`3.8`, `3.8-0`](images/rabbitmq/3.8)
   - [`3.9`, `3.9-0`](images/rabbitmq/3.9)
   - [`3.11`, `3.11-1`](images/rabbitmq/3.11)
+  - [`3.12`, `3.12-0`](images/rabbitmq/3.12)
 - [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
   - [`latest`](images/ssh)
 
@@ -141,10 +150,10 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.6-p4 community
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.7 community
 ```
 
-The `magento.test` above defines the hostname to use, and the `2.4.6-p4` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, and the `2.4.7` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -172,10 +181,10 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.6-p4 community
+bin/download 2.4.7 community
 # You can specify the version and type (community, enterprise, mageos, mageos-nightly, mageos-mirror, mageos-hypernode-mirror, or mageos-maxcluster-mirror).
 # The mageos type is an alias for mageos-mirror.
-# If no arguments are passed, "2.4.6-p4" and "community" are the default values used.
+# If no arguments are passed, "2.4.7" and "community" are the default values used.
 
 # or for Magento core development:
 # bin/start --no-dev
@@ -278,6 +287,7 @@ It is recommended to keep your root docker config files in one repository, and y
 
 - `bin/analyse`: Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse. Ex. `bin/analyse app/code`
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
+- `bin/blackfire`: Disable or enable Blackfire. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/blackfire enable`
 - `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
 - `bin/check-dependencies`: Provides helpful recommendations for dependencies tailored to the chosen Magento version.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
@@ -296,7 +306,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
-- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.6-p4 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.6-p4 enterprise`
+- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.7 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.7 enterprise`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -338,7 +348,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/stop`: Stop all project containers.
 - `bin/stopall`: Stop all docker running containers
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
-- `bin/xdebug`: Disable or enable Xdebug. Accepts params `disable` (default) or `enable`. Ex. `bin/xdebug enable`
+- `bin/xdebug`: Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/xdebug enable`
 
 ## Misc Info
 
@@ -745,6 +755,10 @@ curl --cookie "SPX_REPORT=full; SPX_ENABLED=1; SPX_SAMPLING_PERIOD=5000" https:/
 
 Additional information of how to work with SPX is available at https://www.youtube.com/watch?v=xk-JiBLsKfA
 
+## Known Issues
+
+There are currently no large known issues or workarounds needed to use docker-magento with your Magento project. If you find any, please [report them](https://github.com/markshust/docker-magento/issues)!
+
 ## Credits
 
 ### M.academy
@@ -755,13 +769,14 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 
 ### Mark Shust
 
-My name is Mark Shust and I'm the creator of this repo. I'm a <a href="http://www.zend.com/en/yellow-pages/ZEND014633" target="_blank">Zend Certified Engineer</a> and <a href="https://www.youracclaim.com/users/mark-shust" target="_blank">Adobe Certified Magento Developer</a>, and have been involved since the early days of Magento (0.8!). I'm no longer available for consulting, but am creating course content full-time at <a href="https://m.academy" target="_blank">M.academy</a>.
+My name is Mark Shust and I'm the creator of this repo. I'm a <a href="https://www.credly.com/users/mark-shust/badges" target="_blank">6X Adobe Commerce Certified Developer</a> and have been involved with Magento since the early days (v0.8!). I create technical education courses full-time for my company, <a href="https://m.academy" target="_blank">M.academy</a>.
 
-- <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">🔗 Connect with me on LinkedIn</a>
+- <a href="https://m.academy/courses" target="_blank">🖥️ See my Magento lessons & courses</a>
+- <a href="https://m.academy/articles" target="_blank">📖 Read my technical articles</a>
 - <a href="https://youtube.com/markshust" target="_blank">🎥 Watch my YouTube videos</a>
-- <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on Twitter</a>
-- <a href="https://markshust.com" target="_blank">📖 Read my blog</a>
-- <a href="mailto:mark@shust.com">💌 Contact me</a>
+- <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">🔗 Connect on LinkedIn</a>
+- <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on X</a>
+- <a href="mailto:mark@m.academy">💌 Contact me</a>
 
 ## License
 
