@@ -5,7 +5,7 @@ git fetch origin -qqq
 git checkout origin/master -- compose
 
 if [ -d "./bin" ]; then
-  echo "Error: The 'bin' directory already exists in the project directory."
+  echo "Error: The current directory is not empty. Please remove all contents within this directory and try again."
   exit 1
 fi
 
