@@ -3,6 +3,12 @@ git init -qqq
 git remote add origin https://github.com/markshust/docker-magento
 git fetch origin -qqq
 git checkout origin/master -- compose
+
+if [ -d "./bin" ]; then
+  echo "Error: The 'bin' directory already exists in the project directory."
+  exit 1
+fi
+
 mv compose/* ./
 mv compose/.gitignore ./
 mv compose/.vscode ./
