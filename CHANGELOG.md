@@ -4,11 +4,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [46.1.1] - 2024-04-16
+
+### Fixed
+- Xdebug 3.3.1 and Blackfire PHP extension incompatibility [PR #1122](https://github.com/markshust/docker-magento/pull/1122).
+
+## [46.1.0] - 2024-04-13
+
+### Added
+- New `bin/blackfire` script to enable, disable, or check status of Blackfire extension [PR #1115](https://github.com/markshust/docker-magento/pull/1115).
+- Swool PHP extension to all PHP Docker images to support Adobe Commerce GraphQL Application Layer [PR #1114](https://github.com/markshust/docker-magento/pull/1114).
+
+### Updated
+- Supported versions in the `bin/check-dependencies` script [PR #1112](https://github.com/markshust/docker-magento/pull/1112).
+
+### Fixed
+- Random 502 Bad Gateway errors when Xdebug is enabled [PR #1085](https://github.com/markshust/docker-magento/pull/1085), [PR #1116](https://github.com/markshust/docker-magento/pull/1116).
+
+## [46.0.0] - 2024-04-09
+
+### Added
+- New `bin/check-dependencies` script which provides helpful recommendations for dependencies tailored to the chosen Magento version [PR #1018](https://github.com/markshust/docker-magento/pull/1018/files).
+- New `nginx` Docker images for versions 1.22, 1.24 [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+- New `php-fpm` 8.3 Docker image for Magento 2.4.7 support [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+- New `opensearch` 2.12 Docker image for Magento 2.4.7 support [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+- New `elasticsearch` 7.16 and 8.11 Docker images for previous Magento versions support [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+- New `elasticsearch` 8.13 Docker image for Magento 2.4.7 support [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+- New `rabbitmq` 3.8 Docker image for previous Magento versions support [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+- New `rabbitmq` 3.12 Docker image for Magento 2.4.7 support [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+
+### Updated
+- Link `php-fpm` Docker images to officially compatible Composer versions [PR #1019](https://github.com/markshust/docker-magento/pull/1109).
+
 ## [45.1.0] - 2024-03-19
 
 ### Added
 - New `bin/configure-linux` helper script to assist with easier Linux setup [PR #1016](https://github.com/markshust/docker-magento/pull/1016).
-- Linux ependencies to README [PR #1050](https://github.com/markshust/docker-magento/pull/1050).
+- Linux dependencies to README [PR #1050](https://github.com/markshust/docker-magento/pull/1050).
 - Added `bin/create-user` script to allow for easy creation of Magento admin user & customer [PR #1040](https://github.com/markshust/docker-magento/pull/1040).
 - Descriptions for all missing helper scripts to README and Makefile [PR #1096](https://github.com/markshust/docker-magento/pull/1096).
 
