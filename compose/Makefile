@@ -21,6 +21,7 @@ help:
 	@echo "$(call red,===============================)"
 	@echo "$(call format,analyse,'Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse.')"
 	@echo "$(call format,bash,'Drop into the bash prompt of your Docker container.')"
+	@echo "$(call format,blackfire,'Disable or enable Blackfire. Accepts argument `disable`, `enable`, or `status`.')"
 	@echo "$(call format,cache-clean,'Access the cache-clean CLI.')"
 	@echo "$(call format,check-dependencies,'Provides helpful recommendations for dependencies.')"
 	@echo "$(call format,cli,'Run any CLI command without going into the bash prompt.')"
@@ -81,7 +82,7 @@ help:
 	@echo "$(call format,stop,'Stop all project containers.')"
 	@echo "$(call format,stopall,'Stop all docker running containers.')"
 	@echo "$(call format,update,'Update your project to the latest version of docker-magento.')"
-	@echo "$(call format,xdebug,'Disable or enable Xdebug.')"
+	@echo "$(call format,xdebug,'Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`.')"
 
 
 analyse:

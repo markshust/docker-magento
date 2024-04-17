@@ -44,7 +44,8 @@ RUN pecl channel-update pecl.php.net && pecl install \
     imagick-3.7.0 \
     redis-6.0.2 \
     ssh2-1.3.1 \
-    xdebug-3.3.1 \
+    swoole-5.1.1 \
+    xdebug-3.2.2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
 
@@ -93,7 +94,7 @@ RUN git clone --branch v0.4.15 --depth=1 https://github.com/NoiseByNorthwest/php
     && make install
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --version=2.6.6 --install-dir=/usr/local/bin --filename=composer
+  php -- --version=2.2.18 --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
