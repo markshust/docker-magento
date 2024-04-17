@@ -10,8 +10,6 @@
 ## 172.17.0.1 in this file with the result of:
 ## docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}'
 
-version: "3"
-
 services:
   app:
     image: markoshust/magento-nginx:1.24-0
@@ -116,14 +114,14 @@ services:
     image: sj26/mailcatcher
     ports:
       - "1080:1080"
-  
+
   ## Cloudflare tunnel support, uncomment to enable
   #tunnel:
   #  container_name: cloudflared-tunnel
   #  image: cloudflare/cloudflared:latest
   #  command: tunnel run
   #  env_file: env/cloudflare.env
-  
+
   ## Blackfire support, uncomment to enable
   #blackfire:
   #  image: blackfire/blackfire:2
