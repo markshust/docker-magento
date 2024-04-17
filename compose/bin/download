@@ -10,6 +10,11 @@ NC='\033[0m' # No Color
 
 bin/stop
 
+if [ -d "./bin" ]; then
+  echo "Error: The current directory is not empty. Please remove all contents within this directory and try again."
+  exit 1
+fi
+
 bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
