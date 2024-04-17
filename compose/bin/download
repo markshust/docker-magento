@@ -10,6 +10,11 @@ NC='\033[0m' # No Color
 
 bin/stop
 
+if [ -d "./bin" ]; then
+  echo "Error: The 'bin' directory already exists in the project directory."
+  exit 1
+fi
+
 bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
 
