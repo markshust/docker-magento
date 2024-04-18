@@ -3,6 +3,12 @@ git init -qqq
 git remote add origin https://github.com/markshust/docker-magento
 git fetch origin -qqq
 git checkout origin/release/next -- compose
+
+if [ -d "./bin" ]; then
+  echo "Error: The current directory is not empty. Please remove all contents within this directory and try again."
+  exit 1
+fi
+
 mv compose/* ./
 mv compose/.gitignore ./
 mv compose/.vscode ./
