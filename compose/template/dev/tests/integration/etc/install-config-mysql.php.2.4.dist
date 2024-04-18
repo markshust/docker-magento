@@ -22,4 +22,5 @@ return [
     'amqp-port' => '5672',
     'amqp-user' => 'magento',
     'amqp-password' => 'magento',
+    'consumers-wait-for-messages' => '0',
 ];
