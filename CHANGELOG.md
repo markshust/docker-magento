@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [47.0.0] - 2024-04-25
+
+### Added
+- Check to ensure directory does not already exist in project directory [PR #1127](https://github.com/markshust/docker-magento/pull/1127).
+
+### Updated
+- Remove obsolete version directive from docker compose files [PR #1125](https://github.com/markshust/docker-magento/pull/1125).
+- Predefined version from 2.4.6-p4 to 2.4.7 [PR #1128](https://github.com/markshust/docker-magento/pull/1128).
+- Integration testing configuration to use OpenSearch [PR #1131](https://github.com/markshust/docker-magento/pull/1131).
+
+### Fixed
+- SSL cert generation when domain has a port included [PR #1136](https://github.com/markshust/docker-magento/pull/1136).
+- OpenSearch container fails to start due to memory heap size configuration [PR #1137](https://github.com/markshust/docker-magento/pull/1137).
+
 ## [46.1.1] - 2024-04-16
 
 ### Fixed
