@@ -82,7 +82,7 @@ services:
       - "index.blocks.read_only_allow_delete"
       ## Uncomment to set custom heap size to avoid memory errors
       #- "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
-      ## Uncomment the following line to increase the virtual memory map count
+      ## Uncomment to increase the virtual memory map count
       #- "max_map_count=262144"
 
   ## If you wish to use Elasticsearch, comment out opensearch image above and
@@ -104,7 +104,7 @@ services:
   #    - "index.blocks.read_only_allow_delete"
   #    ## Uncomment to set custom heap size to avoid memory errors
   #    #- "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-  #    ## Uncomment the following line to increase the virtual memory map count
+  #    ## Uncomment to increase the virtual memory map count
   #    #- "max_map_count=262144"
 
   rabbitmq:
