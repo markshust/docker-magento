@@ -8,31 +8,37 @@ echo "System password requested to install certificate authority on host..."
 
 if [ "$(uname)" == "Darwin" ]; then
   sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain rootCA.pem
+  echo "{\"policies\": {\"Certificates\": {\"ImportEnterpriseRoots\": true}}}" | sudo tee policies.json
 
+  FIREFOX_FOUND=0
   ### Check if Firefox is installed
-  FFoxBin="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-  if [ -f "$FFoxBin" ]; then
-    echo "{\"policies\": {\"Certificates\": {\"ImportEnterpriseRoots\": true}}}" | sudo tee policies.json
+  for FFoxAppDir in \
+    '/Applications/Firefox.app' \
+    '/Applications/Firefox Developer Edition.app' \
+    ; do
 
-    ### Check if distribution directory exists
-    DistDirectory="/Applications/Firefox.app/Contents/Resources/distribution"
-    if [ ! -d "$DistDirectory" ]; then
+    FFoxBin=$FFoxAppDir/Contents/MacOS/firefox-bin
+    if [[ -f $FFoxBin ]]; then
+      printf 'Firefox compatible found at: %s\n' "$FFoxAppDir" >&2
+      FIREFOX_FOUND=1
+
+      ### Copy the newly created policies.json to the Certificates directory
+      DistDirectory=$FFoxAppDir/Contents/Resources/distribution
       sudo mkdir -p "$DistDirectory"
-    fi
-    ### Move the newly created policies.json to the Certificates directory
-    sudo mv policies.json "$DistDirectory"/policies.json
+      sudo cp policies.json "$DistDirectory"/policies.json
 
-    ### Check if Certificates directory exists
-    CertDirectory="/Library/Application Support/Mozilla/Certificates"
-    if [ ! -d "$CertDirectory" ]; then
-      sudo mkdir -p "$CertDirectory"
     fi
+  done
 
-    ### Move the newly created .pem to the Certificates directory
-    sudo mv rootCA.pem "$CertDirectory"/rootCA.pem
-  else
-    sudo rm rootCA.pem
+  if [[ $FIREFOX_FOUND -ne 0 ]]; then
+    ### Copy the newly created .pem to the Certificates directory
+    CertDirectory='/Library/Application Support/Mozilla/Certificates'
+    printf 'Installing CA certificate to: %s\n' "$CertDirectory" >&2
+    sudo mkdir -p "$CertDirectory"
+    sudo cp rootCA.pem "$CertDirectory"/rootCA.pem
   fi
+
+  rm -f policies.json rootCA.pem
 
 else
 
