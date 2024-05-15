@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+display_help() {
+  echo -e "Description:
+  Run unit tests
+
+Usage:
+  bin/test/unit <unit_test_path>
+
+Arguments:
+  <unit_test_path> Specify a path to your test or folder with tests Ex: bin/test/unit app/code/Vendor/Module
+
+Options:
+  -h, --help       Display help message"
+}
+
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  display_help
+elif [[ -z $1 ]]; then
+  echo -e "Please specify a path to your test or folder with tests (ex. app/code/Vendor/Module)"
+else
+  bin/php vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist /var/www/html/$1
+fi
