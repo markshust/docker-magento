@@ -20,5 +20,5 @@ if [[ $1 == "-h" || $1 == "--help" ]]; then
 elif [[ -z $1 ]]; then
   echo -e "Please specify a path to your test or folder with tests (ex. app/code/Vendor/Module)"
 else
-  bin/php -d xdebug.start_with_request=yes vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist /var/www/html/$1
+  bin/php -d xdebug.start_with_request=yes vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist /var/www/html/"$1"
 fi
