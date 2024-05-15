@@ -5,10 +5,10 @@ display_help() {
   Run unit tests with xdebug (you need to turn on xdebug in IDE as usual)
 
 Usage:
-  bin/test/unit <unit_test_path>
+  bin/test/unit-xdebug <unit_test_path>
 
 Arguments:
-  <unit_test_path> Specify a path to your test or folder with tests Ex: bin/test/unit app/code/Vendor/Module
+  <unit_test_path> Specify a path to your test or folder with tests Ex: bin/test/unit-xdebug app/code/Vendor/Module
 
 Options:
   -h, --help       Display help message"

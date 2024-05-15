@@ -5,10 +5,10 @@ display_help() {
   Generate unit tests coverage report in folder: dev/tests/unit/report
 
 Usage:
-  bin/test/unit <unit_test_path>
+  bin/test/unit-coverage <unit_test_path>
 
 Arguments:
-  <unit_test_path> Specify a path to your test or folder with tests Ex: bin/test/unit app/code/Vendor/Module
+  <unit_test_path> Specify a path to your test or folder with tests Ex: bin/test/unit-coverage app/code/Vendor/Module
 
 Options:
   -h, --help       Display help message"
