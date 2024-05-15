@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+display_help() {
+  echo -e "Description:
+  Generate unit tests coverage report in folder: dev/tests/unit/report
+
+Usage:
+  bin/test/unit-coverage <unit_test_path>
+
+Arguments:
+  <unit_test_path> Specify a path to your test or folder with tests Ex: bin/test/unit-coverage app/code/Vendor/Module
+
+Options:
+  -h, --help       Display help message"
+}
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  display_help
+elif [[ -z $1 ]]; then
+  echo -e "Please specify a path to your test or folder with tests (ex. app/code/Vendor/Module)"
+else
+  bin/php -d xdebug.mode=coverage vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist --coverage-html ./dev/tests/unit/report /var/www/html/"$1"
+  echo -e "Report path: dev/tests/unit/report"
+fi
