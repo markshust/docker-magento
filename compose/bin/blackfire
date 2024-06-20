@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+S=$(bin/clinotty cat /usr/local/etc/php/conf.d/blackfire.ini | grep -iGc '\;extension=blackfire.so');
+
+blackfire_status() {
+    if [[ $S == 1 ]]; then
+        echo "Blackfire is disabled."
+    else
+        echo "Blackfire is enabled."
+    fi
+}
+
+blackfire_toggle() {
+    if [[ $S == 1 ]]; then
+        blackfire_enable
+    else
+        blackfire_disable
+    fi
+}
+
+blackfire_enable() {
+    if [[ $S == 1 ]]; then
+        bin/root sed -i -e 's/^;extension=blackfire.so/extension=blackfire.so/g' /usr/local/etc/php/conf.d/blackfire.ini
+        sleep 1
+        bin/restart phpfpm
+        echo "Blackfire has been enabled."
+    else
+        echo "Blackfire is already enabled."
+    fi
+}
+
+blackfire_disable() {
+    if [[ $S == 0 ]]; then
+        bin/root sed -i -e 's/^extension=blackfire.so/;extension=blackfire.so/g' /usr/local/etc/php/conf.d/blackfire.ini
+        sleep 1
+        bin/restart phpfpm
+        echo "Blackfire has been disabled."
+    else
+        echo "Blackfire is already disabled."
+    fi
+}
+
+firstArgLetter="$(echo "$1" | head -c 1)"
+
+if [[ $firstArgLetter == "d" ]]; then
+    blackfire_disable
+elif [[ $firstArgLetter == "e" ]]; then
+    blackfire_enable
+elif [[ $firstArgLetter == "t" ]]; then
+    blackfire_toggle
+elif [[ $firstArgLetter == "s" ]]; then
+    blackfire_status
+else
+    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument.\nEx: bin/blackfire status\n"
+fi

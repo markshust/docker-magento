@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 44.0.0
+## Version 47.0.1
 
 ## To use SSH, see https://github.com/markshust/docker-magento#ssh
 ## Linux users, see https://github.com/markshust/docker-magento#linux
@@ -10,11 +10,9 @@
 ## 172.17.0.1 in this file with the result of:
 ## docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}'
 
-version: "3"
-
 services:
   app:
-    image: markoshust/magento-nginx:1.18-8
+    image: markoshust/magento-nginx:1.24-0
     ports:
       - "80:8000"
       - "443:8443"
@@ -32,7 +30,7 @@ services:
       #- "host.docker.internal:host-gateway"
 
   phpfpm:
-    image: markoshust/magento-php:8.2-fpm-0
+    image: markoshust/magento-php:8.3-fpm-2
     volumes: *appvolumes
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
@@ -49,13 +47,27 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
+  ## If you wish to use MySQL, comment out the mariadb db image above and
+  ## uncomment this block.
+  #db:
+  #  image: mysql:8.0
+  #  command:
+  #    --max_allowed_packet=64M
+  #    --optimizer_use_condition_selectivity=1
+  #    --optimizer_switch="rowid_filter=off"
+  #  ports:
+  #    - "3306:3306"
+  #  env_file: env/db.env
+  #  volumes:
+  #    - dbdata:/var/lib/mysql
+
   redis:
-    image: redis:7.0-alpine
+    image: redis:7.2-alpine
     ports:
       - "6379:6379"
 
   opensearch:
-    image: markoshust/magento-opensearch:2.5-0
+    image: markoshust/magento-opensearch:2.12-0
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -66,6 +78,10 @@ services:
       ## More info at https://github.com/markshust/docker-magento/issues/488
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
+      ## Uncomment to set custom heap size to avoid memory errors
+      #- "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      ## Uncomment to increase the virtual memory map count
+      #- "max_map_count=262144"
 
   ## If you wish to use Elasticsearch, comment out opensearch image above and
   ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
@@ -73,7 +89,7 @@ services:
   # update the bin/setup command to use the $ES_HOST variable as the value for
   # the --elasticsearch-host argument passed to bin/magento setup:install.
   #elasticsearch:
-  #  image: markoshust/magento-elasticsearch:7.17-0
+  #  image: markoshust/magento-elasticsearch:8.13-0
   #  ports:
   #    - "9200:9200"
   #    - "9300:9300"
@@ -84,9 +100,13 @@ services:
   #    ## More info at https://github.com/markshust/docker-magento/issues/488
   #    - "cluster.routing.allocation.disk.threshold_enabled=false"
   #    - "index.blocks.read_only_allow_delete"
+  #    ## Uncomment to set custom heap size to avoid memory errors
+  #    #- "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+  #    ## Uncomment to increase the virtual memory map count
+  #    #- "max_map_count=262144"
 
   rabbitmq:
-    image: markoshust/magento-rabbitmq:3.11-0
+    image: markoshust/magento-rabbitmq:3.12-0
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -98,14 +118,14 @@ services:
     image: sj26/mailcatcher
     ports:
       - "1080:1080"
-  
+
   ## Cloudflare tunnel support, uncomment to enable
   #tunnel:
   #  container_name: cloudflared-tunnel
   #  image: cloudflare/cloudflared:latest
   #  command: tunnel run
   #  env_file: env/cloudflare.env
-  
+
   ## Blackfire support, uncomment to enable
   #blackfire:
   #  image: blackfire/blackfire:2

@@ -7,7 +7,8 @@ if ! bin/docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA
 fi
 
 # Generate the certificate for the specified domain
-bin/docker-compose exec -T -u root app mkcert -key-file nginx.key -cert-file nginx.crt "$@"
+DOMAIN_WITHOUT_PORT=$(echo "$@" | cut -d ':' -f1)
+bin/docker-compose exec -T -u root app mkcert -key-file nginx.key -cert-file nginx.crt "$DOMAIN_WITHOUT_PORT"
 echo "Moving key and cert to /etc/nginx/certs/..."
 bin/docker-compose exec -T -u root app chown app:app nginx.key nginx.crt
 bin/docker-compose exec -T -u root app mv nginx.key nginx.crt /etc/nginx/certs/

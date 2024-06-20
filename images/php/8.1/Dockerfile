@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-bullseye
+FROM php:8.1-fpm-bookworm
 MAINTAINER Mark Shust <mark@shust.com>
 
 ARG APP_ID=1000
@@ -34,15 +34,18 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    strace \
     vim \
     zip \
+    zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pecl channel-update pecl.php.net && pecl install \
-    imagick \
-    redis \
+    imagick-3.7.0 \
+    redis-6.0.2 \
     ssh2-1.3.1 \
-    xdebug \
+    swoole-5.1.1 \
+    xdebug-3.2.2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
 
@@ -83,10 +86,18 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
+RUN git clone --branch v0.4.15 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
+    && cd /usr/lib/php-spx \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install
+
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --install-dir=/usr/local/bin --filename=composer
+  php -- --version=2.2.18 --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
+COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
 COPY conf/msmtprc /etc/msmtprc
 COPY conf/php.ini $PHP_INI_DIR
 COPY conf/php-fpm.conf /usr/local/etc/
