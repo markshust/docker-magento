@@ -1,0 +1,7 @@
+#!/bin/bash
+if ! bin/cliq ls vendor/bin/ece-patches; then
+    echo "ece-patches tool is not installed, please reinstall."
+fi
+
+bin/cli chmod +x vendor/bin/ece-patches
+bin/cli /app/vendor/bin/ece-patches "$@"
