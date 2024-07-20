@@ -11,4 +11,4 @@ if ! bin/cliq ls bin/n98-magerun2.phar; then
   bin/cliq mv n98-magerun2.phar bin
 fi
 
-bin/cli bin/n98-magerun2.phar --human-readable "$@"
+bin/cli bin/n98-magerun2.phar "$@"
