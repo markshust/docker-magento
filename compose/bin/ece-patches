@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
+if ! bin/cliq ls vendor/bin/ece-patches; then
+    echo "The ece-patches tool is not installed, make sure you are using Magento Cloud."
+fi
 bin/cli vendor/bin/ece-patches "$@"
