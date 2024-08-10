@@ -157,6 +157,28 @@ The `magento.test` above defines the hostname to use, and the `2.4.7` defines th
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
+## Accessing the Magento Backend
+
+After successfully installing the Magento 2.4.7 environment, you can access the backend by following these steps:
+
+1. Open your web browser and go to the following URL: `https://magento.test/admin`.
+
+
+2. Use the following default credentials to log in:
+- **Username:** `john.smith`
+- **Password:** `password123`
+
+3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). By default, the email address used for this purpose is:
+- **Email:** `john.smith@gmail.com`
+
+If you are testing in a local environment or development setup, and wish to disable 2FA, you can do so by running the following commands in your terminal:
+
+```bash
+bin/magento module:disable {Magento_TwoFactorAuth,Magento_AdminAdobeImsTwoFactorAuth}
+
+bin/magento cache:clean
+```
+
 #### Install sample data
 
 After the above installation is complete, run the following lines to install sample data:
