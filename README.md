@@ -159,10 +159,9 @@ After the one-liner above completes running, you should be able to access your s
 
 ## Accessing the Magento Backend
 
-After successfully installing the Magento 2.4.7 environment, you can access the backend by following these steps:
+After successfully installing the Magento environment, you can access the backend by following these steps:
 
-1. Open your web browser and go to the following URL: `https://magento.test/admin`.
-
+1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
 
 2. Use the following default credentials to log in:
 - **Username:** `john.smith`
