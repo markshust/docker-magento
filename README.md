@@ -174,7 +174,6 @@ If you are testing in a local environment or development setup, and wish to disa
 
 ```bash
 bin/magento module:disable {Magento_TwoFactorAuth,Magento_AdminAdobeImsTwoFactorAuth}
-
 bin/magento cache:clean
 ```
 
