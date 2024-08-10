@@ -53,3 +53,9 @@ cp -r .vscode src/
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${DOMAIN}/"
+
+echo "You may now access your Magento backend instance at https://${DOMAIN}/admin/"
+
+echo "Use the following default credentials to log in:"
+echo "Username: john.smith"
+echo "Password: password123"
