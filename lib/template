@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-git init -qqq
-git remote add origin https://github.com/markshust/docker-magento
-git fetch origin -qqq
-git checkout origin/master -- compose
 
 if [ -d "./bin" ]; then
   echo "Error: The current directory is not empty. Please remove all contents within this directory and try again."
   exit 1
 fi
+
+git init -qqq
+git remote add origin https://github.com/markshust/docker-magento
+git fetch origin -qqq
+git checkout origin/master -- compose
 
 mv compose/* ./
 mv compose/.gitignore ./
