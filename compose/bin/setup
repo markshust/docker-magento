@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit
+source env/magento.env
 
 MEM_BYTES=$(docker info -f '{{.MemTotal}}')
 MEM_MB=$(( MEM_BYTES / 1000000 ))
@@ -57,5 +58,5 @@ echo "You may now access your Magento instance at https://${DOMAIN}/"
 echo "You may now access your Magento backend instance at https://${DOMAIN}/admin/"
 
 echo "Use the following default credentials to log in:"
-echo "Username: john.smith"
-echo "Password: password123"
+echo "Username: $MAGENTO_ADMIN_USER"
+echo "Password: $MAGENTO_ADMIN_PASSWORD"
