@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -o errexit
-source env/magento.env
+if [ -f "../env/magento.env" ]; then
+    source "../env/magento.env"
+else
+    echo "Warning: magento.env file not found."
+fi
 
 MEM_BYTES=$(docker info -f '{{.MemTotal}}')
 MEM_MB=$(( MEM_BYTES / 1000000 ))
