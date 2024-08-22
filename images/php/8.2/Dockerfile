@@ -56,6 +56,7 @@ RUN docker-php-ext-configure \
     bz2 \
     calendar \
     exif \
+    ftp \
     gd \
     gettext \
     intl \
