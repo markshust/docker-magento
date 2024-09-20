@@ -612,6 +612,8 @@ place the breakpoint there.
 
 ![Screenshot from 2024-09-20 19-36-07](https://github.com/user-attachments/assets/d9479647-833e-4c3f-acdd-772d758a7dbd)
 
+Note that this works even with the debugger disabled, so you don't have to enable Xdebug (`bin/xdebug enable`).
+
 ### SSH
 
 Since version `40.0.0`, this project supports connecting to Docker with SSH/SFTP. This means that if you solely use either PhpStorm or VSCode, you no longer need to selectively mount host volumes in order to gain bi-directional sync capabilities from host to container. This will enable full speed in the native filesystem, as all files will be stored directly in the `appdata` container volume, rather than being synced from the host. This is especially useful if you'd like to sync larger directories such as `generated`, `pub` & `vendor`.
