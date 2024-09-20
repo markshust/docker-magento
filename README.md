@@ -113,6 +113,7 @@ Set Up a Magento 2 Development Environment with Docker
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PhpStorm for Xdebug connections</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger an Xdebug breakpoint in PhpStorm</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36677538" target="_blank">Trigger an Xdebug breakpoint for CLI commands in PhpStorm</a>
+- [How to debug Magento 2 Cron jobs](https://github.com/markshust/docker-magento/edit/release/next/README.md#how-to-debug-magento-2-cron-jobs-in-docker)
 
 #### Customize Server Configurations
 
@@ -549,6 +550,67 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
     * Start the debugger with `Run > Debug 'magento.test'`, then open up a web browser.
     * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.
     * Navigate to your Magento store URL, and Xdebug should now trigger the debugger within PhpStorm at the toggled breakpoint.
+
+### How to Debug Magento 2 Cron Jobs
+
+#### 1. Create a New PHP Script Configuration
+
+  * Go to the `Run` menu and select `Edit Configurations...`
+    ![image](https://github.com/user-attachments/assets/28f95107-a791-4731-9ee7-bd3397fe3c11)
+
+  * Click on the `+` icon and choose PHP Script.
+    ![image (1)](https://github.com/user-attachments/assets/7a0fb284-023a-4cb7-ad23-71d0af14653c)
+
+  * Name the configuration, for example, `bin/magento cron:run`.
+    ![image (2)](https://github.com/user-attachments/assets/8e47747d-529c-4c06-aad0-f79541b679f0)
+
+  * In the `File` field, click on folder and select the `bin/magento` file from your `src` directory.
+    ![image (3)](https://github.com/user-attachments/assets/4d1d5eed-8988-4cc2-a19d-ed033eb8611f)
+
+  * In the `Arguments` field, enter: `cron:run --group="group-name"`
+
+  * Replace `"group-name"` with the name of your cron group. In my case it is `default`.
+    ![image (4)](https://github.com/user-attachments/assets/8292fa19-af7d-43e9-8a58-ac96e8b60481)
+
+
+#### 2. Set Up the Interpreter
+
+  * In the `Interpreter` field, select the PHP interpreter running inside your Docker container.
+
+    For example, if your PHP container is named `phpfpm`, select it.
+    
+    ![image (5)](https://github.com/user-attachments/assets/a164056e-083b-413b-8a64-b5d4bb2a5a6a)
+
+
+#### 3. Configure Path Mappings
+
+* Go to `File` -> `Settings` → `PHP` → `Path mappings`.
+
+* Select your local `src` directory and map it to the remote directory in the container: `/var/www/html`
+
+![image (6)](https://github.com/user-attachments/assets/5ee44fbc-cb72-4734-8b93-f86be1a414bd)
+
+* Click `OK` to save the changes.
+
+#### 4. Set a Breakpoint
+
+* Set a breakpoint, in my case is the `execute()` method. For example, if your cron class is in:
+
+```/app/code/Zvirko/InactiveUsers/Cron/YourCronClass.php```
+
+place the breakpoint there.
+
+![Screenshot from 2024-09-20 19-55-05](https://github.com/user-attachments/assets/a4a6ce81-f9e6-41b8-b6d1-e842ae812b08)
+
+#### 5. Run the Debugger
+
+* Go to the `Run` menu and select `Debug 'bin/magento cron:run'`.
+
+![image (7)](https://github.com/user-attachments/assets/ef3f2934-048f-4670-88c4-b92dcc7fad23)
+
+* This will execute your `bin/magento cron:run` script with Xdebug support and catch your breakpoint.
+
+![Screenshot from 2024-09-20 19-36-07](https://github.com/user-attachments/assets/d9479647-833e-4c3f-acdd-772d758a7dbd)
 
 ### SSH
 
