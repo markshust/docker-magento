@@ -256,7 +256,7 @@ open https://magento.test
 OpenSearch is set as the default search engine when setting up this project. Follow the instructions below if you want to use Elasticsearch instead:
 1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L69-L84) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L36-L41) files
 2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L86-L106) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L43-L48) files
-3. Update the `bin/setup-install` command to use the Elasticsearch ratther than OpenSearch. Change:
+3. Update the `bin/setup-install` command to use the Elasticsearch rather than OpenSearch. Change:
 
 ```
 --opensearch-host="$OPENSEARCH_HOST" \
