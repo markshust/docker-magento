@@ -9,6 +9,7 @@ NC='\033[0m' # No Color
 
 # Declare arrays for storing common dependencies and Magento versions
 declare -a common_dependencies
+
 declare -a magento_versions=("2.4.2-p2" "2.4.3-p3" "2.4.4" "2.4.4-p1" "2.4.4-p2" "2.4.4-p3" "2.4.4-p4" "2.4.4-p5" "2.4.4-p6" "2.4.4-p7" "2.4.4-p8" "2.4.4-p9" "2.4.4-p10" "2.4.4-p11" "2.4.5" "2.4.5-p1" "2.4.5-p2" "2.4.5-p3" "2.4.5-p4" "2.4.5-p5" "2.4.5-p6" "2.4.5-p7" "2.4.5-p8" "2.4.5-p9" "2.4.5-p10" "2.4.6" "2.4.6-p1" "2.4.6-p2" "2.4.6-p3" "2.4.6-p4" "2.4.6-p5" "2.4.6-p6" "2.4.6-p7" "2.4.6-p8" "2.4.7" "2.4.7-p1" "2.4.7-p2" "2.4.7-p3")
 
 # Assign common dependencies to corresponding Magento versions
