@@ -67,7 +67,7 @@ print_dependencies() {
     for (( index=0; index<${#magento_versions[@]}; index++ )); do
         if [[ "${magento_versions[$index]}" == "$version" ]]; then
             echo -e "${YELLOW}NOTE: Versions 2.4.4 and 2.4.5 support MySQL 8.0.0 through 8.0.28 only.${NC}"
-            echo -e "${GREEN}Recommended software dependencies for" $version:" ${NC}"
+            echo -e "${GREEN}Recommended software dependencies for ${version}: ${NC}"
             local dependencies=${common_dependencies[$index]}
             IFS=' ' read -ra deps <<< "$dependencies"
             for dep in "${deps[@]}"; do
