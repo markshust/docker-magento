@@ -157,6 +157,21 @@ The `magento.test` above defines the hostname to use, and the `2.4.7` defines th
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
+## Accessing the Magento Backend
+
+After successfully installing the Magento environment, you can access the backend by following these steps:
+
+1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
+
+2. Use the following default credentials to log in:
+- **Username:** `john.smith`
+- **Password:** `password123`
+
+3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
+- **Email:** `john.smith@gmail.com`
+
+If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
+
 #### Install sample data
 
 After the above installation is complete, run the following lines to install sample data:
@@ -420,7 +435,7 @@ Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and pa
 
 ### Email / Mailcatcher
 
-View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [Mageplaza's SMTP module](https://github.com/mageplaza/magento-2-smtp). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port is different from the mailcatcher interface to read the emails.
+View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port (`1025`) is different from the mailcatcher interface to read the emails (`1080`).
 
 ### Redis
 
