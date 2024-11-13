@@ -167,15 +167,10 @@ After successfully installing the Magento environment, you can access the backen
 - **Username:** `john.smith`
 - **Password:** `password123`
 
-3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). By default, the email address used for this purpose is:
+3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
 - **Email:** `john.smith@gmail.com`
 
-If you are testing in a local environment or development setup, and wish to disable 2FA, you can do so by running the following commands in your terminal:
-
-```bash
-bin/magento module:disable {Magento_TwoFactorAuth,Magento_AdminAdobeImsTwoFactorAuth}
-bin/magento cache:clean
-```
+If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
 
 #### Install sample data
 
@@ -440,7 +435,7 @@ Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and pa
 
 ### Email / Mailcatcher
 
-View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [Mageplaza's SMTP module](https://github.com/mageplaza/magento-2-smtp). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port is different from the mailcatcher interface to read the emails.
+View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port (`1025`) is different from the mailcatcher interface to read the emails (`1080`).
 
 ### Redis
 
