@@ -466,6 +466,11 @@ For more information about Redis usage with Magento, <a href="https://devdocs.ma
 
 PhpMyAdmin is built into the `compose.dev.yaml` file. Simply open `http://localhost:8080` in a web browser.
 
+These credentials can be used to log in to PhpMyAdmin:
+
+- **Username:** `magento`
+- **Password:** `magento`
+
 ### Xdebug & VS Code
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
