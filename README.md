@@ -347,6 +347,9 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/status`: Check the container status.
 - `bin/stop`: Stop all project containers.
 - `bin/stopall`: Stop all docker running containers
+- `bin/test/unit`: Run unit tests for a specific path. Ex. `bin/test/unit my-dir`
+- `bin/test/unit-coverage`: Generate unit tests coverage reports, saved to the folder `dev/tests/unit/report`. Ex. `bin/test/unit-coverage my-dir`
+- `bin/test/unit-xdebug`: Run unit tests with Xdebug. Ex. `bin/test/unit-xdebug my-dir`
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
 - `bin/xdebug`: Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/xdebug enable`
 
