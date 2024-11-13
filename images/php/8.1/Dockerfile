@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    rsync \
     strace \
     vim \
     zip \
