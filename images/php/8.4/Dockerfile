@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-bookworm
+FROM php:8.4-fpm-bookworm
 LABEL maintainer="Mark Shust <mark@shust.com>"
 
 ARG APP_ID=1000
@@ -41,13 +41,13 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pecl channel-update pecl.php.net && pecl install \
-    redis-6.1.0 \
-    ssh2-1.4.1 \
-    swoole-5.1.5 \
-    xdebug-3.3.2 \
-  && pecl clear-cache \
-  && rm -rf /tmp/pear
+RUN pecl channel-update pecl.php.net \
+    && pecl install redis-6.1.0 \
+    && pecl install ssh2-1.4.1 \
+    && pecl install swoole-6.0.0RC1 \
+    && pecl install xdebug-3.4.0beta1 \
+    && pecl clear-cache \
+    && rm -rf /tmp/pear
 
 RUN imagick_branch="28f27044e435a2b203e32675e942eb8de620ee58" \
     && curl -L https://github.com/Imagick/imagick/archive/$imagick_branch.zip -o imagick.zip \
@@ -92,7 +92,9 @@ RUN docker-php-ext-configure \
     ssh2 \
     xdebug
 
+# Temporary workaround for PHP 8.4
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+    && version=83 \
     && architecture=$(uname -m) \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/$architecture/$version \
     && mkdir -p /tmp/blackfire \
