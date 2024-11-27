@@ -1,5 +1,5 @@
 FROM php:8.2-fpm-bookworm
-MAINTAINER Mark Shust <mark@shust.com>
+LABEL maintainer="Mark Shust <mark@shust.com>"
 
 ARG APP_ID=1000
 RUN groupadd -g "$APP_ID" app \
@@ -41,14 +41,35 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
+#RUN pecl channel-update pecl.php.net && pecl install \
+#    imagick-3.7.0 \
+#    redis-6.0.2 \
+#    ssh2-1.3.1 \
+#    swoole-5.1.1 \
+#    xdebug-3.2.2 \
+#  && pecl clear-cache \
+#  && rm -rf /tmp/pear
+
 RUN pecl channel-update pecl.php.net && pecl install \
-    imagick-3.7.0 \
-    redis-6.0.2 \
-    ssh2-1.3.1 \
-    swoole-5.1.1 \
-    xdebug-3.2.2 \
+    redis-6.1.0 \
+    ssh2-1.4.1 \
+    swoole-5.1.5 \
+    xdebug-3.3.2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
+
+RUN imagick_branch="28f27044e435a2b203e32675e942eb8de620ee58" \
+    && curl -L https://github.com/Imagick/imagick/archive/$imagick_branch.zip -o imagick.zip \
+    && unzip imagick.zip \
+    && rm imagick.zip \
+    && cd imagick-$imagick_branch \
+    && phpize \
+    && ./configure --with-php-config=/usr/local/bin/php-config \
+    && make \
+    && make install \
+    && echo "extension=imagick.so" >> $PHP_INI_DIR/conf.d/imagick.ini \
+    && cd .. \
+    && rm -rf imagick-$imagick_branch
 
 RUN docker-php-ext-configure \
     gd --with-freetype --with-jpeg --with-webp \
@@ -88,7 +109,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
-RUN git clone --branch v0.4.15 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
+RUN git clone --branch v0.4.17 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
     && cd /usr/lib/php-spx \
     && phpize \
     && ./configure \
@@ -96,7 +117,7 @@ RUN git clone --branch v0.4.15 --depth=1 https://github.com/NoiseByNorthwest/php
     && make install
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --version=2.2.18 --install-dir=/usr/local/bin --filename=composer
+  php -- --version=2.8.3 --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
