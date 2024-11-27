@@ -117,7 +117,7 @@ RUN git clone --branch v0.4.17 --depth=1 https://github.com/NoiseByNorthwest/php
     && make install
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --version=2.8.3 --install-dir=/usr/local/bin --filename=composer
+  php -- --version=2.7.9 --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
