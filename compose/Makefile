@@ -82,6 +82,7 @@ help:
 	@echo "$(call format,status,'Check the container status.')"
 	@echo "$(call format,stop,'Stop all project containers.')"
 	@echo "$(call format,stopall,'Stop all docker running containers.')"
+	@echo "$(call format,test,'Run unit tests for a specific path.')"
 	@echo "$(call format,update,'Update your project to the latest version of docker-magento.')"
 	@echo "$(call format,xdebug,'Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`.')"
 
