@@ -30,7 +30,7 @@ services:
       #- "host.docker.internal:host-gateway"
 
   phpfpm:
-    image: markoshust/magento-php:8.3-fpm-2
+    image: markoshust/magento-php:8.3-fpm-3
     volumes: *appvolumes
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
@@ -104,9 +104,11 @@ services:
   #    #- "ES_JAVA_OPTS=-Xms1g -Xmx1g"
   #    ## Uncomment to increase the virtual memory map count
   #    #- "max_map_count=262144"
+  #    ## Uncomment the line below if ElasticSearch fails to start and stops after ~150 seconds with the error "container for service "elasticsearch" is unhealthy".
+  #    #- "xpack.security.enabled=false"
 
   rabbitmq:
-    image: markoshust/magento-rabbitmq:3.12-0
+    image: markoshust/magento-rabbitmq:3.13-0
     ports:
       - "15672:15672"
       - "5672:5672"

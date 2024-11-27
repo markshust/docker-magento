@@ -26,11 +26,11 @@ jobs:
       -
         name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: images/php/8.2
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             markoshust/magento-php:8.2-fpm
-            markoshust/magento-php:8.2-fpm-4
+            markoshust/magento-php:8.2-fpm-5
