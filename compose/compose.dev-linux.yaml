@@ -5,4 +5,12 @@ services:
       - ./src:/var/www/html:cached
 
   phpfpm:
-    volumes: *appvolumes
+    volumes: *appvolumes    
+    
+  phpmyadmin:
+    image: linuxserver/phpmyadmin
+    env_file: env/db.env
+    ports:
+      - "8080:80"
+    depends_on:
+      - db

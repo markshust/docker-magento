@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     msmtp \
     nodejs \
     procps \
+    rsync \
     strace \
     vim \
     zip \
@@ -67,6 +68,7 @@ RUN docker-php-ext-configure \
     bz2 \
     calendar \
     exif \
+    ftp \
     gd \
     gettext \
     intl \

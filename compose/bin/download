@@ -7,12 +7,12 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-bin/stop
-
 if [ -d "./src" ]; then
   echo "Error: The \"src\" directory is not empty. Please remove all contents within this directory and try again."
   exit 1
 fi
+
+bin/stop
 
 bin/start --no-dev
 [ $? != 0 ] && echo "Failed to start Docker services" && exit
