@@ -41,6 +41,7 @@ help:
 	@echo "$(call format,docker-compose,'Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files.')"
 	@echo "$(call format,docker-stats,'Display status for CPU$(comma) memory usage$(comma) and memory limit of currently-running Docker containers.')"
 	@echo "$(call format,download,'Download & extract specific Magento version to the src directory.')"
+	@echo "$(call format,ece-patches,'Run the Cloud Patches CLI.')"
 	@echo "$(call format,fixowns,'This will fix filesystem ownerships within the container.')"
 	@echo "$(call format,fixperms,'This will fix filesystem permissions within the container.')"
 	@echo "$(call format,grunt,'Run the grunt binary.')"
@@ -81,6 +82,7 @@ help:
 	@echo "$(call format,status,'Check the container status.')"
 	@echo "$(call format,stop,'Stop all project containers.')"
 	@echo "$(call format,stopall,'Stop all docker running containers.')"
+	@echo "$(call format,test,'Run unit tests for a specific path.')"
 	@echo "$(call format,update,'Update your project to the latest version of docker-magento.')"
 	@echo "$(call format,xdebug,'Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`.')"
 

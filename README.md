@@ -33,9 +33,10 @@ View Dockerfiles for the latest tags:
   - [`1.22`, `1.22-0`](images/nginx/1.22)
   - [`1.24`, `1.24-0`](images/nginx/1.24)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - [`8.1-fpm`, `8.1-fpm-5`](images/php/8.1)
-  - [`8.2-fpm`, `8.2-fpm-4`](images/php/8.2)
-  - [`8.3-fpm`, `8.3-fpm-2`](images/php/8.3)
+  - [`8.1-fpm`, `8.1-fpm-6`](images/php/8.1)
+  - [`8.2-fpm`, `8.2-fpm-5`](images/php/8.2)
+  - [`8.3-fpm`, `8.3-fpm-3`](images/php/8.3)
+  - [`8.4-fpm-dev`](images/php/8.4)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
   - [`1.2`, `1.2-0`](images/opensearch/1.2)
   - [`2.5`, `2.5-1`](images/opensearch/2.5)
@@ -150,12 +151,27 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.7 community
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.7-p3
 ```
 
-The `magento.test` above defines the hostname to use, and the `2.4.7` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.7-p3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
+
+## Accessing the Magento Backend
+
+After successfully installing the Magento environment, you can access the backend by following these steps:
+
+1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
+
+2. Use the following default credentials to log in:
+- **Username:** `john.smith`
+- **Password:** `password123`
+
+3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
+- **Email:** `john.smith@gmail.com`
+
+If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
 
 #### Install sample data
 
@@ -181,10 +197,10 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download 2.4.7 community
-# You can specify the version and type (community, enterprise, mageos, mageos-nightly, mageos-mirror, mageos-hypernode-mirror, or mageos-maxcluster-mirror).
-# The mageos type is an alias for mageos-mirror.
-# If no arguments are passed, "2.4.7" and "community" are the default values used.
+bin/download community 2.4.7-p3
+# You can specify the edition (community, enterprise, mageos) and version (2.4.7-p3, 1.0.5, etc.)
+# If no arguments are passed in, the edition defaults to "community"
+# If no version is specified, it defaults to the most recent version defined in `bin/download`
 
 # or for Magento core development:
 # bin/start --no-dev
@@ -254,9 +270,9 @@ open https://magento.test
 
 ### Elasticsearch vs OpenSearch
 OpenSearch is set as the default search engine when setting up this project. Follow the instructions below if you want to use Elasticsearch instead:
-1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L55-L66) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L38-L43) files
-2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L70-L81) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L45-L50) files
-3. Update the `bin/setup-install` command to use the Elasticsearch ratther than OpenSearch. Change:
+1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L69-L84) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L36-L41) files
+2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.yaml#L86-L106) and [`compose.healthcheck.yaml`](https://github.com/markshust/docker-magento/blob/master/compose/compose.healthcheck.yaml#L43-L48) files
+3. Update the `bin/setup-install` command to use the Elasticsearch rather than OpenSearch. Change:
 
 ```
 --opensearch-host="$OPENSEARCH_HOST" \
@@ -306,7 +322,8 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
-- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the version (2.4.7 [default]) and type ("community" [default], "enterprise", or "mageos"). Ex. `bin/download 2.4.7 enterprise`
+- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the type ("community" [default], "enterprise", or "mageos") and version ([default] is defined in `bin/download`). Ex. `bin/download mageos` or `bin/download enterprise 2.4.7-p3`
+- `bin/ece-patches`: Run the Cloud Patches CLI. Ex: `bin/ece-tools apply`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
@@ -347,6 +364,9 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/status`: Check the container status.
 - `bin/stop`: Stop all project containers.
 - `bin/stopall`: Stop all docker running containers
+- `bin/test/unit`: Run unit tests for a specific path. Ex. `bin/test/unit my-dir`
+- `bin/test/unit-coverage`: Generate unit tests coverage reports, saved to the folder `dev/tests/unit/report`. Ex. `bin/test/unit-coverage my-dir`
+- `bin/test/unit-xdebug`: Run unit tests with Xdebug. Ex. `bin/test/unit-xdebug my-dir`
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
 - `bin/xdebug`: Disable or enable Xdebug. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/xdebug enable`
 
@@ -419,7 +439,7 @@ Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and pa
 
 ### Email / Mailcatcher
 
-View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [Mageplaza's SMTP module](https://github.com/mageplaza/magento-2-smtp). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port is different from the mailcatcher interface to read the emails.
+View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). In order to use mailcatcher, set the mailserver host to `mailcatcher` and set port to `1025`. Note that this port (`1025`) is different from the mailcatcher interface to read the emails (`1080`).
 
 ### Redis
 
@@ -446,6 +466,11 @@ For more information about Redis usage with Magento, <a href="https://devdocs.ma
 ### PhpMyAdmin
 
 PhpMyAdmin is built into the `compose.dev.yaml` file. Simply open `http://localhost:8080` in a web browser.
+
+These credentials can be used to log in to PhpMyAdmin:
+
+- **Username:** `magento`
+- **Password:** `magento`
 
 ### Xdebug & VS Code
 

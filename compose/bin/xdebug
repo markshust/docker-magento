@@ -21,8 +21,7 @@ xdebug_toggle() {
 xdebug_enable() {
     if [[ $S == 1 ]]; then
         bin/root sed -i -e 's/^xdebug.mode = off/xdebug.mode = debug/g' /usr/local/etc/php/php.ini
-        sleep 1
-        bin/restart phpfpm
+        bin/cli kill -USR2 1
         echo "Xdebug debug mode has been enabled."
     else
         echo "Xdebug debug mode is already enabled."
@@ -32,8 +31,7 @@ xdebug_enable() {
 xdebug_disable() {
     if [[ $S == 0 ]]; then
         bin/root sed -i -e 's/^xdebug.mode = debug/xdebug.mode = off/g' /usr/local/etc/php/php.ini
-        sleep 1
-        bin/restart phpfpm
+        bin/cli kill -USR2 1
         echo "Xdebug debug mode has been disabled."
     else
         echo "Xdebug debug mode is already disabled."
