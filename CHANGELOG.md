@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [48.0.1] - 2024-12-07
 
 ### Fixed
-- Unit test scripts [PR #1256](https://github.com/markshust/docker-magento/pull/1256)
+- Unit test scripts [PR #1263](https://github.com/markshust/docker-magento/pull/1263)
 
 ## [48.0.0] - 2024-11-27
 
