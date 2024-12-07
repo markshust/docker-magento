@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [48.0.1] - 2024-12-07
+
+### Fixed
+- Unit test scripts [PR #1263](https://github.com/markshust/docker-magento/pull/1263)
+
 ## [48.0.0] - 2024-11-27
 
 This release introduces significant enhancements to the development environment, including a new PHP 8.4 Docker image for early adopters and developers wanting to test future compatibility. The MageOS support has been substantially improved, and a new RabbitMQ 3.13 image has been added. Several quality-of-life improvements have been implemented, such as better unit testing tools, enhanced SSL generation for multi-site setups, and comprehensive documentation updates. A notable breaking change is the shift in the download command syntax - it now expects the edition type before the version number (ex: `bin/download community 2.4.7-p3` instead of the previous `bin/download 2.4.7 community`). Additionally, all Docker images have been updated to maintain parity with current Magento version requirements.
