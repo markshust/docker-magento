@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [49.0.0] - 2024-01-15
+
+### Updated
+- Enhanced `bin/xdebug` script with more comprehensive mode management and validation, supporting all Xdebug modes (off, develop, coverage, debug, gcstats, profile, trace) and combinations [PR #1276](https://github.com/markshust/docker-magento/pull/1276)
+
 ## [48.0.1] - 2024-12-07
 
 ### Fixed
