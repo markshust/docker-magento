@@ -9,6 +9,8 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: release/next
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -31,4 +33,4 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:8.3-fpm
-            markoshust/magento-php:8.3-fpm-2
+            markoshust/magento-php:8.3-fpm-3

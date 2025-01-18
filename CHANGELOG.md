@@ -4,6 +4,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [49.0.0] - 2024-01-15
+
+### Updated
+- Enhanced `bin/xdebug` script with more comprehensive mode management and validation, supporting all Xdebug modes (off, develop, coverage, debug, gcstats, profile, trace) and combinations [PR #1276](https://github.com/markshust/docker-magento/pull/1276)
+
+## [48.0.1] - 2024-12-07
+
+### Fixed
+- Unit test scripts [PR #1263](https://github.com/markshust/docker-magento/pull/1263)
+
+## [48.0.0] - 2024-11-27
+
+This release introduces significant enhancements to the development environment, including a new PHP 8.4 Docker image for early adopters and developers wanting to test future compatibility. The MageOS support has been substantially improved, and a new RabbitMQ 3.13 image has been added. Several quality-of-life improvements have been implemented, such as better unit testing tools, enhanced SSL generation for multi-site setups, and comprehensive documentation updates. A notable breaking change is the shift in the download command syntax - it now expects the edition type before the version number (ex: `bin/download community 2.4.7-p3` instead of the previous `bin/download 2.4.7 community`). Additionally, all Docker images have been updated to maintain parity with current Magento version requirements.
+
+### Added
+- New PHP 8.4 Docker image for development purposes [PR #1252](https://github.com/markshust/docker-magento/pull/1252)
+- New RabbitMQ 3.13 Docker image [PR #1252](https://github.com/markshust/docker-magento/pull/1252)
+- Backend login credentials and 2FA setup instructions to README [PR #1205](https://github.com/markshust/docker-magento/pull/1205)
+- PHP FTP extension to Docker setup [PR #1210](https://github.com/markshust/docker-magento/pull/1210)
+- PhpMyAdmin credentials to README [PR #1212](https://github.com/markshust/docker-magento/pull/1212)
+- `bin/test` helper scripts to execute unit tests [PR #1157](https://github.com/markshust/docker-magento/pull/1157)
+- `bin/ece-patches` command [PR #1171](https://github.com/markshust/docker-magento/pull/1171)
+- rsync to PHP images for Deployer support [PR #1163](https://github.com/markshust/docker-magento/pull/1163)
+- PhpMyAdmin for Linux [PR #1177](https://github.com/markshust/docker-magento/pull/1177)
+
+### Updated
+- Improved MageOS support [PR #1246](https://github.com/markshust/docker-magento/pull/1246)
+- System requirements helper script overhauled for easier use and maintenance [PR #1242](https://github.com/markshust/docker-magento/pull/1242)
+- Supported versions in `bin/check-dependencies` script [PR #1175](https://github.com/markshust/docker-magento/pull/1175)
+- Docker images for Magento version parity [PR #1252](https://github.com/markshust/docker-magento/pull/1252)
+- Bumped docker/build-push-action from 5 to 6 [PR #1174](https://github.com/markshust/docker-magento/pull/1174)
+- GitHub Actions to use release/next branch [PR #1254](https://github.com/markshust/docker-magento/pull/1254)
+- Speed improvement for `bin/xdebug` command [PR #1245](https://github.com/markshust/docker-magento/pull/1245)
+
+### Fixed
+- Code duplication [PR #1141](https://github.com/markshust/docker-magento/pull/1141)
+- Empty directory check moved to top of scripts [PR #1143](https://github.com/markshust/docker-magento/pull/1143)
+- Elasticsearch container issues [PR #1166](https://github.com/markshust/docker-magento/pull/1166)
+- Multi-site SSL generation support [PR #1200](https://github.com/markshust/docker-magento/pull/1200)
+- Various typos in files [PR #1238](https://github.com/markshust/docker-magento/pull/1238)
+
 ## [47.0.1] - 2024-04-25
 
 ### Fixed
