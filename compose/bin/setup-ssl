@@ -6,8 +6,20 @@ if ! bin/docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA
   bin/setup-ssl-ca
 fi
 
-# Generate the certificate for the specified domain
-bin/docker-compose exec -T -u root app mkcert -key-file nginx.key -cert-file nginx.crt "$@"
+# Initialize an empty array to hold the processed domains
+DOMAINS_WITHOUT_PORT=()
+
+# Loop through each domain
+for domain in "$@"; do
+  # Strip out the port number
+  DOMAIN_WITHOUT_PORT=$(echo "$domain" | cut -d ':' -f1)
+  # Append the processed domain to the array
+  DOMAINS_WITHOUT_PORT+=("$DOMAIN_WITHOUT_PORT")
+done
+
+# Use the array in the mkcert command
+bin/docker-compose exec -T -u root app mkcert -key-file nginx.key -cert-file nginx.crt "${DOMAINS_WITHOUT_PORT[@]}"
+
 echo "Moving key and cert to /etc/nginx/certs/..."
 bin/docker-compose exec -T -u root app chown app:app nginx.key nginx.crt
 bin/docker-compose exec -T -u root app mv nginx.key nginx.crt /etc/nginx/certs/

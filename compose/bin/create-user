@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+read -r -p "Create an admin (a) or a customer (c)? [a/c]: " account_type
+[[ "$account_type" == [Aa] ]] && read -r -p "Username: " USERNAME
+read -r -p "Email: " EMAIL
+read -r -p "Password (at least 8 characters): " PASSWORD
+read -r -p "First Name: " FIRSTNAME
+read -r -p "Last Name: " LASTNAME
+
+if [[ "$account_type" == [Aa] ]]; then
+  bin/magento admin:user:create \
+    --admin-user="${USERNAME}" \
+    --admin-password="${PASSWORD}" \
+    --admin-email="${EMAIL}" \
+    --admin-firstname="${FIRSTNAME}" \
+    --admin-lastname="${LASTNAME}"
+elif [[ "$account_type" == [Cc] ]]; then
+  bin/n98-magerun2 customer:create "${EMAIL}" "${PASSWORD}" "${FIRSTNAME}" "${LASTNAME}"
+else
+    echo "Invalid option. Please choose either a or c."
+fi

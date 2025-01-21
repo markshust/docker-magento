@@ -51,5 +51,7 @@ bin/clinotty bin/magento setup:install \
   --elasticsearch-port="$ES_PORT" \
   --opensearch-host="$OPENSEARCH_HOST" \
   --opensearch-port="$OPENSEARCH_PORT" \
+  --search-engine=opensearch \
   --use-rewrites=1 \
+  --cleanup-database \
   --no-interaction

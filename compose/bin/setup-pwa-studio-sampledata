@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set +e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+BASE_URL=${1:-master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud}
+
+install_sampledata() {
+    echo -e "${GREEN}Setting up composer repository for Venia sample data.${NC}"
+    bin/composer config --no-interaction --ansi repositories.venia-sample-data composer https://repo.magento.com
+
+    echo -e "${GREEN}Requiring Venia sample data metapackage.${NC}"
+    bin/composer require --no-interaction --ansi magento/venia-sample-data:*
+
+    echo -e "${GREEN}Installing Venia sample data modules.${NC}"
+    bin/magento setup:upgrade
+
+    echo -e "${GREEN}Reindexing the data from the modules.${NC}"
+    bin/magento indexer:reindex
+}
+
+install_sampledata
+
+ENV_DIST_FILE="packages/venia-concept/.env.dist"
+if [ -f "$ENV_DIST_FILE" ]; then
+    cp "$ENV_DIST_FILE" packages/venia-concept/.env
+else
+    echo -e "${RED}.env.dist file not found. Continuing without copying.${NC}"
+fi
+
+echo -e "${GREEN}Script completed successfully.${NC}"
+echo "You may now access your Magento PWA Studio instance at https://${BASE_URL}/"
