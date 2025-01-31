@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [49.1.0] - 2024-01-31
+
+### Added
+- Added `generated` and `var` folders as mounted directories in `compose.dev.yaml` for easier debugging [PR #1284](https://github.com/markshust/docker-magento/pull/1284)
+- Added options to `php.ini` to allow for automatic Xdebug profiling [PR #1284](https://github.com/markshust/docker-magento/pull/1284)
+
+### Updated
+- Mailcatcher tagged to version 0.10.0 [PR #912](https://github.com/markshust/docker-magento/pull/912)
+
 ## [49.0.0] - 2024-01-15
 
 ### Updated
