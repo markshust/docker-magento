@@ -41,13 +41,13 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pecl channel-update pecl.php.net \
-    && pecl install redis-6.1.0 \
-    && pecl install ssh2-1.4.1 \
-    && pecl install swoole-6.0.0RC1 \
-    && pecl install xdebug-3.4.0beta1 \
-    && pecl clear-cache \
-    && rm -rf /tmp/pear
+RUN pecl channel-update pecl.php.net && pecl install \
+    redis-6.1.0 \
+    ssh2-1.4.1 \
+    swoole-6.0.0 \
+    xdebug-3.4.1 \
+  && pecl clear-cache \
+  && rm -rf /tmp/pear
 
 RUN imagick_branch="28f27044e435a2b203e32675e942eb8de620ee58" \
     && curl -L https://github.com/Imagick/imagick/archive/$imagick_branch.zip -o imagick.zip \
