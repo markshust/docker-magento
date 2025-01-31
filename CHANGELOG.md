@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Added `generated` and `var` folders as mounted directories in `compose.dev.yaml` for easier debugging [PR #1284](https://github.com/markshust/docker-magento/pull/1284)
-- Added options to `php.ini` to allow for automatic Xdebug profiling [PR #1284](https://github.com/markshust/docker-magento/pull/1284)
+- Added options to `php.ini` to allow for automatic Xdebug profiling [PR #1285](https://github.com/markshust/docker-magento/pull/1285)
 
 ### Updated
 - Mailcatcher tagged to version 0.10.0 [PR #912](https://github.com/markshust/docker-magento/pull/912)
