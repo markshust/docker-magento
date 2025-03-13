@@ -44,8 +44,8 @@ RUN apt-get update && apt-get install -y \
 RUN pecl channel-update pecl.php.net && pecl install \
     redis-6.1.0 \
     ssh2-1.4.1 \
-    swoole-5.1.5 \
-    xdebug-3.3.2 \
+    swoole-6.0.0 \
+    xdebug-3.4.1 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
 
