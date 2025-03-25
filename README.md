@@ -158,21 +158,6 @@ The `magento.test` above defines the hostname to use, `community` is the Magento
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
-## Accessing the Magento Backend
-
-After successfully installing the Magento environment, you can access the backend by following these steps:
-
-1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
-
-2. Use the following default credentials to log in:
-- **Username:** `john.smith`
-- **Password:** `password123`
-
-3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
-- **Email:** `john.smith@gmail.com`
-
-If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
-
 #### Install sample data
 
 After the above installation is complete, run the following lines to install sample data:
@@ -208,17 +193,6 @@ bin/download community 2.4.7-p3
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
 # bin/composer install
-
-# Want to install Magento <2.4.6? In bin/setup-install, replace the lines:
-#  --elasticsearch-host="$ES_HOST" \
-#  --elasticsearch-port="$ES_PORT" \
-#  --opensearch-host="$OPENSEARCH_HOST" \
-#  --opensearch-port="$OPENSEARCH_PORT" \
-#  --search-engine=opensearch \
-# with:
-#  --elasticsearch-host="$ES_HOST" \
-#  --elasticsearch-port="$ES_PORT" \
-#  --search-engine=elasticsearch7 \
 
 # Run the setup installer for Magento:
 bin/setup magento.test
@@ -394,6 +368,21 @@ rm -rf yourproject
 ```
 
 Then, create your new project directory again so you can attempt the install process again. The `bin/removeall` command removes all previous Docker containers & volumes related to the specific project directory you are within. You can then attempt the install process again.
+
+### Accessing the Magento Backend
+
+After successfully installing the Magento environment, you can access the backend by following these steps:
+
+1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
+
+2. Use the following default credentials to log in:
+- **Username:** `john.smith`
+- **Password:** `password123`
+
+3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
+- **Email:** `john.smith@gmail.com`
+
+If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
 
 ### Caching
 
