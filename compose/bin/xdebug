@@ -1,55 +1,53 @@
 #!/usr/bin/env bash
 
-S=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep -iGc 'xdebug.mode = off');
+current_mode=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep '^xdebug.mode' | cut -d'=' -f2 | tr -d ' ')
 
-xdebug_status() {
-    if [[ $S == 1 ]]; then
-        echo "Xdebug debug mode is disabled."
-    else
-        echo "Xdebug debug mode is enabled."
-    fi
+display_modes() {
+    echo "- off"
+    echo "- develop"
+    echo "- coverage"
+    echo "- debug"
+    echo "- gcstats"
+    echo "- profile"
+    echo "- trace"
+    echo ""
+    printf "You can also combine multiple modes with commas (e.g., develop,trace)\n"
 }
 
-xdebug_toggle() {
-    if [[ $S == 1 ]]; then
-        xdebug_enable
-    else
-        xdebug_disable
+xdebug_set_mode() {
+    local new_mode=$1
+
+    # Validate the mode(s)
+    IFS=',' read -ra MODES <<< "$new_mode"
+    for mode in "${MODES[@]}"; do
+        case $mode in
+            off|develop|coverage|debug|gcstats|profile|trace)
+                continue
+                ;;
+            *)
+                printf "Invalid mode: %s\n\n" "$mode"
+                echo "Valid modes are:"
+                display_modes
+                return 1
+                ;;
+        esac
+    done
+
+    if [ "$current_mode" = "$new_mode" ]; then
+        echo "Current setting is already: xdebug.mode = $new_mode"
+        return 0
     fi
+
+    bin/root sed -i -e "s/^xdebug\.mode.*$/xdebug.mode = $new_mode/g" /usr/local/etc/php/php.ini
+    bin/cli kill -USR2 1
+    echo "New setting: xdebug.mode = $new_mode"
 }
 
-xdebug_enable() {
-    if [[ $S == 1 ]]; then
-        bin/root sed -i -e 's/^xdebug.mode = off/xdebug.mode = debug/g' /usr/local/etc/php/php.ini
-        sleep 1
-        bin/restart phpfpm
-        echo "Xdebug debug mode has been enabled."
-    else
-        echo "Xdebug debug mode is already enabled."
-    fi
-}
-
-xdebug_disable() {
-    if [[ $S == 0 ]]; then
-        bin/root sed -i -e 's/^xdebug.mode = debug/xdebug.mode = off/g' /usr/local/etc/php/php.ini
-        sleep 1
-        bin/restart phpfpm
-        echo "Xdebug debug mode has been disabled."
-    else
-        echo "Xdebug debug mode is already disabled."
-    fi
-}
-
-firstArgLetter="$(echo "$1" | head -c 1)"
-
-if [[ $firstArgLetter == "d" ]]; then
-    xdebug_disable
-elif [[ $firstArgLetter == "e" ]]; then
-    xdebug_enable
-elif [[ $firstArgLetter == "t" ]]; then
-    xdebug_toggle
-elif [[ $firstArgLetter == "s" ]]; then
-    xdebug_status
-else
-    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument.\nEx: bin/xdebug status\n"
+if [ -z "$1" ]; then
+    printf "Current setting: xdebug.mode = %s\n\n" "$current_mode"
+    printf "Update it by passing in a valid mode as an argument:\n"
+    display_modes
+    exit 1
 fi
+
+xdebug_set_mode "$1"

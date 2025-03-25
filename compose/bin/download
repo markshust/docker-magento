@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 
-VERSION=${1:-2.4.6}
-EDITION=${2:-community}
+EDITION=${1:-community}
+
+# Define ANSI escape codes for colors
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+if [ -d "./src" ]; then
+  echo "Error: The \"src\" directory is not empty. Please remove all contents within this directory and try again."
+  exit 1
+fi
 
 bin/stop
 
@@ -12,17 +21,16 @@ bin/setup-composer-auth
 
 bin/fixowns
 
-if [ "$EDITION" == "mageos-nightly" ]; then
-  bin/clinotty composer create-project --stability alpha --repository-url=https://upstream-nightly.mage-os.org magento/project-community-edition .
-elif [ "$EDITION" == "mageos-mirror" ] || [ "$EDITION" == "mageos" ]; then
-  bin/clinotty composer create-project --repository-url=https://mirror.mage-os.org magento/project-community-edition="${VERSION}" .
-elif [ "$EDITION" == "mageos-hypernode-mirror" ]; then
-  bin/clinotty composer create-project --repository-url=https://mage-os.hypernode.com/mirror magento/project-community-edition="${VERSION}" .
-elif [ "$EDITION" == "mageos-maxcluster-mirror" ]; then
-  bin/clinotty composer create-project --repository-url=https://mage-os.maxcluster.net/mirror magento/project-community-edition="${VERSION}" .
+if [ "$EDITION" == "mageos" ]; then
+  VERSION=${2:-1.0.5}
+  bin/clinotty composer create-project --repository-url=https://repo.mage-os.org/ mage-os/project-community-edition="${VERSION}" .
 else
+  VERSION=${2:-2.4.7-p3}
   bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
 fi
 
-bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
-
+if [ $? != 0 ]; then
+    echo -e "${BLUE}Please check the installation guide at ${YELLOW}https://github.com/markshust/docker-magento#install-fails-because-project-directory-is-not-empty${BLUE} for troubleshooting.${NC}"
+else
+    bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
+fi

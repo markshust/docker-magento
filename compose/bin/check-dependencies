@@ -1,0 +1,246 @@
+#!/usr/bin/env bash
+
+# Define colors for formatting
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Function to display the script header
+show_header() {
+    echo -e "${GREEN}============================================${NC}"
+    echo -e "${GREEN}   Magento 2 System Requirements Checker${NC}"
+    echo -e "${GREEN}============================================${NC}"
+    echo
+}
+
+# Function to display version groups
+show_version_groups() {
+    echo -e "${BLUE}Available Magento version groups:${NC}"
+    echo "1) 2.4.7.x (2.4.7, 2.4.7-p1, 2.4.7-p2, 2.4.7-p3)"
+    echo "2) 2.4.6.x (2.4.6 through 2.4.6-p8)"
+    echo "3) 2.4.5.x (2.4.5 through 2.4.5-p10)"
+    echo "4) 2.4.4.x (2.4.4 through 2.4.4-p11)"
+    echo "5) 2.4.3.x (2.4.3-p3)"
+    echo "6) 2.4.2.x (2.4.2-p2)"
+    echo
+}
+
+# Function to display requirements for a specific version group
+show_requirements() {
+    local version_group=$1
+    echo -e "${GREEN}System Requirements for Magento ${version_group}:${NC}"
+    echo -e "${YELLOW}Required Components:${NC}"
+    
+    case $version_group in
+        "2.4.7.x")
+            echo "• PHP: 8.3, 8.2"
+            echo "• Composer: 2.7"
+            echo "• Database:"
+            echo "  - MySQL: 8.0"
+            echo "  - MariaDB: 10.6"
+            echo "• Search: "
+            echo "  - Elasticsearch: 8.11"
+            echo "  - OpenSearch: 2.12"
+            echo "• Cache/Session:"
+            echo "  - Redis: 7.2"
+            echo "• Message Queue:"
+            echo "  - RabbitMQ: 3.13"
+            echo "• Web Server:"
+            echo "  - Apache: 2.4"
+            echo "  - Nginx: 1.24"
+            echo "• Varnish: 7.5"
+            echo -e "${BLUE}Supported AWS Services:${NC}"
+            echo "• Aurora (MySQL): 8.0"
+            echo "• S3: ✔️"
+            echo "• MQ: 3.11.20"
+            echo "• ElastiCache: Redis7.0"
+            echo "• OpenSearch: 2.11"
+            ;;
+        "2.4.6.x")
+            echo "• PHP: 8.2, 8.1"
+            echo "• Composer: 2.2"
+            echo "• Database:"
+            echo "  - MySQL: 8.0"
+            echo "  - MariaDB: 10.6"
+            echo "• Search: "
+            echo "  - Elasticsearch: 8.11, 7.17"
+            echo "  - OpenSearch: 2.12"
+            echo "• Cache/Session:"
+            echo "  - Redis: 7.0"
+            echo "• Message Queue:"
+            echo "  - RabbitMQ: 3.13"
+            echo "• Web Server:"
+            echo "  - Apache: 2.4"
+            echo "  - Nginx: 1.24"
+            echo "• Varnish: 7.5"
+            echo -e "${BLUE}Supported AWS Services:${NC}"
+            echo "• Aurora (MySQL): 8.0"
+            echo "• S3: ✔️"
+            echo "• MQ: 3.9.16"
+            echo "• ElastiCache: Redis6.2"
+            echo "• OpenSearch: 1.2"
+            ;;
+        "2.4.5.x")
+            echo "• PHP: 8.1"
+            echo "• Composer: 2.2"
+            echo "• Database:"
+            echo "  - MySQL: 8.0"
+            echo "  - MariaDB: 10.4"
+            echo "• Search: "
+            echo "  - Elasticsearch: 7.17"
+            echo "  - OpenSearch: 1.2"
+            echo "• Cache/Session:"
+            echo "  - Redis: 6.2"
+            echo "• Message Queue:"
+            echo "  - RabbitMQ: 3.11, 3.9"
+            echo "• Web Server:"
+            echo "  - Apache: 2.4"
+            echo "  - Nginx: 1.24"
+            echo "• Varnish: 7.3"
+            echo -e "${BLUE}Supported AWS Services:${NC}"
+            echo "• Aurora (MySQL): 8.0"
+            echo "• S3: ✔️"
+            echo "• MQ: 3.9.13"
+            echo "• ElastiCache: Redis6"
+            echo "• OpenSearch: 1.2"
+            ;;
+        "2.4.4.x")
+            echo "• PHP: 8.1"
+            echo "• Composer: 2.2"
+            echo "• Database:"
+            echo "  - MySQL: 8.0"
+            echo "  - MariaDB: 10.4"
+            echo "• Search: "
+            echo "  - Elasticsearch: 7.17"
+            echo "  - OpenSearch: 1.2"
+            echo "• Cache/Session:"
+            echo "  - Redis: 6.2"
+            echo "• Message Queue:"
+            echo "  - RabbitMQ: 3.9"
+            echo "• Web Server:"
+            echo "  - Apache: 2.4"
+            echo "  - Nginx: 1.24"
+            echo "• Varnish: 7.3"
+            echo -e "${YELLOW}NOTE: Supports MySQL 8.0.0 through 8.0.28 only${NC}"
+            echo -e "${BLUE}Supported AWS Services:${NC}"
+            echo "• Aurora (MySQL): 8.0"
+            echo "• S3: ✔️"
+            echo "• MQ: 3.9.13"
+            echo "• ElastiCache: Redis6"
+            echo "• OpenSearch: 1.2"
+            ;;
+        "2.4.3.x")
+            echo "• PHP: 7.4"
+            echo "• Composer: 1"
+            echo "• Database:"
+            echo "  - MySQL: 8.0"
+            echo "  - MariaDB: 10.4"
+            echo "• Search: "
+            echo "  - Elasticsearch: 7.16"
+            echo "  - OpenSearch: 1.2"
+            echo "• Cache/Session:"
+            echo "  - Redis: 6.0"
+            echo "• Message Queue:"
+            echo "  - RabbitMQ: 3.8"
+            echo "• Web Server:"
+            echo "  - Apache: 2.4"
+            echo "  - Nginx: 1.18"
+            echo "• Varnish: 6.5"
+            echo -e "${BLUE}Supported AWS Services:${NC}"
+            echo "• Aurora (MySQL): 5.7"
+            echo "• S3: ✔️"
+            echo "• MQ: 3.8.11"
+            echo "• ElastiCache: Redis6"
+            echo "• Elasticsearch: 7.9"
+            ;;
+        "2.4.2.x")
+            echo "• PHP: 7.4"
+            echo "• Composer: 1"
+            echo "• Database:"
+            echo "  - MySQL: 8.0"
+            echo "  - MariaDB: 10.4"
+            echo "• Search: "
+            echo "  - Elasticsearch: 7.9"
+            echo "• Cache/Session:"
+            echo "  - Redis: 6.0"
+            echo "• Message Queue:"
+            echo "  - RabbitMQ: 3.8"
+            echo "• Web Server:"
+            echo "  - Apache: 2.4"
+            echo "  - Nginx: 1.18"
+            echo "• Varnish: 6.4"
+            echo -e "${BLUE}Supported AWS Services:${NC}"
+            echo "• S3: ✔️"
+            echo "• Elasticsearch: 7.9"
+            ;;
+        *)
+            echo -e "${RED}Version group not found${NC}"
+            ;;
+    esac
+}
+
+# Function to show additional information
+show_additional_info() {
+    echo -e "${BLUE}Additional Information:${NC}"
+    echo "• Full system requirements documentation: https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/system-requirements.html"
+    echo "• Magento DevDocs: https://developer.adobe.com/commerce/docs/"
+    echo "• Security Best Practices: https://experienceleague.adobe.com/docs/commerce-operations/implementation-playbook/best-practices/security/overview.html"
+}
+
+# Main script execution
+clear
+show_header
+
+while true; do
+    show_version_groups
+    echo -e "${YELLOW}Options:${NC}"
+    echo "1-6) Select version group"
+    echo "i) Additional Information"
+    echo "q) Quit"
+    echo
+    read -r -p "Enter your choice: " choice
+    
+    case $choice in
+        q|Q) 
+            echo -e "${GREEN}Thank you for using the Magento System Requirements Checker!${NC}"
+            exit 0
+            ;;
+        i|I)
+            clear
+            show_additional_info
+            ;;
+        1) 
+            clear
+            show_requirements "2.4.7.x"
+            ;;
+        2)
+            clear
+            show_requirements "2.4.6.x"
+            ;;
+        3)
+            clear
+            show_requirements "2.4.5.x"
+            ;;
+        4)
+            clear
+            show_requirements "2.4.4.x"
+            ;;
+        5)
+            clear
+            show_requirements "2.4.3.x"
+            ;;
+        6)
+            clear
+            show_requirements "2.4.2.x"
+            ;;
+        *)
+            echo -e "${RED}Invalid choice. Please try again.${NC}"
+            ;;
+    esac
+    
+    echo
+    read -r -p "Press Enter to continue..."
+    clear
+done
