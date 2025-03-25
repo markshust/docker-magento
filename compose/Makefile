@@ -39,6 +39,7 @@ help:
 	@echo "$(call format,dev-urn-catalog-generate,'Generate URNs for PHPStorm and remap paths to local host.')"
 	@echo "$(call format,devconsole,'Alias for n98-magerun2 dev:console.')"
 	@echo "$(call format,docker-compose,'Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files.')"
+	@echo "$(call format,docker-start,'Start the Docker application (either Orbstack or Docker Desktop)"
 	@echo "$(call format,docker-stats,'Display status for CPU$(comma) memory usage$(comma) and memory limit of currently-running Docker containers.')"
 	@echo "$(call format,download,'Download & extract specific Magento version to the src directory.')"
 	@echo "$(call format,ece-patches,'Run the Cloud Patches CLI.')"

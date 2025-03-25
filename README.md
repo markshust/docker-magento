@@ -321,6 +321,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
+- `bin/docker-start`: Start the Docker application (either Orbstack or Docker Desktop)
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
 - `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the type ("community" [default], "enterprise", or "mageos") and version ([default] is defined in `bin/download`). Ex. `bin/download mageos` or `bin/download enterprise 2.4.7-p3`
 - `bin/ece-patches`: Run the Cloud Patches CLI. Ex: `bin/ece-tools apply`
