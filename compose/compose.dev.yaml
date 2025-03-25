@@ -28,3 +28,10 @@ services:
       - "8080:80"
     depends_on:
       - db
+
+  ## Selenium support, uncomment to enable
+  #selenium:
+  #  image: selenium/standalone-chrome-debug:3.8.1
+  #  ports:
+  #    - "5900:5900"
+  #  extra_hosts: *appextrahosts
