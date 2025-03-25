@@ -1,14 +1,53 @@
 #!/usr/bin/env bash
 
-# https://stackoverflow.com/a/48843074
-# Open Docker, only if is not running
-if (! docker stats --no-stream &> /dev/null ); then
-    # On Mac OS this would be the terminal command to launch Docker
-    open /Applications/Docker.app
-    #Wait until Docker daemon is running and has completed initialisation
-    while (! docker stats --no-stream &> /dev/null ); do
-        # Docker takes a few seconds to initialize
-        echo "* Waiting for Docker to launch..."
-        sleep 2
+# Function to check if Docker daemon is running
+docker_running() {
+  docker stats --no-stream &> /dev/null
+  return $?
+}
+
+# Check if OrbStack is installed and not running
+if [ -d "/Applications/OrbStack.app" ]; then
+  echo "* OrbStack is installed"
+  
+  if (! docker_running); then
+    echo "* Starting OrbStack..."
+    open /Applications/OrbStack.app
+    
+    # Wait until Docker daemon is running via OrbStack
+    while (! docker_running); do
+      echo "* Waiting for OrbStack to initialize Docker..."
+      sleep 2
     done
+    
+    echo "* Docker is now running via OrbStack"
+    exit 0
+  else
+    echo "* Docker is already running (possibly via OrbStack)"
+    exit 0
+  fi
+fi
+
+# Check if Docker Desktop is installed
+if [ -d "/Applications/Docker.app" ]; then
+  echo "* Docker Desktop is installed"
+  
+  # Check if Docker is running
+  if (! docker_running); then
+    echo "* Starting Docker Desktop..."
+    open /Applications/Docker.app
+    
+    # Wait until Docker daemon is running
+    while (! docker_running); do
+      echo "* Waiting for Docker Desktop to initialize..."
+      sleep 2
+    done
+    
+    echo "* Docker Desktop is now running"
+  else
+    echo "* Docker is already running"
+  fi
+else
+  echo "* Docker Desktop is not installed. Please install Docker Desktop or OrbStack."
+  exit 1
 fi
