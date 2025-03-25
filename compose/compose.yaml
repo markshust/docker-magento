@@ -135,13 +135,6 @@ services:
   #    - "8307"
   #  env_file: env/blackfire.env
 
-  ## Selenium support, uncomment to enable
-  #selenium:
-  #  image: selenium/standalone-chrome-debug:3.8.1
-  #  ports:
-  #    - "5900:5900"
-  #  extra_hosts: *appextrahosts
-
 volumes:
   appdata:
   dbdata:

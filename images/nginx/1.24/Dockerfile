@@ -1,5 +1,5 @@
 FROM nginx:1.24-alpine
-MAINTAINER Mark Shust <mark@shust.com>
+LABEL maintainer="Mark Shust <mark@shust.com>"
 
 ARG APP_ID=1000
 
