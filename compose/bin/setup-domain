@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -o errexit
 
 [ -z "$1" ] && echo "Please specify a domain name (ex. magento.test)" && exit
@@ -10,7 +10,7 @@ if ! grep -q "$DOMAIN" /etc/hosts; then
     echo "127.0.0.1 ::1 $DOMAIN" | sudo tee -a /etc/hosts
 fi
 
-echo "Set https://${DOMAIN}/ to web/secure/base_url and web/secure/base_url"
+echo "Set https://${DOMAIN}/ to web/secure/base_url and web/unsecure/base_url"
 bin/clinotty bin/magento config:set web/secure/base_url https://"$DOMAIN"/
 bin/clinotty bin/magento config:set web/unsecure/base_url https://"$DOMAIN"/
 

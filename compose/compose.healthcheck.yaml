@@ -1,9 +1,7 @@
-version: "3"
-
 services:
   app:
     healthcheck:
-      test: 'curl --fail 127.0.0.1:8000'
+      test: "curl --fail 127.0.0.1:8000"
     depends_on:
       phpfpm:
         condition: service_started
@@ -16,46 +14,46 @@ services:
         condition: service_healthy
       opensearch:
         condition: service_healthy
-      #elasticsearch:
-      #  condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      #elasticsearch:
+      #  condition: service_healthy
 
   db:
     healthcheck:
-      test: 'mysqladmin ping -h localhost -u root -pmagento'
+      test: "mysqladmin ping -h localhost -u root -pmagento"
       interval: 5s
       timeout: 5s
       retries: 30
 
   redis:
     healthcheck:
-      test: 'redis-cli ping || exit 1'
+      test: "redis-cli ping || exit 1"
       interval: 5s
       timeout: 5s
       retries: 30
 
   opensearch:
     healthcheck:
-      test: 'curl --fail opensearch:9200/_cat/health >/dev/null || exit 1'
+      test: "curl --fail opensearch:9200/_cat/health >/dev/null || exit 1"
       interval: 5s
       timeout: 5s
       retries: 30
 
   #elasticsearch:
   #  healthcheck:
-  #    test: 'curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1'
+  #    test: "curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1"
   #    interval: 5s
   #    timeout: 5s
   #    retries: 30
 
   rabbitmq:
     healthcheck:
-      test: 'rabbitmq-diagnostics -q ping'
+      test: "rabbitmq-diagnostics -q ping"
       interval: 5s
       timeout: 5s
       retries: 30
 
   mailcatcher:
     healthcheck:
-      test: 'wget --no-verbose --tries=1 --spider 127.0.0.1:1080 || exit 1'
+      test: "wget --no-verbose --tries=1 --spider 127.0.0.1:1080 || exit 1"

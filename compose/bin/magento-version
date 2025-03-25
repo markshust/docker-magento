@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Method 1: Using bin/magento --version
+version=$(bin/magento --version --no-ansi 2> /dev/null | cut -d" " -f 3)
+
+if [[ -z "$version" ]]; then
+    # Method 2: Using grep in composer.lock
+    version=$(grep -A 1 "magento/magento2-base" ./src/composer.lock | grep "version" | awk -F "\"" '{print $4}')
+fi
+
+if [[ -z "$version" ]]; then
+    # Method 3: Using bin/yq in composer.json
+    version=$(bin/yq -oj '.version' ./src/composer.json | sed 's/"//g')
+fi
+
+# If version is still not obtained, output error message
+if [[ -z "$version" ]]; then
+    echo "Failed to retrieve Magento version."
+else
+    echo "$version"
+fi

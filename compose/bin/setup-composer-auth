@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 MAGENTO_USERNAME_PROP="http-basic.repo.magento.com.username"
 MAGENTO_PASSWORD_PROP="http-basic.repo.magento.com.password"
 hash composer 2>/dev/null && IS_COMPOSER_ON_HOST=true
@@ -11,7 +11,7 @@ if [ -n "$PUBLIC_KEY" ] && [ -n "$PRIVATE_KEY" ]; then
     exit 0
 fi
 
-if [ $IS_COMPOSER_ON_HOST ]; then
+if [ "$IS_COMPOSER_ON_HOST" ]; then
     PUBLIC_KEY="$(composer config --global $MAGENTO_USERNAME_PROP 2>/dev/null)"
     PRIVATE_KEY="$(composer config --global $MAGENTO_PASSWORD_PROP 2>/dev/null)"
 fi

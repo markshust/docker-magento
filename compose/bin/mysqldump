@@ -1,2 +1,2 @@
-#!/bin/bash
-bin/n98-magerun2 db:dump --stdout "$@"
+#!/usr/bin/env bash
+bin/n98-magerun2 db:dump --human-readable --stdout "$@"

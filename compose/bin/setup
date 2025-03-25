@@ -1,20 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -o errexit
+if [ -f "../env/magento.env" ]; then
+    source "../env/magento.env"
+else
+    echo "Warning: magento.env file not found."
+fi
 
-MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
-# Docker reports RAM 0.2 less than what it is actually set to
-(( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
-
-# shellcheck source=../env/db.env
-source env/db.env
-# shellcheck source=../env/elasticsearch.env
-source env/elasticsearch.env
-# shellcheck source=../env/opensearch.env
-source env/opensearch.env
-# shellcheck source=../env/magento.env
-source env/magento.env
-# shellcheck source=../env/rabbitmq.env
-source env/rabbitmq.env
+MEM_BYTES=$(docker info -f '{{.MemTotal}}')
+MEM_MB=$(( MEM_BYTES / 1000000 ))
+# When Docker Desktop is set to 6GB in the GUI, it is reported as 6227 MB
+(( MEM_MB < 6227 )) && echo "There must be at least 6GB of RAM allocated to Docker in order to continue." && exit
 
 DOMAIN=${1:-magento.test}
 
@@ -31,41 +26,8 @@ bin/clinotty composer config --no-plugins allow-plugins.magento/magento-composer
 bin/clinotty composer config --no-plugins allow-plugins.magento/inventory-composer-installer true
 bin/clinotty composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
 
-bin/clinotty bin/magento setup:install \
-  --db-host="$MYSQL_HOST" \
-  --db-name="$MYSQL_DATABASE" \
-  --db-user="$MYSQL_USER" \
-  --db-password="$MYSQL_PASSWORD" \
-  --base-url=https://"$DOMAIN"/ \
-  --base-url-secure=https://"$DOMAIN"/ \
-  --backend-frontname="$MAGENTO_ADMIN_FRONTNAME" \
-  --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
-  --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
-  --admin-email="$MAGENTO_ADMIN_EMAIL" \
-  --admin-user="$MAGENTO_ADMIN_USER" \
-  --admin-password="$MAGENTO_ADMIN_PASSWORD" \
-  --language="$MAGENTO_LOCALE" \
-  --currency="$MAGENTO_CURRENCY" \
-  --timezone="$MAGENTO_TIMEZONE" \
-  --amqp-host="$RABBITMQ_HOST" \
-  --amqp-port="$RABBITMQ_PORT" \
-  --amqp-user="$RABBITMQ_DEFAULT_USER" \
-  --amqp-password="$RABBITMQ_DEFAULT_PASS" \
-  --amqp-virtualhost="$RABBITMQ_DEFAULT_VHOST" \
-  --cache-backend=redis \
-  --cache-backend-redis-server=redis \
-  --cache-backend-redis-db=0 \
-  --page-cache=redis \
-  --page-cache-redis-server=redis \
-  --page-cache-redis-db=1 \
-  --session-save=redis \
-  --session-save-redis-host=redis \
-  --session-save-redis-log-level=4 \
-  --session-save-redis-db=2 \
-  --elasticsearch-host=$OPENSEARCH_HOST \
-  --elasticsearch-port=$OPENSEARCH_PORT \
-  --use-rewrites=1 \
-  --no-interaction
+echo "Running, Magento setup:install..."
+bin/setup-install "${DOMAIN}"
 
 echo "Copying files from container to host after install..."
 bin/copyfromcontainer --all
@@ -96,3 +58,9 @@ cp -r .vscode src/
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${DOMAIN}/"
+
+echo "You may now access your Magento backend instance at https://${DOMAIN}/admin/"
+
+echo "Use the following default credentials to log in:"
+echo "Username: $MAGENTO_ADMIN_USER"
+echo "Password: $MAGENTO_ADMIN_PASSWORD"

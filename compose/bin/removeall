@@ -1,3 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+bin/stopall
 bin/remove
 bin/removevolumes
+bin/removenetwork
