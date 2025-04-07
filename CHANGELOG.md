@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [51.0.0] - 2025-04-08
+
+This release provides full support for Magento 2.4.8 (released same day), includes multiple Docker image updates, fixes important bugs, and adds several new utilities for improved developer experience.
+
+### Added
+- New `bin/docker-start` helper script to automatically start Docker Desktop or OrbStack environments [PR #956](https://github.com/markshust/docker-magento/pull/956)
+- Enhanced cron management that maintains state between container restarts [PR #1309](https://github.com/markshust/docker-magento/pull/1309)
+- Compatibility settings for Elasticsearch and OpenSearch on ARM64/Apple M-series chips [PR #1307](https://github.com/markshust/docker-magento/pull/1307)
+- Relocated Selenium service configuration to `compose.dev.yaml` for better organization [PR #913](https://github.com/markshust/docker-magento/pull/913)
+- Firefox Developer Edition support for SSL certificates [PR #830](https://github.com/markshust/docker-magento/pull/830)
+
+### Updated
+- Upgraded Node.js to version 22.x across all PHP images [PR #1305](https://github.com/markshust/docker-magento/pull/1305)
+- Upgraded PHP extensions: Redis to 6.2.0, Swoole to 6.0.2, Xdebug to 3.4.2 [PR #1305](https://github.com/markshust/docker-magento/pull/1305)
+- Updated Composer to 2.8.6 in PHP 8.2, 8.3, and 8.4 images [PR #1305](https://github.com/markshust/docker-magento/pull/1305)
+- Updated SPX PHP profiler to version 0.4.18 [PR #1305](https://github.com/markshust/docker-magento/pull/1305)
+- Increased client max body size limit to 100M in nginx configuration [PR #1307](https://github.com/markshust/docker-magento/pull/1307)
+- Improved SSL certificate handling for multi-domain setups [PR #1300](https://github.com/markshust/docker-magento/pull/1300)
+
+### Fixed
+- OpenSearch and Elasticsearch container failures on ARM64/Apple Silicon devices [PR #1307](https://github.com/markshust/docker-magento/pull/1307)
+- Cron service unexpectedly failing to restart after being enabled [PR #1309](https://github.com/markshust/docker-magento/pull/1309)
+- Multiple domain support in SSL certificate generation [PR #1257](https://github.com/markshust/docker-magento/pull/1257)
+- Typo in README documentation [PR #1296](https://github.com/markshust/docker-magento/pull/1296)
+- Reorganized backend access documentation for better visibility [PR #1306](https://github.com/markshust/docker-magento/pull/1306)
+
 ## [50.0.0] - 2024-01-31
 
 ### Added
