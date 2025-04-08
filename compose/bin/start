@@ -66,4 +66,10 @@ bin/docker-compose up -d --remove-orphans "$@"
 ## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
 #bin/root /etc/init.d/blackfire-agent start
 
+# Check if cron was previously enabled and restart it if needed
+if bin/cli test -f /var/www/html/var/.cron-enabled; then
+  echo "Cron was previously enabled, restarting cron service..."
+  bin/cron start
+fi
+
 bin/cache-clean --watch

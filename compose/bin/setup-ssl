@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-[ -z "$1" ] && echo "Please specify a domain (ex. mydomain.test)" && exit
+[ $# -eq 0 ] && echo "Please specify at least one domain (ex. mydomain.test)" && exit
 
 # Generate certificate authority if not already setup
 if ! bin/docker-compose exec -T -u root app cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then

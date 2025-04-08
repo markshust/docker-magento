@@ -151,27 +151,12 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.7-p3
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.8
 ```
 
-The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.7-p3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.8` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
-
-## Accessing the Magento Backend
-
-After successfully installing the Magento environment, you can access the backend by following these steps:
-
-1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
-
-2. Use the following default credentials to log in:
-- **Username:** `john.smith`
-- **Password:** `password123`
-
-3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
-- **Email:** `john.smith@gmail.com`
-
-If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
 
 #### Install sample data
 
@@ -197,7 +182,7 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download community 2.4.7-p3
+bin/download community 2.4.8
 # You can specify the edition (community, enterprise, mageos) and version (2.4.7-p3, 1.0.5, etc.)
 # If no arguments are passed in, the edition defaults to "community"
 # If no version is specified, it defaults to the most recent version defined in `bin/download`
@@ -208,17 +193,6 @@ bin/download community 2.4.7-p3
 # bin/cli git clone git@github.com:magento/magento2.git .
 # bin/cli git checkout 2.4-develop
 # bin/composer install
-
-# Want to install Magento <2.4.6? In bin/setup-install, replace the lines:
-#  --elasticsearch-host="$ES_HOST" \
-#  --elasticsearch-port="$ES_PORT" \
-#  --opensearch-host="$OPENSEARCH_HOST" \
-#  --opensearch-port="$OPENSEARCH_PORT" \
-#  --search-engine=opensearch \
-# with:
-#  --elasticsearch-host="$ES_HOST" \
-#  --elasticsearch-port="$ES_PORT" \
-#  --search-engine=elasticsearch7 \
 
 # Run the setup installer for Magento:
 bin/setup magento.test
@@ -321,8 +295,9 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
+- `bin/docker-start`: Start the Docker application (either Orbstack or Docker Desktop)
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
-- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the type ("community" [default], "enterprise", or "mageos") and version ([default] is defined in `bin/download`). Ex. `bin/download mageos` or `bin/download enterprise 2.4.7-p3`
+- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the type ("community" [default], "enterprise", or "mageos") and version ([default] is defined in `bin/download`). Ex. `bin/download mageos` or `bin/download enterprise 2.4.8`
 - `bin/ece-patches`: Run the Cloud Patches CLI. Ex: `bin/ece-tools apply`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
@@ -359,7 +334,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/setup-pwa-studio-sampledata`: This script makes it easier to install Venia sample data. Pass in your base site domain, otherwise the default `master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud` will be used. Ex: `bin/setup-pwa-studio-sampledata magento.test`.
 - `bin/setup-ssl`: Generate an SSL certificate for one or more domains. Ex. `bin/setup-ssl magento.test foo.test`
 - `bin/setup-ssl-ca`: Generate a certificate authority and copy it to the host.
-- `bin/spx`: Disable or enable output compression to enable or disbale SPX. Accepts params `disable` (default) or `enable`. Ex. `bin/spx enable`
+- `bin/spx`: Disable or enable output compression to enable or disable SPX. Accepts params `disable` (default) or `enable`. Ex. `bin/spx enable`
 - `bin/start`: Start all containers, good practice to use this instead of `docker-compose up -d`, as it may contain additional helpers.
 - `bin/status`: Check the container status.
 - `bin/stop`: Stop all project containers.
@@ -393,6 +368,21 @@ rm -rf yourproject
 ```
 
 Then, create your new project directory again so you can attempt the install process again. The `bin/removeall` command removes all previous Docker containers & volumes related to the specific project directory you are within. You can then attempt the install process again.
+
+### Accessing the Magento Backend
+
+After successfully installing the Magento environment, you can access the backend by following these steps:
+
+1. Open your web browser and go to the following URL: `https://magento.test/admin/`.
+
+2. Use the following default credentials to log in:
+- **Username:** `john.smith`
+- **Password:** `password123`
+
+3. Upon logging in, you might be prompted to configure Two-Factor Authentication (2FA). This emails you a code to log in with (which you can check with Mailcatcher by visiting `http://{yourdomain}:1080`). By default, the email address used for this purpose is:
+- **Email:** `john.smith@gmail.com`
+
+If you are testing in a local development environment and wish to disable 2FA, you can do so by installing [Mark's DisableTwoFactorAuth module](https://github.com/markshust/magento2-module-disabletwofactorauth).
 
 ### Caching
 

@@ -8,7 +8,7 @@ RUN groupadd -g "$APP_ID" app \
 RUN mkdir -p /etc/nginx/html /var/www/html /sock \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 
 RUN apt-get update && apt-get install -y \
     cron \
@@ -42,25 +42,13 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pecl channel-update pecl.php.net && pecl install \
-    redis-6.1.0 \
+    redis-6.2.0 \
     ssh2-1.4.1 \
-    swoole-6.0.0 \
-    xdebug-3.4.1 \
+    swoole-6.0.2 \
+    xdebug-3.4.2 \
+    imagick-3.8.0RC2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
-
-RUN imagick_branch="28f27044e435a2b203e32675e942eb8de620ee58" \
-    && curl -L https://github.com/Imagick/imagick/archive/$imagick_branch.zip -o imagick.zip \
-    && unzip imagick.zip \
-    && rm imagick.zip \
-    && cd imagick-$imagick_branch \
-    && phpize \
-    && ./configure --with-php-config=/usr/local/bin/php-config \
-    && make \
-    && make install \
-    && echo "extension=imagick.so" >> $PHP_INI_DIR/conf.d/imagick.ini \
-    && cd .. \
-    && rm -rf imagick-$imagick_branch
 
 RUN docker-php-ext-configure \
     gd --with-freetype --with-jpeg --with-webp \
@@ -92,9 +80,7 @@ RUN docker-php-ext-configure \
     ssh2 \
     xdebug
 
-# Temporary workaround for PHP 8.4
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
-    && version=83 \
     && architecture=$(uname -m) \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/$architecture/$version \
     && mkdir -p /tmp/blackfire \
@@ -102,7 +88,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
-RUN git clone --branch v0.4.17 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
+RUN git clone --branch v0.4.18 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
     && cd /usr/lib/php-spx \
     && phpize \
     && ./configure \
@@ -110,7 +96,7 @@ RUN git clone --branch v0.4.17 --depth=1 https://github.com/NoiseByNorthwest/php
     && make install
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --version=2.7.9 --install-dir=/usr/local/bin --filename=composer
+  php -- --version=2.8.6 --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
