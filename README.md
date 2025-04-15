@@ -633,7 +633,6 @@ Commenting the #_JAVA_OPTIONS variable in the env/opensearch.env file is require
 #_JAVA_OPTIONS="-XX:UseSVE=0"
 ```
 
-path
 ### Blackfire.io
 
 These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
