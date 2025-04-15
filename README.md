@@ -622,6 +622,17 @@ Add the following line to the `/etc/sysctl.conf` file on your host:
 vm.max_map_count=262144
 ```
 
+#### Opensearch Compatibility
+
+There is an issue with a compatibility patch for ARM64/Apple M-series chips.
+
+Commenting the #_JAVA_OPTIONS variable in the env/opensearch.env file is required to work around this.
+
+```
+# Compatibility with ARM64/Apple M-series chips
+#_JAVA_OPTIONS="-XX:UseSVE=0"
+```
+
 ### Blackfire.io
 
 These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
