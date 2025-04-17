@@ -28,7 +28,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v6
         with:
-          context: images/rabbitmq/3.13
+          context: images/rabbitmq/4.1
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
