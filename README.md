@@ -36,7 +36,7 @@ View Dockerfiles for the latest tags:
   - [`8.1-fpm`, `8.1-fpm-7`](images/php/8.1)
   - [`8.2-fpm`, `8.2-fpm-6`](images/php/8.2)
   - [`8.3-fpm`, `8.3-fpm-4`](images/php/8.3)
-  - [`8.4-fpm-dev`](images/php/8.4)
+  - [`8.4-fpm`, `8.4-fpm-0`](images/php/8.4)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
   - [`1.2`, `1.2-0`](images/opensearch/1.2)
   - [`2.5`, `2.5-1`](images/opensearch/2.5)
