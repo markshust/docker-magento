@@ -3,7 +3,7 @@ name: build-rabbitmq-4-1
 on: workflow_dispatch
 
 jobs:
-  rabbitmq-3-11:
+  rabbitmq-4-1:
     runs-on: ubuntu-latest
     steps:
       -
