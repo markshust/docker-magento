@@ -108,7 +108,7 @@ services:
   #    #- "xpack.security.enabled=false"
 
   rabbitmq:
-    image: markoshust/magento-rabbitmq:3.13-0
+    image: markoshust/magento-rabbitmq:4.1-0
     ports:
       - "15672:15672"
       - "5672:5672"
