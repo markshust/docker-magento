@@ -36,7 +36,7 @@ services:
     #extra_hosts: *appextrahosts
 
   db:
-    image: mariadb:10.6
+    image: mariadb:11.4
     command:
       --max_allowed_packet=64M
       --optimizer_use_condition_selectivity=1
@@ -50,7 +50,7 @@ services:
   ## If you wish to use MySQL, comment out the mariadb db image above and
   ## uncomment this block.
   #db:
-  #  image: mysql:8.0
+  #  image: mysql:8.4
   #  command:
   #    --max_allowed_packet=64M
   #    --optimizer_use_condition_selectivity=1
