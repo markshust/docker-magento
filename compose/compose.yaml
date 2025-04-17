@@ -62,9 +62,16 @@ services:
   #    - dbdata:/var/lib/mysql
 
   redis:
-    image: redis:7.2-alpine
+    image: valkey/valkey:8.1-alpine
     ports:
       - "6379:6379"
+
+  ## If you wish to use Redis, comment out the redis image above and
+  ## uncomment this block.
+  #redis:
+  #  image: redis:7.2-alpine
+  #  ports:
+  #    - "6379:6379"
 
   opensearch:
     image: markoshust/magento-opensearch:2.12-0
