@@ -36,7 +36,7 @@ View Dockerfiles for the latest tags:
   - [`8.1-fpm`, `8.1-fpm-7`](images/php/8.1)
   - [`8.2-fpm`, `8.2-fpm-6`](images/php/8.2)
   - [`8.3-fpm`, `8.3-fpm-4`](images/php/8.3)
-  - [`8.4-fpm-dev`](images/php/8.4)
+  - [`8.4-fpm`, `8.4-fpm-0`](images/php/8.4)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
   - [`1.2`, `1.2-0`](images/opensearch/1.2)
   - [`2.5`, `2.5-1`](images/opensearch/2.5)
@@ -50,10 +50,10 @@ View Dockerfiles for the latest tags:
   - [`8.11`, `8.11-0`](images/elasticsearch/8.11)
   - [`8.13`, `8.13-0`](images/elasticsearch/8.13)
 - [markoshust/magento-rabbitmq (Docker Hub)](https://hub.docker.com/r/markoshust/magento-rabbitmq/)
-  - [`3.8`, `3.8-0`](images/rabbitmq/3.8)
   - [`3.9`, `3.9-0`](images/rabbitmq/3.9)
   - [`3.11`, `3.11-1`](images/rabbitmq/3.11)
   - [`3.12`, `3.12-0`](images/rabbitmq/3.12)
+  - [`4.1`, `4.1-0`](images/rabbitmq/4.1)
 - [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
   - [`latest`](images/ssh)
 
@@ -620,6 +620,17 @@ Add the following line to the `/etc/sysctl.conf` file on your host:
 
 ```
 vm.max_map_count=262144
+```
+
+#### Opensearch Compatibility
+
+There is an issue with a compatibility patch for ARM64/Apple M-series chips.
+
+Commenting the #_JAVA_OPTIONS variable in the env/opensearch.env file is required to work around this.
+
+```
+# Compatibility with ARM64/Apple M-series chips
+#_JAVA_OPTIONS="-XX:UseSVE=0"
 ```
 
 ### Blackfire.io
