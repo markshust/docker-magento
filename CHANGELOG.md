@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [52.0.0] - 2025-04-18
+
+This release adds support for the latest message broker and database technologies required for Magento 2.4.8, optimizes container health checks, and fixes OpenSearch issues on Linux.
+
+### Added
+- Added support for Valkey 8.1 (Redis successor) for Magento 2.4.8 compatibility [PR #1327](https://github.com/markshust/docker-magento/pull/1327)
+- Added RabbitMQ 4.1 support for Magento 2.4.8 compatibility [PR #1326](https://github.com/markshust/docker-magento/pull/1326)
+- Added documentation for OpenSearch ARM64/Apple M-series compatibility workaround [PR #1316](https://github.com/markshust/docker-magento/issues/1316)
+
+### Updated
+- Updated MariaDB to version 11.4 [PR #1325](https://github.com/markshust/docker-magento/pull/1325)
+- Updated MySQL configuration for 8.4 compatibility [PR #1324](https://github.com/markshust/docker-magento/pull/1324)
+- Optimized container health checks with YAML anchors for consistency across services [PR #1330](https://github.com/markshust/docker-magento/pull/1330)
+- Added `log_bin_trust_function_creators=1` flag to both MariaDB and MySQL configurations [PR #1329](https://github.com/markshust/docker-magento/pull/1329)
+
+### Fixed
+- Fixed OpenSearch startup issues on Linux [PR #1316](https://github.com/markshust/docker-magento/issues/1316)
+- Fixed PHP 8.4 tag reference in README documentation [PR #1328](https://github.com/markshust/docker-magento/pull/1328)
+
+### Removed
+- Dropped support for RabbitMQ 3.8 [PR #1326](https://github.com/markshust/docker-magento/pull/1326)
+
 ## [51.0.0] - 2025-04-08
 
 This release provides full support for Magento 2.4.8 (released same day), includes multiple Docker image updates, fixes important bugs, and adds several new utilities for improved developer experience.
