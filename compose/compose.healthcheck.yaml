@@ -1,7 +1,17 @@
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 5s
+  timeout: 5s
+  retries: 3
+
+x-healthcheck-slow-start: &healthcheck-slow-start
+  <<: *healthcheck-defaults
+  start_period: 5s
+
 services:
   app:
     healthcheck:
       test: "curl --fail 127.0.0.1:8000"
+      <<: *healthcheck-defaults
     depends_on:
       phpfpm:
         condition: service_started
@@ -22,38 +32,29 @@ services:
   db:
     healthcheck:
       test: "mysqladmin ping -h localhost -u root -pmagento || mariadb-admin ping -h localhost -u root -pmagento"
-      interval: 5s
-      timeout: 5s
-      retries: 30
+      <<: *healthcheck-defaults
 
   redis:
     healthcheck:
       test: "redis-cli ping || exit 1"
-      interval: 5s
-      timeout: 5s
-      retries: 30
+      <<: *healthcheck-slow-start
 
   opensearch:
     healthcheck:
       test: "curl --fail opensearch:9200/_cat/health >/dev/null || exit 1"
-      interval: 5s
-      timeout: 5s
-      retries: 30
+      <<: *healthcheck-slow-start
 
   #elasticsearch:
   #  healthcheck:
   #    test: "curl --fail elasticsearch:9200/_cat/health >/dev/null || exit 1"
-  #    interval: 5s
-  #    timeout: 5s
-  #    retries: 30
+  #    <<: *healthcheck-slow-start
 
   rabbitmq:
     healthcheck:
       test: "rabbitmq-diagnostics -q ping"
-      interval: 5s
-      timeout: 5s
-      retries: 30
+      <<: *healthcheck-slow-start
 
   mailcatcher:
     healthcheck:
       test: "wget --no-verbose --tries=1 --spider 127.0.0.1:1080 || exit 1"
+      <<: *healthcheck-defaults
