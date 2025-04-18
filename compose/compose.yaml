@@ -41,6 +41,7 @@ services:
       --max_allowed_packet=64M
       --optimizer_use_condition_selectivity=1
       --optimizer_switch="rowid_filter=off"
+      --log_bin_trust_function_creators=1
     ports:
       - "3306:3306"
     env_file: env/db.env
@@ -53,6 +54,7 @@ services:
   #  image: mysql:8.4
   #  command:
   #    --max_allowed_packet=64M
+  #    --log_bin_trust_function_creators=1
   #  ports:
   #    - "3306:3306"
   #  env_file: env/db.env
