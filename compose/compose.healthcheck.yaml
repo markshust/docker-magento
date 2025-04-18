@@ -21,7 +21,7 @@ services:
 
   db:
     healthcheck:
-      test: "mysqladmin ping -h localhost -u root -pmagento"
+      test: "mysqladmin ping -h localhost -u root -pmagento || mariadb-admin ping -h localhost -u root -pmagento"
       interval: 5s
       timeout: 5s
       retries: 30
