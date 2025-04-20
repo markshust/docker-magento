@@ -6,7 +6,7 @@ if [ -d "./bin" ]; then
 fi
 
 git init -qqq
-git remote add origin https://github.com/markshust/docker-magento
+git remote add origin https://github.com/vuongdat8007/docker-magento
 git fetch origin -qqq
 git checkout origin/master -- compose
 
