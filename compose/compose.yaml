@@ -86,7 +86,7 @@ services:
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
       ## Uncomment to set custom heap size to avoid memory errors
-      #- "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
       ## Uncomment to increase the virtual memory map count
       #- "max_map_count=262144"
 

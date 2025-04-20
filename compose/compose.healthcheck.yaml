@@ -1,11 +1,11 @@
 x-healthcheck-defaults: &healthcheck-defaults
-  interval: 5s
-  timeout: 5s
+  interval: 25s
+  timeout: 25s
   retries: 3
 
 x-healthcheck-slow-start: &healthcheck-slow-start
   <<: *healthcheck-defaults
-  start_period: 5s
+  start_period: 25s
 
 services:
   app:
