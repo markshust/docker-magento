@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [52.0.1] - 2025-05-12
+
+### Fixed
+
+Remove UseSVE from Java Options which caused OpenSearch to fail [PR #1341](https://github.com/markshust/docker-magento/pull/1341)
+
 ## [52.0.0] - 2025-04-18
 
 This release adds support for the latest message broker and database technologies required for Magento 2.4.8, optimizes container health checks, and fixes OpenSearch issues on Linux.
