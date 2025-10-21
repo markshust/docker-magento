@@ -151,20 +151,19 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.8
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.8-p3
 ```
 
-The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.8` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.8-p3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
-#### Install sample data
+#### Install sample data and development modules
 
-After the above installation is complete, run the following lines to install sample data:
+After the above installation is complete, you can initialize the development environment with sample data and dev-related modules with:
 
 ```bash
-bin/magento sampledata:deploy
-bin/magento setup:upgrade
+bin/init
 ```
 
 ### Manual Setup
@@ -182,7 +181,7 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download community 2.4.8
+bin/download community 2.4.8-p3
 # You can specify the edition (community, enterprise, mageos) and version (2.4.7-p3, 1.0.5, etc.)
 # If no arguments are passed in, the edition defaults to "community"
 # If no version is specified, it defaults to the most recent version defined in `bin/download`
@@ -196,6 +195,9 @@ bin/download community 2.4.8
 
 # Run the setup installer for Magento:
 bin/setup magento.test
+
+# Initialize development environment with sample data and dev-related modules:
+bin/init
 
 open https://magento.test
 ```
@@ -302,6 +304,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
+- `bin/init`: Initialize development environment with sample data and dev-related modules.
 - `bin/install-php-extensions`: Install PHP extension in the container. Ex. `bin/install-php-extensions sourceguardian`
 - `bin/log`: Monitor the Magento log files. Pass no params to tail all files. Ex. `bin/log debug.log`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
