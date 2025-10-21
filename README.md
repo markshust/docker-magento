@@ -302,6 +302,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
+- `bin/init`: Initialize development environment with sample data and dev-related modules.
 - `bin/install-php-extensions`: Install PHP extension in the container. Ex. `bin/install-php-extensions sourceguardian`
 - `bin/log`: Monitor the Magento log files. Pass no params to tail all files. Ex. `bin/log debug.log`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`

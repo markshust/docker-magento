@@ -46,6 +46,7 @@ help:
 	@echo "$(call format,fixowns,'This will fix filesystem ownerships within the container.')"
 	@echo "$(call format,fixperms,'This will fix filesystem permissions within the container.')"
 	@echo "$(call format,grunt,'Run the grunt binary.')"
+	@echo "$(call format,init,'Initialize development environment with sample data and dev-related modules.')"
 	@echo "$(call format,install-php-extensions,'Install PHP extension in the container.')"
 	@echo "$(call format,log,'Monitor the Magento log files. Pass no params to tail all files.')"
 	@echo "$(call format,magento,'Run the Magento CLI.')"
