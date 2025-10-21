@@ -158,13 +158,12 @@ The `magento.test` above defines the hostname to use, `community` is the Magento
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
-#### Install sample data
+#### Install sample data and development modules
 
-After the above installation is complete, run the following lines to install sample data:
+After the above installation is complete, you can initialize the development environment with sample data and dev-related modules with:
 
 ```bash
-bin/magento sampledata:deploy
-bin/magento setup:upgrade
+bin/init
 ```
 
 ### Manual Setup
@@ -196,6 +195,9 @@ bin/download community 2.4.8-p3
 
 # Run the setup installer for Magento:
 bin/setup magento.test
+
+# Initialize development environment with sample data and dev-related modules:
+bin/init
 
 open https://magento.test
 ```
