@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [52.1.0] - 2025-10-21
+
+### Added
+- Added `bin/init` script to initialize development environment with sample data and dev-related modules [PR #1377](https://github.com/markshust/docker-magento/pull/1377)
+- Added support for multiple files or directories as arguments in `bin/copytocontainer` [PR #1384](https://github.com/markshust/docker-magento/pull/1384)
+
+### Updated
+- Updated Magento version to 2.4.8-p3 in README installation instructions
+
+### Fixed
+- Fixed CDPATH from corrupting directory paths in copy scripts by redirecting output to /dev/null [PR #1374](https://github.com/markshust/docker-magento/pull/1374)
+
 ## [52.0.2] - 2025-07-01
 
 ### Fixed
