@@ -1,52 +1,96 @@
-name: PR Review Assistant
+name: Automated PR Review
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
 
 jobs:
-  welcome-comment:
+  review-pr:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Post welcome comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const prNumber = context.payload.pull_request.number;
-            const prAuthor = context.payload.pull_request.user.login;
-            const prTitle = context.payload.pull_request.title;
-            const changedFiles = context.payload.pull_request.changed_files;
-            const additions = context.payload.pull_request.additions;
-            const deletions = context.payload.pull_request.deletions;
-            
-            const body = `## PR Review Checklist
-            
-            Thank you @${prAuthor} for your contribution!
-            
-            **PR Summary:**
-            - Title: ${prTitle}
-            - Files changed: ${changedFiles}
-            - Lines added: ${additions}
-            - Lines removed: ${deletions}
-            
-            **Review Guidelines:**
-            - [ ] Code follows the project's coding standards
-            - [ ] Changes are well-documented
-            - [ ] Tests have been added/updated if applicable
-            - [ ] No sensitive information is exposed
-            
-            A maintainer will review your PR shortly.`;
-            
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-              body: body
-            });
+      - name: Get PR files
+        id: pr-files
+        run: |
+          FILES=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" | \
+            jq -r '[.[].filename] | @json')
+
+          if [ -z "$FILES" ]; then
+            echo "Error: Failed to fetch or parse PR files."
+            exit 1
+          fi
+
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+
+      - name: Create Devin Review Session
+        id: devin-review
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          FILES_TO_REVIEW: ${{ steps.pr-files.outputs.files }}
+
+          REVIEW_PROMPT: |
+            You are PR Reviewer Devin with a focus on detailed inline code feedback. Your tasks:
+            1. Clone the repository ${{ github.repository }} locally.
+            2. Next, set up a pre-push Git hook that prevents any pushes from a user with the username "Devin AI" OR an email containing "devin-ai-integration" as a substring. Activate the hook.
+            3. View the diffs of the changed files for PR #${{ github.event.pull_request.number }} in repository ${{ github.repository }}.
+            4. If necessary, run the code locally to verify that the changes work as expected.
+            5. Read the PR discussion to see what previous comments and suggestions have been made.
+            6. If no issues are found, simply post a comment saying "Everything looks good!" and stop here. Your work is done.
+            7. Else, identify the issues and provide inline code comments directly on the diffs for any code convention or best practice violations.
+            8. Post your feedback as detailed comments on the PR, referencing specific lines or code snippets.
+
+            Rules and Guidelines:
+            1. NEVER make any commits or pushes to the repository - you are ONLY allowed to review code and leave comments
+            2. Do not make more than three total comments on the PR.
+            3. Use inline feedback where possible with specific line references
+            4. Include code snippets in markdown format when discussing issues
+            5. Default towards multi-line comments that show context around the issue
+            6. Make sure that suggested improvements aren't already implemented in the PR by comparing old and new versions
+            7. Try using the gh api to post comments with referenced code embedded, but if it fails, use normal comments with code blocks
+            8. Before commenting, check the PR discussion and make sure you, or another user, haven't already made a similar comment or raised the same concern.
+            9. Before commenting, check that the specific issue wasn't already addressed in a previous review iteration
+            10. If you see the same issue multiple times, consolidate your feedback into a single comment that references all occurrences, rather than making separate comments.
+            11. Refer back to these rules and guidelines before you make comments.
+            12. Never ask for user confirmation. Never wait for user messages.
+
+            Changed files to review:
+            ${{ steps.pr-files.outputs.files }}
+
+        run: |
+          # Convert multiline string to JSON-safe format
+          ESCAPED_PROMPT=$(echo "$REVIEW_PROMPT" | jq -Rs .)
+
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: Bearer $DEVIN_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"prompt\": $ESCAPED_PROMPT}" \
+            "https://api.devin.ai/v1/sessions")
+
+          # Check for errors in the response
+          ERROR_MSG=$(echo "$RESPONSE" | jq -r '.detail')
+          if [ "$ERROR_MSG" != "null" ]; then
+            echo "Error creating Devin session: $ERROR_MSG"
+            exit 1
+          fi
+
+          SESSION_ID=$(echo "$RESPONSE" | jq -r '.session_id')
+          SESSION_URL=$(echo "$RESPONSE" | jq -r '.url')
+
+          if [ -z "$SESSION_ID" ] || [ -z "$SESSION_URL" ]; then
+            echo "Error: Devin session details are missing from the response."
+            exit 1
+          fi
+
+          echo "session-id=$SESSION_ID" >> $GITHUB_OUTPUT
+          echo "session-url=$SESSION_URL" >> $GITHUB_OUTPUT
+          echo "Devin session created successfully: $RESPONSE"
