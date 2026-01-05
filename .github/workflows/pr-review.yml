@@ -1,3 +1,52 @@
-git add .github/workflows/pr-review.yml
-git commit -m "Add GitHub Action for automated PR reviews with Devin"
-git push origin main
+name: PR Review Assistant
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  welcome-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Post welcome comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const prAuthor = context.payload.pull_request.user.login;
+            const prTitle = context.payload.pull_request.title;
+            const changedFiles = context.payload.pull_request.changed_files;
+            const additions = context.payload.pull_request.additions;
+            const deletions = context.payload.pull_request.deletions;
+            
+            const body = `## PR Review Checklist
+            
+            Thank you @${prAuthor} for your contribution!
+            
+            **PR Summary:**
+            - Title: ${prTitle}
+            - Files changed: ${changedFiles}
+            - Lines added: ${additions}
+            - Lines removed: ${deletions}
+            
+            **Review Guidelines:**
+            - [ ] Code follows the project's coding standards
+            - [ ] Changes are well-documented
+            - [ ] Tests have been added/updated if applicable
+            - [ ] No sensitive information is exposed
+            
+            A maintainer will review your PR shortly.`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: body
+            });
