@@ -18,6 +18,38 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Validate DEVIN_API_KEY secret
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          # Check if secret is present (without exposing it)
+          if [ -z "$DEVIN_API_KEY" ]; then
+            echo "::error::DEVIN_API_KEY secret is missing or empty!"
+            echo "Please add the DEVIN_API_KEY secret to: Settings → Secrets and variables → Actions → Repository secrets"
+            echo "The secret value should be your Devin API key starting with 'apk_user_' or 'apk_'"
+            exit 1
+          fi
+          
+          # Log safe metadata for debugging
+          KEY_LENGTH=${#DEVIN_API_KEY}
+          echo "DEVIN_API_KEY is present (length: $KEY_LENGTH characters)"
+          
+          # Check for common issues
+          if [[ "$DEVIN_API_KEY" == *$'\r'* ]] || [[ "$DEVIN_API_KEY" == *$'\n'* ]]; then
+            echo "::warning::DEVIN_API_KEY may contain newline/carriage return characters"
+          fi
+          
+          if [[ "$DEVIN_API_KEY" == Bearer* ]] || [[ "$DEVIN_API_KEY" == bearer* ]]; then
+            echo "::error::DEVIN_API_KEY should NOT include 'Bearer ' prefix - just the raw key"
+            exit 1
+          fi
+          
+          if [[ "$DEVIN_API_KEY" != apk_* ]]; then
+            echo "::warning::DEVIN_API_KEY does not start with 'apk_' - this may be an invalid key format"
+          fi
+          
+          echo "Secret validation passed!"
+
       - name: Get PR files
         id: pr-files
         run: |
@@ -67,11 +99,14 @@ jobs:
             ${{ steps.pr-files.outputs.files }}
 
         run: |
+          # Sanitize API key (remove any hidden newlines/carriage returns)
+          CLEAN_API_KEY=$(printf '%s' "$DEVIN_API_KEY" | tr -d '\r\n')
+          
           # Convert multiline string to JSON-safe format
           ESCAPED_PROMPT=$(echo "$REVIEW_PROMPT" | jq -Rs .)
 
           RESPONSE=$(curl -s -X POST \
-            -H "Authorization: Bearer $DEVIN_API_KEY" \
+            -H "Authorization: Bearer $CLEAN_API_KEY" \
             -H "Content-Type: application/json" \
             -d "{\"prompt\": $ESCAPED_PROMPT}" \
             "https://api.devin.ai/v1/sessions")
