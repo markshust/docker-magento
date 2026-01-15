@@ -18,6 +18,11 @@ else
   COMPOSE_FILES+=("compose.dev.yaml")
 fi
 
+# include compose.override.yaml if present
+if [ -f "compose.override.yaml" ]; then
+  COMPOSE_FILES+=("compose.override.yaml")
+fi
+
 # Loop over the list of compose files, and prefix them with -f.
 # This ensures paths with spaces aren't split when passed as parameters.
 COMPOSE_FILES_PREFIXED=()
