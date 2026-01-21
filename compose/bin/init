@@ -8,11 +8,13 @@ set -e
 echo ">>> Deploying Magento sample data..."
 bin/magento sampledata:deploy
 
-echo ">>> Disabling Two-Factor Authentication (for dev only)..."
+# Sample data requires standalone setup:upgrade exec to trigger activation
+echo ">>> Running setup upgrade to activate sample data..."
+bin/magento setup:upgrade
+
+echo ">>> Installing DisableTwoFactorAuth module for dev..."
 bin/composer require --dev markshust/magento2-module-disabletwofactorauth
 bin/magento module:enable MarkShust_DisableTwoFactorAuth
-
-echo ">>> Running setup upgrade (applies sample data + new modules)..."
 bin/magento setup:upgrade
 
 echo ">>> Setting long admin session lifetime (1 year)..."
@@ -22,9 +24,7 @@ bin/magento config:set admin/security/session_lifetime 31536000
 echo ">>> Generating URN catalog for IDEs..."
 bin/dev-urn-catalog-generate
 
-echo ">>> Running final optimizations (compile, reindex, cache flush)..."
-bin/magento setup:di:compile
-bin/magento indexer:reindex
+echo ">>> Flushing cache to apply all updates..."
 bin/magento cache:flush
 
 echo ">>> Magento development environment initialized successfully! 🎉"
