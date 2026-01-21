@@ -796,6 +796,14 @@ My name is Mark Shust and I'm the creator of this repo. I'm a <a href="https://w
 - <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on X</a>
 - <a href="mailto:mark@m.academy">💌 Contact me</a>
 
+### Mappia
+
+If you love using `docker-magento` for local development and are starting to think about how to run Magento in production, [Mappia](https://www.mappia.io/) may be a great next step.
+
+[Mappia](https://www.mappia.io/) is a production-grade tool for deploying Magento onto Kubernetes. It takes the same container-first approach you’re already using locally and extends it to scalable, secure, and repeatable deployments in the cloud—without forcing you to re-architect your application.
+
+If `docker-magento` helps you build Magento locally, [Mappia](https://www.mappia.io/) helps you operate it confidently in production—using the same container mindset, just at production scale.
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
