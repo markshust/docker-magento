@@ -21,6 +21,7 @@
 - [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
 - [Known Issues](#known-issues)
+- [Alternatives](#alternatives)
 - [Credits](#credits)
 - [License](#license)
 
@@ -776,6 +777,16 @@ Additional information of how to work with SPX is available at https://www.youtu
 ## Known Issues
 
 There are currently no large known issues or workarounds needed to use docker-magento with your Magento project. If you find any, please [report them](https://github.com/markshust/docker-magento/issues)!
+
+## Alternatives
+
+### Mappia
+
+If you love using `docker-magento` for local development and are starting to think about how to run Magento in production, [Mappia](https://www.mappia.io/) may be a great next step.
+
+[Mappia](https://www.mappia.io/) is a production-grade tool for deploying Magento onto Kubernetes. It takes the same container-first approach you’re already using locally and extends it to scalable, secure, and repeatable deployments in the cloud—without forcing you to re-architect your application.
+
+If `docker-magento` helps you build Magento locally, [Mappia](https://www.mappia.io/) helps you operate it confidently in production—using the same container mindset, just at production scale.
 
 ## Credits
 
