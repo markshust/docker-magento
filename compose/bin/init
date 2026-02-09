@@ -7,7 +7,6 @@ set -e
 
 echo ">>> Deploying Magento sample data..."
 bin/magento sampledata:deploy
-bin/magento setup:upgrade
 
 # Sample data requires standalone setup:upgrade exec to trigger activation
 echo ">>> Running setup upgrade to activate sample data..."
