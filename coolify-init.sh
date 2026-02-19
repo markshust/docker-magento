@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 60
+
 echo "Finding PHPFPM container..."
 
 PHP_CONTAINER=$(docker ps \
