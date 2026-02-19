@@ -8,7 +8,4 @@ PHP_CONTAINER=$(docker ps \
 
 echo "Container found: $PHP_CONTAINER"
 
-docker exec "$PHP_CONTAINER" bash -lc "
-cd /var/www/html &&
-bash bin/init
-"
+docker exec "$PHP_CONTAINER" bash -lc "bash compose/bin/init"
