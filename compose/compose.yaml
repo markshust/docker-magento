@@ -161,7 +161,7 @@ services:
 
     command: |
       bash -c '
-
+      sleep 20;
       echo "Waiting OpenSearch..." &&
 
       if [ ! -f app/etc/env.php ]; then
