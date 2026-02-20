@@ -159,17 +159,17 @@ services:
 
     restart: "no"
 
-    command: >
-      bash -c "
+    command: |
+      bash -c '
 
-      echo 'Waiting MySQL...' &&
+      echo "Waiting MySQL..." &&
 
       until nc -z db 3306; do
         echo "Waiting DB port..."
         sleep 5;
       done &&
 
-      echo 'Waiting OpenSearch...' &&
+      echo "Waiting OpenSearch..." &&
 
       until curl -s http://opensearch:9200 >/dev/null; do
         sleep 5;
@@ -177,7 +177,7 @@ services:
 
       if [ ! -f app/etc/env.php ]; then
 
-        echo 'Installing Magento...' &&
+        echo "Installing Magento..." &&
 
         php bin/magento setup:install \
         --base-url=http://localhost \
@@ -201,10 +201,10 @@ services:
 
       else
 
-        echo 'Magento already installed'
+        echo "Magento already installed"
 
       fi
-      "
+      '
     
 volumes:
   appdata:
