@@ -162,13 +162,6 @@ services:
     command: |
       bash -c '
 
-      echo "Waiting MySQL..." &&
-
-      until nc -z db 3306; do
-        echo "Waiting DB port..."
-        sleep 5;
-      done &&
-
       echo "Waiting OpenSearch..." &&
 
       until curl -s http://opensearch:9200 >/dev/null; do
