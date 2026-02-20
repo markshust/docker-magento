@@ -178,7 +178,12 @@ services:
       if [ ! -f app/etc/env.php ]; then
 
         echo "Installing Magento..." &&
-
+        
+        if [ ! -f composer.json ]; then
+           echo "Downloading Magento Source..."
+           composer create-project magento/project-community-edition .
+        fi
+        
         php bin/magento setup:install \
         --base-url=http://localhost \
         --db-host=db \
