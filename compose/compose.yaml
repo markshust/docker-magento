@@ -143,67 +143,67 @@ services:
   #  env_file: env/blackfire.env
   installer:
 
-  image: markoshust/magento-php:8.3-fpm-4
+    image: markoshust/magento-php:8.3-fpm-4
 
-  depends_on:
-    - db
-    - redis
-    - opensearch
+    depends_on:
+      - db
+      - redis
+      - opensearch
 
-  working_dir: /var/www/html
+    working_dir: /var/www/html
 
-  volumes: *appvolumes
+    volumes: *appvolumes
 
-  env_file:
-    - env/phpfpm.env
+    env_file:
+      - env/phpfpm.env
 
-  restart: "no"
+    restart: "no"
 
-  command: >
-    bash -c "
+    command: >
+      bash -c "
 
-    echo 'Waiting MySQL...' &&
+      echo 'Waiting MySQL...' &&
 
-    until mysqladmin ping -h db --silent; do
-      sleep 5;
-    done &&
+      until mysqladmin ping -h db --silent; do
+        sleep 5;
+      done &&
 
-    echo 'Waiting OpenSearch...' &&
+      echo 'Waiting OpenSearch...' &&
 
-    until curl -s http://opensearch:9200 >/dev/null; do
-      sleep 5;
-    done &&
+      until curl -s http://opensearch:9200 >/dev/null; do
+        sleep 5;
+      done &&
 
-    if [ ! -f app/etc/env.php ]; then
+      if [ ! -f app/etc/env.php ]; then
 
-      echo 'Installing Magento...' &&
+        echo 'Installing Magento...' &&
 
-      php bin/magento setup:install \
-      --base-url=http://localhost \
-      --db-host=db \
-      --db-name=magento \
-      --db-user=magento \
-      --db-password=magento \
-      --search-engine=opensearch \
-      --opensearch-host=opensearch \
-      --admin-firstname=Admin \
-      --admin-lastname=User \
-      --admin-email=admin@example.com \
-      --admin-user=admin \
-      --admin-password=Admin123!
+        php bin/magento setup:install \
+        --base-url=http://localhost \
+        --db-host=db \
+        --db-name=magento \
+        --db-user=magento \
+        --db-password=magento \
+        --search-engine=opensearch \
+        --opensearch-host=opensearch \
+        --admin-firstname=Admin \
+        --admin-lastname=User \
+        --admin-email=admin@example.com \
+        --admin-user=admin \
+        --admin-password=Admin123!
 
-      php bin/magento setup:di:compile
+        php bin/magento setup:di:compile
 
-      php bin/magento setup:static-content:deploy -f
+        php bin/magento setup:static-content:deploy -f
 
-      php bin/magento cache:flush
+        php bin/magento cache:flush
 
-    else
+      else
 
-      echo 'Magento already installed'
+        echo 'Magento already installed'
 
-    fi
-    "
+      fi
+      "
     
 volumes:
   appdata:
