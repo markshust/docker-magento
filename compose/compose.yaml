@@ -164,10 +164,6 @@ services:
 
       echo "Waiting OpenSearch..." &&
 
-      until curl -s http://opensearch:9200 >/dev/null; do
-        sleep 5;
-      done &&
-
       if [ ! -f app/etc/env.php ]; then
 
         echo "Installing Magento..." &&
