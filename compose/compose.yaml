@@ -164,7 +164,8 @@ services:
 
       echo 'Waiting MySQL...' &&
 
-      until mysqladmin ping -h db --silent; do
+      until nc -z db 3306; do
+        echo "Waiting DB port..."
         sleep 5;
       done &&
 
