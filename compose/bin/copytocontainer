@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 [ $# -eq 0 ] && echo "Please specify one or more directories/files to copy to container (ex. vendor, --all)" && exit 1
 
-REAL_SRC=$(cd -P "src" >/dev/null && pwd)
 CONTAINER_ID=$(bin/docker-compose ps -q phpfpm | awk '{print $1}')
+REAL_SRC=$(cd -P "src" >/dev/null && pwd)
 
 for ARG in "$@"; do
   if [ "$ARG" == "--all" ]; then
