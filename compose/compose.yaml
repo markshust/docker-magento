@@ -44,7 +44,10 @@ services:
       --log_bin_trust_function_creators=1
     ports:
       - "3306:3306"
-    env_file: env/db.env
+    environment:
+      - DB_PASSWORD=root123
+      - AWS_SECRET_ACCESS_KEY=AKIAFAKEKEY123      
+ #   env_file: env/db.env
     volumes:
       - dbdata:/var/lib/mysql
 
