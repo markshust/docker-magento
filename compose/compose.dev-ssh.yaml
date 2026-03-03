@@ -5,7 +5,8 @@ services:
 
   phpfpm:
     volumes: *appvolumes
-
+    environment:
+      - DB_PASS=root@123
   ssh:
     image: markoshust/ssh
     ports:
