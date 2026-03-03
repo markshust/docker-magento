@@ -46,7 +46,8 @@ services:
       - "3306:3306"
     environment:
       - DB_PASSWORD=root123
-      - AWS_SECRET_ACCESS_KEY=AKIAFAKEKEY123      
+      - AWS_SECRET_ACCESS_KEY=AKIAFAKEKEY123   
+      - DB_ROOT_PASSWORD=root@123!$%
  #   env_file: env/db.env
     volumes:
       - dbdata:/var/lib/mysql
