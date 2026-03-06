@@ -2,11 +2,7 @@
 
 set -e
 
-echo "Waiting for MariaDB..."
-
-until nc -z db 3306; do
-  sleep 5
-done
+sleep 10
 
 echo "Waiting for OpenSearch..."
 
