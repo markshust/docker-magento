@@ -44,7 +44,11 @@ services:
       --log_bin_trust_function_creators=1
     ports:
       - "3306:3306"
-    env_file: env/db.env
+    environment:
+      - MYSQL_ROOT_PASSWORD: root
+      - MYSQL_DATABASE: magento
+      - MYSQL_USER: magento
+      - MYSQL_PASSWORD: magento
     volumes:
       - dbdata:/var/lib/mysql
 
