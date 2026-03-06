@@ -46,9 +46,9 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD: root
-      - MYSQL_DATABASE: magento
-      - MYSQL_USER: magento
-      - MYSQL_PASSWORD: magento
+      - MYSQL_DATABASE: root@980
+      - MYSQL_USER: devuser
+      - MYSQL_PASSWORD: Magento@!23$
     volumes:
       - dbdata:/var/lib/mysql
 
