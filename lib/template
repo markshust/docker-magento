@@ -12,6 +12,5 @@ git checkout origin/master -- compose
 
 mv compose/* ./
 mv compose/.gitignore ./
-mv compose/.vscode ./
 
 
