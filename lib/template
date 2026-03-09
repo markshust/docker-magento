@@ -15,4 +15,3 @@ mv compose/.gitignore ./
 mv compose/.vscode ./
 
 
-mkdir -p ~/.composer ~/.ssh
