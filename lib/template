@@ -11,6 +11,5 @@ git fetch origin -qqq
 git checkout origin/master -- compose
 
 mv compose/* ./
-mv compose/.gitignore ./
 
 
