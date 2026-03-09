@@ -11,6 +11,6 @@ services:
     image: linuxserver/phpmyadmin
     env_file: env/db.env
     ports:
-      - "8080:80"
+      - "8088:80"
     depends_on:
       - db
