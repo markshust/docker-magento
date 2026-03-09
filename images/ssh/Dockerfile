@@ -10,7 +10,4 @@ RUN groupadd -g "$APP_ID" app \
 RUN echo 'app:app' | chpasswd
 
 RUN service ssh start
-
-EXPOSE 22
-
 CMD ["/usr/sbin/sshd","-D"]
