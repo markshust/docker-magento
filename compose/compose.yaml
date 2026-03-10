@@ -154,7 +154,7 @@ services:
       - redis
       - opensearch
 
-    working_dir: /var/www/html
+    working_dir: /var/www/html/magento
 
     volumes: *appvolumes
 
