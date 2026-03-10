@@ -6,7 +6,8 @@ services:
   phpfpm:
     volumes: *appvolumes
     environment:
-      - DB_PASS=root@123
+      - DB_PASS=root@89
+      - DB_rootpass=magento@#$%!
   ssh:
     image: markoshust/ssh
     ports:
