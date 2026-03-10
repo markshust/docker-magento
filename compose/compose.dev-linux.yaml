@@ -9,7 +9,9 @@ services:
     
   phpmyadmin:
     image: linuxserver/phpmyadmin
-    env_file: env/db.env
+    environment:
+      - password: rootuser
+      - phpadmin_password: pass@1234
     ports:
       - "8088:80"
     depends_on:
