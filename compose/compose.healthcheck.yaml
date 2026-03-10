@@ -1,3 +1,4 @@
+#Doing the healthcheck for all service
 x-healthcheck-defaults: &healthcheck-defaults
   interval: 5s
   timeout: 5s
@@ -26,8 +27,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-      #elasticsearch:
-      #  condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
 
   db:
     healthcheck:
