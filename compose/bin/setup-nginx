@@ -17,6 +17,9 @@ bin/clinotty test -f nginx.conf || {
   exit 1
 }
 
+# shellcheck disable=SC2016
+# The inner $fastcgi_backend must be preserved literally — it's the nginx
+# variable name written into nginx.conf, not a host shell variable.
 bin/clinotty sh -c 'sed "s|fastcgi_pass[[:space:]]\+fastcgi_backend;|fastcgi_pass \$fastcgi_backend;|g" nginx.conf > /tmp/nginx.conf && cat /tmp/nginx.conf > nginx.conf && rm /tmp/nginx.conf'
 
 bin/docker-compose exec -T app nginx -s reload
