@@ -2,19 +2,14 @@
 cat <<'EOF'
 bin/xdebug has been removed.
 
-Xdebug is still cookie-triggered (XDEBUG_SESSION) — that part hasn't
-changed. What's changed is where the extension lives: it's no longer
-loaded into the main phpfpm container. A dedicated phpfpm-xdebug
-container runs alongside, and nginx routes requests to it only when
-the XDEBUG_SESSION cookie is set.
-
-The result: requests without the cookie never load xdebug at all, so
-there's nothing to toggle on/off — keep the cookie set, browse at full
-speed, debug whenever you flip the cookie on.
+Xdebug now runs in a dedicated phpfpm-xdebug container. Nginx routes
+requests to it when the XDEBUG_SESSION cookie is set; all other
+requests hit the main phpfpm container, which no longer loads the
+extension at all. Nothing to toggle.
 
 CLI:
-  bin/debug-cli <command>    # runs in the phpfpm-xdebug container
-  bin/cli <command>          # runs in the clean phpfpm container
+  bin/debug-cli <command>    # runs in phpfpm-xdebug
+  bin/cli <command>          # runs in phpfpm
 
 See README -> Xdebug for IDE setup.
 EOF
