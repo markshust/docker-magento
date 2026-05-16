@@ -113,6 +113,7 @@ RUN pecl channel-update pecl.php.net \
   && pecl install xdebug-3.4.2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear \
-  && docker-php-ext-enable xdebug
+  && docker-php-ext-enable xdebug \
+  && sed -i 's|^listen = .*|listen = /sock/phpfpm-xdebug.sock|' /usr/local/etc/php-fpm.conf
 COPY conf/php-xdebug.ini $PHP_INI_DIR/conf.d/
 USER app:app
