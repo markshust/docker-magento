@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-bookworm
+FROM php:8.3-fpm-bookworm AS base
 LABEL maintainer="Mark Shust <mark@shust.com>"
 
 ARG APP_ID=1000
@@ -106,3 +106,13 @@ COPY conf/www.conf /usr/local/etc/php-fpm.d/
 USER app:app
 VOLUME /var/www
 WORKDIR /var/www/html
+
+FROM base AS xdebug
+USER root
+RUN pecl channel-update pecl.php.net \
+  && pecl install xdebug-3.4.2 \
+  && pecl clear-cache \
+  && rm -rf /tmp/pear \
+  && docker-php-ext-enable xdebug
+COPY conf/php-xdebug.ini $PHP_INI_DIR/conf.d/
+USER app:app

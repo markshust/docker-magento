@@ -6,16 +6,13 @@ if [ -d "./bin" ]; then
 fi
 
 git init -qqq
-# git remote add origin https://github.com/markshust/docker-magento
-git remote add origin https://github.com/Jarzebowsky/docker-magento
+git remote add origin https://github.com/markshust/docker-magento
 git fetch origin -qqq
-# git checkout origin/master -- compose
-git checkout origin/xdebug-change-trigger-method -- compose images
+git checkout origin/master -- compose
 
 mv compose/* ./
 mv compose/.gitignore ./
 mv compose/.vscode ./
-mv images/* ./images
 rm -rf compose .git
 git init
 
