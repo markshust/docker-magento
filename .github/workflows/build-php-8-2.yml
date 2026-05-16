@@ -34,7 +34,7 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:8.2-fpm
-            markoshust/magento-php:8.2-fpm-7
+            markoshust/magento-php:8.2-fpm-8
       -
         name: Build and push xdebug
         id: docker_build_xdebug
