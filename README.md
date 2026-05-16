@@ -275,6 +275,22 @@ We recommend keeping your docker config files in version control, so you can mon
 
 It is recommended to keep your root docker config files in one repository, and your Magento code setup in another. This ensures the Magento base path lives at the top of one specific repository, which makes automated build pipelines and deployments easy to manage, and maintains compatibility with projects such as Magento Cloud.
 
+### Persisting local compose changes across updates
+
+Files shipped by the template (`compose.yaml`, `compose.dev.yaml`, `compose.healthcheck.yaml`) are overwritten by `bin/update`. To keep local Docker Compose tweaks that survive updates, create a `compose.override.yaml` file in your project root. If present, `bin/docker-compose` will automatically include it last in the `-f` chain so its values take precedence.
+
+For example, if port `3306` is already in use on your host and you want to expose the `db` container on `3307` instead:
+
+```yaml
+# compose.override.yaml
+services:
+  db:
+    ports:
+      - "3307:3306"
+```
+
+`bin/update` will not touch `compose.override.yaml`, so your customizations stick around.
+
 ## Custom CLI Commands
 
 - `bin/analyse`: Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse. Ex. `bin/analyse app/code`
@@ -296,7 +312,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/dev-test-run`: Facilitates running PHPUnit tests for a specified test type (e.g., integration). It expects the test type as the first argument and passes any additional arguments to PHPUnit, allowing for customization of test runs. If no test type is provided, it prompts the user to specify one before exiting.
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
 - `bin/devconsole`: Alias for `bin/n98-magerun2 dev:console`
-- `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files, such as `compose.yml` and `compose.dev.yml`
+- `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files such as `compose.yaml` and `compose.dev.yaml`. Automatically includes `compose.override.yaml` if present, which is a convenient place for local tweaks that should survive `bin/update`.
 - `bin/docker-start`: Start the Docker application (either Orbstack or Docker Desktop)
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
 - `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the type ("community" [default], "enterprise", or "mageos") and version ([default] is defined in `bin/download`). Ex. `bin/download mageos` or `bin/download enterprise 2.4.8`
