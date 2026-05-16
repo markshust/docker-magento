@@ -3,18 +3,19 @@ set -o errexit
 
 DOMAIN=${1:-magento.test}
 
+ENV_DIR="$(dirname "$0")/../env"
 # shellcheck source=../env/db.env
-source env/db.env
+source "$ENV_DIR/db.env"
 # shellcheck source=../env/elasticsearch.env
-source env/elasticsearch.env
+source "$ENV_DIR/elasticsearch.env"
 # shellcheck source=../env/opensearch.env
-source env/opensearch.env
+source "$ENV_DIR/opensearch.env"
 # shellcheck source=../env/magento.env
-source env/magento.env
+source "$ENV_DIR/magento.env"
 # shellcheck source=../env/rabbitmq.env
-source env/rabbitmq.env
+source "$ENV_DIR/rabbitmq.env"
 # shellcheck source=../env/redis.env
-source env/redis.env
+source "$ENV_DIR/redis.env"
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
