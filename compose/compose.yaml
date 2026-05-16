@@ -36,7 +36,7 @@ services:
     #extra_hosts: *appextrahosts
 
   phpfpm-xdebug:
-    image: markoshust/magento-php:8.3-fpm-xdebug-0
+    image: markoshust/magento-php:8.3-fpm-xdebug-6
     volumes: *appvolumes
     env_file:
       - env/phpfpm.env
