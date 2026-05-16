@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+bin/xdebug has been removed.
+
+Xdebug is now cookie-triggered. The xdebug extension is only loaded in
+a dedicated phpfpm-xdebug container, and nginx routes requests to it
+when the XDEBUG_SESSION cookie is set.
+
+Browser:
+  Use the Xdebug Helper extension (or any cookie toggle) to set/clear
+  the XDEBUG_SESSION cookie on the request. No CLI toggling needed.
+
+CLI:
+  bin/debug-cli <command>    # runs in the phpfpm-xdebug container
+  bin/cli <command>          # runs in the clean phpfpm container
+
+See README -> Xdebug for IDE setup.
+EOF
+exit 1
