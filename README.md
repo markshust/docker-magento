@@ -111,7 +111,7 @@ Set Up a Magento 2 Development Environment with Docker
 #### Xdebug
 
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install the Xdebug helper browser plugin for Chrome & PhpStorm</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064482" target="_blank">Enable disable check the status of Xdebug</a>
+- Trigger Xdebug with the `XDEBUG_SESSION` cookie (set via the Xdebug Helper browser extension) — no CLI toggle needed
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PhpStorm for Xdebug connections</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger an Xdebug breakpoint in PhpStorm</a>
 - <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36677538" target="_blank">Trigger an Xdebug breakpoint for CLI commands in PhpStorm</a>
@@ -292,7 +292,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/copytocontainer`: Copy folders or files from host to container. Ex. `bin/copytocontainer --all`
 - `bin/create-user`: Create either an admin user or customer account.
 - `bin/cron`: Start or stop the cron service. Ex. `bin/cron start`
-- `bin/debug-cli`: Enable Xdebug for bin/magento, with an optional argument of the IDE key. Defaults to PHPSTORM Ex. `bin/debug-cli enable PHPSTORM`
+- `bin/debug-cli`: Run a CLI command inside the `phpfpm-xdebug` container, with Xdebug enabled. Ex. `bin/debug-cli bin/magento indexer:reindex`
 - `bin/deploy`: Runs the standard Magento deployment process commands. Pass extra locales besides `en_US` via an optional argument. Ex. `bin/deploy nl_NL`
 - `bin/dev-test-run`: Facilitates running PHPUnit tests for a specified test type (e.g., integration). It expects the test type as the first argument and passes any additional arguments to PHPUnit, allowing for customization of test runs. If no test type is provided, it prompts the user to specify one before exiting.
 - `bin/dev-urn-catalog-generate`: Generate URN's for PhpStorm and remap paths to local host. Restart PhpStorm after running this command.
@@ -347,7 +347,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/test/unit-coverage`: Generate unit tests coverage reports, saved to the folder `dev/tests/unit/report`. Ex. `bin/test/unit-coverage my-dir`
 - `bin/test/unit-xdebug`: Run unit tests with Xdebug. Ex. `bin/test/unit-xdebug my-dir`
 - `bin/update`: Update your project to the most recent version of `docker-magento`.
-- `bin/xdebug`: Set a custom xdebug.mode (Ex. `bin/xdebug debug`) or check the current status and get all available modes (Ex. `bin/xdebug`)
+- `bin/xdebug`: _Deprecated._ Xdebug now runs in a dedicated `phpfpm-xdebug` container and is triggered by the `XDEBUG_SESSION` cookie — no toggle script is needed. See the Xdebug sections below for setup.
 
 ## Misc Info
 
@@ -482,27 +482,17 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 2. Install the [`PHP Debug`](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) extension on VS Code.
 3. Create a new configuration file inside the project. Go to the `Run and Debug` section in VS Code, then click on `create a launch.json file`.
 4. Attention to the following configs inside the file:
-    * The port must be the same as the port on the xdebug.ini file.
+    * The port must match the `xdebug.client_port` defined in the xdebug container's config. To inspect it, run:
     ```bash
-      bin/cli cat /usr/local/etc/php/php.ini
+      bin/debug-cli cat /usr/local/etc/php/conf.d/php-xdebug.ini
     ```
-    ```bash
-      memory_limit = 4G
-      max_execution_time = 1800
-      zlib.output_compression = On
-      cgi.fix_pathinfo = 0
-      date.timezone = UTC
-
-      xdebug.mode = debug
+    ```ini
+      xdebug.mode = ${XDEBUG_MODE}
       xdebug.client_host = host.docker.internal
-      xdebug.idekey = PHPSTORM
-      xdebug.client_port=9003
-      #You can uncomment the following line to force the debug with each request
-      #xdebug.start_with_request=yes
-
-      upload_max_filesize = 100M
-      post_max_size = 100M
-      max_input_vars = 10000
+      xdebug.client_port = 9003
+      xdebug.start_with_request = yes
+      xdebug.output_dir = /var/www/html/var/profile
+      xdebug.profiler_output_name = cachegrind.out.%t.%p
     ```
     * The pathMappings should have the same folder path as the project inside the Docker container.
     ```json
@@ -529,11 +519,11 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 ### Xdebug & PhpStorm
 
+Xdebug runs in a dedicated `phpfpm-xdebug` container. Nginx routes requests to it whenever the `XDEBUG_SESSION` cookie is present, so debugging is triggered per-request rather than via a CLI toggle.
+
 1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PhpStorm from the list to set the IDE Key to "PHPSTORM", then click Save.
 
-2.  Next, enable Xdebug debugging in the PHP container by running: `bin/xdebug enable`.
-
-3.  Then, open `PhpStorm > Preferences > PHP` and configure:
+2.  Open `PhpStorm > Preferences > PHP` and configure:
 
     * `CLI Interpreter`
         * Create a new interpreter from the `From Docker, Vagrant, VM...` list.
@@ -546,23 +536,23 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
     * `Path mappings`
         * There is no need to define a path mapping in this area.
 
-4. Open `PhpStorm > Preferences > PHP > Debug` and ensure Debug Port is set to `9000,9003`.
+3. Open `PhpStorm > Preferences > PHP > Debug` and ensure Debug Port is set to `9000,9003`.
 
-5. Open `PhpStorm > Preferences > PHP > Servers` and create a new server:
+4. Open `PhpStorm > Preferences > PHP > Servers` and create a new server:
 
-    * For the Name, set this to the value of your domain name (ex. `magento.test`).
+    * For the Name, set this to **`magento`** — this must match the `PHP_IDE_CONFIG` `serverName` value in `compose/env/phpfpm-xdebug.env` so Xdebug auto-matches this server entry.
     * For the Host, set this to the value of your domain name (ex. `magento.test`).
     * Keep port set to `80`.
     * Check the "Use path mappings" box and map `src` to the absolute path of `/var/www/html`.
 
-6. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration.
+5. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration.
 
-    * Set the Name to the name of your domain (ex. `magento.test`).
+    * Set the Name to whatever you like (ex. `magento.test`).
     * Check the `Filter debug connection by IDE key` checkbox, select the Server you just setup.
     * For IDE key, enter `PHPSTORM`. This value should match the IDE Key value set by the Chrome Xdebug Helper.
     * Click OK to finish setting up the remote debugger in PHPStorm.
 
-7. Open up `pub/index.php` and set a breakpoint near the end of the file.
+6. Open up `pub/index.php` and set a breakpoint near the end of the file.
 
     * Start the debugger with `Run > Debug 'magento.test'`, then open up a web browser.
     * Ensure the Chrome Xdebug helper is enabled by clicking on it and selecting Debug. The icon should turn bright green.

@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- **Xdebug now runs in a dedicated `phpfpm-xdebug` container.** Nginx routes requests to it whenever the `XDEBUG_SESSION` cookie is set; all other requests hit the main `phpfpm` container, which no longer loads the Xdebug extension. This removes the always-on Xdebug performance cost and eliminates the need to toggle modes via CLI. [PR #1355](https://github.com/markshust/docker-magento/pull/1355)
+- PHP image Dockerfiles (8.1, 8.2, 8.3, 8.4) refactored into multi-stage builds with `base` (no Xdebug) and `xdebug` targets, sharing a single set of config files. New published image tags: `markoshust/magento-php:8.X-fpm-xdebug-0`.
+- `php-fpm.conf` now listens on `$FPM_SOCKET` (set per-service via env file) — `/sock/phpfpm.sock` for the main container, `/sock/phpfpm-xdebug.sock` for the Xdebug container. The previous `/sock/docker.sock` path is gone.
+- `bin/debug-cli` now simply executes a command in the `phpfpm-xdebug` container (drop-in replacement for `bin/cli` when Xdebug is needed). The old enable/disable/toggle/status flags are no longer required.
+- `bin/test/unit-xdebug` and `bin/test/unit-coverage` updated to route through `bin/debug-cli` so the Xdebug extension is available.
+- For PhpStorm users, the new `Server` entry name must be `magento` (matches the `PHP_IDE_CONFIG` `serverName` shipped in `env/phpfpm-xdebug.env`) for automatic path mapping.
+
+### Removed
+- `bin/xdebug` is no longer functional. It now prints a deprecation message pointing to the new workflow.
+- Legacy `xdebug.*` directives stripped from base `php.ini` in PHP 8.1, 8.2, and 8.4 images (8.3 was already clean). Xdebug configuration now lives exclusively in `images/php/8.X/conf/php-xdebug.ini`, which is only copied into the `xdebug` build stage.
+
 ## [52.1.0] - 2025-10-21
 
 ### Added
