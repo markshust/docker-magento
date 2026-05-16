@@ -75,6 +75,7 @@ help:
 	@echo "$(call format,setup-grunt,'Install and configure Grunt JavaScript task runner.')"
 	@echo "$(call format,setup-install,'Automates the installation process for a Magento instance.')"
 	@echo "$(call format,setup-integration-tests,'Script to set up integration tests.')"
+	@echo "$(call format,setup-nginx,'Update Magento nginx.conf for cookie-triggered Xdebug routing. Auto-run by bin/setup; can be re-run for existing setups.')"
 	@echo "$(call format,setup-pwa-studio,'(BETA) Install PWA Studio.')"
 	@echo "$(call format,setup-pwa-studio-sampledata,'This script makes it easier to install Venia sample data.')"
 	@echo "$(call format,setup-ssl,'Generate an SSL certificate for one or more domains.')"
@@ -241,7 +242,10 @@ setup-install:
 
 setup-integration-tests:
 	@./bin/setup-integration-tests
-	
+
+setup-nginx:
+	@./bin/setup-nginx
+
 setup-pwa-studio:
 	@./bin/setup-pwa-studio $(call args)
 

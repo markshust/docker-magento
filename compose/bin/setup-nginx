@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -o errexit
+
+# Updates Magento's nginx.conf so cookie-triggered Xdebug routing works.
+# Magento's nginx.conf.sample uses `fastcgi_pass fastcgi_backend;` which
+# resolves to a literal upstream. We swap it to `fastcgi_pass $fastcgi_backend;`
+# so the value comes from the XDEBUG_SESSION cookie map defined in the
+# nginx image's default.conf.
+#
+# nginx.conf may be a Docker bind mount (compose.dev.yaml maps
+# ./src/nginx.conf.sample -> /var/www/html/nginx.conf), which is why
+# we write in place via `cat >` instead of `sed -i` (the latter renames
+# across the mount point and fails with EBUSY).
+
+bin/clinotty test -f nginx.conf || {
+  echo "nginx.conf not found in the container. Run bin/setup first."
+  exit 1
+}
+
+bin/clinotty sh -c 'sed "s|fastcgi_pass[[:space:]]\+fastcgi_backend;|fastcgi_pass \$fastcgi_backend;|g" nginx.conf > /tmp/nginx.conf && cat /tmp/nginx.conf > nginx.conf && rm /tmp/nginx.conf'
+
+bin/docker-compose exec -T app nginx -s reload
+
+echo "nginx.conf updated for Xdebug cookie routing."

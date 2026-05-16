@@ -7,6 +7,9 @@ requests to it when the XDEBUG_SESSION cookie is set; all other
 requests hit the main phpfpm container, which no longer loads the
 extension at all. Nothing to toggle.
 
+Existing projects: run `bin/setup-nginx` once to update nginx.conf
+so cookie-triggered routing works (new projects get this automatically).
+
 CLI:
   bin/debug-cli <command>    # runs in phpfpm-xdebug
   bin/cli <command>          # runs in phpfpm
