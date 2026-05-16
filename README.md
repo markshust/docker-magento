@@ -21,6 +21,7 @@
 - [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
 - [Known Issues](#known-issues)
+- [Alternatives](#alternatives)
 - [Credits](#credits)
 - [License](#license)
 
@@ -151,20 +152,19 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.8
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.8-p3
 ```
 
-The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.8` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.8-p3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
-#### Install sample data
+#### Install sample data and development modules
 
-After the above installation is complete, run the following lines to install sample data:
+After the above installation is complete, you can initialize the development environment with sample data and dev-related modules with:
 
 ```bash
-bin/magento sampledata:deploy
-bin/magento setup:upgrade
+bin/init
 ```
 
 ### Manual Setup
@@ -182,7 +182,7 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
-bin/download community 2.4.8
+bin/download community 2.4.8-p3
 # You can specify the edition (community, enterprise, mageos) and version (2.4.7-p3, 1.0.5, etc.)
 # If no arguments are passed in, the edition defaults to "community"
 # If no version is specified, it defaults to the most recent version defined in `bin/download`
@@ -196,6 +196,9 @@ bin/download community 2.4.8
 
 # Run the setup installer for Magento:
 bin/setup magento.test
+
+# Initialize development environment with sample data and dev-related modules:
+bin/init
 
 open https://magento.test
 ```
@@ -302,6 +305,7 @@ It is recommended to keep your root docker config files in one repository, and y
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
+- `bin/init`: Initialize development environment with sample data and dev-related modules.
 - `bin/install-php-extensions`: Install PHP extension in the container. Ex. `bin/install-php-extensions sourceguardian`
 - `bin/log`: Monitor the Magento log files. Pass no params to tail all files. Ex. `bin/log debug.log`
 - `bin/magento`: Run the Magento CLI. Ex: `bin/magento cache:flush`
@@ -423,7 +427,7 @@ bin/mysqldump > magento.sql
 
 ### Composer Authentication
 
-First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
+First setup Magento Marketplace authentication (details in the [DevDocs](https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/prerequisites/authentication-keys)).
 
 Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
 
@@ -773,6 +777,16 @@ Additional information of how to work with SPX is available at https://www.youtu
 ## Known Issues
 
 There are currently no large known issues or workarounds needed to use docker-magento with your Magento project. If you find any, please [report them](https://github.com/markshust/docker-magento/issues)!
+
+## Alternatives
+
+### Mappia
+
+If you love using `docker-magento` for local development and are starting to think about how to run Magento in production, [Mappia](https://www.mappia.io/) may be a great next step.
+
+[Mappia](https://www.mappia.io/) is a production-grade tool for deploying Magento onto Kubernetes. It takes the same container-first approach you’re already using locally and extends it to scalable, secure, and repeatable deployments in the cloud—without forcing you to re-architect your application.
+
+If `docker-magento` helps you build Magento locally, [Mappia](https://www.mappia.io/) helps you operate it confidently in production—using the same container mindset, just at production scale.
 
 ## Credits
 

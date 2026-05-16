@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+ENV_DIR="$(dirname "$0")/../env"
 # shellcheck source=../env/db.env
-source env/db.env
+source "$ENV_DIR/db.env"
 if [ -t 0 ]; then
   # Need tty to run mysql shell
   bin/cli mysql -h"${MYSQL_HOST}" -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" "$@"
