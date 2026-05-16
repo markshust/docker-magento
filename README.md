@@ -230,8 +230,8 @@ bin/composer install
 # Import existing database:
 bin/mysql < ../existing/magento.sql
 
-# Update database connection details to use the above Docker MySQL credentials:
-# Also note: creds for the MySQL server are defined at startup from env/db.env
+# Update database connection details to use the above Docker database credentials:
+# Also note: creds for the database server (MariaDB by default) are defined at startup from env/db.env
 # vi src/app/etc/env.php
 
 # Import app-specific environment settings:
@@ -412,9 +412,11 @@ To disable this functionality, uncomment the last line in the `bin/start` file t
 
 ### Database
 
-The hostname of each service is the name of the service within the `compose.yaml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
+The default database image is MariaDB (`mariadb:11.4` in `compose.yaml`); MySQL is optional (see comments in that file).
 
-To connect to the MySQL CLI tool of the Docker instance, run:
+The hostname of each service is the name of the service within the `compose.yaml` file. The database service hostname is `db` (not `localhost`) when accessing it from within a Docker container. The `bin/mysql` and `bin/mysqldump` scripts work with MariaDB and MySQL. Elasticsearch's hostname is `elasticsearch`.
+
+To connect to the database CLI tool of the Docker instance, run:
 
 ```
 bin/mysql
