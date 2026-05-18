@@ -29,6 +29,19 @@ services:
       #elasticsearch:
       #  condition: service_healthy
 
+  phpfpm-xdebug:
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      #elasticsearch:
+      #  condition: service_healthy
+
   db:
     healthcheck:
       test: "mysqladmin ping -h localhost -u root -pmagento || mariadb-admin ping -h localhost -u root -pmagento"

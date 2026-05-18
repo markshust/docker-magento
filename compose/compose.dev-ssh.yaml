@@ -6,6 +6,9 @@ services:
   phpfpm:
     volumes: *appvolumes
 
+  phpfpm-xdebug:
+    volumes: *appvolumes
+
   ssh:
     image: markoshust/ssh
     ports:

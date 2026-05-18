@@ -1,53 +1,19 @@
 #!/usr/bin/env bash
+cat <<'EOF'
+bin/xdebug has been removed.
 
-current_mode=$(bin/clinotty cat /usr/local/etc/php/php.ini | grep '^xdebug.mode' | cut -d'=' -f2 | tr -d ' ')
+Xdebug now runs in a dedicated phpfpm-xdebug container. Nginx routes
+requests to it when the XDEBUG_SESSION cookie is set; all other
+requests hit the main phpfpm container, which no longer loads the
+extension at all. Nothing to toggle.
 
-display_modes() {
-    echo "- off"
-    echo "- develop"
-    echo "- coverage"
-    echo "- debug"
-    echo "- gcstats"
-    echo "- profile"
-    echo "- trace"
-    echo ""
-    printf "You can also combine multiple modes with commas (e.g., develop,trace)\n"
-}
+Existing projects: run `bin/setup-nginx` once to update nginx.conf
+so cookie-triggered routing works (new projects get this automatically).
 
-xdebug_set_mode() {
-    local new_mode=$1
+CLI:
+  bin/debug-cli <command>    # runs in phpfpm-xdebug
+  bin/cli <command>          # runs in phpfpm
 
-    # Validate the mode(s)
-    IFS=',' read -ra MODES <<< "$new_mode"
-    for mode in "${MODES[@]}"; do
-        case $mode in
-            off|develop|coverage|debug|gcstats|profile|trace)
-                continue
-                ;;
-            *)
-                printf "Invalid mode: %s\n\n" "$mode"
-                echo "Valid modes are:"
-                display_modes
-                return 1
-                ;;
-        esac
-    done
-
-    if [ "$current_mode" = "$new_mode" ]; then
-        echo "Current setting is already: xdebug.mode = $new_mode"
-        return 0
-    fi
-
-    bin/root sed -i -e "s/^xdebug\.mode.*$/xdebug.mode = $new_mode/g" /usr/local/etc/php/php.ini
-    bin/cli kill -USR2 1
-    echo "New setting: xdebug.mode = $new_mode"
-}
-
-if [ -z "$1" ]; then
-    printf "Current setting: xdebug.mode = %s\n\n" "$current_mode"
-    printf "Update it by passing in a valid mode as an argument:\n"
-    display_modes
-    exit 1
-fi
-
-xdebug_set_mode "$1"
+See README -> Xdebug for IDE setup.
+EOF
+exit 1

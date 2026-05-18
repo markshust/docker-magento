@@ -5,7 +5,10 @@ services:
       - ./src:/var/www/html:cached
 
   phpfpm:
-    volumes: *appvolumes    
+    volumes: *appvolumes
+
+  phpfpm-xdebug:
+    volumes: *appvolumes
     
   phpmyadmin:
     image: linuxserver/phpmyadmin

@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- New `phpfpm-xdebug` service in `compose.yaml` (and matching entries across the `compose.*.yaml` overlay files). Loads `env/phpfpm.env` plus a new `env/phpfpm-xdebug.env` that sets `PHP_IDE_CONFIG="serverName=magento"` and `XDEBUG_MODE=develop,debug`. [PR #1355](https://github.com/markshust/docker-magento/pull/1355)
+- New `bin/setup-nginx` helper that rewrites Magento's `nginx.conf` so cookie-triggered Xdebug routing works (`fastcgi_pass fastcgi_backend;` → `fastcgi_pass $fastcgi_backend;`). Auto-run by `bin/setup`; existing projects can run it once to opt in.
+
+### Changed
+- **Xdebug now runs in a dedicated `phpfpm-xdebug` container.** Nginx routes requests to it whenever the `XDEBUG_SESSION` cookie is set; all other requests hit the main `phpfpm` container, which no longer loads the Xdebug extension. Removes the always-on Xdebug performance cost and eliminates the need to toggle modes via CLI.
+- PHP image Dockerfiles (8.1, 8.2, 8.3, 8.4) refactored into multi-stage builds with `base` (no Xdebug) and `xdebug` targets, sharing a single set of config files. The xdebug stage `sed`-overrides the FPM `listen` socket at build time so both containers can run side-by-side without collision.
+- FPM socket paths renamed from `/sock/docker.sock` to `/sock/phpfpm.sock` (and `/sock/phpfpm-xdebug.sock` for the Xdebug container) for clarity.
+- New PHP image tags (base and xdebug share the same revision number per version): `8.1-fpm-9` / `8.1-fpm-xdebug-9`, `8.2-fpm-8` / `8.2-fpm-xdebug-8`, `8.3-fpm-6` / `8.3-fpm-xdebug-6`, `8.4-fpm-1` / `8.4-fpm-xdebug-1`.
+- New nginx image tag `markoshust/magento-nginx:1.24-1` with updated `default.conf` defining two upstreams (`fastcgi_phpfpm`, `fastcgi_phpfpm_xdebug`) and a `map $cookie_XDEBUG_SESSION $fastcgi_backend` block for cookie-based routing.
+- `bin/debug-cli` simplified to `exec phpfpm-xdebug "$@"` — a drop-in replacement for `bin/cli` when Xdebug is needed.
+- `bin/test/unit-xdebug` and `bin/test/unit-coverage` updated to route through `bin/debug-cli` so the Xdebug extension is available.
+
+### Removed
+- `bin/xdebug` is no longer functional. It now prints a short deprecation message pointing to the new workflow and exits non-zero.
+- Legacy `xdebug.*` directives stripped from base `php.ini` in PHP 8.1, 8.2, and 8.4 images (8.3 was already clean). Xdebug configuration now lives exclusively in `images/php/8.X/conf/php-xdebug.ini`, copied only into the `xdebug` build stage.
+
 ## [52.1.0] - 2025-10-21
 
 ### Added

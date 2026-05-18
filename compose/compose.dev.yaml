@@ -21,6 +21,9 @@ services:
   phpfpm:
     volumes: *appvolumes
 
+  phpfpm-xdebug:
+    volumes: *appvolumes
+
   phpmyadmin:
     image: linuxserver/phpmyadmin
     env_file: env/db.env

@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-bookworm
+FROM php:8.3-fpm-bookworm AS base
 LABEL maintainer="Mark Shust <mark@shust.com>"
 
 ARG APP_ID=1000
@@ -45,7 +45,6 @@ RUN pecl channel-update pecl.php.net && pecl install \
     redis-6.2.0 \
     ssh2-1.4.1 \
     swoole-6.0.2 \
-    xdebug-3.4.2 \
     imagick-3.8.0RC2 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
@@ -77,8 +76,7 @@ RUN docker-php-ext-configure \
   && docker-php-ext-enable \
     imagick \
     redis \
-    ssh2 \
-    xdebug
+    ssh2
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && architecture=$(uname -m) \
@@ -108,3 +106,14 @@ COPY conf/www.conf /usr/local/etc/php-fpm.d/
 USER app:app
 VOLUME /var/www
 WORKDIR /var/www/html
+
+FROM base AS xdebug
+USER root
+RUN pecl channel-update pecl.php.net \
+  && pecl install xdebug-3.4.2 \
+  && pecl clear-cache \
+  && rm -rf /tmp/pear \
+  && docker-php-ext-enable xdebug \
+  && sed -i 's|^listen = .*|listen = /sock/phpfpm-xdebug.sock|' /usr/local/etc/php-fpm.conf
+COPY conf/php-xdebug.ini $PHP_INI_DIR/conf.d/
+USER app:app

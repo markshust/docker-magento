@@ -33,7 +33,7 @@ help:
 	@echo "$(call format,copytocontainer,'Copy folders or files from host to container.')"
 	@echo "$(call format,create-user,'Create either an admin user or customer account.')"
 	@echo "$(call format,cron,'Start or stop the cron service.')"
-	@echo "$(call format,debug-cli,'Enable Xdebug for bin/magento$(comma) with an optional argument of the IDE key. Defaults to PHPSTORM.')"
+	@echo "$(call format,debug-cli,'Run a CLI command in the phpfpm-xdebug container (xdebug enabled).')"
 	@echo "$(call format,deploy,'Runs the standard Magento deployment process commands. Pass extra locales besides \`en_US\` via an optional argument.')"
 	@echo "$(call format,dev-test-run,'Facilitates running PHPUnit tests for a specified test type.')"
 	@echo "$(call format,dev-urn-catalog-generate,'Generate URNs for PHPStorm and remap paths to local host.')"
@@ -75,6 +75,7 @@ help:
 	@echo "$(call format,setup-grunt,'Install and configure Grunt JavaScript task runner.')"
 	@echo "$(call format,setup-install,'Automates the installation process for a Magento instance.')"
 	@echo "$(call format,setup-integration-tests,'Script to set up integration tests.')"
+	@echo "$(call format,setup-nginx,'Update Magento nginx.conf for cookie-triggered Xdebug routing. Auto-run by bin/setup; can be re-run for existing setups.')"
 	@echo "$(call format,setup-pwa-studio,'(BETA) Install PWA Studio.')"
 	@echo "$(call format,setup-pwa-studio-sampledata,'This script makes it easier to install Venia sample data.')"
 	@echo "$(call format,setup-ssl,'Generate an SSL certificate for one or more domains.')"
@@ -86,7 +87,7 @@ help:
 	@echo "$(call format,stopall,'Stop all docker running containers.')"
 	@echo "$(call format,test,'Run unit tests for a specific path.')"
 	@echo "$(call format,update,'Update your project to the latest version of docker-magento.')"
-	@echo "$(call format,xdebug,'Set a custom xdebug.mode$(comma) or check the current status and get all available modes . Accepts optional argument of mode \`off\`$(comma) \`debug\`$(comma) etc.')"
+	@echo "$(call format,xdebug,'Deprecated. Xdebug now runs in a dedicated phpfpm-xdebug container$(comma) triggered by the XDEBUG_SESSION cookie. See README.')"
 
 
 analyse:
@@ -241,7 +242,10 @@ setup-install:
 
 setup-integration-tests:
 	@./bin/setup-integration-tests
-	
+
+setup-nginx:
+	@./bin/setup-nginx
+
 setup-pwa-studio:
 	@./bin/setup-pwa-studio $(call args)
 

@@ -24,13 +24,26 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
-        id: docker_build
+        name: Build and push base
+        id: docker_build_base
         uses: docker/build-push-action@v7
         with:
           context: images/php/8.3
+          target: base
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             markoshust/magento-php:8.3-fpm
-            markoshust/magento-php:8.3-fpm-5
+            markoshust/magento-php:8.3-fpm-6
+      -
+        name: Build and push xdebug
+        id: docker_build_xdebug
+        uses: docker/build-push-action@v7
+        with:
+          context: images/php/8.3
+          target: xdebug
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            markoshust/magento-php:8.3-fpm-xdebug
+            markoshust/magento-php:8.3-fpm-xdebug-6
