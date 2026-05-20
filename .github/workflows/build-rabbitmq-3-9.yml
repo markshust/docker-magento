@@ -2,6 +2,9 @@ name: build-rabbitmq-3-9
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   rabbitmq-3-9:
     runs-on: ubuntu-latest

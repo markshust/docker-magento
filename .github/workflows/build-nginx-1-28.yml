@@ -1,4 +1,4 @@
-name: build-elasticsearch-8-7
+name: build-nginx-1-28
 
 on: workflow_dispatch
 
@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 jobs:
-  elasticsearch-8-7:
+  nginx-1-28:
     runs-on: ubuntu-latest
     steps:
       -
@@ -31,9 +31,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v7
         with:
-          context: images/elasticsearch/8.7
+          context: images/nginx/1.28
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            markoshust/magento-elasticsearch:8.7
-            markoshust/magento-elasticsearch:8.7-0
+            markoshust/magento-nginx:1.28
+            markoshust/magento-nginx:1.28-0

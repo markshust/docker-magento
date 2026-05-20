@@ -10,6 +10,9 @@ on:
     paths:
       - "compose/bin/**"
 
+permissions:
+  contents: read
+
 jobs:
   shellcheck:
     name: shellcheck

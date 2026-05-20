@@ -2,6 +2,9 @@ name: build-php-8-2
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   php-8-2:
     runs-on: ubuntu-latest
@@ -34,7 +37,7 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:8.2-fpm
-            markoshust/magento-php:8.2-fpm-8
+            markoshust/magento-php:8.2-fpm-9
       -
         name: Build and push xdebug
         id: docker_build_xdebug
@@ -46,4 +49,4 @@ jobs:
           push: true
           tags: |
             markoshust/magento-php:8.2-fpm-xdebug
-            markoshust/magento-php:8.2-fpm-xdebug-8
+            markoshust/magento-php:8.2-fpm-xdebug-9

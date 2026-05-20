@@ -2,6 +2,9 @@ name: build-opensearch-1-2
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   opensearch-1-2:
     runs-on: ubuntu-latest

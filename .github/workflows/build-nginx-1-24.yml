@@ -2,8 +2,11 @@ name: build-nginx-1-24
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
-  nginx-1-18:
+  nginx-1-24:
     runs-on: ubuntu-latest
     steps:
       -

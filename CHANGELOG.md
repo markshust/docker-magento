@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
+- New PHP 8.5 image (`images/php/8.5`) with initial tags `8.5-fpm-0` / `8.5-fpm-xdebug-0` for Magento 2.4.9 support, which requires PHP 8.5 exclusively. [#1425](https://github.com/markshust/docker-magento/issues/1425)
+- New nginx **1.26** image (`images/nginx/1.26`, tag `1.26-0`) and **1.28** image (`images/nginx/1.28`, tag `1.28-0`). nginx 1.28 is the version specified in Adobe Commerce 2.4.7/2.4.8/2.4.9 system requirements. [#1390](https://github.com/markshust/docker-magento/issues/1390)
+- New OpenSearch **3** image (`images/opensearch/3`, tag `3-0`) based on `opensearchproject/opensearch:3.6.0`. Required by Magento 2.4.9 and 2.4.8-p5+, and supported (with OpenSearch 2) by 2.4.7-p10+. [#1407](https://github.com/markshust/docker-magento/issues/1407)
 - New `phpfpm-xdebug` service in `compose.yaml` (and matching entries across the `compose.*.yaml` overlay files). Loads `env/phpfpm.env` plus a new `env/phpfpm-xdebug.env` that sets `PHP_IDE_CONFIG="serverName=magento"` and `XDEBUG_MODE=develop,debug`. [PR #1355](https://github.com/markshust/docker-magento/pull/1355)
 - New `bin/setup-nginx` helper that rewrites Magento's `nginx.conf` so cookie-triggered Xdebug routing works (`fastcgi_pass fastcgi_backend;` → `fastcgi_pass $fastcgi_backend;`). Auto-run by `bin/setup`; existing projects can run it once to opt in.
 
@@ -15,6 +18,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - PHP image Dockerfiles (8.1, 8.2, 8.3, 8.4) refactored into multi-stage builds with `base` (no Xdebug) and `xdebug` targets, sharing a single set of config files. The xdebug stage `sed`-overrides the FPM `listen` socket at build time so both containers can run side-by-side without collision.
 - FPM socket paths renamed from `/sock/docker.sock` to `/sock/phpfpm.sock` (and `/sock/phpfpm-xdebug.sock` for the Xdebug container) for clarity.
 - New PHP image tags (base and xdebug share the same revision number per version): `8.1-fpm-9` / `8.1-fpm-xdebug-9`, `8.2-fpm-8` / `8.2-fpm-xdebug-8`, `8.3-fpm-6` / `8.3-fpm-xdebug-6`, `8.4-fpm-1` / `8.4-fpm-xdebug-1`.
+- Composer bumped to `2.9.8` (from `2.8.6`) in PHP 8.2, 8.3, 8.4, and 8.5 images. Meets the Magento 2.4.9 minimum (Composer 2.9.3+) and addresses the security advisory referenced in [#1425](https://github.com/markshust/docker-magento/issues/1425). PHP 8.1 retains Composer 2.7.9 (image is frozen — PHP 8.1 reached EOL on 2025-12-31).
+- Bundled PECL extensions refreshed across PHP 8.2/8.3/8.4/8.5 images: `redis 6.2.0→6.3.0`, `ssh2 1.4.1→1.5.0`, `swoole 6.0.2→6.2.1`, `imagick 3.8.0RC2→3.8.1` (RC → GA), `xdebug 3.4.2→3.5.1`. `php-spx` bumped from `v0.4.18` to `v0.4.22`. PHP 8.1 unchanged.
+- Node.js apt repository bumped from `setup_22.x` to `setup_24.x` in PHP 8.2/8.3/8.4/8.5 images. Node.js 24 is the active LTS (since November 2025) and replaces the now-Maintenance Node.js 22 line. PHP 8.1 unchanged.
+- PHP 8.5 image omits `docker-php-ext-install opcache` because PHP 8.5 ships Zend OPcache statically linked in the official base image; the install becomes a no-op and fails with "modules/* missing".
+- New PHP image tag revisions reflecting the refresh: `8.2-fpm-9` / `8.2-fpm-xdebug-9`, `8.3-fpm-7` / `8.3-fpm-xdebug-7`, `8.4-fpm-2` / `8.4-fpm-xdebug-2`.
+- Default PHP image in `compose/compose.yaml` moved from `8.3-fpm-6` to `8.4-fpm-2` (and the matching `-xdebug-2`). Tracks the supported-versions window: Magento 2.4.9 → PHP 8.5, Magento 2.4.7/2.4.8 → PHP 8.2/8.3/8.4. PHP 8.4 is the latest version with active upstream support.
+- Default nginx image in `compose/compose.yaml` moved from `1.24-1` to `1.28-0`. Matches Adobe Commerce system requirements for 2.4.7/2.4.8/2.4.9.
+- Default OpenSearch image in `compose/compose.yaml` moved from `2.12-0` to `3-0`. OpenSearch 3 is required by 2.4.9 / 2.4.8-p5+ and supported by 2.4.7-p10+ — follows the "current Magento + one back" default-support policy.
 - New nginx image tag `markoshust/magento-nginx:1.24-1` with updated `default.conf` defining two upstreams (`fastcgi_phpfpm`, `fastcgi_phpfpm_xdebug`) and a `map $cookie_XDEBUG_SESSION $fastcgi_backend` block for cookie-based routing.
 - `bin/debug-cli` simplified to `exec phpfpm-xdebug "$@"` — a drop-in replacement for `bin/cli` when Xdebug is needed.
 - `bin/test/unit-xdebug` and `bin/test/unit-coverage` updated to route through `bin/debug-cli` so the Xdebug extension is available.
