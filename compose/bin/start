@@ -5,6 +5,10 @@ MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
 # Docker reports RAM 0.2 less than what it is actually set to
 (( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
 
+# Read-only pre-flight: warn if compose.versions.yaml is missing or drifted
+# from the installed Magento/Mage-OS version. Never blocks startup.
+bin/detect-versions --check || true
+
 if [ "$1" == "--no-dev" ]; then
   bin/docker-compose --no-dev up -d --remove-orphans "${@:2}"
   exit $?

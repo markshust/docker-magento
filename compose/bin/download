@@ -2,6 +2,13 @@
 
 EDITION=${1:-community}
 
+# Resolve VERSION early so bin/detect-versions can run before containers boot.
+if [ "$EDITION" == "mageos" ]; then
+  VERSION=${2:-1.0.5}
+else
+  VERSION=${2:-2.4.7-p3}
+fi
+
 # Define ANSI escape codes for colors
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
@@ -11,6 +18,11 @@ if [ -d "./src" ]; then
   echo "Error: The \"src\" directory is not empty. Please remove all contents within this directory and try again."
   exit 1
 fi
+
+# Pin service images for this edition/version BEFORE containers boot so
+# `composer create-project` runs on the PHP image its platform-reqs require.
+# Non-fatal: an unknown version just leaves compose.yaml defaults in place.
+bin/detect-versions "$EDITION" "$VERSION" || true
 
 bin/stop
 
@@ -22,10 +34,8 @@ bin/setup-composer-auth
 bin/fixowns
 
 if [ "$EDITION" == "mageos" ]; then
-  VERSION=${2:-1.0.5}
   bin/clinotty composer create-project --repository-url=https://repo.mage-os.org/ mage-os/project-community-edition="${VERSION}" .
 else
-  VERSION=${2:-2.4.7-p3}
   bin/clinotty composer create-project --repository=https://repo.magento.com/ magento/project-"${EDITION}"-edition="${VERSION}" .
 fi
 

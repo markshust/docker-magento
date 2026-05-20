@@ -298,13 +298,43 @@ services:
 
 `bin/update` will not touch `compose.override.yaml`, so your customizations stick around.
 
+### Auto-detected service image versions
+
+When you install Magento or Mage-OS via `bin/download` (or directly through the onelinesetup script), `bin/detect-versions` runs first and pins the PHP, nginx, OpenSearch, database, RabbitMQ, and cache images that match the chosen edition/version. The pins are written to a generated `compose.versions.yaml` that loads after `compose.yaml`/`compose.dev.yaml` so its image tags override the defaults.
+
+Load order (later wins):
+
+```
+compose.yaml
+compose.healthcheck.yaml
+compose.dev.yaml          (unless --no-dev)
+compose.versions.yaml     (auto-generated — gitignored)
+compose.override.yaml     (your hand-edited overrides — still wins)
+```
+
+The source of truth for which images map to which Magento/Mage-OS versions is `compose/lib/versions.tsv` (in this repo's template). One row per supported major.minor; the row's `version` column is a boundary-aware prefix matched against your installed version so all patches roll up to the same row.
+
+**Regenerating manually.** If you upgrade Magento in-place (e.g. `composer require magento/product-community-edition:^2.4.9`), the existing `compose.versions.yaml` may drift from the new version. `bin/start` runs `bin/detect-versions --check` as a non-fatal pre-flight and prints a warning if the file is missing or stale. To regenerate:
+
+```
+bin/detect-versions
+```
+
+**Hand-edited `compose.yaml` pins.** Because `compose.versions.yaml` loads after `compose.yaml`, a generated pin will override any image you hand-edited in `compose.yaml`. If you have customized image tags in `compose.yaml` and want to keep them, either:
+
+1. don't run `bin/detect-versions` (and `rm compose.versions.yaml` if it was previously generated), or
+2. move your image overrides into `compose.override.yaml`, which loads last and wins.
+
+**Backwards compatibility.** `compose.versions.yaml` is optional. Without one on disk, `bin/docker-compose` behaves exactly as it did before — the auto-detect feature only kicks in for new installs or when you explicitly run `bin/detect-versions`. To roll back, delete the file: `rm compose.versions.yaml`.
+
 ## Custom CLI Commands
 
 - `bin/analyse`: Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse. Ex. `bin/analyse app/code`
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
 - `bin/blackfire`: Disable or enable Blackfire. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/blackfire enable`
 - `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
-- `bin/check-dependencies`: Provides helpful recommendations for dependencies tailored to the chosen Magento version.
+- `bin/check-dependencies`: Provides helpful recommendations for dependencies tailored to the chosen Magento version. Reads from `compose/lib/versions.tsv` for currently-supported versions so it stays in sync with `bin/detect-versions`.
+- `bin/detect-versions`: Generate a `compose.versions.yaml` that pins service image tags (PHP, nginx, OpenSearch, db, RabbitMQ, cache) to match your installed Magento/Mage-OS version. Run with no args to auto-resolve from `src/composer.json`, or pass `[edition] [version]` explicitly. Add `--check` for a read-only drift check (used as a pre-flight in `bin/start`). See the "Auto-detected service image versions" section above for the load order and override semantics.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
 - `bin/clinotty`: Run any CLI command with no TTY. Ex. `bin/clinotty chmod u+x bin/magento`
 - `bin/cliq`: The same as `bin/cli`, but pipes all output to `/dev/null`. Useful for a quiet CLI, or implementing long-running processes.

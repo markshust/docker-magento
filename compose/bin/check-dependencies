@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# shellcheck source=../lib/versions.sh
+. "$(dirname "$0")/../lib/versions.sh"
+
 # Define colors for formatting
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -7,7 +10,6 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Function to display the script header
 show_header() {
     echo -e "${GREEN}============================================${NC}"
     echo -e "${GREEN}   Magento 2 System Requirements Checker${NC}"
@@ -15,56 +17,68 @@ show_header() {
     echo
 }
 
-# Function to display version groups
 show_version_groups() {
-    echo -e "${BLUE}Available Magento version groups:${NC}"
-    echo "1) 2.4.7.x (2.4.7, 2.4.7-p1, 2.4.7-p2, 2.4.7-p3)"
-    echo "2) 2.4.6.x (2.4.6 through 2.4.6-p8)"
-    echo "3) 2.4.5.x (2.4.5 through 2.4.5-p10)"
-    echo "4) 2.4.4.x (2.4.4 through 2.4.4-p11)"
-    echo "5) 2.4.3.x (2.4.3-p3)"
-    echo "6) 2.4.2.x (2.4.2-p2)"
+    echo -e "${BLUE}Available version groups:${NC}"
+    echo " 1) Magento 2.4.9.x"
+    echo " 2) Magento 2.4.8.x"
+    echo " 3) Magento 2.4.7.x"
+    echo " 4) Magento 2.4.6.x"
+    echo " 5) Magento 2.4.5.x"
+    echo " 6) Magento 2.4.4.x"
+    echo " 7) Magento 2.4.3.x"
+    echo " 8) Magento 2.4.2.x"
+    echo " 9) Mage-OS 3.0.x"
+    echo "10) Mage-OS 2.x"
+    echo "11) Mage-OS 1.x"
     echo
 }
 
-# Function to display requirements for a specific version group
-show_requirements() {
+# Render a requirements block for a currently-supported version by reading
+# compose/lib/versions.tsv. Keeps bin/detect-versions and bin/check-dependencies
+# from drifting since both consume the same source table.
+show_requirements_from_tsv() {
+    local title="$1"
+    local edition="$2"
+    local sample_version="$3"
+
+    local row
+    row="$(versions_lookup "$edition" "$sample_version")" || {
+        echo -e "${RED}No row in compose/lib/versions.tsv matches edition='$edition' version='$sample_version'${NC}"
+        return 1
+    }
+
+    local php os nginx db rmq cache composer
+    IFS=$'\t' read -r php os nginx db rmq cache composer <<< "$row"
+
+    echo -e "${GREEN}System Requirements for ${title}:${NC}"
+    echo -e "${YELLOW}Pinned by bin/detect-versions (highest supported version wins):${NC}"
+    echo "• PHP image:        markoshust/magento-php:$php"
+    echo "• Composer:         $composer"
+    echo "• Database:         $db"
+    echo "• OpenSearch image: markoshust/magento-opensearch:$os"
+    echo "• Cache/Session:    $cache"
+    echo "• Message Queue:    markoshust/magento-rabbitmq:$rmq"
+    echo "• Web Server:       markoshust/magento-nginx:$nginx"
+    echo
+    echo -e "${BLUE}Source: compose/lib/versions.tsv${NC}"
+}
+
+# Static historical entries for older Magento versions that are no longer
+# tracked in compose/lib/versions.tsv (no longer eligible for auto-detection,
+# but kept here so users running older installs can still look up the matrix).
+show_requirements_legacy() {
     local version_group=$1
     echo -e "${GREEN}System Requirements for Magento ${version_group}:${NC}"
     echo -e "${YELLOW}Required Components:${NC}"
-    
+
     case $version_group in
-        "2.4.7.x")
-            echo "• PHP: 8.3, 8.2"
-            echo "• Composer: 2.7"
-            echo "• Database:"
-            echo "  - MySQL: 8.0"
-            echo "  - MariaDB: 10.6"
-            echo "• Search: "
-            echo "  - Elasticsearch: 8.11"
-            echo "  - OpenSearch: 2.12"
-            echo "• Cache/Session:"
-            echo "  - Redis: 7.2"
-            echo "• Message Queue:"
-            echo "  - RabbitMQ: 3.13"
-            echo "• Web Server:"
-            echo "  - Apache: 2.4"
-            echo "  - Nginx: 1.24"
-            echo "• Varnish: 7.5"
-            echo -e "${BLUE}Supported AWS Services:${NC}"
-            echo "• Aurora (MySQL): 8.0"
-            echo "• S3: ✔️"
-            echo "• MQ: 3.11.20"
-            echo "• ElastiCache: Redis7.0"
-            echo "• OpenSearch: 2.11"
-            ;;
         "2.4.6.x")
             echo "• PHP: 8.2, 8.1"
             echo "• Composer: 2.2"
             echo "• Database:"
             echo "  - MySQL: 8.0"
             echo "  - MariaDB: 10.6"
-            echo "• Search: "
+            echo "• Search:"
             echo "  - Elasticsearch: 8.11, 7.17"
             echo "  - OpenSearch: 2.12"
             echo "• Cache/Session:"
@@ -75,12 +89,6 @@ show_requirements() {
             echo "  - Apache: 2.4"
             echo "  - Nginx: 1.24"
             echo "• Varnish: 7.5"
-            echo -e "${BLUE}Supported AWS Services:${NC}"
-            echo "• Aurora (MySQL): 8.0"
-            echo "• S3: ✔️"
-            echo "• MQ: 3.9.16"
-            echo "• ElastiCache: Redis6.2"
-            echo "• OpenSearch: 1.2"
             ;;
         "2.4.5.x")
             echo "• PHP: 8.1"
@@ -88,7 +96,7 @@ show_requirements() {
             echo "• Database:"
             echo "  - MySQL: 8.0"
             echo "  - MariaDB: 10.4"
-            echo "• Search: "
+            echo "• Search:"
             echo "  - Elasticsearch: 7.17"
             echo "  - OpenSearch: 1.2"
             echo "• Cache/Session:"
@@ -99,20 +107,14 @@ show_requirements() {
             echo "  - Apache: 2.4"
             echo "  - Nginx: 1.24"
             echo "• Varnish: 7.3"
-            echo -e "${BLUE}Supported AWS Services:${NC}"
-            echo "• Aurora (MySQL): 8.0"
-            echo "• S3: ✔️"
-            echo "• MQ: 3.9.13"
-            echo "• ElastiCache: Redis6"
-            echo "• OpenSearch: 1.2"
             ;;
         "2.4.4.x")
             echo "• PHP: 8.1"
             echo "• Composer: 2.2"
             echo "• Database:"
-            echo "  - MySQL: 8.0"
+            echo "  - MySQL: 8.0 (8.0.0 through 8.0.28 only)"
             echo "  - MariaDB: 10.4"
-            echo "• Search: "
+            echo "• Search:"
             echo "  - Elasticsearch: 7.17"
             echo "  - OpenSearch: 1.2"
             echo "• Cache/Session:"
@@ -123,13 +125,6 @@ show_requirements() {
             echo "  - Apache: 2.4"
             echo "  - Nginx: 1.24"
             echo "• Varnish: 7.3"
-            echo -e "${YELLOW}NOTE: Supports MySQL 8.0.0 through 8.0.28 only${NC}"
-            echo -e "${BLUE}Supported AWS Services:${NC}"
-            echo "• Aurora (MySQL): 8.0"
-            echo "• S3: ✔️"
-            echo "• MQ: 3.9.13"
-            echo "• ElastiCache: Redis6"
-            echo "• OpenSearch: 1.2"
             ;;
         "2.4.3.x")
             echo "• PHP: 7.4"
@@ -137,7 +132,7 @@ show_requirements() {
             echo "• Database:"
             echo "  - MySQL: 8.0"
             echo "  - MariaDB: 10.4"
-            echo "• Search: "
+            echo "• Search:"
             echo "  - Elasticsearch: 7.16"
             echo "  - OpenSearch: 1.2"
             echo "• Cache/Session:"
@@ -148,12 +143,6 @@ show_requirements() {
             echo "  - Apache: 2.4"
             echo "  - Nginx: 1.18"
             echo "• Varnish: 6.5"
-            echo -e "${BLUE}Supported AWS Services:${NC}"
-            echo "• Aurora (MySQL): 5.7"
-            echo "• S3: ✔️"
-            echo "• MQ: 3.8.11"
-            echo "• ElastiCache: Redis6"
-            echo "• Elasticsearch: 7.9"
             ;;
         "2.4.2.x")
             echo "• PHP: 7.4"
@@ -161,7 +150,7 @@ show_requirements() {
             echo "• Database:"
             echo "  - MySQL: 8.0"
             echo "  - MariaDB: 10.4"
-            echo "• Search: "
+            echo "• Search:"
             echo "  - Elasticsearch: 7.9"
             echo "• Cache/Session:"
             echo "  - Redis: 6.0"
@@ -171,9 +160,6 @@ show_requirements() {
             echo "  - Apache: 2.4"
             echo "  - Nginx: 1.18"
             echo "• Varnish: 6.4"
-            echo -e "${BLUE}Supported AWS Services:${NC}"
-            echo "• S3: ✔️"
-            echo "• Elasticsearch: 7.9"
             ;;
         *)
             echo -e "${RED}Version group not found${NC}"
@@ -181,29 +167,28 @@ show_requirements() {
     esac
 }
 
-# Function to show additional information
 show_additional_info() {
     echo -e "${BLUE}Additional Information:${NC}"
-    echo "• Full system requirements documentation: https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/system-requirements.html"
-    echo "• Magento DevDocs: https://developer.adobe.com/commerce/docs/"
-    echo "• Security Best Practices: https://experienceleague.adobe.com/docs/commerce-operations/implementation-playbook/best-practices/security/overview.html"
+    echo "• Adobe Commerce system requirements: https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/system-requirements.html"
+    echo "• Mage-OS system requirements:        https://mage-os.org/get-started/system-requirements/"
+    echo "• Magento DevDocs:                    https://developer.adobe.com/commerce/docs/"
+    echo "• Security best practices:            https://experienceleague.adobe.com/docs/commerce-operations/implementation-playbook/best-practices/security/overview.html"
 }
 
-# Main script execution
 clear
 show_header
 
 while true; do
     show_version_groups
     echo -e "${YELLOW}Options:${NC}"
-    echo "1-6) Select version group"
+    echo "1-11) Select version group"
     echo "i) Additional Information"
     echo "q) Quit"
     echo
     read -r -p "Enter your choice: " choice
-    
+
     case $choice in
-        q|Q) 
+        q|Q)
             echo -e "${GREEN}Thank you for using the Magento System Requirements Checker!${NC}"
             exit 0
             ;;
@@ -211,35 +196,22 @@ while true; do
             clear
             show_additional_info
             ;;
-        1) 
-            clear
-            show_requirements "2.4.7.x"
-            ;;
-        2)
-            clear
-            show_requirements "2.4.6.x"
-            ;;
-        3)
-            clear
-            show_requirements "2.4.5.x"
-            ;;
-        4)
-            clear
-            show_requirements "2.4.4.x"
-            ;;
-        5)
-            clear
-            show_requirements "2.4.3.x"
-            ;;
-        6)
-            clear
-            show_requirements "2.4.2.x"
-            ;;
+        1)  clear; show_requirements_from_tsv "Magento 2.4.9.x"      magento  2.4.9 ;;
+        2)  clear; show_requirements_from_tsv "Magento 2.4.8.x"      magento  2.4.8 ;;
+        3)  clear; show_requirements_from_tsv "Magento 2.4.7.x"      magento  2.4.7 ;;
+        4)  clear; show_requirements_legacy   "2.4.6.x" ;;
+        5)  clear; show_requirements_legacy   "2.4.5.x" ;;
+        6)  clear; show_requirements_legacy   "2.4.4.x" ;;
+        7)  clear; show_requirements_legacy   "2.4.3.x" ;;
+        8)  clear; show_requirements_legacy   "2.4.2.x" ;;
+        9)  clear; show_requirements_from_tsv "Mage-OS 3.0.x"        mage-os  3.0.0 ;;
+        10) clear; show_requirements_from_tsv "Mage-OS 2.x"          mage-os  2.3.0 ;;
+        11) clear; show_requirements_from_tsv "Mage-OS 1.x"          mage-os  1.3.0 ;;
         *)
             echo -e "${RED}Invalid choice. Please try again.${NC}"
             ;;
     esac
-    
+
     echo
     read -r -p "Press Enter to continue..."
     clear
