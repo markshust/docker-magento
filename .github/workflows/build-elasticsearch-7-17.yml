@@ -2,6 +2,9 @@ name: build-elasticsearch-7-17
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   elasticsearch-7-17:
     runs-on: ubuntu-latest

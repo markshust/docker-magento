@@ -2,6 +2,9 @@ name: build-nginx-1-26
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   nginx-1-26:
     runs-on: ubuntu-latest

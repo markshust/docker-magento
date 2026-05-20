@@ -2,6 +2,9 @@ name: build-elasticsearch-8-11
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   elasticsearch-8-11:
     runs-on: ubuntu-latest

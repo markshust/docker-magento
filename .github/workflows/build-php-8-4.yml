@@ -2,6 +2,9 @@ name: build-php-8-4
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   php-8-4:
     runs-on: ubuntu-latest

@@ -2,6 +2,9 @@ name: build-ssh
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   ssh:
     runs-on: ubuntu-latest
