@@ -28,6 +28,11 @@
 magento	2.4.9	8.5-fpm-0	3-0	1.28-0	mariadb:11.8	4.2-0	valkey/valkey:9.1-alpine	2.9.8
 magento	2.4.8	8.4-fpm-2	3-0	1.28-0	mariadb:11.8	4.2-0	valkey/valkey:8.1-alpine	2.9.8
 magento	2.4.7	8.3-fpm-7	3-0	1.28-0	mariadb:11.8	4.2-0	valkey/valkey:8.1-alpine	2.9.8
+magento	2.4.6	8.2-fpm-9	2.12-0	1.28-0	mariadb:10.6	4.2-0	redis:7.2-alpine	2.2.28
+magento	2.4.5	8.1-fpm-8	1.2-0	1.22-0	mariadb:10.4	3.11-1	redis:6.2-alpine	2.2.28
+magento	2.4.4	8.1-fpm-8	1.2-0	1.26-0	mariadb:10.4	3.9-0	redis:7.2-alpine	2.2.28
+magento	2.4.3	7.4-fpm-15	1.2-0	1.18-8	mariadb:10.4	3.8-0	redis:6.0-alpine	2.2.28
+magento	2.4.2	7.4-fpm-15	1.2-0	1.18-8	mariadb:10.4	3.8-0	redis:6.0-alpine	2.2.28
 mage-os	3	8.5-fpm-0	3-0	1.28-0	mariadb:11.4	4.2-0	valkey/valkey:9.1-alpine	2.9.8
 mage-os	2	8.4-fpm-2	3-0	1.28-0	mariadb:11.4	4.2-0	valkey/valkey:8.1-alpine	2.9.8
 mage-os	1	8.3-fpm-7	2.12-0	1.28-0	mariadb:10.6	3.13-0	redis:7.2-alpine	2.9.3
