@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -o errexit
 
-MEM=$(docker info | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
+MEM=$(docker info 2> >(grep -v 'DOCKER_INSECURE_NO_IPTABLES_RAW' >&2) | grep "Total Memory" | cut -d':' -f2 | xargs | sed s/GiB//)
 # Docker reports RAM 0.2 less than what it is actually set to
 (( $(echo "$MEM < 5.7" | bc -l) )) && echo "There must be at least 6GB of RAM allocated to Docker to continue." && exit
 
