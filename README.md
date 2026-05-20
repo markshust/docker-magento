@@ -60,6 +60,7 @@ View Dockerfiles for the latest tags:
   - [`3.12`, `3.12-0`](images/rabbitmq/3.12)
   - [`3.13`, `3.13-0`](images/rabbitmq/3.13)
   - [`4.1`, `4.1-0`](images/rabbitmq/4.1)
+  - [`4.2`, `4.2-0`](images/rabbitmq/4.2)
 - [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
   - [`latest`](images/ssh)
 
