@@ -30,6 +30,7 @@
 
 OUTPUT_FILE="compose.versions.yaml"
 CHECK_MODE=0
+QUIET_MODE=0
 EDITION_ARG=""
 VERSION_ARG=""
 
@@ -37,6 +38,13 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --check)
       CHECK_MODE=1
+      shift
+      ;;
+    --quiet|-q)
+      # Used by automated callers (bin/setup safety-net) to suppress
+      # "could not resolve" warnings when there's nothing to detect yet.
+      # Manual invocations still get the warning.
+      QUIET_MODE=1
       shift
       ;;
     -h|--help)
@@ -111,15 +119,15 @@ resolve_version() {
 }
 
 EDITION="$(resolve_edition)" || {
-  # --check has nothing to verify if we can't determine "what should be."
-  # Stay silent in pre-flight; warn only in write mode where caller expected
-  # an attempt to write a file.
-  [ "$CHECK_MODE" = "1" ] && exit 0
+  # Stay silent in --check (pre-flight has nothing to verify) and --quiet
+  # (automated callers like bin/setup's safety net). Manual invocations
+  # still get the warning so the user knows why nothing happened.
+  { [ "$CHECK_MODE" = "1" ] || [ "$QUIET_MODE" = "1" ]; } && exit 0
   warn "could not resolve edition (no arg given, src/composer.json missing or unreadable). Skipping."
   exit 0
 }
 VERSION="$(resolve_version)" || {
-  [ "$CHECK_MODE" = "1" ] && exit 0
+  { [ "$CHECK_MODE" = "1" ] || [ "$QUIET_MODE" = "1" ]; } && exit 0
   warn "could not resolve version (no arg given, bin/magento-version returned nothing). Skipping."
   exit 0
 }
