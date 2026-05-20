@@ -61,10 +61,10 @@ bin/docker-compose up -d --remove-orphans "$@"
 
 ## Blackfire support
 ## ------------------
-## First register the blackfire agent with:
-#bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
-## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
-#bin/root /etc/init.d/blackfire-agent start
+## The Blackfire probe is built into the PHP image. The agent runs as a sidecar
+## container — uncomment the `blackfire` service in compose.yaml and set
+## BLACKFIRE_SERVER_ID / BLACKFIRE_SERVER_TOKEN in env/blackfire.env, plus
+## BLACKFIRE_CLIENT_ID / BLACKFIRE_CLIENT_TOKEN in env/phpfpm.env.
 
 # Check if cron was previously enabled and restart it if needed
 if bin/cli test -f /var/www/html/var/.cron-enabled; then
