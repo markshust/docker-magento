@@ -27,6 +27,10 @@ fi
 # it's the nginx variable name, not a shell variable — which is why
 # the sed program is in single quotes.
 TMP="$(mktemp)"
+# shellcheck disable=SC2016
+# The `$fastcgi_backend` inside single quotes is intentionally literal —
+# it's the nginx variable referenced in the rewritten directive, not a
+# host shell variable.
 sed -E 's|fastcgi_pass[[:space:]]+fastcgi_backend;|fastcgi_pass $fastcgi_backend;|g' "$NGINX_SAMPLE" > "$TMP"
 mv "$TMP" "$NGINX_SAMPLE"
 
