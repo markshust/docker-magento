@@ -640,6 +640,70 @@ Add the following line to the `/etc/sysctl.conf` file on your host:
 vm.max_map_count=262144
 ```
 
+### Multi-storefront / multi-domain setup
+
+Magento supports running multiple storefronts from a single codebase by setting `MAGE_RUN_CODE` and `MAGE_RUN_TYPE` per request. There are two common ways to do this locally; pick whichever matches how your production environment is wired. Both rely on the [`compose.override.yaml`](#persisting-local-compose-changes-across-updates) mechanism so your customizations survive `bin/update`.
+
+#### Option 1: nginx `map` (recommended for most setups)
+
+Map each hostname to a run code in an nginx snippet, then mount it into the `app` container via `compose.override.yaml`:
+
+```nginx
+# store.map.conf
+map $http_host $MAGE_RUN_CODE {
+    store1.example.test  store1_view;
+    store2.example.test  store2_view;
+    default              default;
+}
+```
+
+```yaml
+# compose.override.yaml
+services:
+  app:
+    volumes:
+      - ./store.map.conf:/etc/nginx/conf.d/store.map.conf:cached
+```
+
+Add the hostnames to `/etc/hosts` and run `bin/setup-ssl store1.example.test store2.example.test`.
+
+#### Option 2: `magento-vars.php` (Adobe Commerce Cloud parity)
+
+If your production environment runs on Adobe Commerce Cloud, it likely uses a `magento-vars.php` file at the project root that's loaded via PHP's `auto_prepend_file`. To mirror that locally, create `src/magento-vars.php` and `src/php.ini`, then wire them up with `compose.override.yaml`:
+
+```php
+// src/magento-vars.php
+<?php
+function isHttpHost(string $host): bool {
+    return ($_SERVER['HTTP_HOST'] ?? '') === $host;
+}
+
+if (isHttpHost('store1.example.test')) {
+    $_SERVER['MAGE_RUN_CODE'] = 'store1_view';
+    $_SERVER['MAGE_RUN_TYPE'] = 'store';
+}
+```
+
+```ini
+; src/php.ini
+auto_prepend_file = /app/magento-vars.php
+```
+
+```yaml
+# compose.override.yaml
+services:
+  app:
+    volumes:
+      - ./src:/app:cached
+      - ./src/php.ini:/usr/local/etc/php/conf.d/local-php.ini:cached
+  phpfpm:
+    volumes:
+      - ./src:/app:cached
+      - ./src/php.ini:/usr/local/etc/php/conf.d/local-php.ini:cached
+```
+
+The nginx `map` approach is simpler and provider-agnostic; the `magento-vars.php` approach is worth the extra setup only if you specifically need to match Adobe Commerce Cloud's request lifecycle.
+
 ### Blackfire.io
 
 These docker images have built-in support for Blackfire.io. The Blackfire probe is already installed in the PHP image; the Blackfire agent runs as a separate sidecar container.
