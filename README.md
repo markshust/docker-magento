@@ -642,19 +642,28 @@ vm.max_map_count=262144
 
 ### Blackfire.io
 
-These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
+These docker images have built-in support for Blackfire.io. The Blackfire probe is already installed in the PHP image; the Blackfire agent runs as a separate sidecar container.
 
-```
-bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
-```
+To enable it:
 
-Next, open up the `bin/start` helper script and uncomment the line:
+1. Uncomment the `blackfire` service in `compose.yaml`.
+2. Add your server credentials to `env/blackfire.env`:
 
-```
-#bin/root /etc/init.d/blackfire-agent start
-```
+    ```
+    BLACKFIRE_SERVER_ID={YOUR_SERVER_ID}
+    BLACKFIRE_SERVER_TOKEN={YOUR_SERVER_TOKEN}
+    ```
 
-Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
+3. Add your client credentials to `env/phpfpm.env`:
+
+    ```
+    BLACKFIRE_CLIENT_ID={YOUR_CLIENT_ID}
+    BLACKFIRE_CLIENT_TOKEN={YOUR_CLIENT_TOKEN}
+    ```
+
+4. Restart the containers with `bin/restart`.
+
+After doing so, everything is configured and you can use a browser extension to profile your Magento store with Blackfire.
 
 ### Cloudflare Tunnel
 
