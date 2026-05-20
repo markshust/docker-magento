@@ -111,10 +111,15 @@ resolve_version() {
 }
 
 EDITION="$(resolve_edition)" || {
+  # --check has nothing to verify if we can't determine "what should be."
+  # Stay silent in pre-flight; warn only in write mode where caller expected
+  # an attempt to write a file.
+  [ "$CHECK_MODE" = "1" ] && exit 0
   warn "could not resolve edition (no arg given, src/composer.json missing or unreadable). Skipping."
   exit 0
 }
 VERSION="$(resolve_version)" || {
+  [ "$CHECK_MODE" = "1" ] && exit 0
   warn "could not resolve version (no arg given, bin/magento-version returned nothing). Skipping."
   exit 0
 }
