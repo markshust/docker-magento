@@ -4,9 +4,9 @@ EDITION=${1:-community}
 
 # Resolve VERSION early so bin/detect-versions can run before containers boot.
 if [ "$EDITION" == "mageos" ]; then
-  VERSION=${2:-1.0.5}
+  VERSION=${2:-3.0.0}
 else
-  VERSION=${2:-2.4.7-p3}
+  VERSION=${2:-2.4.9}
 fi
 
 # Define ANSI escape codes for colors
