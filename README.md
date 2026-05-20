@@ -61,7 +61,6 @@ View Dockerfiles for the latest tags:
   - [`3.13`, `3.13-0`](images/rabbitmq/3.13)
   - [`4.1`, `4.1-0`](images/rabbitmq/4.1)
   - [`4.2`, `4.2-0`](images/rabbitmq/4.2)
-- Valkey is referenced directly via the upstream `valkey/valkey:*-alpine` tags (e.g. `valkey/valkey:7.2-alpine`, `valkey/valkey:8.1-alpine`, `valkey/valkey:9.1-alpine`) rather than rebuilt under `markoshust/magento-valkey`. Same pattern as `mariadb:*` and `redis:*-alpine` — no Magento-specific configuration is needed, so there is no separate image to maintain.
 - [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
   - [`latest`](images/ssh)
 
