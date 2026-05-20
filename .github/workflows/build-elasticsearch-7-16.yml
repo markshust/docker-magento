@@ -3,7 +3,7 @@ name: build-elasticsearch-7-16
 on: workflow_dispatch
 
 jobs:
-  elasticsearch-7-17:
+  elasticsearch-7-16:
     runs-on: ubuntu-latest
     steps:
       -

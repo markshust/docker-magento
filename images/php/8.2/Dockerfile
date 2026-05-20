@@ -8,7 +8,7 @@ RUN groupadd -g "$APP_ID" app \
 RUN mkdir -p /etc/nginx/html /var/www/html /sock \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d /sock
 
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
 
 RUN apt-get update && apt-get install -y \
     cron \
@@ -42,10 +42,10 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pecl channel-update pecl.php.net && pecl install \
-    redis-6.2.0 \
-    ssh2-1.4.1 \
-    swoole-6.0.2 \
-    imagick-3.8.0RC2 \
+    redis-6.3.0 \
+    ssh2-1.5.0 \
+    swoole-6.2.1 \
+    imagick-3.8.1 \
   && pecl clear-cache \
   && rm -rf /tmp/pear
 
@@ -86,7 +86,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
-RUN git clone --branch v0.4.18 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
+RUN git clone --branch v0.4.22 --depth=1 https://github.com/NoiseByNorthwest/php-spx.git /usr/lib/php-spx \
     && cd /usr/lib/php-spx \
     && phpize \
     && ./configure \
@@ -94,7 +94,7 @@ RUN git clone --branch v0.4.18 --depth=1 https://github.com/NoiseByNorthwest/php
     && make install
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --version=2.8.6 --install-dir=/usr/local/bin --filename=composer
+  php -- --version=2.9.8 --install-dir=/usr/local/bin --filename=composer
 
 COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
 COPY conf/spx.ini $PHP_INI_DIR/conf.d/spx.ini
@@ -110,7 +110,7 @@ WORKDIR /var/www/html
 FROM base AS xdebug
 USER root
 RUN pecl channel-update pecl.php.net \
-  && pecl install xdebug-3.4.2 \
+  && pecl install xdebug-3.5.1 \
   && pecl clear-cache \
   && rm -rf /tmp/pear \
   && docker-php-ext-enable xdebug \

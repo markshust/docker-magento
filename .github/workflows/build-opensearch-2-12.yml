@@ -3,7 +3,7 @@ name: build-opensearch-2-12
 on: workflow_dispatch
 
 jobs:
-  opensearch-2-5:
+  opensearch-2-12:
     runs-on: ubuntu-latest
     steps:
       -

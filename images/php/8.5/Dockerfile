@@ -1,4 +1,4 @@
-FROM php:8.4-fpm-bookworm AS base
+FROM php:8.5-fpm-bookworm AS base
 LABEL maintainer="Mark Shust <mark@shust.com>"
 
 ARG APP_ID=1000
@@ -62,7 +62,6 @@ RUN docker-php-ext-configure \
     intl \
     mbstring \
     mysqli \
-    opcache \
     pcntl \
     pdo_mysql \
     soap \
