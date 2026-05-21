@@ -15,6 +15,13 @@ MEM_MB=$(( MEM_BYTES / 1000000 ))
 
 DOMAIN=${1:-magento.test}
 
+# Safety net for projects that bypass bin/download (git clone of magento2,
+# manual composer create-project, etc.). Resolves edition + version from
+# src/composer.json and pins service images before bin/start. Non-fatal:
+# if detection fails, compose.yaml defaults are used. --quiet so a standalone
+# bin/setup run (where src/composer.json doesn't exist yet) stays silent.
+bin/detect-versions --quiet || true
+
 bin/stop
 
 bin/start --no-dev

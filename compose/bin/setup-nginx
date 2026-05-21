@@ -1,27 +1,43 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Updates Magento's nginx.conf so cookie-triggered Xdebug routing works.
+# Updates Magento's nginx.conf.sample so cookie-triggered Xdebug routing works.
 # Magento's nginx.conf.sample uses `fastcgi_pass fastcgi_backend;` which
 # resolves to a literal upstream. We swap it to `fastcgi_pass $fastcgi_backend;`
 # so the value comes from the XDEBUG_SESSION cookie map defined in the
 # nginx image's default.conf.
 #
-# nginx.conf may be a Docker bind mount (compose.dev.yaml maps
-# ./src/nginx.conf.sample -> /var/www/html/nginx.conf), which is why
-# we write in place via `cat >` instead of `sed -i` (the latter renames
-# across the mount point and fails with EBUSY).
+# In dev mode, compose.dev.yaml bind-mounts ./src/nginx.conf.sample to
+# /var/www/html/nginx.conf, so modifying the sample on the host directly
+# updates the file the container serves. This runs host-side so it works
+# whether or not the dev compose layer is currently active — bin/setup
+# calls it during a --no-dev install where no bind mount is in place yet.
 
-bin/clinotty test -f nginx.conf || {
-  echo "nginx.conf not found in the container. Run bin/setup first."
+NGINX_SAMPLE="src/nginx.conf.sample"
+
+if [ ! -f "$NGINX_SAMPLE" ]; then
+  echo "$NGINX_SAMPLE not found. Run bin/setup first."
   exit 1
-}
+fi
 
+# Use a tempfile + mv instead of `sed -i` because BSD and GNU sed
+# implement `-i` with incompatible flag syntax (BSD requires `-i ''`,
+# GNU requires bare `-i`). The `-E` flag enables ERE so `+` works
+# portably on both. The `$` in the replacement must stay literal —
+# it's the nginx variable name, not a shell variable — which is why
+# the sed program is in single quotes.
+TMP="$(mktemp)"
 # shellcheck disable=SC2016
-# The inner $fastcgi_backend must be preserved literally — it's the nginx
-# variable name written into nginx.conf, not a host shell variable.
-bin/clinotty sh -c 'sed "s|fastcgi_pass[[:space:]]\+fastcgi_backend;|fastcgi_pass \$fastcgi_backend;|g" nginx.conf > /tmp/nginx.conf && cat /tmp/nginx.conf > nginx.conf && rm /tmp/nginx.conf'
+# The `$fastcgi_backend` inside single quotes is intentionally literal —
+# it's the nginx variable referenced in the rewritten directive, not a
+# host shell variable.
+sed -E 's|fastcgi_pass[[:space:]]+fastcgi_backend;|fastcgi_pass $fastcgi_backend;|g' "$NGINX_SAMPLE" > "$TMP"
+mv "$TMP" "$NGINX_SAMPLE"
 
-bin/docker-compose exec -T app nginx -s reload
+# Reload nginx so any currently-running app container picks up the change.
+# Harmless no-op if the container isn't running yet (bin/setup case) or
+# if dev mode's bind mount isn't active — the file on disk has the right
+# content and the next bin/start in dev mode will read it.
+bin/docker-compose exec -T app nginx -s reload 2>/dev/null || true
 
-echo "nginx.conf updated for Xdebug cookie routing."
+echo "nginx.conf.sample updated for Xdebug cookie routing."

@@ -4,8 +4,9 @@
 version=$(bin/magento --version --no-ansi 2> /dev/null | cut -d" " -f 3)
 
 if [[ -z "$version" ]]; then
-    # Method 2: Using grep in composer.lock
-    version=$(grep -A 1 "magento/magento2-base" ./src/composer.lock | grep "version" | awk -F "\"" '{print $4}')
+    # Method 2: grep in composer.lock — match either Adobe Commerce/Magento OSS
+    # (magento/magento2-base) or Mage-OS (mage-os/magento2-base) base packages.
+    version=$(grep -A 1 -E "(magento|mage-os)/magento2-base" ./src/composer.lock | grep "version" | head -1 | awk -F "\"" '{print $4}')
 fi
 
 if [[ -z "$version" ]]; then

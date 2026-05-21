@@ -158,10 +158,10 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test community 2.4.8-p3
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test mageos 3.0.0
 ```
 
-The `magento.test` above defines the hostname to use, `community` is the Magento edition, and the `2.4.8-p3` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, `mageos` is the edition (Mage-OS, the default), and `3.0.0` defines the version to install. Pass `community 2.4.9` (or another edition/version pair) instead to install Adobe Commerce / Magento Open Source. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -187,10 +187,11 @@ cd $_
 # Download the Docker Compose template:
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
-# Download the version of Magento you want to use with:
-bin/download community 2.4.8-p3
-# You can specify the edition (community, enterprise, mageos) and version (2.4.7-p3, 1.0.5, etc.)
-# If no arguments are passed in, the edition defaults to "community"
+# Download the version of Magento (or Mage-OS) you want to use with:
+bin/download mageos 3.0.0
+# You can also specify the edition (mageos, community, enterprise) and version (3.0.0, 2.4.9, etc.)
+# bin/download community 2.4.9
+# If no arguments are passed in, the edition defaults to "mageos"
 # If no version is specified, it defaults to the most recent version defined in `bin/download`
 
 # or for Magento core development:
@@ -298,13 +299,43 @@ services:
 
 `bin/update` will not touch `compose.override.yaml`, so your customizations stick around.
 
+### Auto-detected service image versions
+
+When you install Magento or Mage-OS via `bin/download` (or directly through the onelinesetup script), `bin/detect-versions` runs first and pins the PHP, nginx, OpenSearch, database, RabbitMQ, and cache images that match the chosen edition/version. The pins are written to a generated `compose.versions.yaml` that loads after `compose.yaml`/`compose.dev.yaml` so its image tags override the defaults.
+
+Load order (later wins):
+
+```
+compose.yaml
+compose.healthcheck.yaml
+compose.dev.yaml          (unless --no-dev)
+compose.versions.yaml     (auto-generated — gitignored)
+compose.override.yaml     (your hand-edited overrides — still wins)
+```
+
+The source of truth for which images map to which Magento/Mage-OS versions is `compose/lib/versions.tsv` (in this repo's template). One row per supported major.minor; the row's `version` column is a boundary-aware prefix matched against your installed version so all patches roll up to the same row.
+
+**Regenerating manually.** If you upgrade Magento in-place (e.g. `composer require magento/product-community-edition:^2.4.9`), the existing `compose.versions.yaml` may drift from the new version. `bin/start` runs `bin/detect-versions --check` as a non-fatal pre-flight and prints a warning if the file is missing or stale. To regenerate:
+
+```
+bin/detect-versions
+```
+
+**Hand-edited `compose.yaml` pins.** Because `compose.versions.yaml` loads after `compose.yaml`, a generated pin will override any image you hand-edited in `compose.yaml`. If you have customized image tags in `compose.yaml` and want to keep them, either:
+
+1. don't run `bin/detect-versions` (and `rm compose.versions.yaml` if it was previously generated), or
+2. move your image overrides into `compose.override.yaml`, which loads last and wins.
+
+**Backwards compatibility.** `compose.versions.yaml` is optional. Without one on disk, `bin/docker-compose` behaves exactly as it did before — the auto-detect feature only kicks in for new installs or when you explicitly run `bin/detect-versions`. To roll back, delete the file: `rm compose.versions.yaml`.
+
 ## Custom CLI Commands
 
 - `bin/analyse`: Run `phpstan analyse` within the container to statically analyse code, passing in directory to analyse. Ex. `bin/analyse app/code`
 - `bin/bash`: Drop into the bash prompt of your Docker container. The `phpfpm` container should be mainly used to access the filesystem within Docker.
 - `bin/blackfire`: Disable or enable Blackfire. Accepts argument `disable`, `enable`, or `status`. Ex. `bin/blackfire enable`
 - `bin/cache-clean`: Access the [cache-clean](https://github.com/mage2tv/magento-cache-clean) CLI. Note the watcher is automatically started at startup in `bin/start`. Ex. `bin/cache-clean config full_page`
-- `bin/check-dependencies`: Provides helpful recommendations for dependencies tailored to the chosen Magento version.
+- `bin/check-dependencies`: Provides helpful recommendations for dependencies tailored to the chosen Magento version. Reads from `compose/lib/versions.tsv` for currently-supported versions so it stays in sync with `bin/detect-versions`.
+- `bin/detect-versions`: Generate a `compose.versions.yaml` that pins service image tags (PHP, nginx, OpenSearch, db, RabbitMQ, cache) to match your installed Magento/Mage-OS version. Run with no args to auto-resolve from `src/composer.json`, or pass `[edition] [version]` explicitly. Add `--check` for a read-only drift check (used as a pre-flight in `bin/start`). See the "Auto-detected service image versions" section above for the load order and override semantics.
 - `bin/cli`: Run any CLI command without going into the bash prompt. Ex. `bin/cli ls`
 - `bin/clinotty`: Run any CLI command with no TTY. Ex. `bin/clinotty chmod u+x bin/magento`
 - `bin/cliq`: The same as `bin/cli`, but pipes all output to `/dev/null`. Useful for a quiet CLI, or implementing long-running processes.
@@ -322,7 +353,7 @@ services:
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files such as `compose.yaml` and `compose.dev.yaml`. Automatically includes `compose.override.yaml` if present, which is a convenient place for local tweaks that should survive `bin/update`.
 - `bin/docker-start`: Start the Docker application (either Orbstack or Docker Desktop)
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
-- `bin/download`: Download specific Magento version from Composer to the container, with optional arguments of the type ("community" [default], "enterprise", or "mageos") and version ([default] is defined in `bin/download`). Ex. `bin/download mageos` or `bin/download enterprise 2.4.8`
+- `bin/download`: Download a specific Magento/Mage-OS version from Composer to the container, with optional arguments of the type ("mageos" [default], "community", or "enterprise") and version ([default] is defined in `bin/download`). Ex. `bin/download` (Mage-OS 3.0.0) or `bin/download community 2.4.9`
 - `bin/ece-patches`: Run the Cloud Patches CLI. Ex: `bin/ece-tools apply`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
