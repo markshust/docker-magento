@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-EDITION=${1:-community}
+EDITION=${1:-mageos}
 
 # Resolve VERSION early so bin/detect-versions can run before containers boot.
 if [ "$EDITION" == "mageos" ]; then
