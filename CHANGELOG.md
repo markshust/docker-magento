@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [53.0.1] - 2026-07-15
+
 ### Added
 - New maintainer-only `/release` skill (`.claude/skills/release`) that cuts a full release from a single invocation — analyzes merged PRs since the last tag, decides the next version, auto-generates `CHANGELOG.md` entries in the project's format, bumps the `compose.yaml` version, fast-forwards `master`, tags, and publishes the GitHub Release. Lives at repo-root `.claude/` so it is excluded from Magento installs (the installer sparse-checks out only `compose/`). [PR #1445](https://github.com/markshust/docker-magento/pull/1445)
 
