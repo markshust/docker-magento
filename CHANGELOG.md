@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- New maintainer-only `/release` skill (`.claude/skills/release`) that cuts a full release from a single invocation — analyzes merged PRs since the last tag, decides the next version, auto-generates `CHANGELOG.md` entries in the project's format, bumps the `compose.yaml` version, fast-forwards `master`, tags, and publishes the GitHub Release. Lives at repo-root `.claude/` so it is excluded from Magento installs (the installer sparse-checks out only `compose/`). [PR #1445](https://github.com/markshust/docker-magento/pull/1445)
+
+### Fixed
+- Pin GA-safe MariaDB versions in the version auto-detect matrix (`compose/lib/versions.tsv`) so clean installs of Magento 2.4.7/2.4.8 boot a supported database. Two rows pinned `mariadb:11.8`, which GA/early-patch releases reject — a fresh `bin/download community 2.4.8` resolves to GA and failed at `setup:install` with "Current version of RDBMS is not supported." The 2.4.8 line is now pinned to `mariadb:11.4` and 2.4.7 to `mariadb:10.6` (each valid for its whole line, including GA); 2.4.9 stays on `mariadb:11.8`. [PR #1444](https://github.com/markshust/docker-magento/pull/1444), [#1404](https://github.com/markshust/docker-magento/issues/1404)
+- Make `bin/log` compatible with Bash 3.2 on stock macOS. It relied on the `mapfile` builtin (Bash 4+) and failed with `mapfile: command not found`; it now uses portable constructs. This also fixes a latent bug where passing multiple log files (`bin/log system.log cache.log`) collapsed them into a single `tail` argument. [PR #1442](https://github.com/markshust/docker-magento/pull/1442), [#1440](https://github.com/markshust/docker-magento/issues/1440)
+
+### CI
+- Dependabot bump: `actions/checkout` 6→7. [PR #1441](https://github.com/markshust/docker-magento/pull/1441)
+
 ## [53.0.0] - 2026-05-21
 
 ### Added
