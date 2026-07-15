@@ -15,6 +15,29 @@ generated changelog + planned actions, wait for the user's go-ahead before
 running the script (the irreversible push/tag/publish happens there). If the
 user said something like "just do it" / "/release --yes", skip the pause.
 
+## Arguments
+
+Anything the user types after `/release` is free-form context and **takes
+precedence over this skill's defaults** — treat it as an authoritative override.
+Read it first and let it steer the run. Common forms:
+
+- **Pin the version** — e.g. `/release use tag 53.0.1`, `/release 54.0.0`,
+  `/release this is just a patch`: skip the Step 2 computation and use what they
+  said. Still sanity-check it's a clean bump above the latest tag; if it looks
+  wrong (duplicate, lower than the last tag, skips several majors) flag it once,
+  but defer to the user if they confirm.
+- **Skip the approval gate** — `just do it`, `--yes`, `no confirm`: go straight
+  through Step 4 without pausing.
+- **Preview only** — `dry run`, `--dry-run`: run the script with `--dry-run`
+  instead of `--yes` and stop after showing the diff + notes.
+- **Steer the changelog** — `group the redis changes`, `don't mention the
+  checkout bump`, `call out the breaking default change`: fold into Step 3.
+- **Anything else** — honor any legitimate release instruction. If it collides
+  with a hard guardrail (empty `[Unreleased]`, a version at/below the latest
+  tag), explain the conflict and ask rather than silently overriding it.
+
+With no arguments, run the full flow using your own judgment.
+
 ## Preconditions (verify first; abort with a clear message if any fail)
 
 - Current branch is `release/next`, clean working tree, in sync with `origin/release/next`.
@@ -54,7 +77,9 @@ Versioning is SemVer with a single-incrementing scheme (history: 53.0.0,
 - **Patch** (`N.M.P`) — bug fixes, dependency bumps, docs/CI only.
 
 Compute the next number from the **latest git tag**. State your reasoning in one
-line. The user can override in the approval step.
+line. The user can override in the approval step — and if they pinned a version
+in the `/release` arguments (see **Arguments**), use that instead of computing
+one, after the sanity-check noted there.
 
 ## Step 3 — Generate the CHANGELOG entries (this is the automatic part)
 
@@ -99,7 +124,8 @@ The script re-validates preconditions, stamps `## [Unreleased]` →
 section. It prints the release URL.
 
 To preview without publishing, run with `--dry-run` instead of `--yes` — it
-stamps, shows the diff and the exact release notes, then reverts.
+stamps, shows the diff and the exact release notes, then reverts. Use
+`--dry-run` whenever the user asked for a preview in the arguments.
 
 ## Step 6 — Report
 
