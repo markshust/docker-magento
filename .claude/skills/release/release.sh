@@ -8,8 +8,9 @@
 # commit, land on master, tag, and publish the GitHub Release.
 #
 # What it does, in order:
-#   1. Validate: semver arg, clean tree, on release/next & up to date with
-#      origin, gh authenticated, tag not already used, [Unreleased] non-empty.
+#   1. Validate: semver arg, clean tree (apart from the skill's CHANGELOG.md
+#      edit), on release/next & up to date with origin, gh authenticated, tag
+#      not already used, [Unreleased] non-empty.
 #   2. Stamp CHANGELOG.md: rename `## [Unreleased]` to `## [<version>] - <date>`
 #      and insert a fresh empty `## [Unreleased]` above it.
 #   3. Bump the `## Version <x>` comment at the top of compose/compose.yaml.
@@ -88,8 +89,13 @@ CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 [ "$CURRENT_BRANCH" = "$RELEASE_BRANCH" ] \
   || die "must be on '$RELEASE_BRANCH' (currently on '$CURRENT_BRANCH')."
 
-[ -z "$(git status --porcelain)" ] \
-  || die "working tree is not clean. Commit or stash first."
+# The skill (Step 3) writes the [Unreleased] entries into CHANGELOG.md before
+# calling this script, so an uncommitted CHANGELOG.md is the expected state — it
+# gets stamped below and folded into the single "chore: prep" commit. Any OTHER
+# dirty path is a real problem and aborts.
+DIRTY="$(git status --porcelain | awk '$0 !~ /[ \/]CHANGELOG\.md$/')"
+[ -z "$DIRTY" ] \
+  || die "working tree has uncommitted changes other than CHANGELOG.md. Commit or stash first."
 
 git fetch --quiet origin "$RELEASE_BRANCH" "$MAIN_BRANCH" --tags
 [ "$(git rev-parse HEAD)" = "$(git rev-parse "origin/$RELEASE_BRANCH")" ] \
