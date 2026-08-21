@@ -71,3 +71,8 @@ services:
     healthcheck:
       test: "wget --no-verbose --tries=1 --spider 127.0.0.1:1080 || exit 1"
       <<: *healthcheck-defaults
+
+  #varnish:
+  #  healthcheck:
+  #    test: "varnishstat -1 -f MAIN.uptime >/dev/null || exit 1"
+  #    <<: *healthcheck-slow-start

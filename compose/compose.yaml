@@ -23,6 +23,10 @@ services:
       - appdata:/var/www/html
       - sockdata:/sock
       - ssldata:/etc/nginx/certs
+      ## Varnish support, uncomment to route requests through Varnish. This
+      ## swaps in an nginx config which proxies to the varnish service and
+      ## serves the Varnish backend on port 8080.
+      #- ./template/varnish/default.nginx.conf:/etc/nginx/conf.d/default.conf:cached
     #extra_hosts: &appextrahosts
       ## Selenium support, replace "magento.test" with URL of your site
       #- "magento.test:172.17.0.1"
@@ -135,6 +139,21 @@ services:
     image: sj26/mailcatcher:v0.10.0
     ports:
       - "1080:1080"
+
+  ## Varnish support, uncomment to enable. Also uncomment the
+  ## default.nginx.conf mount on the app service above, the varnish service
+  ## in compose.dev.yaml, and the varnish healthcheck in
+  ## compose.healthcheck.yaml. See the "Varnish" section of the README for the
+  ## Magento configuration this needs.
+  #varnish:
+  #  image: markoshust/magento-varnish:7.7-0
+  #  ports:
+  #    - "6081:80"
+  #  ## Uncomment to change the cache size from the 256m default
+  #  #environment:
+  #  #  - "VARNISH_SIZE=1g"
+  #  depends_on:
+  #    - app
 
   ## Cloudflare tunnel support, uncomment to enable
   #tunnel:
