@@ -32,6 +32,13 @@ services:
     depends_on:
       - db
 
+  ## Varnish support, uncomment along with the varnish service in compose.yaml.
+  ## Bind-mounts the VCL so it can be edited on the host. Varnish only reads it
+  ## at boot, so run "bin/restart" after making changes.
+  #varnish:
+  #  volumes:
+  #    - ./template/varnish/default.vcl:/etc/varnish/default.vcl:cached
+
   ## Selenium support, uncomment to enable
   #selenium:
   #  image: selenium/standalone-chrome-debug:3.8.1

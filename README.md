@@ -61,6 +61,8 @@ View Dockerfiles for the latest tags:
   - [`3.13`, `3.13-0`](images/rabbitmq/3.13)
   - [`4.1`, `4.1-0`](images/rabbitmq/4.1)
   - [`4.2`, `4.2-0`](images/rabbitmq/4.2)
+- [markoshust/magento-varnish (Docker Hub)](https://hub.docker.com/r/markoshust/magento-varnish/)
+  - [`7.7`, `7.7-0`](images/varnish/7.7)
 - [markoshust/ssh (Docker Hub)](https://hub.docker.com/r/markoshust/magento-ssh/)
   - [`latest`](images/ssh)
 
@@ -735,6 +737,54 @@ services:
 ```
 
 The nginx `map` approach is simpler and provider-agnostic; the `magento-vars.php` approach is worth the extra setup only if you specifically need to match Adobe Commerce Cloud's request lifecycle.
+
+### Varnish
+
+Varnish is disabled by default. Enable it when you want to test a production-like full-page cache setup, tag-based invalidation, or reverse-proxy behavior.
+
+Once enabled, requests flow through Varnish before reaching nginx/PHP:
+
+```text
+browser -> nginx :8443 -> varnish :80 -> nginx :8080 -> phpfpm
+```
+
+**Enable Varnish:**
+
+1. Uncomment the `varnish` service and `default.nginx.conf` mount in `compose.yaml`.
+2. Uncomment the `varnish` service and healthcheck in `compose.dev.yaml` and `compose.healthcheck.yaml`.
+3. Configure Magento and restart:
+
+```bash
+bin/restart
+
+bin/magento setup:config:set --http-cache-hosts=varnish:80
+bin/magento config:set system/full_page_cache/caching_application 2
+bin/magento cache:flush
+```
+
+**Verify caching:**
+
+```bash
+curl -skI https://magento.test/ | grep -i x-magento-cache-debug
+```
+
+The first request should return `MISS`; subsequent requests should return `HIT`.
+
+Varnish is also available on port `6081`, and you can inspect requests with:
+
+```bash
+bin/docker-compose exec varnish varnishlog
+```
+
+The VCL is based on Magento's `varnish7.vcl` template and is located at `template/varnish/default.vcl`. Customize it there and run `bin/restart` to apply changes.
+
+> **Note:** Cache hits bypass PHP, so Xdebug and `cache-clean` only run on cache misses.
+
+To disable Varnish, re-comment the Varnish configuration and run:
+
+```bash
+bin/magento config:set system/full_page_cache/caching_application 1
+```
 
 ### Blackfire.io
 
