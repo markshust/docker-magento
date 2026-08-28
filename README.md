@@ -357,7 +357,10 @@ bin/detect-versions
 - `bin/ece-patches`: Run the Cloud Patches CLI. Ex: `bin/ece-tools apply`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.
+- `bin/get-theme`: Auto-detects a Hyvä theme by finding the single `web/tailwind` folder under `src/app/design/frontend`. Used by `bin/hyva-build`, `bin/hyva-watch`, and `bin/setup-hyva` when no theme directory is passed explicitly; exits non-zero with a message if zero or multiple themes are found.
 - `bin/grunt`: Run the grunt binary. Ex. `bin/grunt exec`
+- `bin/hyva-build`: Build minified Hyvä/Tailwind CSS for a theme, inside the container. Auto-detects the theme via `bin/get-theme`, or pass a theme directory explicitly. Ex. `bin/hyva-build app/design/frontend/Vendor/Theme`
+- `bin/hyva-watch`: Watch and rebuild Hyvä/Tailwind CSS for a theme on change, inside the container. Auto-detects the theme via `bin/get-theme`, or pass a theme directory explicitly.
 - `bin/init`: Initialize development environment with sample data and dev-related modules.
 - `bin/install-php-extensions`: Install PHP extension in the container. Ex. `bin/install-php-extensions sourceguardian`
 - `bin/log`: Monitor the Magento log files. Pass no params to tail all files. Ex. `bin/log debug.log`
@@ -385,6 +388,7 @@ bin/detect-versions
 - `bin/setup-composer-auth`: Setup authentication credentials for Composer.
 - `bin/setup-domain`: Setup Magento domain name. Ex: `bin/setup-domain magento.test`
 - `bin/setup-grunt`: Install and configure Grunt JavaScript task runner to compile .less files
+- `bin/setup-hyva`: Install npm dependencies (`npm ci`) for a Hyvä theme's Tailwind build. Auto-detects the theme via `bin/get-theme`, or pass a theme directory explicitly.
 - `bin/setup-install`: Automates the installation process for a Magento instance.
 - `bin/setup-integration-tests`: Script to set up integration tests.
 - `bin/setup-nginx`: Update Magento's `nginx.conf` so cookie-triggered Xdebug routing works. Auto-run by `bin/setup`; existing projects can re-run it once to opt in.
@@ -866,6 +870,26 @@ body {
 ```
 
 Upon saving this file, we will see the Grunt watcher detect the changes, and your browser should automatically load the new style without you needing to refresh the page, and without a full browser refresh.
+
+### Hyvä + Tailwind for Frontend Development
+
+[Hyvä](https://hyva.io) themes (e.g. scaffolded from `hyva-themes/magento2-default-theme`) build their CSS with Tailwind rather than Grunt/LESS. A Hyvä theme's Tailwind project lives at `<theme>/web/tailwind`, and its `hyva.config.json` typically scans `vendor/hyva-themes/...` for classes to generate. Since `vendor/` is only present inside the `phpfpm` container, always build with these commands rather than running `npm`/`npx` on the host — a host build reads a stale or missing `vendor/` snapshot and produces incomplete CSS.
+
+#### Install npm dependencies
+
+Run `bin/setup-hyva`. This installs the theme's npm dependencies (`npm ci`, for a reproducible install matching `package-lock.json`) inside the container. Run it once, and again whenever `package-lock.json` changes.
+
+#### One-off build
+
+Run `bin/hyva-build` to generate a minified `web/css/styles.css` for a one-off build, e.g. before a deploy.
+
+#### Watch for changes
+
+Run `bin/hyva-watch` to rebuild `web/css/styles.css` automatically as you edit `web/tailwind/theme/*.css` or `web/tailwind/components/*.css`.
+
+#### Multiple themes
+
+`bin/hyva-build`, `bin/hyva-watch`, and `bin/setup-hyva` all auto-detect the theme directory via `bin/get-theme`, which looks for a single `web/tailwind` folder under `src/app/design/frontend`. If your project has more than one Hyvä theme, pass the theme directory explicitly as the first argument, e.g. `bin/hyva-build app/design/frontend/Vendor/Theme`.
 
 ### PHP-SPX
 

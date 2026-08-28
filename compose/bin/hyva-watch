@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+THEME_DIR=${1:-$(bin/get-theme)}
+[ -z "$THEME_DIR" ] && exit 1
+bin/cli bash -c "cd ${THEME_DIR}/web/tailwind && npm run watch"
