@@ -5,8 +5,9 @@ x-healthcheck-defaults: &healthcheck-defaults
 
 x-healthcheck-slow-start: &healthcheck-slow-start
   <<: *healthcheck-defaults
-  start_period: 5s
-
+  start_period: 350s
+  retries: 60
+  
 services:
   app:
     healthcheck:
@@ -45,7 +46,7 @@ services:
   db:
     healthcheck:
       test: "mysqladmin ping -h localhost -u root -pmagento || mariadb-admin ping -h localhost -u root -pmagento"
-      <<: *healthcheck-defaults
+      <<: *healthcheck-slow-start
 
   redis:
     healthcheck:
@@ -64,7 +65,7 @@ services:
 
   rabbitmq:
     healthcheck:
-      test: "rabbitmq-diagnostics -q ping"
+      test: "su-exec rabbitmq rabbitmq-diagnostics -q ping"
       <<: *healthcheck-slow-start
 
   mailcatcher:

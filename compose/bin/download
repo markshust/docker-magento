@@ -27,7 +27,10 @@ bin/detect-versions "$EDITION" "$VERSION" || true
 bin/stop
 
 bin/start --no-dev
-[ $? != 0 ] && echo "Failed to start Docker services" && exit
+if [ $? != 0 ]; then
+  echo "Failed to start Docker services"
+  exit 1
+fi
 
 bin/setup-composer-auth
 
@@ -40,7 +43,10 @@ else
 fi
 
 if [ $? != 0 ]; then
-    echo -e "${BLUE}Please check the installation guide at ${YELLOW}https://github.com/markshust/docker-magento#install-fails-because-project-directory-is-not-empty${BLUE} for troubleshooting.${NC}"
+  echo -e "${BLUE}Please check the installation guide at ${YELLOW}https://github.com/markshust/docker-magento#install-fails-because-project-directory-is-not-
+empty${BLUE} for troubleshooting.${NC}"
+  exit 1
 else
-    bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json ./var/composer_home/auth.json
+  bin/clinotty [ ! -f "./var/composer_home/auth.json" ] && bin/clinotty mkdir -p ./var/composer_home && bin/clinotty cp /var/www/.composer/auth.json .
+/var/composer_home/auth.json
 fi

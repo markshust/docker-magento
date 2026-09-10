@@ -99,6 +99,10 @@ matching the project's established format exactly:
 
 Use the Edit tool to insert these bullets under `## [Unreleased]`. Do **not**
 change the version heading or add a date — the script does that in Step 5.
+**Leave this edit uncommitted** — the Step 5 script stamps on top of it and
+folds it into the single `chore: prep <version> release` commit. Do not commit
+`CHANGELOG.md` yourself; a stray manual commit produces a redundant second
+commit on the release.
 
 ## Step 4 — Present for approval
 
@@ -116,12 +120,14 @@ Then stop and wait for approval (unless the user pre-authorized).
 .claude/skills/release/release.sh <version> --yes
 ```
 
-The script re-validates preconditions, stamps `## [Unreleased]` →
-`## [<version>] - <date>` (leaving a fresh empty `## [Unreleased]`), bumps the
-`## Version` line in `compose/compose.yaml`, commits as
-`chore: prep <version> release`, pushes `release/next`, fast-forwards and pushes
-`master`, tags, and creates the GitHub Release from the stamped changelog
-section. It prints the release URL.
+The script re-validates preconditions (it tolerates the uncommitted
+`CHANGELOG.md` from Step 3 but aborts on any other dirty path), stamps
+`## [Unreleased]` → `## [<version>] - <date>` (leaving a fresh empty
+`## [Unreleased]`), bumps the `## Version` line in `compose/compose.yaml`, then
+`git add`s both files and makes a single commit `chore: prep <version> release`
+— so your Step 3 changelog prose and the version stamp land together. It pushes
+`release/next`, fast-forwards and pushes `master`, tags, and creates the GitHub
+Release from the stamped changelog section. It prints the release URL.
 
 To preview without publishing, run with `--dry-run` instead of `--yes` — it
 stamps, shows the diff and the exact release notes, then reverts. Use
