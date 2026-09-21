@@ -1,13 +1,16 @@
 ## Based on Magento's varnish7.vcl template
 ## (app/code/Magento/PageCache/etc/varnish7.vcl), pre-configured for this
 ## setup: the backend is the "app" (nginx) container listening on port 8080,
-## which is the server block defined in nginx's default.varnish.conf.
+## which is the server block defined in template/varnish/default.nginx.conf.
+## Changes from the stock template: the purge ACL accepts Docker network
+## ranges, and the LiveReload endpoints are piped straight through.
 ##
-## This file is volume-mounted, so it may be freely customized. To regenerate
-## it from your own store's configuration, run:
-## bin/magento setup:config:set --http-cache-hosts=varnish:80
-## bin/magento varnish:vcl:generate --export-version=7 --backend-host=app \
-##   --backend-port=8080 --output-file=varnish/default.vcl
+## This file is volume-mounted into the varnish container, so it may be freely
+## customized. Varnish only reads it at boot, so run "bin/restart" after edits.
+## To regenerate it from your own store's configuration, run:
+##   bin/clinotty bin/magento varnish:vcl:generate --export-version=7 \
+##     --backend-host=app --backend-port=8080 > template/varnish/default.vcl
+## then re-apply the purge ACL and LiveReload changes described above.
 
 # VCL version 5.0 is not supported so it should be 4.0 even though actually used Varnish version is 7
 vcl 4.0;

@@ -750,8 +750,8 @@ browser -> nginx :8443 -> varnish :80 -> nginx :8080 -> phpfpm
 
 **Enable Varnish:**
 
-1. Uncomment the `varnish` service and `default.nginx.conf` mount in `compose.yaml`.
-2. Uncomment the `varnish` service and healthcheck in `compose.dev.yaml` and `compose.healthcheck.yaml`.
+1. In `compose.yaml`, uncomment the `varnish` service, the `configs` entry on the `app` service, and the top-level `configs` block at the bottom of the file.
+2. In `compose.healthcheck.yaml`, uncomment the `varnish` healthcheck.
 3. Configure Magento and restart:
 
 ```bash
@@ -780,11 +780,16 @@ The VCL is based on Magento's `varnish7.vcl` template and is located at `templat
 
 > **Note:** Cache hits bypass PHP, so Xdebug and `cache-clean` only run on cache misses.
 
-To disable Varnish, re-comment the Varnish configuration and run:
+**Disable Varnish:**
+
+1. Switch Magento back to the built-in full-page cache:
 
 ```bash
 bin/magento config:set system/full_page_cache/caching_application 1
 ```
+
+2. Remove the `http_cache_hosts` entry from `src/app/etc/env.php`, otherwise Magento keeps sending purge requests to the missing `varnish` host on every cache flush.
+3. Re-comment the Varnish configuration in `compose.yaml` and `compose.healthcheck.yaml`, then run `bin/restart`.
 
 ### Blackfire.io
 
