@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [53.1.0] - 2026-09-21
+
+### Added
+- Opt-in Varnish full-page cache support, for testing a production-like caching setup locally. Adds a new `markoshust/magento-varnish` image (`images/varnish/7.7`, tags `7.7` / `7.7-0`, amd64 + arm64), a commented-out `varnish` service in `compose.yaml` and healthcheck in `compose.healthcheck.yaml`, and two templates under `template/varnish/`: a Magento VCL based on `varnish7.vcl` (volume-mounted, so it's customizable) and an nginx config that routes `nginx :8443 → varnish → nginx :8080 → phpfpm`. Everything stays commented out by default, so existing setups are unaffected — see the new "Varnish" README section to enable it. Supersedes [PR #441](https://github.com/markshust/docker-magento/pull/441). [PR #1449](https://github.com/markshust/docker-magento/pull/1449)
+- New Hyvä/Tailwind frontend build commands: `bin/setup-hyva` (`npm ci`), `bin/hyva-build` (one-off minified build), and `bin/hyva-watch` (rebuild on change). They run inside the `phpfpm` container because Hyvä's Tailwind config scans `vendor/`, which only exists there. The theme is auto-detected by a new `bin/get-theme` helper, or you can pass a theme directory explicitly for projects with more than one Hyvä theme. [PR #1450](https://github.com/markshust/docker-magento/pull/1450)
+
+### Fixed
+- The maintainer-only `/release` skill now produces a single `chore: prep <version> release` commit. `release.sh` previously rejected the uncommitted `CHANGELOG.md` that the skill itself writes, which forced a redundant extra commit. [PR #1446](https://github.com/markshust/docker-magento/pull/1446)
+
+### CI
+- Dependabot bumps: `docker/login-action` 4→4.5.2→4.6.0. [PR #1447](https://github.com/markshust/docker-magento/pull/1447), [PR #1448](https://github.com/markshust/docker-magento/pull/1448)
+
 ## [53.0.1] - 2026-07-15
 
 ### Added
