@@ -46,6 +46,8 @@ help:
 	@echo "$(call format,fixowns,'This will fix filesystem ownerships within the container.')"
 	@echo "$(call format,fixperms,'This will fix filesystem permissions within the container.')"
 	@echo "$(call format,grunt,'Run the grunt binary.')"
+	@echo "$(call format,hyva-build,'Build minified Hyvä/Tailwind CSS for a theme inside the container. Auto-detects the theme$(comma) or pass a theme directory explicitly.')"
+	@echo "$(call format,hyva-watch,'Watch and rebuild Hyvä/Tailwind CSS for a theme inside the container. Auto-detects the theme$(comma) or pass a theme directory explicitly.')"
 	@echo "$(call format,init,'Initialize development environment with sample data and dev-related modules.')"
 	@echo "$(call format,install-php-extensions,'Install PHP extension in the container.')"
 	@echo "$(call format,log,'Monitor the Magento log files. Pass no params to tail all files.')"
@@ -73,6 +75,7 @@ help:
 	@echo "$(call format,setup-composer-auth,'Setup authentication credentials for Composer.')"
 	@echo "$(call format,setup-domain,'Setup Magento domain name.')"
 	@echo "$(call format,setup-grunt,'Install and configure Grunt JavaScript task runner.')"
+	@echo "$(call format,setup-hyva,'Install npm dependencies (npm ci) for a Hyvä theme. Auto-detects the theme$(comma) or pass a theme directory explicitly.')"
 	@echo "$(call format,setup-install,'Automates the installation process for a Magento instance.')"
 	@echo "$(call format,setup-integration-tests,'Script to set up integration tests.')"
 	@echo "$(call format,setup-nginx,'Update Magento nginx.conf for cookie-triggered Xdebug routing. Auto-run by bin/setup; can be re-run for existing setups.')"
@@ -159,6 +162,12 @@ fixperms:
 grunt:
 	@./bin/grunt $(call args)
 
+hyva-build:
+	@./bin/hyva-build $(call args)
+
+hyva-watch:
+	@./bin/hyva-watch $(call args)
+
 install-php-extensions:
 	@./bin/install-php-extensions $(call args)
 	
@@ -236,7 +245,10 @@ setup-domain:
 	
 setup-grunt:
 	@./bin/setup-grunt
-	
+
+setup-hyva:
+	@./bin/setup-hyva $(call args)
+
 setup-install:
 	@./bin/setup-install $(call args)
 

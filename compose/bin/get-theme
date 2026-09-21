@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# bin/get-theme
+#
+# Auto-detects the Hyvä theme directory by locating a `web/tailwind` folder
+# at src/app/design/frontend/<Vendor>/<Theme>/web/tailwind. Prints the theme
+# directory path relative to src/ (e.g. app/design/frontend/Vendor/Theme) on
+# success.
+#
+# Used by bin/hyva-build, bin/hyva-watch, and bin/setup-hyva when no theme
+# directory is passed explicitly. Exits non-zero with a message on stderr if
+# zero or multiple Hyvä themes are found, since auto-detection is then
+# ambiguous.
+
+THEMES=()
+for dir in src/app/design/frontend/*/*/web/tailwind; do
+  [ -d "$dir" ] || continue
+  dir="${dir%/web/tailwind}"
+  THEMES+=("${dir#src/}")
+done
+
+if [ ${#THEMES[@]} -eq 0 ]; then
+  echo "No Hyvä theme found under src/app/design/frontend/*/*/web/tailwind. Pass a theme directory explicitly." >&2
+  exit 1
+fi
+
+if [ ${#THEMES[@]} -gt 1 ]; then
+  echo "Multiple Hyvä themes found; pass one explicitly:" >&2
+  printf '  %s\n' "${THEMES[@]}" >&2
+  exit 1
+fi
+
+echo "${THEMES[0]}"
