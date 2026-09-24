@@ -74,64 +74,126 @@ This course is sponsored by <a href="https://m.academy" target="_blank">M.academ
 
 A free screencast course is available (which was fully refreshed in December 2021), which details the basic usage of this project:
 
-<a href="https://m.academy/courses/set-up-magento-2-development-environment-docker" target="_blank">
-<img src="docs/set-up-magento-2-development-environment-docker-og.png" alt="Set Up a Magento 2 Development Environment with Docker" width="400"><br/>
-Set Up a Magento 2 Development Environment with Docker
+<a href="https://m.academy/courses/magento-2-development-environment-docker/" target="_blank">
+<img src="docs/magento-2-development-environment-docker-og.png" alt="Magento 2 Development Environment with Docker" width="400"><br/>
+Magento 2 Development Environment with Docker
 </a>
 
 ### Course Curriculum
 
 #### Intro
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36738848" target="_blank">Quick hi & welcome from Mark!</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36738860" target="_blank">About the course format</a>
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/meet-instructor-course-docker/" target="_blank"><img src="https://image.mux.com/Iz5ChvUVCWQ2UQBdZn5XSW02utamqadbos3uEDWJRs6w/thumbnail.jpg?time=22&width=400&quality=80" alt="Meet your instructor and course" width="240"></a><br/><a href="https://m.academy/lessons/meet-instructor-course-docker/" target="_blank">Meet your instructor and course</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/understand-course-format-docker/" target="_blank">Understand the course format</a></td>
+</tr>
+</table>
 
-#### Initial Project Setup
+#### Initial project setup
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9205849" target="_blank">Install Docker Desktop & configure preferences</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/8974570" target="_blank">Set up Magento with the automated onelinesetup script</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064259" target="_blank">Set up Magento manually from a custom Git branch</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9283467" target="_blank">Set up Docker for an existing Magento project</a>
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/install-desktop-configure-preferences-docker/" target="_blank"><img src="https://image.mux.com/zYwIi00ZGVA6nFIZAE1RIQ4cHbWSvRq15N02K1rVhHeFc/thumbnail.jpg?time=105&width=400&quality=80" alt="Install Docker Desktop and configure preferences" width="240"></a><br/><a href="https://m.academy/lessons/install-desktop-configure-preferences-docker/" target="_blank">Install Docker Desktop and configure preferences</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/set-up-magento-automated-onelinesetup-script-docker/" target="_blank"><img src="https://image.mux.com/VSWcOfJDYTIXM008gAbMeHahzDQU9TSogfx01auv02MmpE/thumbnail.jpg?time=226&width=400&quality=80" alt="Set up Magento with the automated onelinesetup script" width="240"></a><br/><a href="https://m.academy/lessons/set-up-magento-automated-onelinesetup-script-docker/" target="_blank">Set up Magento with the automated onelinesetup script</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/set-up-magento-manually-from-custom-git-branch-docker/" target="_blank"><img src="https://image.mux.com/TlT00Tv1aNwNNNrnn2IV02e005EXsGYqnN01CCY02NFDqlbc/thumbnail.jpg?time=226&width=400&quality=80" alt="Set up Magento manually from a custom Git branch" width="240"></a><br/><a href="https://m.academy/lessons/set-up-magento-manually-from-custom-git-branch-docker/" target="_blank">Set up Magento manually from a custom Git branch</a></td>
+</tr>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/set-up-existing-magento-project-docker/" target="_blank"><img src="https://image.mux.com/AZ4ycBHWCVHEQL84pca13uNGvnyT4wFZ4kFIsy8Cp7A/thumbnail.jpg?time=240&width=400&quality=80" alt="Set up Docker for an existing Magento project" width="240"></a><br/><a href="https://m.academy/lessons/set-up-existing-magento-project-docker/" target="_blank">Set up Docker for an existing Magento project</a></td>
+</tr>
+</table>
 
-#### The Basics of docker-magento
+#### The basics of docker-magento
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064258" target="_blank">Execute docker-magento helper scripts</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9331008" target="_blank">Start, stop, restart and check container status</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064269" target="_blank">Execute bin/magento and composer within Docker containers</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36150902" target="_blank">Install Magento sample data</a>
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/execute-magento-helper-scripts-docker/" target="_blank"><img src="https://image.mux.com/C02TpQWbuXvyy4VJKis02deOF01Pj01aeKo3CxiSctAzF2U/thumbnail.jpg?time=102&width=400&quality=80" alt="Execute docker-magento helper scripts" width="240"></a><br/><a href="https://m.academy/lessons/execute-magento-helper-scripts-docker/" target="_blank">Execute docker-magento helper scripts</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/start-stop-restart-check-container-status-docker/" target="_blank"><img src="https://image.mux.com/Mp2VNohzPhovnxbL01b9vH6uT3F01CBTh8Lti8bV402fGo/thumbnail.jpg?time=53&width=400&quality=80" alt="Start, stop, restart, and check container status" width="240"></a><br/><a href="https://m.academy/lessons/start-stop-restart-check-container-status-docker/" target="_blank">Start, stop, restart, and check container status</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/execute-bin-magento-composer-within-containers-docker/" target="_blank"><img src="https://image.mux.com/0194T7F00sWnvgVfhsvnuz4JeP6PnRcmlVppzx00a7ducE/thumbnail.jpg?time=58&width=400&quality=80" alt="Execute bin/magento and Composer within Docker containers" width="240"></a><br/><a href="https://m.academy/lessons/execute-bin-magento-composer-within-containers-docker/" target="_blank">Execute bin/magento and Composer within Docker containers</a></td>
+</tr>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/install-magento-sample-data-docker/" target="_blank"><img src="https://image.mux.com/BwIy8jYvrcILjFdacmw01mUPCXgj01uzm2nJcGQ7LAUak/thumbnail.jpg?time=45&width=400&quality=80" alt="Install Magento sample data" width="240"></a><br/><a href="https://m.academy/lessons/install-magento-sample-data-docker/" target="_blank">Install Magento sample data</a></td>
+</tr>
+</table>
 
-#### Docker Filesystem & Data Volumes
+#### Docker filesystem & data volumes
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064334" target="_blank">Understand Docker volumes & host bind mounts</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064338" target="_blank">Manage files & folders within Docker containers</a>
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/understand-volumes-host-bind-mounts-docker/" target="_blank"><img src="https://image.mux.com/QhWFTFvNgbqoiXNxQQvfIJMWpi01o00eEn6AMJcH8xahE/thumbnail.jpg?time=88&width=400&quality=80" alt="Understand Docker volumes and host bind mounts" width="240"></a><br/><a href="https://m.academy/lessons/understand-volumes-host-bind-mounts-docker/" target="_blank">Understand Docker volumes and host bind mounts</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/manage-files-folders-within-containers-docker/" target="_blank"><img src="https://image.mux.com/noyySlTiUkdDlbuHP37Ui4DrBQScK01IMFs64NHhYU7A/thumbnail.jpg?time=121&width=400&quality=80" alt="Manage files and folders within Docker containers" width="240"></a><br/><a href="https://m.academy/lessons/manage-files-folders-within-containers-docker/" target="_blank">Manage files and folders within Docker containers</a></td>
+</tr>
+</table>
 
 #### PhpStorm
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9748834" target="_blank">Set up a docker-magento project in PhpStorm</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9763893" target="_blank">Set up the Magento PhpStorm plugin</a>
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/set-up-magento-project-phpstorm-docker/" target="_blank"><img src="https://image.mux.com/wGpX402APyQjkn3O5E9onBeteEzGsKfgEAR00Rpl004zA00/thumbnail.jpg?time=115&width=400&quality=80" alt="Set up a docker-magento project in PhpStorm and Docker" width="240"></a><br/><a href="https://m.academy/lessons/set-up-magento-project-phpstorm-docker/" target="_blank">Set up a docker-magento project in PhpStorm and Docker</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/set-up-magento-phpstorm-plugin-docker/" target="_blank"><img src="https://image.mux.com/gZPHr9vg00S7UON00676qQjRyxuLevsjKeb8DDZbVVhlI/thumbnail.jpg?time=97&width=400&quality=80" alt="Set up the Magento PhpStorm plugin" width="240"></a><br/><a href="https://m.academy/lessons/set-up-magento-phpstorm-plugin-docker/" target="_blank">Set up the Magento PhpStorm plugin</a></td>
+</tr>
+</table>
 
-#### Code Quality Tools
+#### Code quality tools
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52640115" target="_blank">Configure PHPCS (PHP CodeSniffer) for Magento</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52642491" target="_blank">Configure PHPCSF (PHP CodeSniffer Fixer) for Magento</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/52643314" target="_blank">Configure PHPMD (PHP Mess Detector) for Magento</a>
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/configure-phpcs-magento-docker/" target="_blank"><img src="https://image.mux.com/pAZ3J4kwyvSCUXXZOjvz2H8bPzfXFlD9PXT33MhJvGc/thumbnail.jpg?time=73&width=400&quality=80" alt="Configure PHPCS for Magento" width="240"></a><br/><a href="https://m.academy/lessons/configure-phpcs-magento-docker/" target="_blank">Configure PHPCS for Magento</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/configure-phpcsf-magento-docker/" target="_blank"><img src="https://image.mux.com/zibDqiUoV5CsOmVnXXq1t1oTZa89bpyzx00xZbbuBQZo/thumbnail.jpg?time=73&width=400&quality=80" alt="Configure PHPCSF for Magento" width="240"></a><br/><a href="https://m.academy/lessons/configure-phpcsf-magento-docker/" target="_blank">Configure PHPCSF for Magento</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/configure-phpmd-magento-docker/" target="_blank"><img src="https://image.mux.com/KlaX02700eTqe9rDhlcIdPDz023KJDzAtxfepuix81zs5k/thumbnail.jpg?time=78&width=400&quality=80" alt="Configure PHPMD for Magento" width="240"></a><br/><a href="https://m.academy/lessons/configure-phpmd-magento-docker/" target="_blank">Configure PHPMD for Magento</a></td>
+</tr>
+</table>
 
 #### Xdebug
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064478" target="_blank">Install the Xdebug helper browser plugin for Chrome & PhpStorm</a>
-- Trigger Xdebug with the `XDEBUG_SESSION` cookie (set via the Xdebug Helper browser extension) — no CLI toggle needed
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064615" target="_blank">Configure PhpStorm for Xdebug connections</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064617" target="_blank">Trigger an Xdebug breakpoint in PhpStorm</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36677538" target="_blank">Trigger an Xdebug breakpoint for CLI commands in PhpStorm</a>
+Trigger Xdebug with the `XDEBUG_SESSION` cookie (set via the Xdebug Helper browser extension) — no CLI toggle needed.
 
-#### Customize Server Configurations
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/install-xdebug-helper-browser-plugin-chrome-phpstorm-docker/" target="_blank"><img src="https://image.mux.com/huugRCqa00L7D8Ua6uV7jObMrjhT36vlryNnSBnFyO8A/thumbnail.jpg?time=59&width=400&quality=80" alt="Install the Xdebug helper browser plugin for Chrome and PhpStorm" width="240"></a><br/><a href="https://m.academy/lessons/install-xdebug-helper-browser-plugin-chrome-phpstorm-docker/" target="_blank">Install the Xdebug helper browser plugin for Chrome and PhpStorm</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/configure-phpstorm-xdebug-connections-docker/" target="_blank"><img src="https://image.mux.com/ta4K4uHoR00f9JTLFPLF391bXmj01tDOy9024jByC1PgCI/thumbnail.jpg?time=70&width=400&quality=80" alt="Configure PhpStorm for Xdebug connections" width="240"></a><br/><a href="https://m.academy/lessons/configure-phpstorm-xdebug-connections-docker/" target="_blank">Configure PhpStorm for Xdebug connections</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/trigger-xdebug-breakpoint-phpstorm-docker/" target="_blank"><img src="https://image.mux.com/V02OLZiJfIPrKV01VNhEf02Rxn00FUmaVC016nUoSkYdQrk4/thumbnail.jpg?time=55&width=400&quality=80" alt="Trigger an Xdebug breakpoint in PhpStorm with Docker" width="240"></a><br/><a href="https://m.academy/lessons/trigger-xdebug-breakpoint-phpstorm-docker/" target="_blank">Trigger an Xdebug breakpoint in PhpStorm with Docker</a></td>
+</tr>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/trigger-xdebug-breakpoint-cli-commands-phpstorm-docker/" target="_blank"><img src="https://image.mux.com/h3INelvEFhYvZieGxtqZ9PpgeTlpC1eKBS020201o4q3sM/thumbnail.jpg?time=59&width=400&quality=80" alt="Trigger an Xdebug breakpoint for CLI commands in PhpStorm with Docker" width="240"></a><br/><a href="https://m.academy/lessons/trigger-xdebug-breakpoint-cli-commands-phpstorm-docker/" target="_blank">Trigger an Xdebug breakpoint for CLI commands in PhpStorm with Docker</a></td>
+</tr>
+</table>
 
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36702830" target="_blank">Understand the docker-compose application structure</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36702861" target="_blank">Increase the PHP memory limit in php.ini</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064349" target="_blank">Increase the Nginx request timeout in nginx.conf</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/36703258" target="_blank">Increase the MySQL buffer pool size with command or in my.cnf</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/9064350" target="_blank">Install a new PHP extension by building a custom Docker image</a>
-- <a href="https://courses.m.academy/courses/set-up-magento-2-development-environment-docker/lectures/14780970" target="_blank">Configure multi-store instances in Docker with Nginx</a>
+#### Customize server configurations
+
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/understand-compose-application-structure-docker/" target="_blank"><img src="https://image.mux.com/eUVT02qgmxDElsrAhzWuERTJQzSujA16D8XCsg012AxpI/thumbnail.jpg?time=143&width=400&quality=80" alt="Understand the docker-compose application structure" width="240"></a><br/><a href="https://m.academy/lessons/understand-compose-application-structure-docker/" target="_blank">Understand the docker-compose application structure</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/increase-php-memory-limit-php-ini-docker/" target="_blank"><img src="https://image.mux.com/gwBdn2r1bJlo2Eu1YD9J02LoVfpGvw01GQktweG1D84zo/thumbnail.jpg?time=166&width=400&quality=80" alt="Increase the PHP memory limit in php.ini for Docker" width="240"></a><br/><a href="https://m.academy/lessons/increase-php-memory-limit-php-ini-docker/" target="_blank">Increase the PHP memory limit in php.ini for Docker</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/increase-nginx-request-timeout-nginx-conf-docker/" target="_blank"><img src="https://image.mux.com/3kV1ZXGAbrGeXdgQP02M9Yf8In3eNPKM00zD8sHY476Y00/thumbnail.jpg?time=141&width=400&quality=80" alt="Increase the Nginx request timeout in nginx.conf for Docker" width="240"></a><br/><a href="https://m.academy/lessons/increase-nginx-request-timeout-nginx-conf-docker/" target="_blank">Increase the Nginx request timeout in nginx.conf for Docker</a></td>
+</tr>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/increase-mysql-buffer-pool-size-command-or-my-cnf-docker/" target="_blank"><img src="https://image.mux.com/hv4gbjls001huhtXU00U1Y9Yya7bpelxeUW00JXLxMumlk/thumbnail.jpg?time=104&width=400&quality=80" alt="Increase the MySQL buffer pool size with a command or my.cnf" width="240"></a><br/><a href="https://m.academy/lessons/increase-mysql-buffer-pool-size-command-or-my-cnf-docker/" target="_blank">Increase the MySQL buffer pool size with a command or my.cnf</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/install-new-php-extension-by-building-custom-image-docker/" target="_blank"><img src="https://image.mux.com/jz02JrG2cYmqqZuKM01TACLglSG8kacEtUphcae00lLXlk/thumbnail.jpg?time=116&width=400&quality=80" alt="Install a new PHP extension by building a custom Docker image" width="240"></a><br/><a href="https://m.academy/lessons/install-new-php-extension-by-building-custom-image-docker/" target="_blank">Install a new PHP extension by building a custom Docker image</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/configure-multi-store-instances-nginx-docker/" target="_blank"><img src="https://image.mux.com/zBqzMlirT02eOZEDg00d9D023rc5bYgLRh6mFSBPOXb02CE/thumbnail.jpg?time=294&width=400&quality=80" alt="Configure multi-store instances in Docker with Nginx" width="240"></a><br/><a href="https://m.academy/lessons/configure-multi-store-instances-nginx-docker/" target="_blank">Configure multi-store instances in Docker with Nginx</a></td>
+</tr>
+</table>
+
+#### Grunt
+
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/understand-what-grunt-docker/" target="_blank"><img src="https://image.mux.com/HYHkbtaCdOfMvuKzQ8ty02g6iL2kJbjWlfnp3Ohhempw/thumbnail.jpg?time=66&width=400&quality=80" alt="Understand what Grunt is" width="240"></a><br/><a href="https://m.academy/lessons/understand-what-grunt-docker/" target="_blank">Understand what Grunt is</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/install-configure-grunt-docker/" target="_blank"><img src="https://image.mux.com/3GHRMkeEoXnjJ17GG7iTSM28p1iz2oxlJb6bvP6837o/thumbnail.jpg?time=128&width=400&quality=80" alt="Install and configure Grunt" width="240"></a><br/><a href="https://m.academy/lessons/install-configure-grunt-docker/" target="_blank">Install and configure Grunt</a></td>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/run-grunt-commands-magento-docker/" target="_blank"><img src="https://image.mux.com/EYuM77laXeN1jCagJ72vTXQ1VhVEVY00z00Q01oqlCbzlg/thumbnail.jpg?time=274&width=400&quality=80" alt="Run Grunt commands in Magento with Docker" width="240"></a><br/><a href="https://m.academy/lessons/run-grunt-commands-magento-docker/" target="_blank">Run Grunt commands in Magento with Docker</a></td>
+</tr>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/use-grunt-livereload-docker/" target="_blank"><img src="https://image.mux.com/Y5AECMJithTaLFn9800DVWmrokfHkSOhmsGVWah4pxFo/thumbnail.jpg?time=136&width=400&quality=80" alt="Use Grunt with LiveReload" width="240"></a><br/><a href="https://m.academy/lessons/use-grunt-livereload-docker/" target="_blank">Use Grunt with LiveReload</a></td>
+</tr>
+</table>
+
+#### Conclusion
+
+<table>
+<tr>
+  <td width="33%" valign="top"><a href="https://m.academy/lessons/wrap-up-course-explore-recommended-lessons-docker/" target="_blank">Wrap up the Docker course and explore recommended lessons</a></td>
+</tr>
+</table>
 
 ## Usage
 
