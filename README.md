@@ -146,8 +146,6 @@ Magento 2 Development Environment with Docker
 
 #### Xdebug
 
-Trigger Xdebug with the `XDEBUG_SESSION` cookie (set via the Xdebug Helper browser extension) — no CLI toggle needed.
-
 <table>
 <tr>
   <td width="33%" valign="top"><a href="https://m.academy/lessons/install-xdebug-helper-browser-plugin-chrome-phpstorm-docker/" target="_blank"><img src="https://image.mux.com/huugRCqa00L7D8Ua6uV7jObMrjhT36vlryNnSBnFyO8A/thumbnail.jpg?time=59&width=400&quality=80" alt="Install the Xdebug helper browser plugin for Chrome and PhpStorm" width="240"></a><br/><a href="https://m.academy/lessons/install-xdebug-helper-browser-plugin-chrome-phpstorm-docker/" target="_blank">Install the Xdebug helper browser plugin for Chrome and PhpStorm</a></td>
