@@ -2,7 +2,9 @@
 [ $# -eq 0 ] && echo "Please specify one or more directories/files to copy to container (ex. vendor, --all)" && exit 1
 
 CONTAINER_ID=$(bin/docker-compose ps -q phpfpm | awk '{print $1}')
-REAL_SRC=$(cd -P "src" >/dev/null && pwd)
+# Bail if src is missing, otherwise REAL_SRC is empty and docker cp would copy
+# the host's filesystem root into the container.
+REAL_SRC=$(cd -P "src" >/dev/null && pwd) || { echo "Error: The \"src\" directory does not exist."; exit 1; }
 
 for ARG in "$@"; do
   if [ "$ARG" == "--all" ]; then

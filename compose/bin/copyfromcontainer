@@ -2,19 +2,19 @@
 [ -z "$1" ] && echo "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
 
 CONTAINER_ID=$(bin/docker-compose ps -q phpfpm | awk '{print $1}')
-REAL_SRC=$(cd -P "src" >/dev/null && pwd)
-if [ ! -d "$REAL_SRC" ]; then
-  mkdir -p "$REAL_SRC"
-fi
+# Create src before resolving its real path, otherwise REAL_SRC is empty and
+# docker cp would target the host's filesystem root.
+mkdir -p src
+REAL_SRC=$(cd -P "src" >/dev/null && pwd) || exit 1
 
 if [ "$1" == "--all" ]; then
-  docker cp "$CONTAINER_ID":/var/www/html/./ "$REAL_SRC/"
+  docker cp "$CONTAINER_ID":/var/www/html/./ "$REAL_SRC/" || exit 1
   echo "Completed copying all files from container to host"
 else
   if [ -f "$1" ] ; then
-    docker cp "$CONTAINER_ID":/var/www/html/"$1" "$REAL_SRC/$1"
+    docker cp "$CONTAINER_ID":/var/www/html/"$1" "$REAL_SRC/$1" || exit 1
   else
-    docker cp "$CONTAINER_ID":/var/www/html/"$1" "$REAL_SRC/$(dirname "$1")"
+    docker cp "$CONTAINER_ID":/var/www/html/"$1" "$REAL_SRC/$(dirname "$1")" || exit 1
   fi
   echo "Completed copying $1 from container to host"
 fi
