@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  echo "Usage: bin/download [edition] [version]
+  edition  mageos (default), community, enterprise
+  version  Defaults to the latest supported version for the edition"
+  exit 0
+fi
+
 EDITION=${1:-mageos}
 
 # Resolve VERSION early so bin/detect-versions can run before containers boot.
@@ -14,7 +21,7 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-if [ -d "./src" ]; then
+if [ -d "./src" ] && [ -n "$(ls -A ./src)" ]; then
   echo "Error: The \"src\" directory is not empty. Please remove all contents within this directory and try again."
   exit 1
 fi

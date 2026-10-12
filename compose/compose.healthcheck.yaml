@@ -5,7 +5,10 @@ x-healthcheck-defaults: &healthcheck-defaults
 
 x-healthcheck-slow-start: &healthcheck-slow-start
   <<: *healthcheck-defaults
-  start_period: 5s
+  ## Failed checks during start_period don't count toward retries, and the
+  ## first passing check marks the service healthy, so fast machines aren't
+  ## slowed down. OpenSearch can take 60-70s to boot on older hardware.
+  start_period: 90s
 
 services:
   app:
