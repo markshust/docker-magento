@@ -349,15 +349,17 @@ It is recommended to keep your root docker config files in one repository, and y
 
 Files shipped by the template (`compose.yaml`, `compose.dev.yaml`, `compose.healthcheck.yaml`) are overwritten by `bin/update`. To keep local Docker Compose tweaks that survive updates, create a `compose.override.yaml` file in your project root. If present, `bin/docker-compose` will automatically include it last in the `-f` chain so its values take precedence.
 
-For example, if port `3306` is already in use on your host and you want to expose the `db` container on `3307` instead:
+For example, if port `3306` is already in use on your host and you want to expose the `db` container on `3307` instead, replace the base port list:
 
 ```yaml
 # compose.override.yaml
 services:
   db:
-    ports:
+    ports: !override
       - "3307:3306"
 ```
+
+Without `!override`, Compose appends the new mapping to the existing `3306:3306` mapping, so the container still tries to bind host port `3306`. This syntax requires Docker Compose 2.24.4 or newer.
 
 `bin/update` will not touch `compose.override.yaml`, so your customizations stick around.
 
