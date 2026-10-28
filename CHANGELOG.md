@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [53.2.0] - 2026-10-28
+
+### Changed
+- Default Mage-OS install bumped from 3.0.0 to **3.6.0**, the latest release. `bin/download`, the README onelinesetup/`bin/download` examples, and `bin/check-dependencies` (option 9 is now "Mage-OS 3.x") use 3.6.0. It's based on Magento 2.4.9 and resolves to the existing `mage-os 3` row in `versions.tsv`, so no image changes are needed. [PR #1461](https://github.com/markshust/docker-magento/pull/1461)
+- The README's free-course curriculum now links each lesson's page on m.academy (the course moved off Teachable), with per-lesson video thumbnails in a grid per section, plus the new Grunt and Conclusion sections. The outdated Xdebug note was dropped from the curriculum. [PR #1452](https://github.com/markshust/docker-magento/pull/1452), [PR #1453](https://github.com/markshust/docker-magento/pull/1453)
+
+### Fixed
+- **PHP images rebuilt for PHP2Shell (CVE-2026-109618, CVE-2026-109619).** The images now ship PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12, which fix these critical remote code execution flaws. New tags `8.2-fpm-10`, `8.3-fpm-8`, `8.4-fpm-3` and `8.5-fpm-1` (plus matching `-xdebug-` tags) are pinned in `compose.yaml` and `versions.tsv`, so `bin/update` pulls the patched images automatically, with no need to delete old local images. These images are for local development only, but update anyway. [PR #1460](https://github.com/markshust/docker-magento/pull/1460), [#1457](https://github.com/markshust/docker-magento/issues/1457)
+- `bin/setup-ssl-ca` on Linux now actually imports the CA into Chrome/Firefox NSS databases. A `find -print0 | while read` loop never iterated, so only the system store got the CA, a regression since 2021. `bin/copyfromcontainer` and `bin/copytocontainer` no longer target `/` when `src` is missing, `bin/download` gains `-h/--help` and accepts an empty `src`, and the healthcheck `start_period` for slow-starting services is raised from 5s to 90s, so OpenSearch on slower hardware no longer fails startup. [PR #1455](https://github.com/markshust/docker-magento/pull/1455)
+- The README's `compose.override.yaml` example for moving the database to host port 3307 now uses `ports: !override`. Compose appends list entries by default, so the old example still bound host port 3306. Requires Docker Compose 2.24.4+. [PR #1456](https://github.com/markshust/docker-magento/pull/1456)
+- The README's `host.docker.internal` link now points at `php-xdebug.ini`, where the hostname is actually set. [PR #1460](https://github.com/markshust/docker-magento/pull/1460)
+
+### Removed
+- The PHP 8.1 image source (`images/php/8.1`) and its build workflow. PHP 8.1 is end-of-life and has no upstream PHP2Shell fix. The existing `8.1-fpm-9` images stay on Docker Hub, and Magento 2.4.4/2.4.5 still map to them, but they remain vulnerable, so upgrade to a supported PHP version. [PR #1460](https://github.com/markshust/docker-magento/pull/1460)
+
+### CI
+- Dependabot bump: `docker/login-action` 4.6.0→4.7.0. [PR #1458](https://github.com/markshust/docker-magento/pull/1458)
+
 ## [53.1.0] - 2026-09-21
 
 ### Added
