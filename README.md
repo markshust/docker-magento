@@ -36,11 +36,10 @@ View Dockerfiles for the latest tags:
   - [`1.26`, `1.26-0`](images/nginx/1.26)
   - [`1.28`, `1.28-0`](images/nginx/1.28)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
-  - [`8.1-fpm`, `8.1-fpm-9`](images/php/8.1) · [`8.1-fpm-xdebug`, `8.1-fpm-xdebug-9`](images/php/8.1)
-  - [`8.2-fpm`, `8.2-fpm-9`](images/php/8.2) · [`8.2-fpm-xdebug`, `8.2-fpm-xdebug-9`](images/php/8.2)
-  - [`8.3-fpm`, `8.3-fpm-7`](images/php/8.3) · [`8.3-fpm-xdebug`, `8.3-fpm-xdebug-7`](images/php/8.3)
-  - [`8.4-fpm`, `8.4-fpm-2`](images/php/8.4) · [`8.4-fpm-xdebug`, `8.4-fpm-xdebug-2`](images/php/8.4)
-  - [`8.5-fpm`, `8.5-fpm-0`](images/php/8.5) · [`8.5-fpm-xdebug`, `8.5-fpm-xdebug-0`](images/php/8.5)
+  - [`8.2-fpm`, `8.2-fpm-10`](images/php/8.2) · [`8.2-fpm-xdebug`, `8.2-fpm-xdebug-10`](images/php/8.2)
+  - [`8.3-fpm`, `8.3-fpm-8`](images/php/8.3) · [`8.3-fpm-xdebug`, `8.3-fpm-xdebug-8`](images/php/8.3)
+  - [`8.4-fpm`, `8.4-fpm-3`](images/php/8.4) · [`8.4-fpm-xdebug`, `8.4-fpm-xdebug-3`](images/php/8.4)
+  - [`8.5-fpm`, `8.5-fpm-1`](images/php/8.5) · [`8.5-fpm-xdebug`, `8.5-fpm-xdebug-1`](images/php/8.5)
 - [markoshust/magento-opensearch (Docker Hub)](https://hub.docker.com/r/markoshust/magento-opensearch/)
   - [`1.2`, `1.2-0`](images/opensearch/1.2)
   - [`2.5`, `2.5-1`](images/opensearch/2.5)
@@ -712,7 +711,7 @@ sudo apt install curl libnss3-tools unzip rsync
 
 The `host.docker.internal` hostname is used on Docker for Mac/Windows to reference the Docker daemon. On Linux, this hostname does not exist.
 
-This hostname is [hard-coded in the php.ini file](images/php/8.1/conf/php.ini#L8). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `compose.yaml`, replacing `172.17.0.1` with the result of:
+This hostname is [hard-coded in the Xdebug ini file](images/php/8.5/conf/php-xdebug.ini#L2). To make this hostname resolve, add `"host.docker.internal:172.17.0.1"` to the `app.extra_hosts` parameter of `compose.yaml`, replacing `172.17.0.1` with the result of:
 
 ```
 docker run --rm alpine ip route | awk 'NR==1 {print $3}'

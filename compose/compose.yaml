@@ -37,13 +37,13 @@ services:
     #    target: /etc/nginx/conf.d/default.conf
 
   phpfpm:
-    image: markoshust/magento-php:8.4-fpm-2
+    image: markoshust/magento-php:8.4-fpm-3
     volumes: *appvolumes
     env_file: env/phpfpm.env
     #extra_hosts: *appextrahosts
 
   phpfpm-xdebug:
-    image: markoshust/magento-php:8.4-fpm-xdebug-2
+    image: markoshust/magento-php:8.4-fpm-xdebug-3
     volumes: *appvolumes
     env_file:
       - env/phpfpm.env
