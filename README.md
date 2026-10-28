@@ -219,10 +219,10 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test mageos 3.0.0
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test mageos 3.6.0
 ```
 
-The `magento.test` above defines the hostname to use, `mageos` is the edition (Mage-OS, the default), and `3.0.0` defines the version to install. Pass `community 2.4.9` (or another edition/version pair) instead to install Adobe Commerce / Magento Open Source. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
+The `magento.test` above defines the hostname to use, `mageos` is the edition (Mage-OS, the default), and `3.6.0` defines the version to install. Pass `community 2.4.9` (or another edition/version pair) instead to install Adobe Commerce / Magento Open Source. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
 
 After the one-liner above completes running, you should be able to access your site at `https://magento.test`.
 
@@ -249,8 +249,8 @@ cd $_
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
 
 # Download the version of Magento (or Mage-OS) you want to use with:
-bin/download mageos 3.0.0
-# You can also specify the edition (mageos, community, enterprise) and version (3.0.0, 2.4.9, etc.)
+bin/download mageos 3.6.0
+# You can also specify the edition (mageos, community, enterprise) and version (3.6.0, 2.4.9, etc.)
 # bin/download community 2.4.9
 # If no arguments are passed in, the edition defaults to "mageos"
 # If no version is specified, it defaults to the most recent version defined in `bin/download`
@@ -416,7 +416,7 @@ bin/detect-versions
 - `bin/docker-compose`: Support V1 (`docker-compose`) and V2 (`docker compose`) docker compose command, and use custom configuration files such as `compose.yaml` and `compose.dev.yaml`. Automatically includes `compose.override.yaml` if present, which is a convenient place for local tweaks that should survive `bin/update`.
 - `bin/docker-start`: Start the Docker application (either Orbstack or Docker Desktop)
 - `bin/docker-stats`: Display container name and container ID, status for CPU, memory usage(in MiB and %), and memory limit of currently-running Docker containers.
-- `bin/download`: Download a specific Magento/Mage-OS version from Composer to the container, with optional arguments of the type ("mageos" [default], "community", or "enterprise") and version ([default] is defined in `bin/download`). Ex. `bin/download` (Mage-OS 3.0.0) or `bin/download community 2.4.9`
+- `bin/download`: Download a specific Magento/Mage-OS version from Composer to the container, with optional arguments of the type ("mageos" [default], "community", or "enterprise") and version ([default] is defined in `bin/download`). Ex. `bin/download` (Mage-OS 3.6.0) or `bin/download community 2.4.9`
 - `bin/ece-patches`: Run the Cloud Patches CLI. Ex: `bin/ece-tools apply`
 - `bin/fixowns`: This will fix filesystem ownerships within the container.
 - `bin/fixperms`: This will fix filesystem permissions within the container.

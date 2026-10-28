@@ -11,7 +11,7 @@ EDITION=${1:-mageos}
 
 # Resolve VERSION early so bin/detect-versions can run before containers boot.
 if [ "$EDITION" == "mageos" ]; then
-  VERSION=${2:-3.0.0}
+  VERSION=${2:-3.6.0}
 else
   VERSION=${2:-2.4.9}
 fi
